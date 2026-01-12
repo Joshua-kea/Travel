@@ -36,33 +36,22 @@ permalink: /atlas/
 
 <div id="map" style="height: 600px; margin-top: 1rem;"></div>
 
-<!-- Leaflet CSS -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-
-<!-- Leaflet JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- DATA FRA JEKYLL -->
 <script>
   window.places = [
-    {% for land in site.countries %}
+    {% for country in site.countries %}
       {
-        title: "{{ land.name }}",
-        kode: "{{ land.iso }}",
-        url: "{{ site.baseurl }}{{ land.url }}",
-        tags: {{ land.tags | jsonify }}
+        title: "{{ country.name }}",
+        iso: "{{ country.iso }}",
+        url: "{{ site.baseurl }}{{ country.url }}",
+        tags: {{ country.tags | jsonify }}
       },
     {% endfor %}
   ];
-</script>
 
-<script>
   window.BASEURL = "{{ site.baseurl }}";
 </script>
 
-
-<!-- Atlas logic -->
 <script src="{{ site.baseurl }}/assets/js/atlas.js"></script>
