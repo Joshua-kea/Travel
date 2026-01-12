@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Name weirdness / Natural Earth quirks
             FR1: "FRA",
-        -99: null,
 
     // Example future use:
     // GBR: "ENG", // if you later split UK
