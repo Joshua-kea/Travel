@@ -4,12 +4,12 @@ console.log("PLACES FROM JEKYLL:", window.places);
 document.addEventListener("DOMContentLoaded", () => {
 
     if (!window.places || window.places.length === 0) {
-        console.error("No places found – aborting map init");
+        console.error("No places found – aborting");
         return;
     }
 
     // =====================
-    // MAP INIT
+    // MAP
     // =====================
     const map = L.map("map", {
         worldCopyJump: true
@@ -21,16 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     // =====================
-    // LOOKUP TABLE (ISO → PLACE)
+    // BUILD ISO LOOKUP
     // =====================
     const placeByISO = {};
     window.places.forEach(p => {
         if (!p.iso) return;
-        const iso = p.iso.trim().toUpperCase();
-        placeByISO[iso] = p;
+        placeByISO[p.iso.trim().toUpperCase()] = p;
     });
 
-    console.log("ISO keys loaded:", Object.keys(placeByISO).slice(0, 10));
+    console.log("ISO keys loaded:", Object.keys(placeByISO).slice(0, 15));
 
     // =====================
     // STYLES
@@ -48,25 +47,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // LOAD GEOJSON
     // =====================
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
-        .then(res => {
-            if (!res.ok) throw new Error("Failed to load GeoJSON");
-            return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
 
             geojsonLayer = L.geoJSON(data, {
                 style: BASE_STYLE,
 
                 onEachFeature: (feature, layer) => {
-                    const iso = feature.properties?.ISO_A3?.trim().toUpperCase();
 
-                    // Skip invalid / filler features
-                    if (!iso || iso === "-99") {
+                    // ✅ ROBUST ISO EXTRACTION (THIS IS THE FIX)
+                    const iso =
+                        feature.properties?.ISO_A3 ||
+                        feature.properties?.ADM0_A3 ||
+                        feature.id;
+
+                    const normalizedISO = iso?.trim().toUpperCase();
+
+                    if (!normalizedISO || normalizedISO === "-99") {
                         layer.setStyle({ fillOpacity: 0 });
                         return;
                     }
 
-                    const place = placeByISO[iso];
+                    const place = placeByISO[normalizedISO];
 
                     const displayName =
                         place?.title ||
@@ -75,25 +77,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     layer.bindTooltip(displayName, { sticky: true });
 
-                    // No matching MD → grey, not clickable
                     if (!place) {
                         layer.setStyle({ fillOpacity: 0.25 });
                         return;
                     }
 
-                    // Click → country page
                     layer.on("click", () => {
                         window.location.href = place.url;
                     });
 
-                    // Hover feedback
                     layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
                     layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
                 }
             }).addTo(map);
         })
         .catch(err => {
-            console.error("GeoJSON load error:", err);
+            console.error("GeoJSON load failed:", err);
         });
 
     // =====================
@@ -109,8 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
         geojsonLayer.eachLayer(layer => {
             layer.setStyle(BASE_STYLE);
 
-            const iso = layer.feature?.properties?.ISO_A3?.trim().toUpperCase();
-            const place = placeByISO[iso];
+            const iso =
+                layer.feature?.properties?.ISO_A3 ||
+                layer.feature?.properties?.ADM0_A3 ||
+                layer.feature?.id;
+
+            const normalizedISO = iso?.trim().toUpperCase();
+            const place = placeByISO[normalizedISO];
 
             if (tag && (!place || !place.tags?.includes(tag))) {
                 layer.setStyle({ fillOpacity: 0.2 });
