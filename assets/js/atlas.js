@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    // =====================
+    // MAP
+    // =====================
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -13,20 +16,21 @@ document.addEventListener("DOMContentLoaded", () => {
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
-    /* =========================
-       PANES (VIGTIGT)
-    ========================= */
-
+    // =====================
+    // PANES (VIGTIGT)
+    // =====================
     map.createPane("countriesPane");
     map.createPane("adminPane");
 
     map.getPane("countriesPane").style.zIndex = 400;
     map.getPane("adminPane").style.zIndex = 450;
 
-    /* =========================
-       LOOKUPS
-    ========================= */
+    // 🔥 NØGLEN: countries må IKKE fange klik
+    map.getPane("countriesPane").style.pointerEvents = "none";
 
+    // =====================
+    // LOOKUPS
+    // =====================
     const countryByISO = {};
     const countryByName = {};
     const adminByKey = {};
@@ -43,6 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // =====================
+    // STYLES
+    // =====================
     const BASE_STYLE = {
         fillColor: "#cfd8dc",
         fillOpacity: 1,
@@ -50,13 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#ffffff"
     };
 
-    function bind(layer, place, fallbackName) {
+    function bindLayer(layer, place, fallbackName) {
         const label = place?.name || fallbackName || "Unknown";
 
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => (window.location.href = place.url));
+            layer.on("click", () => {
+                window.location.href = place.url;
+            });
             layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
             layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
         } else {
@@ -64,10 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* =========================
-       COUNTRIES / TERRITORIES
-    ========================= */
-
+    // =====================
+    // COUNTRIES / TERRITORIES (ADMIN-0)
+    // =====================
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
         .then(r => r.json())
         .then(data => {
@@ -88,18 +96,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const place =
                         (iso && countryByISO[iso.toUpperCase()]) ||
-                        countryByName[p.NAME?.toUpperCase()];
+                        (p.NAME && countryByName[p.NAME.toUpperCase()]);
 
-                    bind(layer, place, p.NAME);
+                    bindLayer(layer, place, p.NAME);
                 }
             }).addTo(map);
         });
 
-    /* =========================
-       ADMIN-1 (USA + UK)
-       → ALTID ØVERST
-    ========================= */
-
+    // =====================
+    // ADMIN-1 (USA STATES + UK PARTS)
+    // =====================
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
         .then(r => r.json())
         .then(data => {
@@ -108,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
-                    if (!p?.iso_3166_2 || !p?.adm0_a3) {
+                    if (!p || !p.iso_3166_2 || !p.adm0_a3) {
                         layer.setStyle({ fillOpacity: 0 });
                         return;
                     }
@@ -116,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const key = `${p.adm0_a3}:${p.iso_3166_2}`.toUpperCase();
                     const place = adminByKey[key];
 
-                    bind(layer, place, p.name);
+                    bindLayer(layer, place, p.name);
                 }
             }).addTo(map);
         });
