@@ -1,6 +1,6 @@
 ---
 layout: country
-iso: CS-KM
+iso: XKX
 name: "Kosovo"
 continent: 
 gay_friendliness:

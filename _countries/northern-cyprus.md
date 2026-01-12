@@ -1,6 +1,6 @@
 ---
 layout: country
-iso: -99
+iso: CYN
 name: "Northern Cyprus"
 continent: 
 gay_friendliness:

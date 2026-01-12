@@ -1,6 +1,6 @@
 ---
 layout: country
-iso: -99
+iso: SOL
 name: "Somaliland"
 continent: 
 gay_friendliness:

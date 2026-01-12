@@ -1,14 +1,13 @@
 console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
-
     if (!window.places || window.places.length === 0) {
-        console.error("No places loaded from Jekyll");
+        console.error("No places from Jekyll");
         return;
     }
 
     // =====================
-    // MAP SETUP
+    // MAP
     // =====================
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
 
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     // =====================
-    // BUILD LOOKUP: ISO → MD PAGE
+    // BUILD LOOKUP (ISO → PLACE)
     // =====================
     const placeByISO = {};
     window.places.forEach(p => {
@@ -28,26 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("ISO keys loaded:", Object.keys(placeByISO));
 
-    // =====================
-    // USER-DEFINED ISO ALIASES
-    // (THIS IS YOUR WORLD VIEW)
-    // =====================
-    const ISO_ALIASES = {
-            // Disputed / personal destinations
-            SOL: "SOL", // Somaliland
-            SSD: "SSD", // South Sudan
-            ABH: "ABH", // Abkhazia
-            SOS: "SOS", // South Ossetia
-            PSE: "PSE", // Palestine
-            TWN: "TWN", // Taiwan
-
-            // Name weirdness / Natural Earth quirks
-            FR1: "FRA",
-
-    // Example future use:
-    // GBR: "ENG", // if you later split UK
-};
-
     const BASE_STYLE = {
         fillColor: "#cfd8dc",
         fillOpacity: 1,
@@ -55,38 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#ffffff"
     };
 
-    let geojsonLayer = null;
-
     // =====================
-    // LOAD GEOJSON
+    // GEOJSON
     // =====================
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
-        .then(res => res.json())
+        .then(r => r.json())
         .then(data => {
-
-            geojsonLayer = L.geoJSON(data, {
+            L.geoJSON(data, {
                 style: BASE_STYLE,
 
                 onEachFeature: (feature, layer) => {
-
-                    // ---------------------
-                    // NORMALISE ISO ONCE
-                    // ---------------------
+                    // 🔑 KORREKT ISO-UDLEDNING
                     const rawISO =
-                        feature.properties?.ADM0_A3 ||
-                        feature.properties?.ISO_A3_EH ||
                         feature.properties?.ISO_A3 ||
-                        feature.properties?.SOV_A3 ||
+                        feature.properties?.ADM0_A3 ||
+                        feature.properties?.ADM0_A3_EH ||
+                        feature.properties?.ISO_A3_EH ||
                         feature.id;
 
-                    let iso = rawISO?.toString().trim().toUpperCase();
-
-                    if (ISO_ALIASES.hasOwnProperty(iso)) {
-                        iso = ISO_ALIASES[iso];
-                    }
-
-                    // store ISO on layer so filters & clicks use SAME value
-                    layer._iso = iso;
+                    const iso = rawISO?.toString().trim().toUpperCase();
 
                     const place = iso ? placeByISO[iso] : null;
 
@@ -113,20 +79,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     // =====================
-    // FILTERS
+    // TAG FILTER
     // =====================
     const tagSelect = document.getElementById("tagFilter");
 
     function applyFilters() {
-        if (!geojsonLayer) return;
-
         const tag = tagSelect.value;
 
-        geojsonLayer.eachLayer(layer => {
-            layer.setStyle(BASE_STYLE);
+        map.eachLayer(layer => {
+            if (!layer.feature) return;
 
-            const iso = layer._iso;
+            const rawISO =
+                layer.feature.properties?.ISO_A3 ||
+                layer.feature.properties?.ADM0_A3 ||
+                layer.feature.properties?.ADM0_A3_EH ||
+                layer.feature.properties?.ISO_A3_EH ||
+                layer.feature.id;
+
+            const iso = rawISO?.toString().trim().toUpperCase();
             const place = iso ? placeByISO[iso] : null;
+
+            layer.setStyle(BASE_STYLE);
 
             if (tag && (!place || !place.tags?.includes(tag))) {
                 layer.setStyle({ fillOpacity: 0.2 });
