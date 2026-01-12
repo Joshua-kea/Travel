@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
 
                 onEachFeature: (feature, layer) => {
-                    const iso = feature.id;
+                    const iso = feature.properties.ISO_A3;
                     const place = placeByISO[iso];
 
                     if (!place) {
