@@ -59,5 +59,10 @@ permalink: /atlas/
   ];
 </script>
 
+<script>
+  window.BASEURL = "{{ site.baseurl }}";
+</script>
+
+
 <!-- Atlas logic -->
 <script src="{{ site.baseurl }}/assets/js/atlas.js"></script>
