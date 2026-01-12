@@ -56,13 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================
        ADMIN-1 (USA + UK)
-       → DRAW FIRST
+       → DRAW ON TOP
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
         .then(r => r.json())
         .then(data => {
-            L.geoJSON(data, {
+            const adminLayer = L.geoJSON(data, {
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
@@ -77,7 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     bind(layer, place, p.name);
                 }
             }).addTo(map);
+
+            // 🔥 DETTE ER FIXET
+            adminLayer.bringToFront();
         });
+
 
     /* =========================
        COUNTRIES / TERRITORIES
