@@ -56,6 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 onEachFeature: (feature, layer) => {
                     const iso = feature.properties.ISO_A3;
+
+// Natural Earth: skip invalid / filler features
+                    if (!iso || iso === "-99") {
+                        layer.setStyle({ fillOpacity: 0 });
+                        return;
+                    }
+
                     const place = placeByISO[iso];
 
                     if (!place) {
@@ -75,7 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         layer.setStyle({ weight: 1 });
                     });
 
-                    layer.bindTooltip(place.title, { sticky: true });
+                    const displayName =
+                        place?.title ||
+                        feature.properties.NAME ||
+                        "Unknown";
+
+                    layer.bindTooltip(displayName, { sticky: true });
                 }
             }).addTo(map);
         });
