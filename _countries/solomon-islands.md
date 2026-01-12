@@ -2,7 +2,7 @@
 layout: country
 iso: SLB
 name: "Solomon Islands"
-continent: 
+continent: Oceania
 gay_friendliness:
 tags: []
 ---

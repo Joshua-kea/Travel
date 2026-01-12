@@ -2,7 +2,7 @@
 layout: country
 iso: NGA
 name: "Nigeria"
-continent: 
+continent: Africa
 gay_friendliness:
 tags: []
 ---

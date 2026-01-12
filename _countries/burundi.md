@@ -2,7 +2,7 @@
 layout: country
 iso: BDI
 name: "Burundi"
-continent: 
+continent: Africa
 gay_friendliness:
 tags: []
 ---

@@ -1,12 +1,12 @@
 ---
 layout: country
-iso: NIC
-name: "Nicaragua"
+iso: DMA
+name: "Dominica"
 continent: North America
 gay_friendliness:
 tags: []
 ---
 
-# Nicaragua
+# Dominica
 
-Write your notes about Nicaragua here.
+Write your notes about Dominica here.

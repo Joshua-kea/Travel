@@ -2,7 +2,7 @@
 layout: country
 iso: PRT
 name: "Portugal"
-continent: 
+continent: Europe
 gay_friendliness:
 tags: []
 ---

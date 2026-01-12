@@ -2,7 +2,7 @@
 layout: country
 iso: NER
 name: "Niger"
-continent: 
+continent: Africa
 gay_friendliness:
 tags: []
 ---

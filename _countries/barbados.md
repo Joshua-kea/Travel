@@ -1,12 +1,12 @@
 ---
 layout: country
-iso: NIC
-name: "Nicaragua"
+iso: BRB
+name: "Barbados"
 continent: North America
 gay_friendliness:
 tags: []
 ---
 
-# Nicaragua
+# Barbados
 
-Write your notes about Nicaragua here.
+Write your notes about Barbados here.

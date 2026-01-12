@@ -2,7 +2,7 @@
 layout: country
 iso: PRK
 name: "North Korea"
-continent: 
+continent: Asia
 gay_friendliness:
 tags: []
 ---

@@ -2,7 +2,7 @@
 layout: country
 iso: GAB
 name: "Gabon"
-continent: 
+continent: Africa
 gay_friendliness:
 tags: []
 ---

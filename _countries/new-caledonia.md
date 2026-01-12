@@ -2,7 +2,7 @@
 layout: country
 iso: NCL
 name: "New Caledonia"
-continent: 
+continent: Oceania
 gay_friendliness:
 tags: []
 ---
