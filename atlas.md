@@ -1,36 +1,36 @@
 ---
 layout: default
-title: Verdensatlas
+title: World map
 permalink: /atlas/
 ---
 
-# Verdensatlas
+# World map
 
-<p>Vælg måned og/eller tag for at se egnede lande.</p>
+<p>Select month and/or tag to highlight suitable countries.</p>
 
 <select id="monthFilter">
-  <option value="">Alle måneder</option>
-  <option value="1">Januar</option>
-  <option value="2">Februar</option>
-  <option value="3">Marts</option>
+  <option value="">All months</option>
+  <option value="1">January</option>
+  <option value="2">February</option>
+  <option value="3">March</option>
   <option value="4">April</option>
-  <option value="5">Maj</option>
-  <option value="6">Juni</option>
-  <option value="7">Juli</option>
+  <option value="5">May</option>
+  <option value="6">June</option>
+  <option value="7">July</option>
   <option value="8">August</option>
   <option value="9">September</option>
-  <option value="10">Oktober</option>
+  <option value="10">October</option>
   <option value="11">November</option>
   <option value="12">December</option>
 </select>
 
 <select id="tagFilter">
-  <option value="">Alle tags</option>
-  <option value="culture">Kultur</option>
-  <option value="food">Mad</option>
-  <option value="cheap">Billig</option>
-  <option value="expensive">Dyr</option>
-  <option value="island">Ø</option>
+  <option value="">All tags</option>
+  <option value="culture">Culture</option>
+  <option value="food">Food</option>
+  <option value="cheap">Cheap</option>
+  <option value="expensive">Expensive</option>
+  <option value="island">Island</option>
   <option value="gay_friendly">Gay friendly</option>
 </select>
 
@@ -48,17 +48,16 @@ permalink: /atlas/
 <!-- DATA FRA JEKYLL -->
 <script>
   window.places = [
-    {% for land in site.lande %}
+    {% for land in site.countries %}
       {
-        title: "{{ land.title }}",
-        kode: "{{ land.kode }}",
+        title: "{{ land.name }}",
+        kode: "{{ land.iso }}",
         url: "{{ site.baseurl }}{{ land.url }}",
-        tags: {{ land.tags | jsonify }},
-        best_months: {{ land.best_months | jsonify }},
-        ok_months: {{ land.ok_months | jsonify }}
+        tags: {{ land.tags | jsonify }}
       },
     {% endfor %}
   ];
 </script>
 
+<!-- Atlas logic -->
 <script src="{{ site.baseurl }}/assets/js/atlas.js"></script>

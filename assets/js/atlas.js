@@ -4,7 +4,7 @@ console.log("PLACES FRA JEKYLL:", window.places);
 document.addEventListener("DOMContentLoaded", () => {
 
     if (!window.places || window.places.length === 0) {
-        console.error("Ingen places fundet – stopper");
+        console.error("No places found – aborting");
         return;
     }
 
@@ -15,18 +15,17 @@ document.addEventListener("DOMContentLoaded", () => {
         worldCopyJump: true
     }).setView([20, 0], 2);
 
-    // VIGTIGT: uden labels (ingen kontinenter/byer)
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
     // =====================
-    // DATA OPSLAG
+    // LOOKUP BY ISO
     // =====================
     const placeByISO = {};
     window.places.forEach(p => {
-        placeByISO[p.kode] = p; // kode = ISO-3 (FRA, JPN)
+        placeByISO[p.kode] = p;
     });
 
     // =====================
@@ -44,11 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =====================
-    // GEOJSON LAYER
+    // GEOJSON
     // =====================
     let geojsonLayer = null;
 
-    fetch("/Test/assets/data/countries.geo.json")
+    fetch(window.location.origin + "{{ site.baseurl }}/assets/data/countries.geo.json")
         .then(res => res.json())
         .then(data => {
 
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
 
                 onEachFeature: (feature, layer) => {
-                    const iso = feature.id; // ISO-3 (FRA, JPN)
+                    const iso = feature.id;
                     const place = placeByISO[iso];
 
                     if (!place) {
@@ -64,12 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
                     }
 
-                    // klik → landeside
                     layer.on("click", () => {
                         window.location.href = place.url;
                     });
 
-                    // hover feedback
                     layer.on("mouseover", () => {
                         layer.setStyle({ weight: 2 });
                     });
@@ -84,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     // =====================
-    // FILTERE
+    // FILTERS
     // =====================
     const monthSelect = document.getElementById("monthFilter");
     const tagSelect = document.getElementById("tagFilter");
@@ -95,12 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const month = Number(monthSelect.value);
         const tag = tagSelect.value;
 
-        // 1️⃣ RESET ALT (DET DU MANGLER)
         geojsonLayer.eachLayer(layer => {
             resetStyle(layer);
         });
 
-        // 2️⃣ ANVEND FILTRE
         geojsonLayer.eachLayer(layer => {
             const iso = layer.feature.id;
             const place = placeByISO[iso];
@@ -112,23 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let match = true;
 
-            // måned-filter
-            if (month) {
-                if (place.best_months?.includes(month)) {
-                    layer.setStyle({ fillColor: "#2ecc71" });
-                } else if (place.ok_months?.includes(month)) {
-                    layer.setStyle({ fillColor: "#f1c40f" });
-                } else {
-                    match = false;
-                }
-            }
-
-            // tag-filter
             if (tag && !place.tags?.includes(tag)) {
                 match = false;
             }
 
-            // dæmp ikke-match
             if (!match) {
                 layer.setStyle({ fillOpacity: 0.2 });
             }
