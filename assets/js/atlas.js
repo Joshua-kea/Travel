@@ -13,16 +13,22 @@ document.addEventListener("DOMContentLoaded", () => {
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
-    // =====================
-    // BUILD LOOKUP
-    // =====================
-    const placeByISO = {};
-    window.places.forEach(p => {
-        if (!p.iso) return;
-        placeByISO[p.iso.trim().toUpperCase()] = p;
-    });
+    // =============================
+    // LOOKUPS
+    // =============================
+    const countryByISO = {};
+    const regionByKey = {};
 
-    console.log("ISO keys loaded:", Object.keys(placeByISO));
+    window.places.forEach(p => {
+        if (p.type === "country" && p.iso) {
+            countryByISO[p.iso.toUpperCase()] = p;
+        }
+
+        if (p.type === "region") {
+            const key = `${p.country_iso}-${p.region_code}`;
+            regionByKey[key] = p;
+        }
+    });
 
     const BASE_STYLE = {
         fillColor: "#cfd8dc",
@@ -31,49 +37,79 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#ffffff"
     };
 
+    // =============================
+    // COUNTRY LAYER
+    // =============================
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
                 style: BASE_STYLE,
-
                 onEachFeature: (feature, layer) => {
-                    const props = feature.properties || {};
+                    const iso =
+                        feature.properties?.ADM0_A3 ||
+                        feature.properties?.ISO_A3;
 
-                    let iso = null;
+                    if (!iso) return;
 
-                    if (props.ISO_A3 && props.ISO_A3 !== "-99") {
-                        iso = props.ISO_A3;
-                    } else if (props.ADM0_A3) {
-                        iso = props.ADM0_A3;
-                    } else if (props.ADM0_A3_EH) {
-                        iso = props.ADM0_A3_EH;
-                    } else if (props.ISO_A3_EH) {
-                        iso = props.ISO_A3_EH;
-                    }
-
-                    iso = iso?.trim().toUpperCase();
-
-                    const place = iso ? placeByISO[iso] : null;
-
-                    const displayName =
-                        place?.title ||
-                        props.NAME ||
-                        "Unknown";
-
-                    layer.bindTooltip(displayName, { sticky: true });
-
-                    if (!place) {
-                        layer.setStyle({ fillOpacity: 0.25 });
+                    // ❌ Skip USA & UK (handled by admin1)
+                    if (iso === "USA" || iso === "GBR") {
+                        layer.setStyle({ fillOpacity: 0 });
                         return;
                     }
 
-                    layer.on("click", () => {
-                        window.location.href = place.url;
-                    });
+                    const place = countryByISO[iso];
 
-                    layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
-                    layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
+                    if (!place) {
+                        layer.setStyle({ fillOpacity: 0.2 });
+                        return;
+                    }
+
+                    layer.bindTooltip(place.name, { sticky: true });
+                    layer.on("click", () => (window.location.href = place.url));
+                }
+            }).addTo(map);
+        });
+
+    // =============================
+    // ADMIN1 LAYER (USA + UK)
+    // =============================
+    fetch(window.BASEURL + "/assets/data/admin1.geo.json")
+        .then(r => r.json())
+        .then(data => {
+            L.geoJSON(data, {
+                style: {
+                    fillColor: "#b0bec5",
+                    fillOpacity: 1,
+                    weight: 1,
+                    color: "#ffffff"
+                },
+                onEachFeature: (feature, layer) => {
+                    const country = feature.properties?.ADM0_A3;
+                    const region = feature.properties?.ISO_3166_2;
+
+                    if (!country || !region) return;
+
+                    // Only USA + UK
+                    if (country !== "USA" && country !== "GBR") {
+                        layer.setStyle({ fillOpacity: 0 });
+                        return;
+                    }
+
+                    const key = `${country}-${region.split("-")[1]}`;
+                    const place = regionByKey[key];
+
+                    const label =
+                        place?.name ||
+                        feature.properties.NAME;
+
+                    layer.bindTooltip(label, { sticky: true });
+
+                    if (place) {
+                        layer.on("click", () => {
+                            window.location.href = place.url;
+                        });
+                    }
                 }
             }).addTo(map);
         });
