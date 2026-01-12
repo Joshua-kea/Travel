@@ -6,9 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // =====================
-    // MAP
-    // =====================
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -17,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     // =====================
-    // BUILD LOOKUP (ISO → PLACE)
+    // BUILD LOOKUP
     // =====================
     const placeByISO = {};
     window.places.forEach(p => {
@@ -34,9 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#ffffff"
     };
 
-    // =====================
-    // GEOJSON
-    // =====================
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
         .then(r => r.json())
         .then(data => {
@@ -44,21 +38,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
 
                 onEachFeature: (feature, layer) => {
-                    // 🔑 KORREKT ISO-UDLEDNING
-                    const rawISO =
-                        feature.properties?.ISO_A3 ||
-                        feature.properties?.ADM0_A3 ||
-                        feature.properties?.ADM0_A3_EH ||
-                        feature.properties?.ISO_A3_EH ||
-                        feature.id;
+                    const props = feature.properties || {};
 
-                    const iso = rawISO?.toString().trim().toUpperCase();
+                    let iso = null;
+
+                    if (props.ISO_A3 && props.ISO_A3 !== "-99") {
+                        iso = props.ISO_A3;
+                    } else if (props.ADM0_A3) {
+                        iso = props.ADM0_A3;
+                    } else if (props.ADM0_A3_EH) {
+                        iso = props.ADM0_A3_EH;
+                    } else if (props.ISO_A3_EH) {
+                        iso = props.ISO_A3_EH;
+                    }
+
+                    iso = iso?.trim().toUpperCase();
 
                     const place = iso ? placeByISO[iso] : null;
 
                     const displayName =
                         place?.title ||
-                        feature.properties?.NAME ||
+                        props.NAME ||
                         "Unknown";
 
                     layer.bindTooltip(displayName, { sticky: true });
@@ -77,35 +77,4 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }).addTo(map);
         });
-
-    // =====================
-    // TAG FILTER
-    // =====================
-    const tagSelect = document.getElementById("tagFilter");
-
-    function applyFilters() {
-        const tag = tagSelect.value;
-
-        map.eachLayer(layer => {
-            if (!layer.feature) return;
-
-            const rawISO =
-                layer.feature.properties?.ISO_A3 ||
-                layer.feature.properties?.ADM0_A3 ||
-                layer.feature.properties?.ADM0_A3_EH ||
-                layer.feature.properties?.ISO_A3_EH ||
-                layer.feature.id;
-
-            const iso = rawISO?.toString().trim().toUpperCase();
-            const place = iso ? placeByISO[iso] : null;
-
-            layer.setStyle(BASE_STYLE);
-
-            if (tag && (!place || !place.tags?.includes(tag))) {
-                layer.setStyle({ fillOpacity: 0.2 });
-            }
-        });
-    }
-
-    tagSelect.addEventListener("change", applyFilters);
 });
