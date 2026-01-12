@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-ri"
+admin_key: "US:US-RI"
 name: "Rhode Island"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Rhode Island

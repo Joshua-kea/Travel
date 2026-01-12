@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-or"
+admin_key: "US:US-OR"
 name: "Oregon"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Oregon

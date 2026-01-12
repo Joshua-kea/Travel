@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-la"
+admin_key: "US:US-LA"
 name: "Louisiana"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Louisiana

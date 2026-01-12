@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-hi"
+admin_key: "US:US-HI"
 name: "Hawaii"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Hawaii

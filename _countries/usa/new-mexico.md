@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-nm"
+admin_key: "US:US-NM"
 name: "New Mexico"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # New Mexico

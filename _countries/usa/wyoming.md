@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-wy"
+admin_key: "US:US-WY"
 name: "Wyoming"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Wyoming

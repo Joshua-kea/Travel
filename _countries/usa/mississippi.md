@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-ms"
+admin_key: "US:US-MS"
 name: "Mississippi"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Mississippi

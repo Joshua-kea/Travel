@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-wa"
+admin_key: "US:US-WA"
 name: "Washington"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Washington

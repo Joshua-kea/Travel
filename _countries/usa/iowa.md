@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-ia"
+admin_key: "US:US-IA"
 name: "Iowa"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Iowa

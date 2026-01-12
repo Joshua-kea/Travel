@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-dc"
-name: "District of Columbia"
-parent_country: USA
+admin_key: "US:US-DC"
+name: "District Of Columbia"
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # District of Columbia

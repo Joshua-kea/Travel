@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-wv"
+admin_key: "US:US-WV"
 name: "West Virginia"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # West Virginia

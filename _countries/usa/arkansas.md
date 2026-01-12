@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-ar"
+admin_key: "US:US-AR"
 name: "Arkansas"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Arkansas

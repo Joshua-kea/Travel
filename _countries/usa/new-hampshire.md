@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-nh"
+admin_key: "US:US-NH"
 name: "New Hampshire"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # New Hampshire

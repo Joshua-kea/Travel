@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-sc"
+admin_key: "US:US-SC"
 name: "South Carolina"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # South Carolina

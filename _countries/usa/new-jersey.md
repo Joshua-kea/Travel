@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-nj"
+admin_key: "US:US-NJ"
 name: "New Jersey"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # New Jersey

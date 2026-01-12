@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-az"
+admin_key: "US:US-AZ"
 name: "Arizona"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Arizona

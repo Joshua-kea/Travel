@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-me"
+admin_key: "US:US-ME"
 name: "Maine"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Maine

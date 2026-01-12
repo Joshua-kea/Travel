@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-nv"
+admin_key: "US:US-NV"
 name: "Nevada"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Nevada

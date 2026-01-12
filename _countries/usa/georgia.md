@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-ga"
+admin_key: "US:US-GA"
 name: "Georgia"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Georgia

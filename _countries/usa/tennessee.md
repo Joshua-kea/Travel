@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-tn"
+admin_key: "US:US-TN"
 name: "Tennessee"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Tennessee

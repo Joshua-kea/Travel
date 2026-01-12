@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-nd"
+admin_key: "US:US-ND"
 name: "North Dakota"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # North Dakota

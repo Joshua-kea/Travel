@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-nc"
+admin_key: "US:US-NC"
 name: "North Carolina"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # North Carolina

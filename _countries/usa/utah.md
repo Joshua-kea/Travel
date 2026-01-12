@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-ut"
+admin_key: "US:US-UT"
 name: "Utah"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Utah

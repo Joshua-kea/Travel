@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-sd"
+admin_key: "US:US-SD"
 name: "South Dakota"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # South Dakota

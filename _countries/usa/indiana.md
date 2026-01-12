@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-in"
+admin_key: "US:US-IN"
 name: "Indiana"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Indiana

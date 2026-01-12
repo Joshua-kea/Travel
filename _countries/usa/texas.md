@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-tx"
+admin_key: "US:US-TX"
 name: "Texas"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Texas

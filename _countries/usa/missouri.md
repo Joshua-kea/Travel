@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-mo"
+admin_key: "US:US-MO"
 name: "Missouri"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Missouri

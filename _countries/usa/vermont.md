@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-vt"
+admin_key: "US:US-VT"
 name: "Vermont"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Vermont

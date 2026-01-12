@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-mn"
+admin_key: "US:US-MN"
 name: "Minnesota"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Minnesota

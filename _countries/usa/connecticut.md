@@ -1,10 +1,9 @@
 ---
 layout: country
-admin_key: "USA:us-ct"
+admin_key: "US:US-CT"
 name: "Connecticut"
-parent_country: USA
+parent_country: United States of America
 continent: North America
-tags: []
 ---
 
 # Connecticut
