@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================
     let geojsonLayer = null;
 
-    fetch(window.location.origin + "{{ site.baseurl }}/assets/data/countries.geo.json")
+    fetch(window.BASEURL + "/assets/data/countries.geo.json")
         .then(res => res.json())
         .then(data => {
 

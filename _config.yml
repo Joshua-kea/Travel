@@ -3,5 +3,5 @@ markdown: kramdown
 theme: minima
 baseurl: "/Travel"
 collections:
-  lande:
+  countries:
     output: true
