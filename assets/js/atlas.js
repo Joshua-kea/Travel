@@ -13,25 +13,25 @@ document.addEventListener("DOMContentLoaded", () => {
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
-    /* ===============================
-       BUILD LOOKUPS
-    =============================== */
+    /* =========================
+       LOOKUPS
+    ========================= */
 
     const countryByISO = {};
+    const countryByName = {};
     const adminByKey = {};
 
     window.places.forEach(p => {
         if (p.iso) {
             countryByISO[p.iso.trim().toUpperCase()] = p;
         }
+        if (p.name) {
+            countryByName[p.name.trim().toUpperCase()] = p;
+        }
         if (p.admin_key) {
             adminByKey[p.admin_key.trim().toUpperCase()] = p;
         }
     });
-
-    /* ===============================
-       STYLES
-    =============================== */
 
     const BASE_STYLE = {
         fillColor: "#cfd8dc",
@@ -40,54 +40,24 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#ffffff"
     };
 
-    function bindLayer(layer, place, fallbackName) {
-        const name = place?.title || fallbackName || "Unknown";
+    function bind(layer, place, fallbackName) {
+        const label = place?.name || fallbackName || "Unknown";
 
-        layer.bindTooltip(name, { sticky: true });
+        layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => {
-                window.location.href = place.url;
-            });
-
+            layer.on("click", () => (window.location.href = place.url));
             layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
             layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
         } else {
-            layer.setStyle({ fillOpacity: 0.25 });
+            layer.setStyle({ fillOpacity: 0.2 });
         }
     }
 
-    /* ===============================
-       LOAD COUNTRIES (ADMIN 0)
-    =============================== */
-
-    fetch(window.BASEURL + "/assets/data/countries.geo.json")
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                style: BASE_STYLE,
-                onEachFeature: (feature, layer) => {
-                    const props = feature.properties || {};
-
-                    const iso =
-                        props.ISO_A3 ||
-                        props.ADM0_A3 ||
-                        props.ADM0_ISO;
-
-                    if (!iso || iso === "-99") {
-                        layer.setStyle({ fillOpacity: 0 });
-                        return;
-                    }
-
-                    const place = countryByISO[iso.toUpperCase()];
-                    bindLayer(layer, place, props.NAME);
-                }
-            }).addTo(map);
-        });
-
-    /* ===============================
-       LOAD ADMIN-1 (USA + UK)
-    =============================== */
+    /* =========================
+       ADMIN-1 (USA + UK)
+       → DRAW FIRST
+    ========================= */
 
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
         .then(r => r.json())
@@ -95,18 +65,47 @@ document.addEventListener("DOMContentLoaded", () => {
             L.geoJSON(data, {
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
-                    const props = feature.properties || {};
-                    const iso2 = props.iso_3166_2;
-
-                    if (!iso2) {
+                    const p = feature.properties;
+                    if (!p?.iso_3166_2 || !p?.adm0_a3) {
                         layer.setStyle({ fillOpacity: 0 });
                         return;
                     }
 
-                    const key = `${props.adm0_a3}:${iso2}`.toUpperCase();
+                    const key = `${p.adm0_a3}:${p.iso_3166_2}`.toUpperCase();
                     const place = adminByKey[key];
 
-                    bindLayer(layer, place, props.name);
+                    bind(layer, place, p.name);
+                }
+            }).addTo(map);
+        });
+
+    /* =========================
+       COUNTRIES / TERRITORIES
+       → DRAW AFTER
+    ========================= */
+
+    fetch(window.BASEURL + "/assets/data/countries.geo.json")
+        .then(r => r.json())
+        .then(data => {
+            L.geoJSON(data, {
+                style: BASE_STYLE,
+                onEachFeature: (feature, layer) => {
+                    const p = feature.properties || {};
+
+                    const iso =
+                        p.ISO_A3 && p.ISO_A3 !== "-99"
+                            ? p.ISO_A3
+                            : p.ADM0_A3 && p.ADM0_A3 !== "-99"
+                                ? p.ADM0_A3
+                                : p.SOV_A3 && p.SOV_A3 !== "-99"
+                                    ? p.SOV_A3
+                                    : null;
+
+                    let place =
+                        (iso && countryByISO[iso.toUpperCase()]) ||
+                        countryByName[p.NAME?.toUpperCase()];
+
+                    bind(layer, place, p.NAME);
                 }
             }).addTo(map);
         });
