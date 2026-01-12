@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-OK
+admin_key: "USA:us-ok"
 name: "Oklahoma"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Oklahoma
-
-Write your notes about Oklahoma here.

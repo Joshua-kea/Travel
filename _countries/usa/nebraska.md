@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-NE
+admin_key: "USA:us-ne"
 name: "Nebraska"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Nebraska
-
-Write your notes about Nebraska here.

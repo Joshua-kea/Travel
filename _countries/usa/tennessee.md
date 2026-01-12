@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-TN
+admin_key: "USA:us-tn"
 name: "Tennessee"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Tennessee
-
-Write your notes about Tennessee here.

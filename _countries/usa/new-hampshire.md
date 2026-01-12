@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-NH
+admin_key: "USA:us-nh"
 name: "New Hampshire"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # New Hampshire
-
-Write your notes about New Hampshire here.

@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-ID
+admin_key: "USA:us-id"
 name: "Idaho"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Idaho
-
-Write your notes about Idaho here.

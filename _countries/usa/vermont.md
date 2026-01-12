@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-VT
+admin_key: "USA:us-vt"
 name: "Vermont"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Vermont
-
-Write your notes about Vermont here.

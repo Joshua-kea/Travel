@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-MI
+admin_key: "USA:us-mi"
 name: "Michigan"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Michigan
-
-Write your notes about Michigan here.

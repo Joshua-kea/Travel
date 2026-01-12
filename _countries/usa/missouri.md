@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-MO
+admin_key: "USA:us-mo"
 name: "Missouri"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Missouri
-
-Write your notes about Missouri here.

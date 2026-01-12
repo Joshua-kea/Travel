@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-OR
+admin_key: "USA:us-or"
 name: "Oregon"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Oregon
-
-Write your notes about Oregon here.

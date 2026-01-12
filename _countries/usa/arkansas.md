@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-AR
+admin_key: "USA:us-ar"
 name: "Arkansas"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Arkansas
-
-Write your notes about Arkansas here.

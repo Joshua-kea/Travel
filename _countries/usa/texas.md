@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-TX
+admin_key: "USA:us-tx"
 name: "Texas"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Texas
-
-Write your notes about Texas here.

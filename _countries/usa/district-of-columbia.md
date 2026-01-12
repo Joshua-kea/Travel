@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-DC
+admin_key: "USA:us-dc"
 name: "District of Columbia"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # District of Columbia
-
-Write your notes about District of Columbia here.

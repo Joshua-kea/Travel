@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-CT
+admin_key: "USA:us-ct"
 name: "Connecticut"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Connecticut
-
-Write your notes about Connecticut here.

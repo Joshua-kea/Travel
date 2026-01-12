@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-GA
+admin_key: "USA:us-ga"
 name: "Georgia"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Georgia
-
-Write your notes about Georgia here.

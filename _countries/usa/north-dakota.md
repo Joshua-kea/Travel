@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-ND
+admin_key: "USA:us-nd"
 name: "North Dakota"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # North Dakota
-
-Write your notes about North Dakota here.

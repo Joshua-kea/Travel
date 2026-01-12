@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-UT
+admin_key: "USA:us-ut"
 name: "Utah"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Utah
-
-Write your notes about Utah here.

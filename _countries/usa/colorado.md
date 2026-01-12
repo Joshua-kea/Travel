@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-CO
+admin_key: "USA:us-co"
 name: "Colorado"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Colorado
-
-Write your notes about Colorado here.

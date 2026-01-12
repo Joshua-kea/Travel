@@ -1,8 +1,8 @@
 ---
 layout: country
-iso: ENG
+admin_key: "GBR:england"
 name: "England"
-parent_country: GB
+parent_country: UK
 continent: Europe
 tags: []
 ---

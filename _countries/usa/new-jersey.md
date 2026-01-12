@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-NJ
+admin_key: "USA:us-nj"
 name: "New Jersey"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # New Jersey
-
-Write your notes about New Jersey here.

@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-NM
+admin_key: "USA:us-nm"
 name: "New Mexico"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # New Mexico
-
-Write your notes about New Mexico here.

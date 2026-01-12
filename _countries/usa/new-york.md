@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-NY
+admin_key: "USA:us-ny"
 name: "New York"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # New York
-
-Write your notes about New York here.

@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-OH
+admin_key: "USA:us-oh"
 name: "Ohio"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Ohio
-
-Write your notes about Ohio here.

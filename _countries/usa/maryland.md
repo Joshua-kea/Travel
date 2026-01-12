@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-MD
+admin_key: "USA:us-md"
 name: "Maryland"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Maryland
-
-Write your notes about Maryland here.

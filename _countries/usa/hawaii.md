@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-HI
+admin_key: "USA:us-hi"
 name: "Hawaii"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Hawaii
-
-Write your notes about Hawaii here.

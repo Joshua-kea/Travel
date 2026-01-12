@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-LA
+admin_key: "USA:us-la"
 name: "Louisiana"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Louisiana
-
-Write your notes about Louisiana here.

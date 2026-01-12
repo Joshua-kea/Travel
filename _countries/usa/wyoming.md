@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-WY
+admin_key: "USA:us-wy"
 name: "Wyoming"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Wyoming
-
-Write your notes about Wyoming here.

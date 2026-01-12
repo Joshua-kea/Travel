@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-NV
+admin_key: "USA:us-nv"
 name: "Nevada"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Nevada
-
-Write your notes about Nevada here.

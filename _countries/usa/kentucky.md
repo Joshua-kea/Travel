@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-KY
+admin_key: "USA:us-ky"
 name: "Kentucky"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Kentucky
-
-Write your notes about Kentucky here.

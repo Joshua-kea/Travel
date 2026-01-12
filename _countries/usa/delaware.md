@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-DE
+admin_key: "USA:us-de"
 name: "Delaware"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Delaware
-
-Write your notes about Delaware here.

@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-SC
+admin_key: "USA:us-sc"
 name: "South Carolina"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # South Carolina
-
-Write your notes about South Carolina here.

@@ -1,8 +1,8 @@
 ---
 layout: country
-iso: SCT
+admin_key: "GBR:scotland"
 name: "Scotland"
-parent_country: GB
+parent_country: UK
 continent: Europe
 tags: []
 ---

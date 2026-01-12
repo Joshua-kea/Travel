@@ -1,14 +1,15 @@
-console.log("ATLAS.JS LOADED");
+console.log("ATLAS.JS v2 LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
+
     if (!window.places || window.places.length === 0) {
         console.error("No places from Jekyll");
         return;
     }
 
-    // =====================
+    // =========================
     // MAP
-    // =====================
+    // =========================
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -16,129 +17,113 @@ document.addEventListener("DOMContentLoaded", () => {
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
-    // =====================
-    // BUILD LOOKUP FROM JEKYLL
-    // =====================
-    const placeByISO = {};
+    // =========================
+    // PLACE LOOKUPS
+    // =========================
+    const countryByISO = {};
+    const adminByKey = {};
+
     window.places.forEach(p => {
-        if (!p.iso) return;
-        placeByISO[p.iso.trim().toUpperCase()] = p;
+        if (p.iso) {
+            countryByISO[p.iso.trim().toUpperCase()] = p;
+        }
+        if (p.admin_key) {
+            adminByKey[p.admin_key] = p;
+        }
     });
 
-    console.log("ISO keys loaded:", Object.keys(placeByISO));
+    // =========================
+    // STYLES
+    // =========================
+    const COUNTRY_STYLE = {
+        fillColor: "#cfd8dc",
+        fillOpacity: 1,
+        weight: 1,
+        color: "#ffffff"
+    };
 
-    // =====================
-    // ISO NORMALIZER (CRITICAL)
-    // =====================
-    function getCountryISO(props) {
-        const candidates = [
-            props.SOV_A3,
-            props.ADM0_A3,
-            props.ISO_A3
-        ];
+    const ADMIN_STYLE = {
+        fillColor: "#b0bec5",
+        fillOpacity: 1,
+        weight: 1,
+        color: "#ffffff"
+    };
 
-        return candidates.find(v => v && v !== "-99") || null;
-    }
-
-    // =====================
-    // COUNTRY LAYER
-    // =====================
+    // =========================
+    // COUNTRIES LAYER
+    // =========================
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
-                style: feature => {
-                    const iso = getCountryISO(feature.properties);
-                    const place = iso ? placeByISO[iso] : null;
-
-                    return {
-                        fillColor: place ? "#cfd8dc" : "#e0e0e0",
-                        fillOpacity: place ? 1 : 0.25,
-                        weight: 1,
-                        color: "#ffffff"
-                    };
-                },
-
+                style: COUNTRY_STYLE,
                 onEachFeature: (feature, layer) => {
-                    const iso = getCountryISO(feature.properties);
-                    const place = iso ? placeByISO[iso] : null;
 
-                    const name =
-                        place?.title ||
-                        feature.properties.NAME ||
-                        feature.properties.ADMIN ||
-                        "Unknown";
+                    const iso =
+                        feature.properties?.ISO_A3 ||
+                        feature.properties?.ADM0_A3 ||
+                        feature.properties?.SOV_A3;
 
-                    layer.bindTooltip(name, { sticky: true });
+                    if (!iso || iso === "-99") return;
 
-                    if (place) {
-                        layer.on("click", () => {
-                            window.location.href = place.url;
-                        });
+                    const place = countryByISO[iso];
 
-                        layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
-                        layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
+                    layer.bindTooltip(
+                        place?.title || feature.properties.NAME,
+                        { sticky: true }
+                    );
+
+                    if (!place) {
+                        layer.setStyle({ fillOpacity: 0.25 });
+                        return;
                     }
+
+                    layer.on("click", () => {
+                        window.location.href = place.url;
+                    });
                 }
             }).addTo(map);
         });
 
-    // =====================
-    // ADMIN1 LAYER (USA + UK)
-    // =====================
+    // =========================
+    // ADMIN1 LAYER (USA + UK ONLY)
+    // =========================
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
-                style: feature => ({
-                    fillColor: "#b0bec5",
-                    fillOpacity: 1,
-                    weight: 1,
-                    color: "#ffffff"
-                }),
+                style: feature => {
+                    const country = feature.properties.adm0_a3;
+                    if (country === "USA" || country === "GBR") {
+                        return ADMIN_STYLE;
+                    }
+                    return { fillOpacity: 0, interactive: false };
+                },
 
                 onEachFeature: (feature, layer) => {
-                    const props = feature.properties;
+                    const country = feature.properties.adm0_a3;
+                    const name = feature.properties.name_en;
 
-                    // Country of admin1
-                    const countryISO =
-                        props.adm0_a3 ||
-                        props.ADM0_A3 ||
-                        props.sov_a3 ||
-                        null;
-
-                    // Only USA + UK
-                    if (!["USA", "GBR"].includes(countryISO)) {
-                        layer.setStyle({ fillOpacity: 0 });
+                    if (country !== "USA" && country !== "GBR") {
+                        layer.options.interactive = false;
                         return;
                     }
 
-                    const slug =
-                        props.name_en ||
-                        props.name ||
-                        props.NAME;
+                    const key = `${country}:${name.toLowerCase()}`;
+                    const place = adminByKey[key];
 
-                    if (!slug) return;
+                    layer.bindTooltip(name, { sticky: true });
 
-                    const urlSlug = slug
-                        .toLowerCase()
-                        .replace(/[^a-z0-9]+/g, "-")
-                        .replace(/^-|-$/g, "");
-
-                    const url =
-                        countryISO === "USA"
-                            ? `${window.BASEURL}/countries/usa/${urlSlug}/`
-                            : `${window.BASEURL}/countries/uk/${urlSlug}/`;
-
-                    layer.bindTooltip(slug, { sticky: true });
+                    if (!place) {
+                        layer.setStyle({ fillOpacity: 0.25 });
+                        return;
+                    }
 
                     layer.on("click", () => {
-                        window.location.href = url;
+                        window.location.href = place.url;
                     });
-
-                    layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
-                    layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
                 }
             }).addTo(map);
         });
+
 });

@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-SD
+admin_key: "USA:us-sd"
 name: "South Dakota"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # South Dakota
-
-Write your notes about South Dakota here.

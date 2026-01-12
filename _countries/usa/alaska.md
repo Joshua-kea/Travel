@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-AK
+admin_key: "USA:us-ak"
 name: "Alaska"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Alaska
-
-Write your notes about Alaska here.

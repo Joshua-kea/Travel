@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-PA
+admin_key: "USA:us-pa"
 name: "Pennsylvania"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Pennsylvania
-
-Write your notes about Pennsylvania here.

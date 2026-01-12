@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-NC
+admin_key: "USA:us-nc"
 name: "North Carolina"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # North Carolina
-
-Write your notes about North Carolina here.

@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-MT
+admin_key: "USA:us-mt"
 name: "Montana"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Montana
-
-Write your notes about Montana here.

@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-AL
+admin_key: "USA:us-al"
 name: "Alabama"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Alabama
-
-Write your notes about Alabama here.

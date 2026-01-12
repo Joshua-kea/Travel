@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-WV
+admin_key: "USA:us-wv"
 name: "West Virginia"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # West Virginia
-
-Write your notes about West Virginia here.

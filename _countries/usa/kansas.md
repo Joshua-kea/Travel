@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-KS
+admin_key: "USA:us-ks"
 name: "Kansas"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Kansas
-
-Write your notes about Kansas here.

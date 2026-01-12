@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-WA
+admin_key: "USA:us-wa"
 name: "Washington"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Washington
-
-Write your notes about Washington here.

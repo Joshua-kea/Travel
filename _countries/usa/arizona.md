@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-AZ
+admin_key: "USA:us-az"
 name: "Arizona"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Arizona
-
-Write your notes about Arizona here.

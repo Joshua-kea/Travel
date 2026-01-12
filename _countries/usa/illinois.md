@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-IL
+admin_key: "USA:us-il"
 name: "Illinois"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Illinois
-
-Write your notes about Illinois here.

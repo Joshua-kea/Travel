@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-IN
+admin_key: "USA:us-in"
 name: "Indiana"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Indiana
-
-Write your notes about Indiana here.

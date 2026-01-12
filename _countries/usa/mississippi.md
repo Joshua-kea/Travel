@@ -1,14 +1,10 @@
 ---
 layout: country
-type: region
-country_iso: USA
-region_code: US-MS
+admin_key: "USA:us-ms"
 name: "Mississippi"
-continent:
-gay_friendliness:
+parent_country: USA
+continent: North America
 tags: []
 ---
 
 # Mississippi
-
-Write your notes about Mississippi here.
