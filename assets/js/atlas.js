@@ -14,6 +14,16 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     /* =========================
+       PANES (VIGTIGT)
+    ========================= */
+
+    map.createPane("countriesPane");
+    map.createPane("adminPane");
+
+    map.getPane("countriesPane").style.zIndex = 400;
+    map.getPane("adminPane").style.zIndex = 450;
+
+    /* =========================
        LOOKUPS
     ========================= */
 
@@ -55,43 +65,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       ADMIN-1 (USA + UK)
-       → DRAW ON TOP
-    ========================= */
-
-    fetch(window.BASEURL + "/assets/data/admin1.geo.json")
-        .then(r => r.json())
-        .then(data => {
-            const adminLayer = L.geoJSON(data, {
-                style: BASE_STYLE,
-                onEachFeature: (feature, layer) => {
-                    const p = feature.properties;
-                    if (!p?.iso_3166_2 || !p?.adm0_a3) {
-                        layer.setStyle({ fillOpacity: 0 });
-                        return;
-                    }
-
-                    const key = `${p.adm0_a3}:${p.iso_3166_2}`.toUpperCase();
-                    const place = adminByKey[key];
-
-                    bind(layer, place, p.name);
-                }
-            }).addTo(map);
-
-            // 🔥 DETTE ER FIXET
-            adminLayer.bringToFront();
-        });
-
-
-    /* =========================
        COUNTRIES / TERRITORIES
-       → DRAW AFTER
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
+                pane: "countriesPane",
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
@@ -105,11 +86,37 @@ document.addEventListener("DOMContentLoaded", () => {
                                     ? p.SOV_A3
                                     : null;
 
-                    let place =
+                    const place =
                         (iso && countryByISO[iso.toUpperCase()]) ||
                         countryByName[p.NAME?.toUpperCase()];
 
                     bind(layer, place, p.NAME);
+                }
+            }).addTo(map);
+        });
+
+    /* =========================
+       ADMIN-1 (USA + UK)
+       → ALTID ØVERST
+    ========================= */
+
+    fetch(window.BASEURL + "/assets/data/admin1.geo.json")
+        .then(r => r.json())
+        .then(data => {
+            L.geoJSON(data, {
+                pane: "adminPane",
+                style: BASE_STYLE,
+                onEachFeature: (feature, layer) => {
+                    const p = feature.properties;
+                    if (!p?.iso_3166_2 || !p?.adm0_a3) {
+                        layer.setStyle({ fillOpacity: 0 });
+                        return;
+                    }
+
+                    const key = `${p.adm0_a3}:${p.iso_3166_2}`.toUpperCase();
+                    const place = adminByKey[key];
+
+                    bind(layer, place, p.name);
                 }
             }).addTo(map);
         });
