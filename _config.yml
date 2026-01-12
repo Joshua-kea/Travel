@@ -1,0 +1,7 @@
+title: Travel the World
+markdown: kramdown
+theme: minima
+baseurl: "/Travel"
+collections:
+  lande:
+    output: true
