@@ -1,19 +1,15 @@
 console.log("ATLAS.JS LOADED");
-console.log("PLACES FROM JEKYLL:", window.places);
 
 document.addEventListener("DOMContentLoaded", () => {
-
     if (!window.places || window.places.length === 0) {
-        console.error("No places found – aborting");
+        console.error("No places loaded from Jekyll");
         return;
     }
 
     // =====================
-    // MAP SETUP
+    // MAP
     // =====================
-    const map = L.map("map", {
-        worldCopyJump: true
-    }).setView([20, 0], 2);
+    const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
@@ -21,25 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     // =====================
-    // BUILD ISO LOOKUP
+    // BUILD LOOKUP (ISO → country)
     // =====================
     const placeByISO = {};
-
     window.places.forEach(p => {
         if (!p.iso) return;
-
-        const normalizedISO = p.iso
-            .replace(/\s+/g, "")
-            .toUpperCase();
-
-        placeByISO[normalizedISO] = p;
+        placeByISO[p.iso.trim().toUpperCase()] = p;
     });
 
-    console.log("ISO keys loaded:", Object.keys(placeByISO));
+    console.log("ISO keys loaded:", Object.keys(placeByISO).slice(0, 20));
 
-    // =====================
-    // STYLES
-    // =====================
     const BASE_STYLE = {
         fillColor: "#cfd8dc",
         fillOpacity: 1,
@@ -53,36 +40,25 @@ document.addEventListener("DOMContentLoaded", () => {
     // LOAD GEOJSON
     // =====================
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
-        .then(res => {
-            if (!res.ok) {
-                throw new Error("Failed to load countries.geo.json");
-            }
-            return res.json();
-        })
+        .then(r => r.json())
         .then(data => {
-
             geojsonLayer = L.geoJSON(data, {
                 style: BASE_STYLE,
-
                 onEachFeature: (feature, layer) => {
 
-                    // ---- ROBUST ISO EXTRACTION ----
+                    // ⭐️ NORMALISER ISO ÉN GANG
                     const rawISO =
-                        feature.properties?.ISO_A3 ||
                         feature.properties?.ADM0_A3 ||
+                        feature.properties?.ISO_A3_EH ||
+                        feature.properties?.ISO_A3 ||
                         feature.id;
 
-                    const normalizedISO = rawISO
-                        ?.replace(/\s+/g, "")
-                        .toUpperCase();
+                    const iso = rawISO?.trim().toUpperCase();
 
-                    // Skip invalid features
-                    if (!normalizedISO || normalizedISO === "-99") {
-                        layer.setStyle({ fillOpacity: 0 });
-                        return;
-                    }
+                    // gem ISO på layeret → bruges senere
+                    layer._iso = iso;
 
-                    const place = placeByISO[normalizedISO];
+                    const place = placeByISO[iso];
 
                     const displayName =
                         place?.title ||
@@ -91,34 +67,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     layer.bindTooltip(displayName, { sticky: true });
 
-                    // No matching MD → grey, not clickable
                     if (!place) {
                         layer.setStyle({ fillOpacity: 0.25 });
                         return;
                     }
 
-                    // Click → country page
                     layer.on("click", () => {
                         window.location.href = place.url;
                     });
 
-                    // Hover feedback
-                    layer.on("mouseover", () => {
-                        layer.setStyle({ weight: 2 });
-                    });
-
-                    layer.on("mouseout", () => {
-                        layer.setStyle({ weight: 1 });
-                    });
+                    layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
+                    layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
                 }
             }).addTo(map);
-        })
-        .catch(err => {
-            console.error("GeoJSON load error:", err);
         });
 
     // =====================
-    // TAG FILTER
+    // FILTERS
     // =====================
     const tagSelect = document.getElementById("tagFilter");
 
@@ -130,16 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
         geojsonLayer.eachLayer(layer => {
             layer.setStyle(BASE_STYLE);
 
-            const rawISO =
-                layer.feature?.properties?.ISO_A3 ||
-                layer.feature?.properties?.ADM0_A3 ||
-                layer.feature?.id;
-
-            const normalizedISO = rawISO
-                ?.replace(/\s+/g, "")
-                .toUpperCase();
-
-            const place = placeByISO[normalizedISO];
+            const iso = layer._iso;
+            const place = placeByISO[iso];
 
             if (tag && (!place || !place.tags?.includes(tag))) {
                 layer.setStyle({ fillOpacity: 0.2 });
