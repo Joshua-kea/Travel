@@ -1,0 +1,12 @@
+---
+layout: country
+iso: KWT
+name: "Kuwait"
+continent: Asia
+gay_friendliness:
+tags: []
+---
+
+# Kuwait
+
+Write your notes about Kuwait here.
