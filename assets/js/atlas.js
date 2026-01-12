@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =====================
-    // MAP
+    // MAP SETUP
     // =====================
     const map = L.map("map", {
         worldCopyJump: true
@@ -24,12 +24,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // BUILD ISO LOOKUP
     // =====================
     const placeByISO = {};
+
     window.places.forEach(p => {
         if (!p.iso) return;
-        placeByISO[p.iso.trim().toUpperCase()] = p;
+
+        const normalizedISO = p.iso
+            .replace(/\s+/g, "")
+            .toUpperCase();
+
+        placeByISO[normalizedISO] = p;
     });
 
-    console.log("ISO keys loaded:", Object.keys(placeByISO).slice(0, 15));
+    console.log("ISO keys loaded:", Object.keys(placeByISO));
 
     // =====================
     // STYLES
@@ -47,7 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // LOAD GEOJSON
     // =====================
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Failed to load countries.geo.json");
+            }
+            return res.json();
+        })
         .then(data => {
 
             geojsonLayer = L.geoJSON(data, {
@@ -55,14 +66,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 onEachFeature: (feature, layer) => {
 
-                    // ✅ ROBUST ISO EXTRACTION (THIS IS THE FIX)
-                    const iso =
+                    // ---- ROBUST ISO EXTRACTION ----
+                    const rawISO =
                         feature.properties?.ISO_A3 ||
                         feature.properties?.ADM0_A3 ||
                         feature.id;
 
-                    const normalizedISO = iso?.trim().toUpperCase();
+                    const normalizedISO = rawISO
+                        ?.replace(/\s+/g, "")
+                        .toUpperCase();
 
+                    // Skip invalid features
                     if (!normalizedISO || normalizedISO === "-99") {
                         layer.setStyle({ fillOpacity: 0 });
                         return;
@@ -77,26 +91,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     layer.bindTooltip(displayName, { sticky: true });
 
+                    // No matching MD → grey, not clickable
                     if (!place) {
                         layer.setStyle({ fillOpacity: 0.25 });
                         return;
                     }
 
+                    // Click → country page
                     layer.on("click", () => {
                         window.location.href = place.url;
                     });
 
-                    layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
-                    layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
+                    // Hover feedback
+                    layer.on("mouseover", () => {
+                        layer.setStyle({ weight: 2 });
+                    });
+
+                    layer.on("mouseout", () => {
+                        layer.setStyle({ weight: 1 });
+                    });
                 }
             }).addTo(map);
         })
         .catch(err => {
-            console.error("GeoJSON load failed:", err);
+            console.error("GeoJSON load error:", err);
         });
 
     // =====================
-    // FILTERS
+    // TAG FILTER
     // =====================
     const tagSelect = document.getElementById("tagFilter");
 
@@ -108,12 +130,15 @@ document.addEventListener("DOMContentLoaded", () => {
         geojsonLayer.eachLayer(layer => {
             layer.setStyle(BASE_STYLE);
 
-            const iso =
+            const rawISO =
                 layer.feature?.properties?.ISO_A3 ||
                 layer.feature?.properties?.ADM0_A3 ||
                 layer.feature?.id;
 
-            const normalizedISO = iso?.trim().toUpperCase();
+            const normalizedISO = rawISO
+                ?.replace(/\s+/g, "")
+                .toUpperCase();
+
             const place = placeByISO[normalizedISO];
 
             if (tag && (!place || !place.tags?.includes(tag))) {
