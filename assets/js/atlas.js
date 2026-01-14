@@ -1,10 +1,15 @@
 console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
+
     if (!window.places || window.places.length === 0) {
         console.error("No places loaded from Jekyll");
         return;
     }
+
+    /* =========================
+       MAP SETUP
+    ========================= */
 
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
 
@@ -14,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     /* =========================
-       LOOKUPS (EN KILDE TIL SANDHED)
+       LOOKUPS (SINGLE SOURCE OF TRUTH)
     ========================= */
 
     const byISO = {};
@@ -28,6 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
             byAdminKey[p.admin_key.trim().toUpperCase()] = p;
         }
     });
+
+    /* =========================
+       STYLES + HELPERS
+    ========================= */
 
     const BASE_STYLE = {
         fillColor: "#cfd8dc",
@@ -53,15 +62,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       ADMIN-1 (USA + UK)
-       → ALTID ØVERST
+       ADMIN-1 (USA + UK ONLY)
     ========================= */
 
-    fetch(window.BASEURL + "/assets/data/admin1.geo.json")
-        .then(r => r.json())
-        .then(data => {
+    console.log("Fetching admin1…");
 
-            // ⬇️ KUN USA + UK
+    fetch(window.BASEURL + "/assets/data/admin1.geo.json")
+        .then(response => {
+            console.log("admin1 fetched");
+            return response.json();
+        })
+        .then(data => {
+            console.log("admin1 parsed, total features:", data.features.length);
+
             const filtered = {
                 type: "FeatureCollection",
                 features: data.features.filter(f => {
@@ -69,6 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     return p && (p.adm0_a3 === "USA" || p.adm0_a3 === "GBR");
                 })
             };
+
+            console.log("admin1 filtered features:", filtered.features.length);
 
             const adminLayer = L.geoJSON(filtered, {
                 style: BASE_STYLE,
@@ -85,15 +100,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }).addTo(map);
 
             adminLayer.bringToFront();
+        })
+        .catch(err => {
+            console.error("Admin-1 failed to load:", err);
         });
 
     /* =========================
        COUNTRIES / TERRITORIES
     ========================= */
 
+    console.log("Fetching countries…");
+
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
-        .then(r => r.json())
+        .then(response => {
+            console.log("countries fetched");
+            return response.json();
+        })
         .then(data => {
+            console.log("countries parsed, features:", data.features.length);
+
             L.geoJSON(data, {
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
@@ -105,9 +130,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3);
 
                     const place = iso ? byISO[iso.toUpperCase()] : null;
-
                     bindLayer(layer, place, p.NAME);
                 }
             }).addTo(map);
+        })
+        .catch(err => {
+            console.error("Countries failed to load:", err);
         });
+
 });
