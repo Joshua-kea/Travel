@@ -60,16 +60,24 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
         .then(r => r.json())
         .then(data => {
-            const adminLayer = L.geoJSON(data, {
+
+            // ⬇️ KUN USA + UK
+            const filtered = {
+                type: "FeatureCollection",
+                features: data.features.filter(f => {
+                    const p = f.properties;
+                    return p && (p.adm0_a3 === "USA" || p.adm0_a3 === "GBR");
+                })
+            };
+
+            const adminLayer = L.geoJSON(filtered, {
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
                     if (!p?.adm0_a3 || !p?.iso_3166_2) return;
 
-                    // EKSEMPEL:
-                    // USA + US-AL → USA:US-AL
-                    // GBR + GB-ENG → GBR:GB-ENG
-                    const adminKey = `${p.adm0_a3}:${p.iso_3166_2}`.toUpperCase();
+                    const adminKey =
+                        `${p.adm0_a3}:${p.iso_3166_2}`.toUpperCase();
 
                     const place = byAdminKey[adminKey];
                     bindLayer(layer, place, p.name);
