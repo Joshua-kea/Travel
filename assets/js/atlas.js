@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       MAP SETUP
+       MAP
     ========================= */
 
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
-    // Panes for correct layering
     map.createPane("world");
     map.createPane("subdivisions");
 
@@ -26,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS (Jekyll data)
+       LOOKUPS
     ========================= */
 
     const byISO = {};
@@ -38,45 +37,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       SHARED STYLE
+       STYLE
     ========================= */
 
-    const FEATURE_STYLE = {
+    const BASE_STYLE = {
         fillColor: "#cfd8dc",
         fillOpacity: 1,
         weight: 1,
         color: "#90a4ae"
     };
 
+    function hoverStyle() {
+        return {
+            weight: 2,
+            color: "#455a64",
+            fillColor: "#b0bec5"
+        };
+    }
+
     /* =========================
-       INTERACTION HELPER
+       INTERACTION
     ========================= */
 
     function bindInteractive(layer, place, label) {
         layer.bindTooltip(label, { sticky: true });
 
-        if (place?.permalink) {
+        if (place?.url) {
             layer.on("click", () => {
-                window.location.href = place.permalink;
+                window.location.href = place.url;
             });
         }
 
-        layer.on("mouseover", () => {
-            layer.setStyle({
-                weight: 2,
-                color: "#455a64",
-                fillColor: "#b0bec5"
-            });
-        });
-
-        layer.on("mouseout", () => {
-            layer.setStyle(FEATURE_STYLE);
-        });
+        layer.on("mouseover", () => layer.setStyle(hoverStyle()));
+        layer.on("mouseout", () => layer.setStyle(BASE_STYLE));
     }
 
     /* =========================
-       WORLD COUNTRIES (BACKGROUND)
-       – NOT INTERACTIVE
+       WORLD COUNTRIES
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
@@ -85,32 +82,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
             L.geoJSON(data, {
                 pane: "world",
-                style: FEATURE_STYLE,
-                interactive: false, // ⬅️ VIGTIG: må ikke blokere klik
+                style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
-                    const blocked = ["USA", "GBR"];
+                    const iso =
+                        p.ISO_A3 && p.ISO_A3 !== "-99" ? p.ISO_A3 :
+                            p.ADM0_A3 && p.ADM0_A3 !== "-99" ? p.ADM0_A3 :
+                                p.SOV_A3 && p.SOV_A3 !== "-99" ? p.SOV_A3 :
+                                    null;
 
-                    const isoCandidates = [
-                        p.ISO_A3,
-                        p.ADM0_A3,
-                        p.SOV_A3
-                    ].filter(Boolean);
+                    if (!iso) return;
 
-                    if (isoCandidates.some(code => blocked.includes(code))) return;
+                    // USA & UK handled separately
+                    if (iso === "USA" || iso === "GBR") return;
 
-                    const iso = isoCandidates[0];
                     const place = byISO[iso.toUpperCase()];
                     const label = place?.name || p.NAME || "Unknown";
 
-                    layer.bindTooltip(label, { sticky: true });
+                    bindInteractive(layer, place, label);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       USA STATES (ADMIN-1)
+       USA STATES
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
@@ -126,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             L.geoJSON(usa, {
                 pane: "subdivisions",
-                style: FEATURE_STYLE,
+                style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
                     if (!p?.iso_3166_2) return;
@@ -149,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             L.geoJSON(data, {
                 pane: "subdivisions",
-                style: FEATURE_STYLE,
+                style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
                     if (!p?.ISO_1) return;
@@ -157,12 +153,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     const key = `GBR:${p.ISO_1}`.toUpperCase();
                     const place = byAdminKey[key];
 
-                    const label =
-                        p.ISO_1 === "GB-ENG" ? "England" :
-                            p.ISO_1 === "GB-SCT" ? "Scotland" :
-                                p.ISO_1 === "GB-WLS" ? "Wales" :
-                                    p.ISO_1 === "GB-NIR" ? "Northern Ireland" :
-                                        "United Kingdom";
+                    let label;
+                    switch (p.ISO_1) {
+                        case "GB-ENG": label = "England"; break;
+                        case "GB-SCT": label = "Scotland"; break;
+                        case "GB-WLS": label = "Wales"; break;
+                        case "GB-NIR": label = "Northern Ireland"; break;
+                        default: label = "United Kingdom";
+                    }
 
                     bindInteractive(layer, place, label);
                 }
