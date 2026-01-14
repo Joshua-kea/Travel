@@ -23,18 +23,24 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     map.createPane("countries");
+    map.createPane("subdivisions");
     map.createPane("territories");
 
     map.getPane("countries").style.zIndex = 300;
-    map.getPane("territories").style.zIndex = 400;
+    map.getPane("territories").style.zIndex = 350;
+    map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
        LOOKUPS (SINGLE SOURCE OF TRUTH)
     ========================= */
 
+    const byISO = {};
     const byAdminKey = {};
 
     window.places.forEach(p => {
+        if (p.iso) {
+            byISO[p.iso.toUpperCase()] = p;
+        }
         if (p.admin_key) {
             byAdminKey[p.admin_key.toUpperCase()] = p;
         }
@@ -77,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       WORLD COUNTRIES
+       WORLD COUNTRIES (NO USA / UK)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
@@ -96,11 +102,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if (!iso) return;
 
-                    // Territories handled separately
-                    const key = iso.toUpperCase();
+                    // USA + UK drawn as subdivisions instead
+                    if (iso === "USA" || iso === "GBR") return;
+
+                    const place = byISO[iso.toUpperCase()];
+                    bindInteractive(layer, place, p.NAME);
+                }
+            }).addTo(map);
+        });
+
+    /* =========================
+       USA STATES (ADMIN-1)
+    ========================= */
+
+    fetch(window.BASEURL + "/assets/data/admin1.geo.json")
+        .then(r => r.json())
+        .then(data => {
+
+            const usa = {
+                type: "FeatureCollection",
+                features: data.features.filter(
+                    f => f.properties?.adm0_a3 === "USA"
+                )
+            };
+
+            L.geoJSON(usa, {
+                pane: "subdivisions",
+                style: BASE_STYLE,
+                onEachFeature: (feature, layer) => {
+                    const p = feature.properties;
+                    if (!p?.iso_3166_2) return;
+
+                    const key = `USA:${p.iso_3166_2}`.toUpperCase();
                     const place = byAdminKey[key];
 
-                    bindInteractive(layer, place, p.NAME);
+                    bindInteractive(layer, place, p.name);
+                }
+            }).addTo(map);
+        });
+
+    /* =========================
+       UK COUNTRIES
+    ========================= */
+
+    fetch(window.BASEURL + "/assets/data/uk.geo.json")
+        .then(r => r.json())
+        .then(data => {
+            L.geoJSON(data, {
+                pane: "subdivisions",
+                style: BASE_STYLE,
+                onEachFeature: (feature, layer) => {
+                    const p = feature.properties || {};
+
+                    let iso1 = p.ISO_1;
+                    if (!iso1 || iso1 === "NA") iso1 = "GB-ENG";
+
+                    const key = `GBR:${iso1}`.toUpperCase();
+                    const place = byAdminKey[key];
+
+                    let label;
+                    switch (iso1) {
+                        case "GB-ENG": label = "England"; break;
+                        case "GB-SCT": label = "Scotland"; break;
+                        case "GB-WLS": label = "Wales"; break;
+                        case "GB-NIR": label = "Northern Ireland"; break;
+                        default: label = "United Kingdom";
+                    }
+
+                    bindInteractive(layer, place, label);
                 }
             }).addTo(map);
         });
