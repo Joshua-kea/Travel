@@ -3,7 +3,7 @@ console.log("ATLAS.JS LOADED");
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================
-       BASIC SAFETY
+       SAFETY
     ========================= */
 
     if (!window.places || window.places.length === 0) {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     /* =========================
-       LOOKUPS (SOURCE OF TRUTH)
+       LOOKUPS
     ========================= */
 
     const byISO = {};
@@ -42,11 +42,18 @@ document.addEventListener("DOMContentLoaded", () => {
        STYLES
     ========================= */
 
-    const BASE_STYLE = {
+    const COUNTRY_STYLE = {
         fillColor: "#cfd8dc",
         fillOpacity: 1,
-        weight: 1,
+        weight: 0.5,
         color: "#ffffff"
+    };
+
+    const SUBDIVISION_STYLE = {
+        fillColor: "#cfd8dc",
+        fillOpacity: 1,
+        weight: 2,
+        color: "#90a4ae"
     };
 
     /* =========================
@@ -62,15 +69,25 @@ document.addEventListener("DOMContentLoaded", () => {
             layer.on("click", () => {
                 window.location.href = place.url;
             });
-            layer.on("mouseover", () => layer.setStyle({ weight: 2 }));
-            layer.on("mouseout", () => layer.setStyle({ weight: 1 }));
+
+            layer.on("mouseover", () => {
+                layer.setStyle({
+                    weight: 3,
+                    color: "#455a64",
+                    fillColor: "#b0bec5"
+                });
+            });
+
+            layer.on("mouseout", () => {
+                layer.setStyle(SUBDIVISION_STYLE);
+            });
         } else {
             layer.setStyle({ fillOpacity: 0.25 });
         }
     }
 
     /* =========================
-       USA – ADMIN LEVEL 1
+       USA – STATES (ADMIN 1)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
@@ -85,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
             const usaLayer = L.geoJSON(usaOnly, {
-                style: BASE_STYLE,
+                style: SUBDIVISION_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
                     if (!p?.adm0_a3 || !p?.iso_3166_2) return;
@@ -111,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
 
             const ukLayer = L.geoJSON(data, {
-                style: BASE_STYLE,
+                style: SUBDIVISION_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
                     if (!p?.ISO_1) return;
@@ -129,8 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(err => console.error("UK failed:", err));
 
     /* =========================
-       COUNTRIES / TERRITORIES
-       (WORLD BASE LAYER)
+       COUNTRIES (BACKGROUND ONLY)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
@@ -138,7 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
 
             L.geoJSON(data, {
-                style: BASE_STYLE,
+                style: COUNTRY_STYLE,
+                interactive: false,   // 🔑 VIGTIG
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
@@ -148,12 +165,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3);
 
                     if (!iso) return;
-
-                    // Countries handled by custom layers
                     if (iso === "USA" || iso === "GBR") return;
 
                     const place = byISO[iso.toUpperCase()];
-                    bindLayer(layer, place, p.NAME);
+                    layer.bindTooltip(place?.name || p.NAME || "Unknown", {
+                        sticky: true
+                    });
                 }
             }).addTo(map);
         })
