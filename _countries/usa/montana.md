@@ -1,6 +1,6 @@
 ---
 layout: country
-admin_key: "US:US-MT"
+admin_key: "USA:US-MT"
 name: "Montana"
 parent_country: United States of America
 continent: North America

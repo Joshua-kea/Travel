@@ -1,6 +1,6 @@
 ---
 layout: country
-admin_key: "US:US-KS"
+admin_key: "USA:US-KS"
 name: "Kansas"
 parent_country: United States of America
 continent: North America

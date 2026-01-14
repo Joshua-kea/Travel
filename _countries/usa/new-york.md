@@ -1,6 +1,6 @@
 ---
 layout: country
-admin_key: "US:US-NY"
+admin_key: "USA:US-NY"
 name: "New York"
 parent_country: United States of America
 continent: North America

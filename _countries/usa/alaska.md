@@ -1,6 +1,6 @@
 ---
 layout: country
-admin_key: "US:US-AK"
+admin_key: "USA:US-AK"
 name: "Alaska"
 parent_country: United States of America
 continent: North America
