@@ -93,8 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                     null;
 
                     if (!iso) return;
-
-                    // USA & UK handled separately
                     if (iso === "USA" || iso === "GBR") return;
 
                     const place = byISO[iso.toUpperCase()];
@@ -136,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       UK COUNTRIES
+       UK COUNTRIES (ENGLAND FIX)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/uk.geo.json")
@@ -147,14 +145,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 pane: "subdivisions",
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
-                    const p = feature.properties;
-                    if (!p?.ISO_1) return;
+                    const p = feature.properties || {};
 
-                    const key = `GBR:${p.ISO_1}`.toUpperCase();
+                    // 🔥 FIX: England mangler ISO_1 i GADM
+                    let iso1 = p.ISO_1;
+                    if (!iso1 || iso1 === "NA") {
+                        iso1 = "GB-ENG";
+                    }
+
+                    const key = `GBR:${iso1}`.toUpperCase();
                     const place = byAdminKey[key];
 
                     let label;
-                    switch (p.ISO_1) {
+                    switch (iso1) {
                         case "GB-ENG": label = "England"; break;
                         case "GB-SCT": label = "Scotland"; break;
                         case "GB-WLS": label = "Wales"; break;
