@@ -54,10 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function bindInteractive(layer, place, label) {
         layer.bindTooltip(label, { sticky: true });
 
-        if (place?.url) {
+        if (place?.permalink) {
             layer.on("click", () => {
-                window.location.href = place.url;
+                window.location.href = place.permalink;
             });
+            layer.getElement()?.classList.add("clickable");
         }
 
         layer.on("mouseover", () => {
@@ -87,13 +88,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
-                    const iso =
-                        p.ISO_A3 || p.ADM0_A3 || p.SOV_A3;
+                    const blocked = ["USA", "GBR"];
 
-                    if (!iso) return;
+                    const isoCandidates = [
+                        p.ISO_A3,
+                        p.ADM0_A3,
+                        p.SOV_A3
+                    ].filter(Boolean);
 
-                    // USA & UK handled separately
-                    if (iso === "USA" || iso === "GBR") return;
+                    if (isoCandidates.some(code => blocked.includes(code))) return;
+
+                    const iso = isoCandidates[0];
+
 
                     const place = byISO[iso.toUpperCase()];
                     const label = place?.name || p.NAME || "Unknown";
