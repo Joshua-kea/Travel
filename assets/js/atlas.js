@@ -2,17 +2,13 @@ console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================
-       GUARD
-    ========================= */
-
     if (!window.places || window.places.length === 0) {
         console.error("No places loaded from Jekyll");
         return;
     }
 
     /* =========================
-       MAP SETUP
+       MAP
     ========================= */
 
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
@@ -23,61 +19,22 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     map.createPane("countries");
-    map.createPane("subdivisions");
     map.createPane("territories");
 
     map.getPane("countries").style.zIndex = 300;
-    map.getPane("territories").style.zIndex = 350;
-    map.getPane("subdivisions").style.zIndex = 400;
+    map.getPane("territories").style.zIndex = 500;
 
     /* =========================
-       LOOKUPS (SINGLE SOURCE OF TRUTH)
+       LOOKUPS
     ========================= */
 
-    const byISO = {};
     const byAdminKey = {};
-
     window.places.forEach(p => {
-        if (p.iso) byISO[p.iso.toUpperCase()] = p;
         if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
     });
 
     /* =========================
-       STYLES
-    ========================= */
-
-    const BASE_STYLE = {
-        fillColor: "#cfd8dc",
-        fillOpacity: 1,
-        weight: 1,
-        color: "#90a4ae"
-    };
-
-    const HOVER_STYLE = {
-        weight: 2,
-        color: "#455a64",
-        fillColor: "#b0bec5"
-    };
-
-    /* =========================
-       INTERACTION
-    ========================= */
-
-    function bindInteractive(layer, place, label) {
-        layer.bindTooltip(label, { sticky: true });
-
-        if (place?.url) {
-            layer.on("click", () => {
-                window.location.href = place.url;
-            });
-        }
-
-        layer.on("mouseover", () => layer.setStyle(HOVER_STYLE));
-        layer.on("mouseout", () => layer.setStyle(BASE_STYLE));
-    }
-
-    /* =========================
-       WORLD COUNTRIES (NO USA / UK)
+       WORLD COUNTRIES
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
@@ -85,113 +42,53 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             L.geoJSON(data, {
                 pane: "countries",
-                style: BASE_STYLE,
-                onEachFeature: (feature, layer) => {
-                    const p = feature.properties || {};
-
-                    const iso =
-                        (p.ISO_A3 && p.ISO_A3 !== "-99" && p.ISO_A3) ||
-                        (p.ADM0_A3 && p.ADM0_A3 !== "-99" && p.ADM0_A3) ||
-                        (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3);
-
-                    if (!iso) return;
-                    if (iso === "USA" || iso === "GBR") return;
-
-                    const place = byISO[iso.toUpperCase()];
-                    const label = place?.name || p.NAME || "Unknown";
-
-                    bindInteractive(layer, place, label);
+                style: {
+                    fillColor: "#cfd8dc",
+                    fillOpacity: 1,
+                    weight: 1,
+                    color: "#90a4ae"
                 }
             }).addTo(map);
         });
 
     /* =========================
-       USA STATES (ADMIN-1)
-    ========================= */
-
-    fetch(window.BASEURL + "/assets/data/admin1.geo.json")
-        .then(r => r.json())
-        .then(data => {
-
-            const usa = {
-                type: "FeatureCollection",
-                features: data.features.filter(
-                    f => f.properties?.adm0_a3 === "USA"
-                )
-            };
-
-            L.geoJSON(usa, {
-                pane: "subdivisions",
-                style: BASE_STYLE,
-                onEachFeature: (feature, layer) => {
-                    const p = feature.properties;
-                    if (!p?.iso_3166_2) return;
-
-                    const key = `USA:${p.iso_3166_2}`.toUpperCase();
-                    const place = byAdminKey[key];
-
-                    bindInteractive(layer, place, p.name);
-                }
-            }).addTo(map);
-        });
-
-    /* =========================
-       UK COUNTRIES (ENGLAND FIX)
-    ========================= */
-
-    fetch(window.BASEURL + "/assets/data/uk.geo.json")
-        .then(r => r.json())
-        .then(data => {
-
-            L.geoJSON(data, {
-                pane: "subdivisions",
-                style: BASE_STYLE,
-                onEachFeature: (feature, layer) => {
-                    const p = feature.properties || {};
-
-                    let iso1 = p.ISO_1;
-                    if (!iso1 || iso1 === "NA") iso1 = "GB-ENG";
-
-                    const key = `GBR:${iso1}`.toUpperCase();
-                    const place = byAdminKey[key];
-
-                    let label;
-                    switch (iso1) {
-                        case "GB-ENG": label = "England"; break;
-                        case "GB-SCT": label = "Scotland"; break;
-                        case "GB-WLS": label = "Wales"; break;
-                        case "GB-NIR": label = "Northern Ireland"; break;
-                        default: label = "United Kingdom";
-                    }
-
-                    bindInteractive(layer, place, label);
-                }
-            }).addTo(map);
-        });
-
-    /* =========================
-       TERRITORIES (ARUBA ETC.)
+       TERRITORIES DEBUG
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/territories.geo.json")
-        .then(r => r.json())
+        .then(r => {
+            console.log("territories fetch status:", r.status);
+            return r.json();
+        })
         .then(data => {
+            console.log("territories loaded:", data);
+            console.log("territories feature count:", data.features?.length);
 
-            L.geoJSON(data, {
+            const layer = L.geoJSON(data, {
                 pane: "territories",
-                style: BASE_STYLE,
+                style: {
+                    fillColor: "red",
+                    fillOpacity: 0.9,
+                    color: "red",
+                    weight: 2
+                },
                 onEachFeature: (feature, layer) => {
-                    const p = feature.properties || {};
-                    if (!p.ADMIN_KEY) return;
+                    console.log("territory feature:", feature.properties);
 
-                    const key = p.ADMIN_KEY.toUpperCase();
-                    const place = byAdminKey[key];
+                    layer.bindTooltip(
+                        feature.properties.NAME || "Territory",
+                        { sticky: true }
+                    );
 
-                    const label = place?.name || p.NAME || "Territory";
-
-                    bindInteractive(layer, place, label);
+                    // FORCE zoom so we KNOW if it exists
+                    map.fitBounds(layer.getBounds());
                 }
             }).addTo(map);
+
+            layer.bringToFront();
+        })
+        .catch(err => {
+            console.error("territories failed to load", err);
         });
 
 });
