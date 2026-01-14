@@ -47,15 +47,15 @@ permalink: /atlas/
 
 <!-- =========================
      DATA FROM JEKYLL
-     (COUNTRIES + UK + USA STATES)
+     (ALL CLICKABLE PLACES)
 ========================= -->
 <script>
   window.places = [
     {% for place in site.countries %}
       {
-        name: "{{ place.name }}",
-        iso: "{{ place.iso }}",
-        admin_key: "{{ place.admin_key }}",
+        name: {{ place.name | jsonify }},
+        iso: {{ place.iso | jsonify }},
+        admin_key: {{ place.admin_key | jsonify }},
         url: "{{ site.baseurl }}{{ place.url }}",
         tags: {{ place.tags | jsonify }}
       },
