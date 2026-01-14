@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       MAP + PANES
+       MAP
     ========================= */
 
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
-    map.createPane("countries");
+    map.createPane("world");
     map.createPane("subdivisions");
 
-    map.getPane("countries").style.zIndex = 200;
+    map.getPane("world").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
@@ -37,17 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       STYLES
+       STYLE (ONE STYLE FOR ALL)
     ========================= */
 
-    const COUNTRY_STYLE = {
-        fillColor: "#cfd8dc",
-        fillOpacity: 0.35,   // 🔑 gør at UK/USA kan ses under
-        weight: 0.5,
-        color: "#ffffff"
-    };
-
-    const SUBDIVISION_STYLE = {
+    const FEATURE_STYLE = {
         fillColor: "#cfd8dc",
         fillOpacity: 1,
         weight: 1,
@@ -55,32 +48,33 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* =========================
-       SHARED BIND
+       INTERACTION
     ========================= */
 
-    function bindLayer(layer, place, label) {
+    function bindInteractive(layer, place, label) {
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
             layer.on("click", () => {
                 window.location.href = place.url;
             });
-
-            layer.on("mouseover", () => {
-                layer.setStyle({
-                    weight: 2,
-                    color: "#455a64"
-                });
-            });
-
-            layer.on("mouseout", () => {
-                layer.setStyle(SUBDIVISION_STYLE);
-            });
         }
+
+        layer.on("mouseover", () => {
+            layer.setStyle({
+                weight: 2,
+                color: "#455a64",
+                fillColor: "#b0bec5"
+            });
+        });
+
+        layer.on("mouseout", () => {
+            layer.setStyle(FEATURE_STYLE);
+        });
     }
 
     /* =========================
-       COUNTRIES (BACKGROUND)
+       WORLD COUNTRIES
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
@@ -88,9 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
 
             L.geoJSON(data, {
-                pane: "countries",
-                style: COUNTRY_STYLE,
-                interactive: false,
+                pane: "world",
+                style: FEATURE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
@@ -98,32 +91,36 @@ document.addEventListener("DOMContentLoaded", () => {
                         p.ISO_A3 || p.ADM0_A3 || p.SOV_A3;
 
                     if (!iso) return;
+
+                    // USA & UK handled separately
                     if (iso === "USA" || iso === "GBR") return;
 
                     const place = byISO[iso.toUpperCase()];
-                    layer.bindTooltip(place?.name || p.NAME, { sticky: true });
+                    const label = place?.name || p.NAME || "Unknown";
+
+                    bindInteractive(layer, place, label);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       USA – STATES
+       USA STATES
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
         .then(r => r.json())
         .then(data => {
 
-            const usaOnly = {
+            const usa = {
                 type: "FeatureCollection",
                 features: data.features.filter(
                     f => f.properties?.adm0_a3 === "USA"
                 )
             };
 
-            L.geoJSON(usaOnly, {
+            L.geoJSON(usa, {
                 pane: "subdivisions",
-                style: SUBDIVISION_STYLE,
+                style: FEATURE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
                     if (!p?.iso_3166_2) return;
@@ -131,13 +128,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     const key = `USA:${p.iso_3166_2}`.toUpperCase();
                     const place = byAdminKey[key];
 
-                    bindLayer(layer, place, p.name);
+                    bindInteractive(layer, place, p.name);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       UK – CONSTITUENT COUNTRIES
+       UK COUNTRIES
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/uk.geo.json")
@@ -146,27 +143,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
             L.geoJSON(data, {
                 pane: "subdivisions",
-                style: SUBDIVISION_STYLE,
+                style: FEATURE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
+                    if (!p?.ISO_1) return;
 
-                    const iso = p.ISO_1;
-                    if (!iso) return;
-
-                    const key = `GBR:${iso}`.toUpperCase();
+                    const key = `GBR:${p.ISO_1}`.toUpperCase();
                     const place = byAdminKey[key];
 
-                    // 🔑 FIX: NAME_1 kan være "NA"
                     const label =
-                        p.NAME_1 && p.NAME_1 !== "NA"
-                            ? p.NAME_1
-                            : iso === "GB-ENG" ? "England"
-                                : iso === "GB-SCT" ? "Scotland"
-                                    : iso === "GB-WLS" ? "Wales"
-                                        : iso === "GB-NIR" ? "Northern Ireland"
-                                            : "United Kingdom";
+                        p.ISO_1 === "GB-ENG" ? "England" :
+                            p.ISO_1 === "GB-SCT" ? "Scotland" :
+                                p.ISO_1 === "GB-WLS" ? "Wales" :
+                                    p.ISO_1 === "GB-NIR" ? "Northern Ireland" :
+                                        "United Kingdom";
 
-                    bindLayer(layer, place, label);
+                    bindInteractive(layer, place, label);
                 }
             }).addTo(map);
         });
