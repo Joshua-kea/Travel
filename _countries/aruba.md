@@ -1,10 +1,10 @@
 ---
 layout: country
-iso: ABW
 name: "Aruba"
-continent:
-gay_friendliness:
-tags: []
+iso: ABW
+admin_key: "NLD:AW"
+continent: North America
+tags: [island]
 ---
 
 # Aruba
