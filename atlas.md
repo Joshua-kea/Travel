@@ -45,15 +45,19 @@ permalink: /atlas/
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- DATA FROM JEKYLL (NO LOGIC HERE) -->
+<!-- =========================
+     DATA FROM JEKYLL
+     (COUNTRIES + UK + USA STATES)
+========================= -->
 <script>
   window.places = [
-    {% for country in site.countries %}
+    {% for place in site.countries %}
       {
-        title: "{{ country.name }}",
-        iso: "{{ country.iso }}",
-        url: "{{ site.baseurl }}{{ country.url }}",
-        tags: {{ country.tags | jsonify }}
+        name: "{{ place.name }}",
+        iso: "{{ place.iso }}",
+        admin_key: "{{ place.admin_key }}",
+        url: "{{ site.baseurl }}{{ place.url }}",
+        tags: {{ place.tags | jsonify }}
       },
     {% endfor %}
   ];
@@ -61,5 +65,5 @@ permalink: /atlas/
   window.BASEURL = "{{ site.baseurl }}";
 </script>
 
-<!-- Atlas logic (ALL JS LIVES HERE) -->
+<!-- Atlas logic -->
 <script src="{{ site.baseurl }}/assets/js/atlas.js"></script>
