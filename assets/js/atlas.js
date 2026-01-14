@@ -2,6 +2,10 @@ console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* =========================
+       GUARD
+    ========================= */
+
     if (!window.places || window.places.length === 0) {
         console.error("No places loaded from Jekyll");
         return;
@@ -18,10 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
-    map.createPane("world");
+    map.createPane("countries");
     map.createPane("subdivisions");
+    map.createPane("territories");
 
-    map.getPane("world").style.zIndex = 300;
+    map.getPane("countries").style.zIndex = 300;
+    map.getPane("territories").style.zIndex = 350;
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
@@ -47,13 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#90a4ae"
     };
 
-    function hoverStyle() {
-        return {
-            weight: 2,
-            color: "#455a64",
-            fillColor: "#b0bec5"
-        };
-    }
+    const HOVER_STYLE = {
+        weight: 2,
+        color: "#455a64",
+        fillColor: "#b0bec5"
+    };
 
     /* =========================
        INTERACTION
@@ -68,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        layer.on("mouseover", () => layer.setStyle(hoverStyle()));
+        layer.on("mouseover", () => layer.setStyle(HOVER_STYLE));
         layer.on("mouseout", () => layer.setStyle(BASE_STYLE));
     }
 
@@ -79,18 +83,16 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
         .then(r => r.json())
         .then(data => {
-
             L.geoJSON(data, {
-                pane: "world",
+                pane: "countries",
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
                     const iso =
-                        p.ISO_A3 && p.ISO_A3 !== "-99" ? p.ISO_A3 :
-                            p.ADM0_A3 && p.ADM0_A3 !== "-99" ? p.ADM0_A3 :
-                                p.SOV_A3 && p.SOV_A3 !== "-99" ? p.SOV_A3 :
-                                    null;
+                        (p.ISO_A3 && p.ISO_A3 !== "-99" && p.ISO_A3) ||
+                        (p.ADM0_A3 && p.ADM0_A3 !== "-99" && p.ADM0_A3) ||
+                        (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3);
 
                     if (!iso) return;
                     if (iso === "USA" || iso === "GBR") return;
@@ -104,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       USA STATES (ADMIN 1)
+       USA STATES (ADMIN-1)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
@@ -134,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       UK COUNTRIES (ENGLAND FIXED)
+       UK COUNTRIES (ENGLAND FIX)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/uk.geo.json")
@@ -147,11 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
-                    // England mangler ISO_1 i GADM → fallback
                     let iso1 = p.ISO_1;
-                    if (!iso1 || iso1 === "NA") {
-                        iso1 = "GB-ENG";
-                    }
+                    if (!iso1 || iso1 === "NA") iso1 = "GB-ENG";
 
                     const key = `GBR:${iso1}`.toUpperCase();
                     const place = byAdminKey[key];
@@ -171,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       EXTRA TERRITORIES (CUSTOM)
+       TERRITORIES (ARUBA ETC.)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/territories.geo.json")
@@ -179,11 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
 
             L.geoJSON(data, {
-                pane: "subdivisions",
+                pane: "territories",
                 style: BASE_STYLE,
                 onEachFeature: (feature, layer) => {
-                    const p = feature.properties;
-                    if (!p?.ADMIN_KEY) return;
+                    const p = feature.properties || {};
+                    if (!p.ADMIN_KEY) return;
 
                     const key = p.ADMIN_KEY.toUpperCase();
                     const place = byAdminKey[key];
