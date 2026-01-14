@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const place = byAdminKey[adminKey];
                     bindLayer(layer, place, p.name);
+                    console.log("ADMIN KEY:", adminKey, place);
                 }
             }).addTo(map);
 
