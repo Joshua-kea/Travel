@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       MAP
+       MAP SETUP
     ========================= */
 
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
+    // Panes for correct layering
     map.createPane("world");
     map.createPane("subdivisions");
 
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS
+       LOOKUPS (Jekyll data)
     ========================= */
 
     const byISO = {};
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       STYLE (ONE STYLE FOR ALL)
+       SHARED STYLE
     ========================= */
 
     const FEATURE_STYLE = {
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* =========================
-       INTERACTION
+       INTERACTION HELPER
     ========================= */
 
     function bindInteractive(layer, place, label) {
@@ -58,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
             layer.on("click", () => {
                 window.location.href = place.permalink;
             });
-            layer.getElement()?.classList.add("clickable");
         }
 
         layer.on("mouseover", () => {
@@ -75,7 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       WORLD COUNTRIES
+       WORLD COUNTRIES (BACKGROUND)
+       – NOT INTERACTIVE
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
             L.geoJSON(data, {
                 pane: "world",
                 style: FEATURE_STYLE,
+                interactive: false, // ⬅️ VIGTIG: må ikke blokere klik
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
@@ -99,18 +101,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (isoCandidates.some(code => blocked.includes(code))) return;
 
                     const iso = isoCandidates[0];
-
-
                     const place = byISO[iso.toUpperCase()];
                     const label = place?.name || p.NAME || "Unknown";
 
-                    bindInteractive(layer, place, label);
+                    layer.bindTooltip(label, { sticky: true });
                 }
             }).addTo(map);
         });
 
     /* =========================
-       USA STATES
+       USA STATES (ADMIN-1)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
