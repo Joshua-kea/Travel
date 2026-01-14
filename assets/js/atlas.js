@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       MAP
+       MAP SETUP
     ========================= */
 
     const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS
+       LOOKUPS (SINGLE SOURCE OF TRUTH)
     ========================= */
 
     const byISO = {};
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       STYLE
+       STYLES
     ========================= */
 
     const BASE_STYLE = {
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       WORLD COUNTRIES
+       WORLD COUNTRIES (NO USA / UK)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/countries.geo.json")
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       USA STATES
+       USA STATES (ADMIN 1)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/admin1.geo.json")
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       UK COUNTRIES (ENGLAND FIX)
+       UK COUNTRIES (ENGLAND FIXED)
     ========================= */
 
     fetch(window.BASEURL + "/assets/data/uk.geo.json")
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
-                    // 🔥 FIX: England mangler ISO_1 i GADM
+                    // England mangler ISO_1 i GADM → fallback
                     let iso1 = p.ISO_1;
                     if (!iso1 || iso1 === "NA") {
                         iso1 = "GB-ENG";
@@ -169,4 +169,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }).addTo(map);
         });
+
+    /* =========================
+       EXTRA TERRITORIES (CUSTOM)
+    ========================= */
+
+    fetch(window.BASEURL + "/assets/data/territories.geo.json")
+        .then(r => r.json())
+        .then(data => {
+
+            L.geoJSON(data, {
+                pane: "subdivisions",
+                style: BASE_STYLE,
+                onEachFeature: (feature, layer) => {
+                    const p = feature.properties;
+                    if (!p?.ADMIN_KEY) return;
+
+                    const key = p.ADMIN_KEY.toUpperCase();
+                    const place = byAdminKey[key];
+
+                    const label = place?.name || p.NAME || "Territory";
+
+                    bindInteractive(layer, place, label);
+                }
+            }).addTo(map);
+        });
+
 });
