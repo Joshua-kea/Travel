@@ -12,22 +12,70 @@ permalink: /atlas/
      FILTER CONTROLS
 ========================= -->
 
-<div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 300px;">
+<div style="position: relative; max-width: 300px;">
 
-  <select id="tagFilter">
-    <option value="">Add filter…</option>
-    <option value="culture">Culture</option>
-    <option value="food">Food</option>
-    <option value="cheap">Cheap</option>
-    <option value="expensive">Expensive</option>
-    <option value="island">Island</option>
-    <option value="gay_friendly">Gay friendly</option>
-  </select>
+  <!-- Open dropdown -->
+<button
+id="openFilterBtn"
+style="
+padding: 0.4rem 0.6rem;
+border-radius: 4px;
+border: 1px solid #ccc;
+background: #fff;
+cursor: pointer;
+"
+>
+    Add filters
+  </button>
+
+  <!-- DROPDOWN PANEL -->
+  <div
+    id="filterDropdown"
+    style="
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      z-index: 1000;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      min-width: 220px;
+    "
+  >
+    <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+      <label><input type="checkbox" value="culture"> Culture</label>
+      <label><input type="checkbox" value="food"> Food</label>
+      <label><input type="checkbox" value="cheap"> Cheap</label>
+      <label><input type="checkbox" value="expensive"> Expensive</label>
+      <label><input type="checkbox" value="island"> Island</label>
+      <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
+    </div>
+
+    <button
+      id="applyFilterBtn"
+      style="
+        margin-top: 0.6rem;
+        padding: 0.4rem 0.6rem;
+        width: 100%;
+        border-radius: 4px;
+        border: none;
+        background: #455a64;
+        color: white;
+        cursor: pointer;
+      "
+    >
+      Apply filters
+    </button>
+  </div>
 
   <!-- ACTIVE FILTER CHIPS -->
   <div
     id="activeFilters"
     style="
+      margin-top: 0.5rem;
       display: flex;
       gap: 0.4rem;
       flex-wrap: wrap;

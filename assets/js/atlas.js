@@ -76,10 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const featureLayers = [];
 
     function applyStyle(layer) {
-        const opacity = layer._filteredOut ? 0.15 : 1;
         layer.setStyle({
             fillColor: BASE_STYLE.fillColor,
-            fillOpacity: opacity,
+            fillOpacity: layer._filteredOut ? 0.15 : 1,
             weight: BASE_STYLE.weight,
             color: BASE_STYLE.color
         });
@@ -91,9 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => {
-                window.location.href = place.url;
-            });
+            layer.on("click", () => window.location.href = place.url);
         }
 
         layer.on("mouseover", () => {
@@ -102,9 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        layer.on("mouseout", () => {
-            applyStyle(layer);
-        });
+        layer.on("mouseout", () => applyStyle(layer));
 
         featureLayers.push({ layer, place });
     }
@@ -160,9 +155,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
                 renderer,
                 interactive: true,
-                onEachFeature: (feature, layer) => {
-                    const key = `USA:${feature.properties.iso_3166_2}`.toUpperCase();
-                    bindInteractive(layer, byAdminKey[key], feature.properties.name);
+                onEachFeature: (f, layer) => {
+                    const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
+                    bindInteractive(layer, byAdminKey[key], f.properties.name);
                 }
             }).addTo(map);
         });
@@ -179,8 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
                 renderer,
                 interactive: true,
-                onEachFeature: (feature, layer) => {
-                    const p = feature.properties || {};
+                onEachFeature: (f, layer) => {
+                    const p = f.properties || {};
                     const iso1 = (p.ISO_1 && p.ISO_1 !== "NA") ? p.ISO_1 : "GB-ENG";
                     const key = `GBR:${iso1}`.toUpperCase();
 
@@ -208,36 +203,44 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
                 renderer,
                 interactive: true,
-                onEachFeature: (feature, layer) => {
-                    const key = feature.properties?.ADMIN_KEY?.toUpperCase();
+                onEachFeature: (f, layer) => {
+                    const key = f.properties?.ADMIN_KEY?.toUpperCase();
                     if (!key) return;
-                    bindInteractive(layer, byAdminKey[key], feature.properties.NAME);
+                    bindInteractive(layer, byAdminKey[key], f.properties.NAME);
                 }
             }).addTo(map);
         });
 
     /* =========================
        FILTER SYSTEM
+       (DROPDOWN + APPLY)
     ========================= */
 
-    const tagSelect = document.getElementById("tagFilter");
+    const openBtn = document.getElementById("openFilterBtn");
+    const dropdown = document.getElementById("filterDropdown");
+    const applyBtn = document.getElementById("applyFilterBtn");
     const filterContainer = document.getElementById("activeFilters");
 
     const activeTags = new Set();
+
+    openBtn.addEventListener("click", () => {
+        dropdown.style.display =
+            dropdown.style.display === "none" ? "block" : "none";
+    });
 
     function applyFilters() {
         featureLayers.forEach(({ layer, place }) => {
             const tags = place?.tags || [];
             const matches =
                 activeTags.size === 0 ||
-                [...activeTags].every(tag => tags.includes(tag));
+                [...activeTags].every(t => tags.includes(t));
 
             layer._filteredOut = !matches;
             applyStyle(layer);
         });
     }
 
-    function renderActiveFilters() {
+    function renderChips() {
         filterContainer.innerHTML = "";
 
         activeTags.forEach(tag => {
@@ -259,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             close.addEventListener("click", () => {
                 activeTags.delete(tag);
-                renderActiveFilters();
+                renderChips();
                 applyFilters();
             });
 
@@ -268,14 +271,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    tagSelect.addEventListener("change", () => {
-        const tag = tagSelect.value;
-        if (!tag) return;
+    applyBtn.addEventListener("click", () => {
+        activeTags.clear();
 
-        activeTags.add(tag);
-        tagSelect.value = "";
+        dropdown
+            .querySelectorAll("input[type=checkbox]:checked")
+            .forEach(cb => activeTags.add(cb.value));
 
-        renderActiveFilters();
+        dropdown.style.display = "none";
+        renderChips();
         applyFilters();
     });
 
