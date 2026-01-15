@@ -9,14 +9,33 @@ permalink: /atlas/
 <p>Select filters to highlight suitable countries.</p>
 
 <!-- =========================
+     FILTER TOGGLE
+========================= -->
+
+<button
+id="toggleFilterPanel"
+style="
+margin-bottom: 0.5rem;
+padding: 0.4rem 0.6rem;
+border-radius: 4px;
+border: 1px solid #ccc;
+background: #fff;
+cursor: pointer;
+"
+>
+Add filters
+</button>
+
+<!-- =========================
      FILTER PANEL
 ========================= -->
 
 <div
   id="filterPanel"
   style="
+    display: none;
     position: absolute;
-    top: 80px;
+    top: 120px;
     left: 20px;
     z-index: 1000;
     background: #ffffff;
@@ -62,12 +81,15 @@ permalink: /atlas/
   </div>
 </div>
 
-<!-- ACTIVE FILTER CHIPS -->
+<!-- =========================
+     ACTIVE FILTER CHIPS
+========================= -->
+
 <div
   id="activeFilters"
   style="
-    margin-left: 320px;
-    margin-top: 0.5rem;
+    margin-left: 20px;
+    margin-bottom: 0.5rem;
     display: flex;
     gap: 0.4rem;
     flex-wrap: wrap;
@@ -75,7 +97,7 @@ permalink: /atlas/
 ></div>
 
 <!-- MAP -->
-<div id="map" style="height: 600px; margin-top: 1rem;"></div>
+<div id="map" style="height: 600px;"></div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
