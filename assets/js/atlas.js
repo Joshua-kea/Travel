@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS FROM MD FILES
+       LOOKUPS
     ========================= */
 
     const byISO = {};
@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
             (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3) ||
             null
         );
+    }
+
+    function normalizeMonths(value) {
+        return Array.isArray(value) ? value.map(String) : [];
     }
 
     /* =========================
@@ -89,26 +93,17 @@ document.addEventListener("DOMContentLoaded", () => {
     function bindInteractive(layer, place, fallbackLabel) {
         const label = place?.name || fallbackLabel || "Unknown";
 
-        layer.bindTooltip(label, {
-            sticky: true,
-            direction: "center"
-        });
+        layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => {
-                window.location.href = place.url;
-            });
+            layer.on("click", () => window.location.href = place.url);
         }
 
         layer.on("mouseover", () => {
-            if (!layer._filteredOut) {
-                layer.setStyle(HOVER_STYLE);
-            }
+            if (!layer._filteredOut) layer.setStyle(HOVER_STYLE);
         });
 
-        layer.on("mouseout", () => {
-            applyStyle(layer);
-        });
+        layer.on("mouseout", () => applyStyle(layer));
 
         featureLayers.push({ layer, place });
     }
@@ -123,113 +118,90 @@ document.addEventListener("DOMContentLoaded", () => {
         pendingLayers--;
         if (pendingLayers === 0) {
             console.log("All map layers loaded");
-            applyFilters(); // first real filter pass
+            applyFilters();
         }
     }
 
-    /* =========================
-       COUNTRIES (ADMIN-0)
-       EXCEPT USA + UK
-    ========================= */
-
-    pendingLayers++;
-    fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane: "countries",
-                renderer,
-                style: BASE_STYLE,
-                filter: f => {
-                    const iso = getISOFromProps(f.properties);
-                    return iso !== "USA" && iso !== "GBR";
-                },
-                onEachFeature: (f, l) => {
-                    const iso = getISOFromProps(f.properties);
-                    bindInteractive(l, byISO[iso], f.properties.NAME);
-                }
-            }).addTo(map);
-            layerLoaded();
-        });
+    function safeFetch(url, onData) {
+        pendingLayers++;
+        fetch(url)
+            .then(r => {
+                if (!r.ok) throw new Error(`Failed to load ${url}`);
+                return r.json();
+            })
+            .then(onData)
+            .catch(err => console.error(err))
+            .finally(layerLoaded);
+    }
 
     /* =========================
-       USA STATES
+       LOAD DATA
     ========================= */
 
-    pendingLayers++;
-    fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            const usa = data.features.filter(
-                f => f.properties?.adm0_a3 === "USA"
-            );
+    safeFetch(`${window.BASEURL}/assets/data/countries.geo.json`, data => {
+        L.geoJSON(data, {
+            pane: "countries",
+            renderer,
+            style: BASE_STYLE,
+            filter: f => {
+                const iso = getISOFromProps(f.properties);
+                return iso !== "USA" && iso !== "GBR";
+            },
+            onEachFeature: (f, l) => {
+                const iso = getISOFromProps(f.properties);
+                bindInteractive(l, byISO[iso], f.properties.NAME);
+            }
+        }).addTo(map);
+    });
 
-            L.geoJSON(usa, {
-                pane: "subdivisions",
-                renderer,
-                style: BASE_STYLE,
-                onEachFeature: (f, l) => {
-                    const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
-                    bindInteractive(l, byAdminKey[key], f.properties.name);
-                }
-            }).addTo(map);
-            layerLoaded();
-        });
+    safeFetch(`${window.BASEURL}/assets/data/admin1.geo.json`, data => {
+        const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
+        L.geoJSON(usa, {
+            pane: "subdivisions",
+            renderer,
+            style: BASE_STYLE,
+            onEachFeature: (f, l) => {
+                const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
+                bindInteractive(l, byAdminKey[key], f.properties.name);
+            }
+        }).addTo(map);
+    });
 
-    /* =========================
-       UK COUNTRIES
-    ========================= */
+    safeFetch(`${window.BASEURL}/assets/data/uk.geo.json`, data => {
+        L.geoJSON(data, {
+            pane: "subdivisions",
+            renderer,
+            style: BASE_STYLE,
+            onEachFeature: (f, l) => {
+                const iso1 =
+                    (f.properties?.ISO_1 && f.properties.ISO_1 !== "NA")
+                        ? f.properties.ISO_1
+                        : "GB-ENG";
 
-    pendingLayers++;
-    fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane: "subdivisions",
-                renderer,
-                style: BASE_STYLE,
-                onEachFeature: (f, l) => {
-                    const iso1 =
-                        (f.properties?.ISO_1 && f.properties.ISO_1 !== "NA")
-                            ? f.properties.ISO_1
-                            : "GB-ENG";
+                const key = `GBR:${iso1}`.toUpperCase();
+                const labels = {
+                    "GB-ENG": "England",
+                    "GB-SCT": "Scotland",
+                    "GB-WLS": "Wales",
+                    "GB-NIR": "Northern Ireland"
+                };
 
-                    const key = `GBR:${iso1}`.toUpperCase();
+                bindInteractive(l, byAdminKey[key], labels[iso1]);
+            }
+        }).addTo(map);
+    });
 
-                    const labels = {
-                        "GB-ENG": "England",
-                        "GB-SCT": "Scotland",
-                        "GB-WLS": "Wales",
-                        "GB-NIR": "Northern Ireland"
-                    };
-
-                    bindInteractive(l, byAdminKey[key], labels[iso1]);
-                }
-            }).addTo(map);
-            layerLoaded();
-        });
-
-    /* =========================
-       TERRITORIES
-    ========================= */
-
-    pendingLayers++;
-    fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane: "territories",
-                renderer,
-                style: BASE_STYLE,
-                onEachFeature: (f, l) => {
-                    const key = f.properties?.ADMIN_KEY?.toUpperCase();
-                    if (key) {
-                        bindInteractive(l, byAdminKey[key], f.properties.NAME);
-                    }
-                }
-            }).addTo(map);
-            layerLoaded();
-        });
+    safeFetch(`${window.BASEURL}/assets/data/territories.geo.json`, data => {
+        L.geoJSON(data, {
+            pane: "territories",
+            renderer,
+            style: BASE_STYLE,
+            onEachFeature: (f, l) => {
+                const key = f.properties?.ADMIN_KEY?.toUpperCase();
+                if (key) bindInteractive(l, byAdminKey[key], f.properties.NAME);
+            }
+        }).addTo(map);
+    });
 
     /* =========================
        FILTER STATE
@@ -252,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function applyFilters() {
         featureLayers.forEach(({ layer, place }) => {
             const tags = place?.tags || [];
-            const months = (place?.best_months || []).map(String);
+            const months = normalizeMonths(place?.best_months);
 
             const tagsOK =
                 activeTags.size === 0 ||
@@ -272,15 +244,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         activeTags.forEach(tag => {
             const chip = document.createElement("span");
-            chip.innerHTML = `${tag} <strong>✕</strong>`;
-            chip.style.cssText = `
-                background:#eceff1;
-                border-radius:14px;
-                padding:0.25rem 0.6rem;
-                font-size:0.85rem;
-                cursor:pointer;
-            `;
-            chip.querySelector("strong").onclick = () => {
+            chip.innerHTML = `${tag} ✕`;
+            chip.style.cssText =
+                "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
+            chip.onclick = () => {
                 activeTags.delete(tag);
                 renderChips();
                 applyFilters();
@@ -290,15 +257,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         activeMonths.forEach(m => {
             const chip = document.createElement("span");
-            chip.innerHTML = `Month ${m} <strong>✕</strong>`;
-            chip.style.cssText = `
-                background:#eceff1;
-                border-radius:14px;
-                padding:0.25rem 0.6rem;
-                font-size:0.85rem;
-                cursor:pointer;
-            `;
-            chip.querySelector("strong").onclick = () => {
+            chip.innerHTML = `Month ${m} ✕`;
+            chip.style.cssText =
+                "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
+            chip.onclick = () => {
                 activeMonths.delete(m);
                 renderChips();
                 applyFilters();
