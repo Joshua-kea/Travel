@@ -45,19 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS (DATA FROM MD)
+       LOOKUPS
     ========================= */
 
     const byISO = Object.create(null);
     const byAdminKey = Object.create(null);
 
     window.places.forEach(p => {
-        if (p.iso) {
-            byISO[p.iso.toUpperCase()] = p;
-        }
-        if (p.admin_key) {
-            byAdminKey[p.admin_key.toUpperCase()] = p;
-        }
+        if (p.iso) byISO[p.iso.toUpperCase()] = p;
+        if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
     });
 
     /* =========================
@@ -78,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* =========================
-       FEATURE REGISTRY (FOR FILTERING)
+       FEATURE REGISTRY
     ========================= */
 
     const featureLayers = [];
@@ -103,8 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const renderer = L.canvas();
 
     /* =========================
-       COUNTRIES (ADMIN-0)
-       (USA + UK HARD EXCLUDED)
+       COUNTRIES
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
@@ -115,15 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
                 renderer,
                 interactive: true,
-                filter: feature => {
-                    const p = feature.properties || {};
-                    if (
+                filter: f => {
+                    const p = f.properties || {};
+                    return !(
                         p.ISO_A3 === "USA" || p.ADM0_A3 === "USA" || p.SOV_A3 === "USA" ||
                         p.ISO_A3 === "GBR" || p.ADM0_A3 === "GBR" || p.SOV_A3 === "GBR"
-                    ) {
-                        return false;
-                    }
-                    return true;
+                    );
                 },
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
@@ -133,18 +125,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3);
 
                     if (!iso) return;
-
-                    bindInteractive(
-                        layer,
-                        byISO[iso.toUpperCase()],
-                        p.NAME
-                    );
+                    bindInteractive(layer, byISO[iso], p.NAME);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       USA STATES (ADMIN-1)
+       USA STATES
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
@@ -152,9 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             const usa = {
                 type: "FeatureCollection",
-                features: data.features.filter(
-                    f => f.properties?.adm0_a3 === "USA"
-                )
+                features: data.features.filter(f => f.properties?.adm0_a3 === "USA")
             };
 
             L.geoJSON(usa, {
@@ -164,8 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 interactive: true,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
-                    if (!p?.iso_3166_2) return;
-
                     const key = `USA:${p.iso_3166_2}`.toUpperCase();
                     bindInteractive(layer, byAdminKey[key], p.name);
                 }
@@ -173,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       UK SUBDIVISIONS
+       UK
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
@@ -186,28 +169,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 interactive: true,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
-
-                    // England uses ISO_1 = "NA" in this dataset
                     const iso1 = (p.ISO_1 && p.ISO_1 !== "NA") ? p.ISO_1 : "GB-ENG";
                     const key = `GBR:${iso1}`.toUpperCase();
 
-                    const labelMap = {
+                    const labels = {
                         "GB-ENG": "England",
                         "GB-SCT": "Scotland",
                         "GB-WLS": "Wales",
                         "GB-NIR": "Northern Ireland"
                     };
 
-                    const fallbackLabel =
-                        labelMap[iso1] ||
-                        p.NAME_1 ||
-                        "United Kingdom";
-
-                    bindInteractive(
-                        layer,
-                        byAdminKey[key],
-                        fallbackLabel
-                    );
+                    bindInteractive(layer, byAdminKey[key], labels[iso1]);
                 }
             }).addTo(map);
         });
@@ -227,35 +199,75 @@ document.addEventListener("DOMContentLoaded", () => {
                 onEachFeature: (feature, layer) => {
                     const key = feature.properties?.ADMIN_KEY?.toUpperCase();
                     if (!key) return;
-
-                    bindInteractive(
-                        layer,
-                        byAdminKey[key],
-                        feature.properties.NAME
-                    );
+                    bindInteractive(layer, byAdminKey[key], feature.properties.NAME);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       FILTERING: TAGS
+       MULTI-TAG FILTER SYSTEM
     ========================= */
 
     const tagSelect = document.getElementById("tagFilter");
+    const filterContainer = document.getElementById("activeFilters");
 
-    if (tagSelect) {
-        tagSelect.addEventListener("change", () => {
-            const selectedTag = tagSelect.value;
+    const activeTags = new Set();
 
-            featureLayers.forEach(({ layer, place }) => {
-                const tags = place?.tags || [];
+    function applyFilters() {
+        featureLayers.forEach(({ layer, place }) => {
+            const tags = place?.tags || [];
 
-                if (!selectedTag || tags.includes(selectedTag)) {
-                    layer.setStyle({ fillOpacity: 1 });
-                } else {
-                    layer.setStyle({ fillOpacity: 0.15 });
-                }
+            const matches =
+                activeTags.size === 0 ||
+                [...activeTags].every(tag => tags.includes(tag));
+
+            layer.setStyle({
+                fillOpacity: matches ? 1 : 0.15
             });
+        });
+    }
+
+    function renderActiveFilters() {
+        filterContainer.innerHTML = "";
+
+        activeTags.forEach(tag => {
+            const chip = document.createElement("span");
+            chip.textContent = tag;
+            chip.style.cssText = `
+                display: inline-block;
+                padding: 0.25rem 0.5rem;
+                margin-right: 0.25rem;
+                background: #eceff1;
+                border-radius: 12px;
+                font-size: 0.85rem;
+                cursor: pointer;
+            `;
+
+            const close = document.createElement("span");
+            close.textContent = " ✕";
+            close.style.marginLeft = "0.25rem";
+
+            close.addEventListener("click", () => {
+                activeTags.delete(tag);
+                renderActiveFilters();
+                applyFilters();
+            });
+
+            chip.appendChild(close);
+            filterContainer.appendChild(chip);
+        });
+    }
+
+    if (tagSelect && filterContainer) {
+        tagSelect.addEventListener("change", () => {
+            const tag = tagSelect.value;
+            if (!tag) return;
+
+            activeTags.add(tag);
+            tagSelect.value = "";
+
+            renderActiveFilters();
+            applyFilters();
         });
     }
 
