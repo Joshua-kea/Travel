@@ -68,45 +68,72 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const BASE_STYLE = {
-        fillColor: "#cfd8dc",
+        fillColor: "#e6ecef",
         fillOpacity: 1,
         weight: 1,
-        color: "#90a4ae"
+        color: "#8fa1ad"
     };
 
-    const HOVER_STYLE = {
+    const MATCH_STYLE = {
+        fillColor: "#9fb9c6",
+        fillOpacity: 1,
+        weight: 1.5,
+        color: "#4f6d7a"
+    };
+
+    const HOVER_MATCH_STYLE = {
+        fillColor: "#6f93a6",
+        fillOpacity: 1,
         weight: 2,
-        color: "#455a64",
-        fillColor: "#b0bec5"
+        color: "#3b5563"
     };
 
     const renderer = L.canvas();
     const featureLayers = [];
 
     function applyStyle(layer) {
-        layer.setStyle({
-            ...BASE_STYLE,
-            fillOpacity: layer._filteredOut ? 0.15 : 1
-        });
+        if (layer._filteredOut) {
+            layer.setStyle({
+                ...BASE_STYLE,
+                fillOpacity: 0.12
+            });
+        } else if (layer._isMatch) {
+            layer.setStyle(MATCH_STYLE);
+        } else {
+            layer.setStyle(BASE_STYLE);
+        }
     }
+
 
     function bindInteractive(layer, place, fallbackLabel) {
         const label = place?.name || fallbackLabel || "Unknown";
 
+        // Tooltip
         layer.bindTooltip(label, { sticky: true });
 
+        // Click → country page
         if (place?.url) {
-            layer.on("click", () => window.location.href = place.url);
+            layer.on("click", () => {
+                window.location.href = place.url;
+            });
         }
 
+        // Hover ONLY if this feature is a match
         layer.on("mouseover", () => {
-            if (!layer._filteredOut) layer.setStyle(HOVER_STYLE);
+            if (layer._isMatch) {
+                layer.setStyle(HOVER_MATCH_STYLE);
+            }
         });
 
-        layer.on("mouseout", () => applyStyle(layer));
+        // Always restore correct style on mouse out
+        layer.on("mouseout", () => {
+            applyStyle(layer);
+        });
 
+        // Register for filtering
         featureLayers.push({ layer, place });
     }
+
 
     /* =========================
        ASYNC LOAD TRACKING
@@ -224,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function applyFilters() {
         featureLayers.forEach(({ layer, place }) => {
             const tags = place?.tags || [];
-            const months = normalizeMonths(place?.best_months);
+            const months = (place?.best_months || []).map(String);
 
             const tagsOK =
                 activeTags.size === 0 ||
@@ -234,10 +261,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 activeMonths.size === 0 ||
                 months.some(m => activeMonths.has(m));
 
-            layer._filteredOut = !(tagsOK && monthsOK);
+            const isMatch = tagsOK && monthsOK;
+
+            layer._filteredOut = !isMatch;
+            layer._isMatch = isMatch;
+
             applyStyle(layer);
         });
     }
+
 
     function renderChips() {
         chipsEl.innerHTML = "";
