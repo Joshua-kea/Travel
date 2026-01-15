@@ -2,10 +2,18 @@ console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* =========================
+       GUARD
+    ========================= */
+
     if (!window.places || window.places.length === 0) {
         console.error("No places loaded from Jekyll");
         return;
     }
+
+    /* =========================
+       MAP SETUP
+    ========================= */
 
     const map = L.map("map", {
         worldCopyJump: true,
@@ -24,6 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     ).addTo(map);
 
+    /* =========================
+       PANES
+    ========================= */
+
     map.createPane("countries");
     map.createPane("territories");
     map.createPane("subdivisions");
@@ -32,13 +44,25 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("territories").style.zIndex = 350;
     map.getPane("subdivisions").style.zIndex = 400;
 
+    /* =========================
+       LOOKUPS
+    ========================= */
+
     const byISO = Object.create(null);
     const byAdminKey = Object.create(null);
 
     window.places.forEach(p => {
-        if (p.iso) byISO[p.iso.toUpperCase()] = p;
-        if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
+        if (p.iso) {
+            byISO[p.iso.toUpperCase()] = p;
+        }
+        if (p.admin_key) {
+            byAdminKey[p.admin_key.toUpperCase()] = p;
+        }
     });
+
+    /* =========================
+       STYLES
+    ========================= */
 
     const BASE_STYLE = {
         fillColor: "#cfd8dc",
@@ -55,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function bindInteractive(layer, place, fallbackLabel) {
         const label = place?.name || fallbackLabel || "Unknown";
+
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
@@ -67,17 +92,33 @@ document.addEventListener("DOMContentLoaded", () => {
         layer.on("mouseout", () => layer.setStyle(BASE_STYLE));
     }
 
-    const canvasRenderer = L.canvas();
+    const renderer = L.canvas();
 
-    /* === COUNTRIES === */
+    /* =========================
+       COUNTRIES (ADMIN-0)
+       EXCLUDES USA + UK HARD
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
                 pane: "countries",
                 style: BASE_STYLE,
-                renderer: canvasRenderer,
+                renderer,
                 interactive: true,
+                filter: feature => {
+                    const p = feature.properties || {};
+
+                    // HARD EXCLUDE USA + UK (ALL FIELDS)
+                    if (
+                        p.ISO_A3 === "USA" || p.ADM0_A3 === "USA" || p.SOV_A3 === "USA" ||
+                        p.ISO_A3 === "GBR" || p.ADM0_A3 === "GBR" || p.SOV_A3 === "GBR"
+                    ) {
+                        return false;
+                    }
+                    return true;
+                },
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
                     const iso =
@@ -85,45 +126,59 @@ document.addEventListener("DOMContentLoaded", () => {
                         (p.ADM0_A3 && p.ADM0_A3 !== "-99" && p.ADM0_A3) ||
                         (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3);
 
-                    if (!iso || iso === "USA" || iso === "GBR") return;
-                    bindInteractive(layer, byISO[iso], p.NAME);
+                    if (!iso) return;
+
+                    bindInteractive(layer, byISO[iso.toUpperCase()], p.NAME);
                 }
             }).addTo(map);
         });
 
-    /* === USA STATES === */
+    /* =========================
+       USA STATES (ADMIN-1)
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
         .then(r => r.json())
         .then(data => {
             const usa = {
                 type: "FeatureCollection",
-                features: data.features.filter(f => f.properties?.adm0_a3 === "USA")
+                features: data.features.filter(
+                    f => f.properties?.adm0_a3 === "USA"
+                )
             };
 
             L.geoJSON(usa, {
                 pane: "subdivisions",
                 style: BASE_STYLE,
-                renderer: canvasRenderer,
+                renderer,
                 interactive: true,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
+                    if (!p?.iso_3166_2) return;
+
                     const key = `USA:${p.iso_3166_2}`.toUpperCase();
                     bindInteractive(layer, byAdminKey[key], p.name);
                 }
             }).addTo(map);
         });
 
-    /* === UK === */
+    /* =========================
+       UK SUBDIVISIONS (ADMIN-1)
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
                 pane: "subdivisions",
                 style: BASE_STYLE,
-                renderer: canvasRenderer,
+                renderer,
                 interactive: true,
                 onEachFeature: (feature, layer) => {
-                    const iso1 = feature.properties?.ISO_1 || "GB-ENG";
+                    const p = feature.properties || {};
+                    const iso1 = p.ISO_1;
+                    if (!iso1) return;
+
                     const key = `GBR:${iso1}`.toUpperCase();
 
                     const labelMap = {
@@ -138,19 +193,27 @@ document.addEventListener("DOMContentLoaded", () => {
             }).addTo(map);
         });
 
-    /* === TERRITORIES === */
+    /* =========================
+       TERRITORIES
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
                 pane: "territories",
                 style: BASE_STYLE,
-                renderer: canvasRenderer,
+                renderer,
                 interactive: true,
                 onEachFeature: (feature, layer) => {
                     const key = feature.properties?.ADMIN_KEY?.toUpperCase();
                     if (!key) return;
-                    bindInteractive(layer, byAdminKey[key], feature.properties.NAME);
+
+                    bindInteractive(
+                        layer,
+                        byAdminKey[key],
+                        feature.properties.NAME
+                    );
                 }
             }).addTo(map);
         });
