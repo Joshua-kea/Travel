@@ -2,7 +2,10 @@ console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    if (!window.places || window.places.length === 0) return;
+    if (!window.places || window.places.length === 0) {
+        console.error("No places loaded");
+        return;
+    }
 
     /* =========================
        MAP
@@ -47,11 +50,21 @@ document.addEventListener("DOMContentLoaded", () => {
        STYLES
     ========================= */
 
-    const BASE_STYLE = { fillColor: "#cfd8dc", fillOpacity: 1, weight: 1, color: "#90a4ae" };
-    const HOVER_STYLE = { weight: 2, color: "#455a64", fillColor: "#b0bec5" };
+    const BASE_STYLE = {
+        fillColor: "#cfd8dc",
+        fillOpacity: 1,
+        weight: 1,
+        color: "#90a4ae"
+    };
 
-    const featureLayers = [];
+    const HOVER_STYLE = {
+        weight: 2,
+        color: "#455a64",
+        fillColor: "#b0bec5"
+    };
+
     const renderer = L.canvas();
+    const featureLayers = [];
 
     function applyStyle(layer) {
         layer.setStyle({
@@ -60,88 +73,119 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function bindInteractive(layer, place, fallback) {
-        const label = place?.name || fallback || "Unknown";
+    function bindInteractive(layer, place, fallbackLabel) {
+        const label = place?.name || fallbackLabel || "Unknown";
+
         layer.bindTooltip(label, { sticky: true });
 
-        if (place?.url) layer.on("click", () => window.location.href = place.url);
+        if (place?.url) {
+            layer.on("click", () => window.location.href = place.url);
+        }
 
         layer.on("mouseover", () => {
-            if (!layer._filteredOut) layer.setStyle(HOVER_STYLE);
+            if (!layer._filteredOut) {
+                layer.setStyle(HOVER_STYLE);
+            }
         });
 
-        layer.on("mouseout", () => applyStyle(layer));
+        layer.on("mouseout", () => {
+            applyStyle(layer);
+        });
 
         featureLayers.push({ layer, place });
     }
 
     /* =========================
-       LOAD DATA (COUNTRIES / USA / UK / TERRITORIES)
+       COUNTRIES (ADMIN-0)
+       EXCEPT USA + UK
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
         .then(r => r.json())
-        .then(d => {
-            L.geoJSON(d, {
+        .then(data => {
+            L.geoJSON(data, {
                 pane: "countries",
                 renderer,
                 style: BASE_STYLE,
-                filter: f => !["USA","GBR"].includes(
-                    f.properties?.ISO_A3 ||
-                    f.properties?.ADM0_A3 ||
-                    f.properties?.SOV_A3
-                ),
-                onEachFeature: (f,l) => {
+                filter: f => {
+                    const p = f.properties || {};
+                    const iso = p.ISO_A3 || p.ADM0_A3 || p.SOV_A3;
+                    return iso !== "USA" && iso !== "GBR";
+                },
+                onEachFeature: (f, l) => {
                     const iso = f.properties?.ISO_A3;
                     bindInteractive(l, byISO[iso], f.properties.NAME);
                 }
             }).addTo(map);
         });
 
+    /* =========================
+       USA STATES
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
         .then(r => r.json())
-        .then(d => {
-            const usa = d.features.filter(f => f.properties?.adm0_a3 === "USA");
+        .then(data => {
+            const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
+
             L.geoJSON(usa, {
                 pane: "subdivisions",
                 renderer,
                 style: BASE_STYLE,
-                onEachFeature: (f,l) => {
+                onEachFeature: (f, l) => {
                     const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
                     bindInteractive(l, byAdminKey[key], f.properties.name);
                 }
             }).addTo(map);
         });
 
+    /* =========================
+       UK COUNTRIES
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
         .then(r => r.json())
-        .then(d => {
-            L.geoJSON(d, {
+        .then(data => {
+            L.geoJSON(data, {
                 pane: "subdivisions",
                 renderer,
                 style: BASE_STYLE,
-                onEachFeature: (f,l) => {
-                    const iso1 = f.properties?.ISO_1 || "GB-ENG";
+                onEachFeature: (f, l) => {
+                    const iso1 =
+                        (f.properties?.ISO_1 && f.properties.ISO_1 !== "NA")
+                            ? f.properties.ISO_1
+                            : "GB-ENG";
+
                     const key = `GBR:${iso1}`.toUpperCase();
+
                     const labels = {
-                        "GB-ENG":"England","GB-SCT":"Scotland",
-                        "GB-WLS":"Wales","GB-NIR":"Northern Ireland"
+                        "GB-ENG": "England",
+                        "GB-SCT": "Scotland",
+                        "GB-WLS": "Wales",
+                        "GB-NIR": "Northern Ireland"
                     };
+
                     bindInteractive(l, byAdminKey[key], labels[iso1]);
                 }
             }).addTo(map);
         });
 
+    /* =========================
+       TERRITORIES
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
         .then(r => r.json())
-        .then(d => {
-            L.geoJSON(d, {
+        .then(data => {
+            L.geoJSON(data, {
                 pane: "territories",
                 renderer,
                 style: BASE_STYLE,
-                onEachFeature: (f,l) => {
+                onEachFeature: (f, l) => {
                     const key = f.properties?.ADMIN_KEY?.toUpperCase();
-                    if (key) bindInteractive(l, byAdminKey[key], f.properties.NAME);
+                    if (key) {
+                        bindInteractive(l, byAdminKey[key], f.properties.NAME);
+                    }
                 }
             }).addTo(map);
         });
@@ -156,8 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearBtn = document.getElementById("clearFilterBtn");
     const chipsEl = document.getElementById("activeFilters");
 
-    let activeTags = new Set();
-    let activeMonths = new Set();
+    const activeTags = new Set();
+    const activeMonths = new Set();
 
     toggleBtn.addEventListener("click", () => {
         panel.style.display = panel.style.display === "none" ? "block" : "none";
@@ -166,64 +210,54 @@ document.addEventListener("DOMContentLoaded", () => {
     function applyFilters() {
         featureLayers.forEach(({ layer, place }) => {
             const tags = place?.tags || [];
-            const months = place?.best_months || [];
+            const months = (place?.best_months || []).map(String);
 
-            const tagOK =
+            const tagsOK =
                 activeTags.size === 0 ||
                 [...activeTags].every(t => tags.includes(t));
 
-            const monthOK =
+            const monthsOK =
                 activeMonths.size === 0 ||
-                months.some(m => activeMonths.has(String(m)));
+                months.some(m => activeMonths.has(m));
 
-            layer._filteredOut = !(tagOK && monthOK);
+            layer._filteredOut = !(tagsOK && monthsOK);
             applyStyle(layer);
         });
-    }
-
-    function syncCheckboxes() {
-        document
-            .querySelectorAll('#filterPanel input[type="checkbox"]')
-            .forEach(cb => {
-                cb.checked =
-                    (!isNaN(cb.value) && activeMonths.has(cb.value)) ||
-                    (isNaN(cb.value) && activeTags.has(cb.value));
-            });
     }
 
     function renderChips() {
         chipsEl.innerHTML = "";
 
-        [...activeTags].forEach(tag => {
+        activeTags.forEach(tag => {
             const chip = document.createElement("span");
-            chip.innerHTML = `${tag} <strong style="cursor:pointer;">✕</strong>`;
+            chip.innerHTML = `${tag} <strong>✕</strong>`;
             chip.style.cssText = `
               background:#eceff1;
               border-radius:14px;
               padding:0.25rem 0.6rem;
               font-size:0.85rem;
+              cursor:pointer;
             `;
             chip.querySelector("strong").onclick = () => {
                 activeTags.delete(tag);
-                syncCheckboxes();
                 renderChips();
                 applyFilters();
             };
             chipsEl.appendChild(chip);
         });
 
-        [...activeMonths].forEach(m => {
+        activeMonths.forEach(m => {
             const chip = document.createElement("span");
-            chip.innerHTML = `Month ${m} <strong style="cursor:pointer;">✕</strong>`;
+            chip.innerHTML = `Month ${m} <strong>✕</strong>`;
             chip.style.cssText = `
               background:#eceff1;
               border-radius:14px;
               padding:0.25rem 0.6rem;
               font-size:0.85rem;
+              cursor:pointer;
             `;
             chip.querySelector("strong").onclick = () => {
                 activeMonths.delete(m);
-                syncCheckboxes();
                 renderChips();
                 applyFilters();
             };
@@ -235,8 +269,8 @@ document.addEventListener("DOMContentLoaded", () => {
         activeTags.clear();
         activeMonths.clear();
 
-        document
-            .querySelectorAll('#filterPanel input[type="checkbox"]:checked')
+        panel
+            .querySelectorAll('input[type="checkbox"]:checked')
             .forEach(cb => {
                 if (isNaN(cb.value)) activeTags.add(cb.value);
                 else activeMonths.add(cb.value);
@@ -250,7 +284,6 @@ document.addEventListener("DOMContentLoaded", () => {
     clearBtn.addEventListener("click", () => {
         activeTags.clear();
         activeMonths.clear();
-        syncCheckboxes();
         renderChips();
         applyFilters();
         panel.style.display = "none";
