@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS (FROM MD FILES)
+       LOOKUPS
     ========================= */
 
     const byISO = Object.create(null);
@@ -73,15 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
         fillColor: "#b0bec5"
     };
 
-    /* =========================
-       FEATURE REGISTRY (FOR FILTERING)
-    ========================= */
-
     const featureLayers = [];
 
     function applyStyle(layer) {
         const opacity = layer._filteredOut ? 0.15 : 1;
-
         layer.setStyle({
             fillColor: BASE_STYLE.fillColor,
             fillOpacity: opacity,
@@ -117,8 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const renderer = L.canvas();
 
     /* =========================
-       COUNTRIES (ADMIN-0)
-       EXCLUDE USA + UK
+       COUNTRIES
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
@@ -129,8 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
                 renderer,
                 interactive: true,
-                filter: feature => {
-                    const p = feature.properties || {};
+                filter: f => {
+                    const p = f.properties || {};
                     return !(
                         p.ISO_A3 === "USA" || p.ADM0_A3 === "USA" || p.SOV_A3 === "USA" ||
                         p.ISO_A3 === "GBR" || p.ADM0_A3 === "GBR" || p.SOV_A3 === "GBR"
@@ -150,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       USA STATES (ADMIN-1)
+       USA STATES
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
@@ -158,9 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             const usa = {
                 type: "FeatureCollection",
-                features: data.features.filter(
-                    f => f.properties?.adm0_a3 === "USA"
-                )
+                features: data.features.filter(f => f.properties?.adm0_a3 === "USA")
             };
 
             L.geoJSON(usa, {
@@ -169,15 +161,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderer,
                 interactive: true,
                 onEachFeature: (feature, layer) => {
-                    const p = feature.properties;
-                    const key = `USA:${p.iso_3166_2}`.toUpperCase();
-                    bindInteractive(layer, byAdminKey[key], p.name);
+                    const key = `USA:${feature.properties.iso_3166_2}`.toUpperCase();
+                    bindInteractive(layer, byAdminKey[key], feature.properties.name);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       UK SUBDIVISIONS
+       UK
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
@@ -190,9 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 interactive: true,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
-                    const iso1 =
-                        (p.ISO_1 && p.ISO_1 !== "NA") ? p.ISO_1 : "GB-ENG";
-
+                    const iso1 = (p.ISO_1 && p.ISO_1 !== "NA") ? p.ISO_1 : "GB-ENG";
                     const key = `GBR:${iso1}`.toUpperCase();
 
                     const labels = {
@@ -220,22 +209,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderer,
                 interactive: true,
                 onEachFeature: (feature, layer) => {
-                    const key =
-                        feature.properties?.ADMIN_KEY?.toUpperCase();
+                    const key = feature.properties?.ADMIN_KEY?.toUpperCase();
                     if (!key) return;
-
-                    bindInteractive(
-                        layer,
-                        byAdminKey[key],
-                        feature.properties.NAME
-                    );
+                    bindInteractive(layer, byAdminKey[key], feature.properties.NAME);
                 }
             }).addTo(map);
         });
 
     /* =========================
        FILTER SYSTEM
-       (DROPDOWN → CHIPS)
     ========================= */
 
     const tagSelect = document.getElementById("tagFilter");
@@ -246,7 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function applyFilters() {
         featureLayers.forEach(({ layer, place }) => {
             const tags = place?.tags || [];
-
             const matches =
                 activeTags.size === 0 ||
                 [...activeTags].every(tag => tags.includes(tag));
@@ -267,8 +248,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 padding: 0.25rem 0.6rem;
                 font-size: 0.85rem;
                 display: inline-flex;
-                align-items: center;
                 gap: 0.25rem;
+                align-items: center;
             `;
             chip.textContent = tag;
 
@@ -287,17 +268,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    if (tagSelect && filterContainer) {
-        tagSelect.addEventListener("change", () => {
-            const tag = tagSelect.value;
-            if (!tag) return;
+    tagSelect.addEventListener("change", () => {
+        const tag = tagSelect.value;
+        if (!tag) return;
 
-            activeTags.add(tag);
-            tagSelect.value = "";
+        activeTags.add(tag);
+        tagSelect.value = "";
 
-            renderActiveFilters();
-            applyFilters();
-        });
-    }
+        renderActiveFilters();
+        applyFilters();
+    });
 
 });
