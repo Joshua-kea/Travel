@@ -1,4 +1,4 @@
-/* Fjern Leaflets hvide baggrund */
+/* Match CARTO light basemap ocean color */
 .leaflet-container {
-    background: transparent;
+    background: #dde3e6;
 }

@@ -19,13 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
         worldCopyJump: true,
         zoomControl: true,
         zoomAnimation: false,
-        fadeAnimation: false
+        fadeAnimation: false,
+        preferCanvas: true
     }).setView([20, 0], 2);
-
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-        { attribution: "© OpenStreetMap & CARTO" }
+        {
+            attribution: "© OpenStreetMap & CARTO",
+            updateWhenZooming: false,
+            updateWhenIdle: true
+        }
     ).addTo(map);
 
     map.createPane("countries");
@@ -88,6 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
         layer.on("mouseout", () => layer.setStyle(BASE_STYLE));
     }
 
+    const canvasRenderer = L.canvas();
+
     /* =========================
        WORLD COUNTRIES (ADMIN-0)
        (USA + UK EXCLUDED)
@@ -99,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             L.geoJSON(data, {
                 pane: "countries",
                 style: BASE_STYLE,
+                renderer: canvasRenderer,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
@@ -108,8 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3);
 
                     if (!iso) return;
-
-                    // Drawn elsewhere
                     if (iso === "USA" || iso === "GBR") return;
 
                     const place = byISO[iso.toUpperCase()];
@@ -136,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
             L.geoJSON(usa, {
                 pane: "subdivisions",
                 style: BASE_STYLE,
+                renderer: canvasRenderer,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties;
                     if (!p?.iso_3166_2) return;
@@ -158,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
             L.geoJSON(data, {
                 pane: "subdivisions",
                 style: BASE_STYLE,
+                renderer: canvasRenderer,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
 
@@ -182,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       TERRITORIES (NON-SOVEREIGN)
+       TERRITORIES
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
@@ -191,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
             L.geoJSON(data, {
                 pane: "territories",
                 style: BASE_STYLE,
+                renderer: canvasRenderer,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
                     if (!p.ADMIN_KEY) return;
