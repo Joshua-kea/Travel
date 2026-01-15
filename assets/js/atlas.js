@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS
+       LOOKUPS (FROM MD FILES)
     ========================= */
 
     const byISO = Object.create(null);
@@ -74,10 +74,21 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* =========================
-       FEATURE REGISTRY
+       FEATURE REGISTRY (FOR FILTERING)
     ========================= */
 
     const featureLayers = [];
+
+    function applyStyle(layer) {
+        const opacity = layer._filteredOut ? 0.15 : 1;
+
+        layer.setStyle({
+            fillColor: BASE_STYLE.fillColor,
+            fillOpacity: opacity,
+            weight: BASE_STYLE.weight,
+            color: BASE_STYLE.color
+        });
+    }
 
     function bindInteractive(layer, place, fallbackLabel) {
         const label = place?.name || fallbackLabel || "Unknown";
@@ -97,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         layer.on("mouseout", () => {
-            layer.setStyle(BASE_STYLE);
+            applyStyle(layer);
         });
 
         featureLayers.push({ layer, place });
@@ -118,8 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: BASE_STYLE,
                 renderer,
                 interactive: true,
-                filter: f => {
-                    const p = f.properties || {};
+                filter: feature => {
+                    const p = feature.properties || {};
                     return !(
                         p.ISO_A3 === "USA" || p.ADM0_A3 === "USA" || p.SOV_A3 === "USA" ||
                         p.ISO_A3 === "GBR" || p.ADM0_A3 === "GBR" || p.SOV_A3 === "GBR"
@@ -139,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       USA STATES
+       USA STATES (ADMIN-1)
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
@@ -147,7 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             const usa = {
                 type: "FeatureCollection",
-                features: data.features.filter(f => f.properties?.adm0_a3 === "USA")
+                features: data.features.filter(
+                    f => f.properties?.adm0_a3 === "USA"
+                )
             };
 
             L.geoJSON(usa, {
@@ -177,7 +190,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 interactive: true,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
-                    const iso1 = (p.ISO_1 && p.ISO_1 !== "NA") ? p.ISO_1 : "GB-ENG";
+                    const iso1 =
+                        (p.ISO_1 && p.ISO_1 !== "NA") ? p.ISO_1 : "GB-ENG";
+
                     const key = `GBR:${iso1}`.toUpperCase();
 
                     const labels = {
@@ -205,16 +220,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderer,
                 interactive: true,
                 onEachFeature: (feature, layer) => {
-                    const key = feature.properties?.ADMIN_KEY?.toUpperCase();
+                    const key =
+                        feature.properties?.ADMIN_KEY?.toUpperCase();
                     if (!key) return;
-                    bindInteractive(layer, byAdminKey[key], feature.properties.NAME);
+
+                    bindInteractive(
+                        layer,
+                        byAdminKey[key],
+                        feature.properties.NAME
+                    );
                 }
             }).addTo(map);
         });
 
     /* =========================
-       MULTI-TAG FILTER (CHECKBOX)
+       FILTER SYSTEM
+       (DROPDOWN → CHIPS)
     ========================= */
+
+    const tagSelect = document.getElementById("tagFilter");
+    const filterContainer = document.getElementById("activeFilters");
 
     const activeTags = new Set();
 
@@ -227,25 +252,52 @@ document.addEventListener("DOMContentLoaded", () => {
                 [...activeTags].every(tag => tags.includes(tag));
 
             layer._filteredOut = !matches;
-
-            layer.setStyle({
-                fillOpacity: matches ? 1 : 0.15
-            });
+            applyStyle(layer);
         });
     }
 
-    document
-        .querySelectorAll("#tagFilters input[type=checkbox]")
-        .forEach(cb => {
-            cb.addEventListener("change", () => {
-                activeTags.clear();
+    function renderActiveFilters() {
+        filterContainer.innerHTML = "";
 
-                document
-                    .querySelectorAll("#tagFilters input[type=checkbox]:checked")
-                    .forEach(c => activeTags.add(c.value));
+        activeTags.forEach(tag => {
+            const chip = document.createElement("span");
+            chip.style.cssText = `
+                background: #eceff1;
+                border-radius: 14px;
+                padding: 0.25rem 0.6rem;
+                font-size: 0.85rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.25rem;
+            `;
+            chip.textContent = tag;
 
+            const close = document.createElement("span");
+            close.textContent = "✕";
+            close.style.cursor = "pointer";
+
+            close.addEventListener("click", () => {
+                activeTags.delete(tag);
+                renderActiveFilters();
                 applyFilters();
             });
+
+            chip.appendChild(close);
+            filterContainer.appendChild(chip);
         });
+    }
+
+    if (tagSelect && filterContainer) {
+        tagSelect.addEventListener("change", () => {
+            const tag = tagSelect.value;
+            if (!tag) return;
+
+            activeTags.add(tag);
+            tagSelect.value = "";
+
+            renderActiveFilters();
+            applyFilters();
+        });
+    }
 
 });
