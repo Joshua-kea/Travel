@@ -17,8 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const map = L.map("map", {
         worldCopyJump: true,
-        zoomControl: true
+        zoomControl: true,
+        zoomAnimation: false,
+        fadeAnimation: false
     }).setView([20, 0], 2);
+
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
