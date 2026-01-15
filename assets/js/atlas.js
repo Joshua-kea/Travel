@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS
+       LOOKUPS (DATA FROM MD)
     ========================= */
 
     const byISO = Object.create(null);
@@ -77,6 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
         fillColor: "#b0bec5"
     };
 
+    /* =========================
+       FEATURE REGISTRY (FOR FILTERING)
+    ========================= */
+
+    const featureLayers = [];
+
     function bindInteractive(layer, place, fallbackLabel) {
         const label = place?.name || fallbackLabel || "Unknown";
 
@@ -90,13 +96,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         layer.on("mouseover", () => layer.setStyle(HOVER_STYLE));
         layer.on("mouseout", () => layer.setStyle(BASE_STYLE));
+
+        featureLayers.push({ layer, place });
     }
 
     const renderer = L.canvas();
 
     /* =========================
        COUNTRIES (ADMIN-0)
-       EXCLUDES USA + UK HARD
+       (USA + UK HARD EXCLUDED)
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
@@ -109,8 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 interactive: true,
                 filter: feature => {
                     const p = feature.properties || {};
-
-                    // HARD EXCLUDE USA + UK (ALL FIELDS)
                     if (
                         p.ISO_A3 === "USA" || p.ADM0_A3 === "USA" || p.SOV_A3 === "USA" ||
                         p.ISO_A3 === "GBR" || p.ADM0_A3 === "GBR" || p.SOV_A3 === "GBR"
@@ -128,7 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if (!iso) return;
 
-                    bindInteractive(layer, byISO[iso.toUpperCase()], p.NAME);
+                    bindInteractive(
+                        layer,
+                        byISO[iso.toUpperCase()],
+                        p.NAME
+                    );
                 }
             }).addTo(map);
         });
@@ -163,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       UK SUBDIVISIONS (ADMIN-1)
+       UK SUBDIVISIONS
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
@@ -226,5 +236,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }).addTo(map);
         });
+
+    /* =========================
+       FILTERING: TAGS
+    ========================= */
+
+    const tagSelect = document.getElementById("tagFilter");
+
+    if (tagSelect) {
+        tagSelect.addEventListener("change", () => {
+            const selectedTag = tagSelect.value;
+
+            featureLayers.forEach(({ layer, place }) => {
+                const tags = place?.tags || [];
+
+                if (!selectedTag || tags.includes(selectedTag)) {
+                    layer.setStyle({ fillOpacity: 1 });
+                } else {
+                    layer.setStyle({ fillOpacity: 0.15 });
+                }
+            });
+        });
+    }
 
 });
