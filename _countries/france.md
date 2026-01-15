@@ -4,7 +4,7 @@ iso: FRA
 name: "France"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [food, expensive]
 ---
 
 # France
