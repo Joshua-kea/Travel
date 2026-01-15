@@ -73,7 +73,13 @@ cursor: pointer;
         <label><input type="checkbox" value="cheap"> Cheap</label>
         <label><input type="checkbox" value="expensive"> Expensive</label>
         <label><input type="checkbox" value="island"> Island</label>
+        <label><input type="checkbox" value="beach"> Beach destination</label>
+        <label><input type="checkbox" value="fandf"> Friends/family live here</label>
         <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
+        <label><input type="checkbox" value="jwashere"> Places Josh has been</label>
+        <label><input type="checkbox" value="mwashere"> Places Miguel has been</label>
+        <label><input type="checkbox" value="jgohere"> Places Josh wants to visit asap</label>
+        <label><input type="checkbox" value="mgohere"> Places Miguel wants to visit asap</label>
       </div>
     </div>
 
