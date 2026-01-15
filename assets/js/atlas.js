@@ -59,10 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    function normalizeMonths(value) {
-        return Array.isArray(value) ? value.map(String) : [];
-    }
-
     /* =========================
        STYLES
     ========================= */
@@ -104,36 +100,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
     function bindInteractive(layer, place, fallbackLabel) {
         const label = place?.name || fallbackLabel || "Unknown";
 
-        // Tooltip
         layer.bindTooltip(label, { sticky: true });
 
-        // Click → country page
         if (place?.url) {
             layer.on("click", () => {
                 window.location.href = place.url;
             });
         }
 
-        // Hover ONLY if this feature is a match
         layer.on("mouseover", () => {
             if (layer._isMatch) {
                 layer.setStyle(HOVER_MATCH_STYLE);
             }
         });
 
-        // Always restore correct style on mouse out
         layer.on("mouseout", () => {
             applyStyle(layer);
         });
 
-        // Register for filtering
         featureLayers.push({ layer, place });
     }
-
 
     /* =========================
        ASYNC LOAD TRACKING
@@ -144,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function layerLoaded() {
         pendingLayers--;
         if (pendingLayers === 0) {
-            console.log("All map layers loaded");
             applyFilters();
         }
     }
@@ -157,12 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 return r.json();
             })
             .then(onData)
-            .catch(err => console.error(err))
+            .catch(err => console.warn(err.message))
             .finally(layerLoaded);
     }
 
     /* =========================
-       LOAD DATA
+       LOAD MAP DATA
     ========================= */
 
     safeFetch(`${window.BASEURL}/assets/data/countries.geo.json`, data => {
@@ -182,7 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     safeFetch(`${window.BASEURL}/assets/data/admin1.geo.json`, data => {
-        const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
+        const usa = data.features.filter(
+            f => f.properties?.adm0_a3 === "USA"
+        );
+
         L.geoJSON(usa, {
             pane: "subdivisions",
             renderer,
@@ -206,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         : "GB-ENG";
 
                 const key = `GBR:${iso1}`.toUpperCase();
+
                 const labels = {
                     "GB-ENG": "England",
                     "GB-SCT": "Scotland",
@@ -214,18 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
 
                 bindInteractive(l, byAdminKey[key], labels[iso1]);
-            }
-        }).addTo(map);
-    });
-
-    safeFetch(`${window.BASEURL}/assets/data/territories.geo.json`, data => {
-        L.geoJSON(data, {
-            pane: "territories",
-            renderer,
-            style: BASE_STYLE,
-            onEachFeature: (f, l) => {
-                const key = f.properties?.ADMIN_KEY?.toUpperCase();
-                if (key) bindInteractive(l, byAdminKey[key], f.properties.NAME);
             }
         }).addTo(map);
     });
@@ -249,34 +229,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function applyFilters() {
+        const hasAnyFilters =
+            activeTags.size > 0 || activeMonths.size > 0;
+
         featureLayers.forEach(({ layer, place }) => {
             const tags = place?.tags || [];
             const months = (place?.best_months || []).map(String);
 
-            const tagsOK =
-                activeTags.size === 0 ||
-                [...activeTags].every(t => tags.includes(t));
+            let isMatch = true;
 
-            const monthsOK =
-                activeMonths.size === 0 ||
-                months.some(m => activeMonths.has(m));
+            if (hasAnyFilters) {
+                const tagsOK =
+                    activeTags.size === 0 ||
+                    [...activeTags].every(t => tags.includes(t));
 
-            const isMatch = tagsOK && monthsOK;
+                const monthsOK =
+                    activeMonths.size === 0 ||
+                    months.some(m => activeMonths.has(m));
 
-            layer._filteredOut = !isMatch;
+                isMatch = tagsOK && monthsOK;
+            }
+
             layer._isMatch = isMatch;
+            layer._filteredOut = !isMatch;
 
             applyStyle(layer);
         });
     }
-
 
     function renderChips() {
         chipsEl.innerHTML = "";
 
         activeTags.forEach(tag => {
             const chip = document.createElement("span");
-            chip.innerHTML = `${tag} ✕`;
+            chip.textContent = `${tag} ✕`;
             chip.style.cssText =
                 "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
             chip.onclick = () => {
@@ -289,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         activeMonths.forEach(m => {
             const chip = document.createElement("span");
-            chip.innerHTML = `Month ${m} ✕`;
+            chip.textContent = `Month ${m} ✕`;
             chip.style.cssText =
                 "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
             chip.onclick = () => {
