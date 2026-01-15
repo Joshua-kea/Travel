@@ -15,7 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
        MAP SETUP
     ========================= */
 
-    const map = L.map("map", { worldCopyJump: true }).setView([20, 0], 2);
+    const map = L.map("map", {
+        worldCopyJump: true,
+        zoomControl: true
+    }).setView([20, 0], 2);
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
@@ -23,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     map.createPane("countries");
-    map.createPane("subdivisions");
     map.createPane("territories");
+    map.createPane("subdivisions");
 
     map.getPane("countries").style.zIndex = 300;
     map.getPane("territories").style.zIndex = 350;
@@ -34,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
        LOOKUPS (SINGLE SOURCE OF TRUTH)
     ========================= */
 
-    const byISO = {};
-    const byAdminKey = {};
+    const byISO = Object.create(null);
+    const byAdminKey = Object.create(null);
 
     window.places.forEach(p => {
         if (p.iso) {
@@ -83,10 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       WORLD COUNTRIES (NO USA / UK)
+       WORLD COUNTRIES (ADMIN-0)
+       (USA + UK EXCLUDED)
     ========================= */
 
-    fetch(window.BASEURL + "/assets/data/countries.geo.json")
+    fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
@@ -102,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if (!iso) return;
 
-                    // USA + UK drawn as subdivisions instead
+                    // Drawn elsewhere
                     if (iso === "USA" || iso === "GBR") return;
 
                     const place = byISO[iso.toUpperCase()];
@@ -115,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
        USA STATES (ADMIN-1)
     ========================= */
 
-    fetch(window.BASEURL + "/assets/data/admin1.geo.json")
+    fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
         .then(r => r.json())
         .then(data => {
 
@@ -145,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
        UK COUNTRIES
     ========================= */
 
-    fetch(window.BASEURL + "/assets/data/uk.geo.json")
+    fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
@@ -175,10 +179,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       TERRITORIES (ARUBA ETC.)
+       TERRITORIES (NON-SOVEREIGN)
     ========================= */
 
-    fetch(window.BASEURL + "/assets/data/territories.geo.json")
+    fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
