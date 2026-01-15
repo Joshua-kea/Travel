@@ -47,6 +47,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
+       HELPERS
+    ========================= */
+
+    function getISOFromProps(p = {}) {
+        return (
+            (p.ISO_A3 && p.ISO_A3 !== "-99" && p.ISO_A3) ||
+            (p.ADM0_A3 && p.ADM0_A3 !== "-99" && p.ADM0_A3) ||
+            (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3) ||
+            null
+        );
+    }
+
+    /* =========================
        STYLES
     ========================= */
 
@@ -76,7 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function bindInteractive(layer, place, fallbackLabel) {
         const label = place?.name || fallbackLabel || "Unknown";
 
-        layer.bindTooltip(label, { sticky: true });
+        layer.bindTooltip(label, {
+            sticky: true,
+            direction: "center",
+            opacity: 0.95
+        });
 
         if (place?.url) {
             layer.on("click", () => window.location.href = place.url);
@@ -88,9 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        layer.on("mouseout", () => {
-            applyStyle(layer);
-        });
+        layer.on("mouseout", () => applyStyle(layer));
 
         featureLayers.push({ layer, place });
     }
@@ -108,12 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderer,
                 style: BASE_STYLE,
                 filter: f => {
-                    const p = f.properties || {};
-                    const iso = p.ISO_A3 || p.ADM0_A3 || p.SOV_A3;
+                    const iso = getISOFromProps(f.properties);
                     return iso !== "USA" && iso !== "GBR";
                 },
                 onEachFeature: (f, l) => {
-                    const iso = f.properties?.ISO_A3;
+                    const iso = getISOFromProps(f.properties);
                     bindInteractive(l, byISO[iso], f.properties.NAME);
                 }
             }).addTo(map);

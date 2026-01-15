@@ -2,3 +2,7 @@
 .leaflet-container {
     background: #dde3e6;
 }
+.leaflet-tooltip {
+    pointer-events: none;
+    box-shadow: none;
+}
