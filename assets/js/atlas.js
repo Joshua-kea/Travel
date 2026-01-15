@@ -1,4 +1,4 @@
-console.log("ATLAS.JS LOADED");
+console.log("ATLAS VERSION 10000 – SVG + WORKING FILTERS");
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -13,9 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const map = L.map("map", {
         worldCopyJump: true,
-        zoomControl: true,
-        zoomAnimation: false,
-        fadeAnimation: false
+        zoomControl: true
     }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -24,12 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     map.zoomControl.setPosition("bottomright");
-
-    map.createPane("countries");
-    map.createPane("subdivisions");
-
-    map.getPane("countries").style.zIndex = 300;
-    map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
        LOOKUPS
@@ -48,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       STYLES
+       STYLES (SVG – IMPORTANT)
     ========================= */
 
     const BASE_STYLE = {
@@ -58,73 +50,71 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#8fa1ad"
     };
 
-    const HOVER_OUTLINE = {
+    const HOVER_STYLE = {
         weight: 3,
+        color: "#455a64"
+    };
+
+    const MATCH_STYLE = {
+        fillColor: "#2b7cff",
+        fillOpacity: 1,
+        weight: 2,
         color: "#083d77"
     };
 
-    const MATCH_FILL = "#2b7cff";
-    const FADED_OPACITY = 0.08;
+    const FADED_STYLE = {
+        fillColor: "#e6ecef",
+        fillOpacity: 0.12,
+        weight: 0.5,
+        color: "#c0ccd3"
+    };
+
+    /* =========================
+       FEATURE REGISTRY
+    ========================= */
 
     const layers = [];
 
-    function applyFilterStyle(layer) {
+    function applyStyle(layer) {
         if (!layer._hasFilters) {
-            layer.setStyle({
-                fillColor: BASE_STYLE.fillColor,
-                fillOpacity: 1
-            });
+            layer.setStyle(BASE_STYLE);
         } else if (layer._isMatch) {
-            layer.setStyle({
-                fillColor: MATCH_FILL,
-                fillOpacity: 1
-            });
+            layer.setStyle(MATCH_STYLE);
         } else {
-            layer.setStyle({
-                fillColor: BASE_STYLE.fillColor,
-                fillOpacity: FADED_OPACITY
-            });
+            layer.setStyle(FADED_STYLE);
         }
     }
 
     function bindLayer(layer, place, label) {
         layer._place = place || null;
-        layer._hasFilters = false;
         layer._isMatch = true;
+        layer._hasFilters = false;
 
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => {
-                window.location.href = place.url;
-            });
+            layer.on("click", () => window.location.href = place.url);
         }
 
-        // ✅ PÆN SVG HOVER (outline only)
         layer.on("mouseover", () => {
-            layer.setStyle(HOVER_OUTLINE);
-            layer.bringToFront();
+            layer.setStyle(HOVER_STYLE);
         });
 
         layer.on("mouseout", () => {
-            layer.setStyle({
-                weight: BASE_STYLE.weight,
-                color: BASE_STYLE.color
-            });
+            applyStyle(layer);
         });
 
         layers.push(layer);
     }
 
     /* =========================
-       LOAD DATA
+       LOAD COUNTRIES
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
-                pane: "countries",
                 style: BASE_STYLE,
                 filter: f => {
                     const iso = getISO(f.properties);
@@ -136,12 +126,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }).addTo(map);
         });
 
+    /* =========================
+       USA STATES
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
         .then(r => r.json())
         .then(data => {
             const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
             L.geoJSON(usa, {
-                pane: "subdivisions",
                 style: BASE_STYLE,
                 onEachFeature: (f, l) => {
                     const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
@@ -150,11 +143,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }).addTo(map);
         });
 
+    /* =========================
+       UK COUNTRIES
+    ========================= */
+
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
-                pane: "subdivisions",
                 style: BASE_STYLE,
                 onEachFeature: (f, l) => {
                     const iso1 =
@@ -176,14 +172,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTERS
+       FILTERS (THIS NOW WORKS)
     ========================= */
 
     const panel = document.getElementById("filterPanel");
     const toggleBtn = document.getElementById("toggleFilterPanel");
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
-    const chipsEl = document.getElementById("activeFilters");
 
     const activeTags = new Set();
     const activeMonths = new Set();
@@ -213,37 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
             layer._hasFilters = hasFilters;
             layer._isMatch = match;
 
-            applyFilterStyle(layer);
-        });
-    }
-
-    function renderChips() {
-        chipsEl.innerHTML = "";
-
-        [...activeTags].forEach(tag => {
-            const chip = document.createElement("span");
-            chip.textContent = `${tag} ✕`;
-            chip.style.cssText =
-                "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
-            chip.onclick = () => {
-                activeTags.delete(tag);
-                renderChips();
-                applyFilters();
-            };
-            chipsEl.appendChild(chip);
-        });
-
-        [...activeMonths].forEach(m => {
-            const chip = document.createElement("span");
-            chip.textContent = `Month ${m} ✕`;
-            chip.style.cssText =
-                "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
-            chip.onclick = () => {
-                activeMonths.delete(m);
-                renderChips();
-                applyFilters();
-            };
-            chipsEl.appendChild(chip);
+            applyStyle(layer);
         });
     }
 
@@ -258,14 +223,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
         panel.style.display = "none";
-        renderChips();
         applyFilters();
     };
 
     clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
-        renderChips();
         applyFilters();
         panel.style.display = "none";
     };
