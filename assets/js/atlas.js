@@ -1,4 +1,4 @@
-console.log("ATLAS VERSION 10000 – FILTERS + HOVER FIXED");
+console.log("ATLAS – CLEAN & CORRECT");
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -44,9 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       STYLES
+       VISUAL STYLES
     ========================= */
 
+    // Normal map
     const STYLE_BASE = {
         fillColor: "#e6ecef",
         fillOpacity: 1,
@@ -54,13 +55,15 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#8fa1ad"
     };
 
-    const STYLE_MATCH = {
-        fillColor: "#2b7cff",
+    // Hover (no filters) – Ireland look
+    const STYLE_HOVER = {
+        fillColor: "#c5d1d8",
         fillOpacity: 1,
-        weight: 1.5,
-        color: "#083d77"
+        weight: 2,
+        color: "#4f6d7a"
     };
 
+    // Filters active – non-matching
     const STYLE_DIM = {
         fillColor: "#e6ecef",
         fillOpacity: 0.08,
@@ -68,9 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#c0ccd3"
     };
 
-    const STYLE_HOVER = {
+    // Filters active – MATCH (THIS MUST POP)
+    const STYLE_MATCH = {
+        fillColor: "#ff6b3d",   // 🔥 VERY CLEAR HIGHLIGHT COLOR
+        fillOpacity: 1,
+        weight: 2,
+        color: "#8c2d12"
+    };
+
+    // Hover on MATCH
+    const STYLE_MATCH_HOVER = {
+        fillColor: "#e9552b",
+        fillOpacity: 1,
         weight: 3,
-        color: "#083d77"
+        color: "#5f1e0c"
     };
 
     /* =========================
@@ -100,9 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
             layer.on("click", () => window.location.href = place.url);
         }
 
-        // ✔️ NICE OUTLINE HOVER (LIKE IRELAND)
         layer.on("mouseover", () => {
-            layer.setStyle({ ...layer.options, ...STYLE_HOVER });
+            if (!layer._hasFilters) {
+                layer.setStyle(STYLE_HOVER);
+            } else if (layer._isMatch) {
+                layer.setStyle(STYLE_MATCH_HOVER);
+            }
         });
 
         layer.on("mouseout", () => {
@@ -153,9 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 pane: "subdivisions",
                 style: STYLE_BASE,
                 onEachFeature: (f, l) => {
-                    const iso1 = f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
-                        ? f.properties.ISO_1
-                        : "GB-ENG";
+                    const iso1 =
+                        f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
+                            ? f.properties.ISO_1
+                            : "GB-ENG";
 
                     const labels = {
                         "GB-ENG": "England",
@@ -170,14 +188,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTERS (NOW ACTUALLY WORK)
+       FILTERS
     ========================= */
 
     const panel = document.getElementById("filterPanel");
     const toggleBtn = document.getElementById("toggleFilterPanel");
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
-    const chipsEl = document.getElementById("activeFilters");
 
     const activeTags = new Set();
     const activeMonths = new Set();
@@ -187,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     function applyFilters() {
-        const hasFilters = activeTags.size || activeMonths.size;
+        const hasFilters = activeTags.size > 0 || activeMonths.size > 0;
 
         layers.forEach(layer => {
             const place = layer._place;
@@ -199,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (activeTags.size) {
                 match = [...activeTags].every(t => tags.includes(t));
             }
+
             if (match && activeMonths.size) {
                 match = months.some(m => activeMonths.has(m));
             }
@@ -207,21 +225,6 @@ document.addEventListener("DOMContentLoaded", () => {
             layer._isMatch = match;
 
             applyStyle(layer);
-        });
-    }
-
-    function renderChips() {
-        chipsEl.innerHTML = "";
-
-        [...activeTags].forEach(tag => {
-            const c = document.createElement("span");
-            c.textContent = `${tag} ✕`;
-            c.onclick = () => {
-                activeTags.delete(tag);
-                renderChips();
-                applyFilters();
-            };
-            chipsEl.appendChild(c);
         });
     }
 
@@ -234,15 +237,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         panel.style.display = "none";
-        renderChips();
         applyFilters();
     };
 
     clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
-        renderChips();
         applyFilters();
         panel.style.display = "none";
     };
+
 });
