@@ -1,4 +1,4 @@
-console.log("ATLAS – FILTERS ACTUALLY WORK");
+console.log("ATLAS – BRUTAL FILTER MODE");
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -44,42 +44,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       STYLES
+       HARD STYLES (NO MERGE)
     ========================= */
 
     const STYLE_BASE = {
         fillColor: "#e6ecef",
         fillOpacity: 1,
         weight: 1,
-        color: "#9fb0bb"   // 👈 lysere outline
+        color: "#9fb0bb"
     };
 
-    const STYLE_HOVER = {
+    const STYLE_FILTER_DIM = {
+        fillColor: "#ffffff",   // ⬅️ HELT HVID
+        fillOpacity: 1,
+        weight: 0.5,
+        color: "#d0d0d0"
+    };
+
+    const STYLE_FILTER_MATCH = {
+        fillColor: "#ff0000",   // ⬅️ HELT RØD
+        fillOpacity: 1,
+        weight: 2,
+        color: "#8b0000"
+    };
+
+    const STYLE_FILTER_MATCH_HOVER = {
+        fillColor: "#cc0000",
+        fillOpacity: 1,
+        weight: 3,
+        color: "#5a0000"
+    };
+
+    const STYLE_HOVER_NORMAL = {
         fillColor: "#cfd9df",
         fillOpacity: 1,
         weight: 2,
         color: "#6f8896"
-    };
-
-    const STYLE_DIM = {
-        fillColor: "#dde3e6",
-        fillOpacity: 0.15,
-        weight: 0.4,
-        color: "#c7d1d8"
-    };
-
-    const STYLE_MATCH = {
-        fillColor: "#ff5a1f",   // 🔥 MEGET TYDELIG
-        fillOpacity: 1,
-        weight: 2,
-        color: "#b93a0a"
-    };
-
-    const STYLE_MATCH_HOVER = {
-        fillColor: "#e64a14",
-        fillOpacity: 1,
-        weight: 3,
-        color: "#8c2a07"
     };
 
     /* =========================
@@ -88,14 +88,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const layers = [];
 
-    function applyStyle(layer) {
-        if (!layer._hasFilters) {
-            layer.setStyle(STYLE_BASE);
-        } else if (layer._isMatch) {
-            layer.setStyle(STYLE_MATCH);
-        } else {
-            layer.setStyle(STYLE_DIM);
-        }
+    function setBase(layer) {
+        layer.setStyle(STYLE_BASE);
+    }
+
+    function setDim(layer) {
+        layer.setStyle(STYLE_FILTER_DIM);
+    }
+
+    function setMatch(layer) {
+        layer.setStyle(STYLE_FILTER_MATCH);
     }
 
     function bindLayer(layer, place, label) {
@@ -111,13 +113,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         layer.on("mouseover", () => {
             if (!layer._hasFilters) {
-                layer.setStyle(STYLE_HOVER);
+                layer.setStyle(STYLE_HOVER_NORMAL);
             } else if (layer._isMatch) {
-                layer.setStyle(STYLE_MATCH_HOVER);
+                layer.setStyle(STYLE_FILTER_MATCH_HOVER);
             }
         });
 
-        layer.on("mouseout", () => applyStyle(layer));
+        layer.on("mouseout", () => {
+            if (!layer._hasFilters) {
+                setBase(layer);
+            } else if (layer._isMatch) {
+                setMatch(layer);
+            } else {
+                setDim(layer);
+            }
+        });
 
         layers.push(layer);
     }
@@ -181,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTERS + CHIPS
+       FILTERS
     ========================= */
 
     const panel = document.getElementById("filterPanel");
@@ -199,12 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderChips() {
         chipsEl.innerHTML = "";
-
-        [...activeTags].forEach(tag => {
+        activeTags.forEach(tag => {
             const chip = document.createElement("span");
             chip.textContent = `${tag} ×`;
             chip.style.cssText =
-                "background:#eef1f3;padding:0.25rem 0.6rem;border-radius:999px;font-size:0.85rem;cursor:pointer;";
+                "background:#eee;padding:0.25rem 0.6rem;border-radius:999px;cursor:pointer;";
             chip.onclick = () => {
                 activeTags.delete(tag);
                 renderChips();
@@ -215,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function applyFilters() {
-        const hasFilters = activeTags.size > 0 || activeMonths.size > 0;
+        const hasFilters = activeTags.size || activeMonths.size;
 
         layers.forEach(layer => {
             const place = layer._place;
@@ -227,7 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (activeTags.size) {
                 match = [...activeTags].every(t => tags.includes(t));
             }
-
             if (match && activeMonths.size) {
                 match = months.some(m => activeMonths.has(m));
             }
@@ -235,7 +243,9 @@ document.addEventListener("DOMContentLoaded", () => {
             layer._hasFilters = hasFilters;
             layer._isMatch = match;
 
-            applyStyle(layer);
+            if (!hasFilters) setBase(layer);
+            else if (match) setMatch(layer);
+            else setDim(layer);
         });
     }
 
