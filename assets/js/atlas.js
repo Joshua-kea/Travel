@@ -46,10 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
     });
 
-    /* =========================
-       HELPERS
-    ========================= */
-
     function getISOFromProps(p = {}) {
         return (
             (p.ISO_A3 && p.ISO_A3 !== "-99" && p.ISO_A3) ||
@@ -70,18 +66,26 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#8fa1ad"
     };
 
-    const MATCH_STYLE = {
-        fillColor: "#9fb9c6",
-        fillOpacity: 1,
-        weight: 1.5,
+    // Used when NO filters are active
+    const HOVER_BASE_STYLE = {
+        fillColor: "#d5e0e6",
+        weight: 2,
         color: "#4f6d7a"
     };
 
-    const HOVER_MATCH_STYLE = {
-        fillColor: "#6f93a6",
+    // Match when filters ARE active
+    const MATCH_STYLE = {
+        fillColor: "#5f93b0",   // strong blue
         fillOpacity: 1,
-        weight: 2,
-        color: "#3b5563"
+        weight: 1.5,
+        color: "#2f4f5f"
+    };
+
+    const HOVER_MATCH_STYLE = {
+        fillColor: "#3f7f9f",
+        fillOpacity: 1,
+        weight: 2.5,
+        color: "#1f3f4f"
     };
 
     const renderer = L.canvas();
@@ -91,10 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (layer._filteredOut) {
             layer.setStyle({
                 ...BASE_STYLE,
-                fillOpacity: 0.12
+                fillOpacity: 0.08
             });
-        } else if (layer._isMatch) {
-            layer.setStyle(MATCH_STYLE);
+            return;
+        }
+
+        if (layer._hasActiveFilters) {
+            layer.setStyle(layer._isMatch ? MATCH_STYLE : BASE_STYLE);
         } else {
             layer.setStyle(BASE_STYLE);
         }
@@ -112,8 +119,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         layer.on("mouseover", () => {
-            if (layer._isMatch) {
-                layer.setStyle(HOVER_MATCH_STYLE);
+            if (layer._filteredOut) return;
+
+            if (layer._hasActiveFilters) {
+                if (layer._isMatch) {
+                    layer.setStyle(HOVER_MATCH_STYLE);
+                }
+            } else {
+                layer.setStyle(HOVER_BASE_STYLE);
             }
         });
 
@@ -128,29 +141,24 @@ document.addEventListener("DOMContentLoaded", () => {
        ASYNC LOAD TRACKING
     ========================= */
 
-    let pendingLayers = 0;
+    let pending = 0;
 
-    function layerLoaded() {
-        pendingLayers--;
-        if (pendingLayers === 0) {
-            applyFilters();
-        }
+    function done() {
+        pending--;
+        if (pending === 0) applyFilters();
     }
 
-    function safeFetch(url, onData) {
-        pendingLayers++;
+    function safeFetch(url, cb) {
+        pending++;
         fetch(url)
-            .then(r => {
-                if (!r.ok) throw new Error(`Failed to load ${url}`);
-                return r.json();
-            })
-            .then(onData)
-            .catch(err => console.warn(err.message))
-            .finally(layerLoaded);
+            .then(r => r.ok ? r.json() : Promise.reject(url))
+            .then(cb)
+            .catch(() => {})
+            .finally(done);
     }
 
     /* =========================
-       LOAD MAP DATA
+       LOAD DATA
     ========================= */
 
     safeFetch(`${window.BASEURL}/assets/data/countries.geo.json`, data => {
@@ -170,10 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     safeFetch(`${window.BASEURL}/assets/data/admin1.geo.json`, data => {
-        const usa = data.features.filter(
-            f => f.properties?.adm0_a3 === "USA"
-        );
-
+        const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
         L.geoJSON(usa, {
             pane: "subdivisions",
             renderer,
@@ -197,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         : "GB-ENG";
 
                 const key = `GBR:${iso1}`.toUpperCase();
-
                 const labels = {
                     "GB-ENG": "England",
                     "GB-SCT": "Scotland",
@@ -211,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       FILTER STATE
+       FILTER LOGIC
     ========================= */
 
     const panel = document.getElementById("filterPanel");
@@ -223,35 +227,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeTags = new Set();
     const activeMonths = new Set();
 
-    toggleBtn.addEventListener("click", () => {
-        panel.style.display =
-            panel.style.display === "none" ? "block" : "none";
-    });
+    toggleBtn.onclick = () => {
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    };
 
     function applyFilters() {
-        const hasAnyFilters =
-            activeTags.size > 0 || activeMonths.size > 0;
+        const hasFilters = activeTags.size > 0 || activeMonths.size > 0;
 
         featureLayers.forEach(({ layer, place }) => {
             const tags = place?.tags || [];
             const months = (place?.best_months || []).map(String);
 
-            let isMatch = true;
+            const tagsOK =
+                activeTags.size === 0 ||
+                [...activeTags].every(t => tags.includes(t));
 
-            if (hasAnyFilters) {
-                const tagsOK =
-                    activeTags.size === 0 ||
-                    [...activeTags].every(t => tags.includes(t));
+            const monthsOK =
+                activeMonths.size === 0 ||
+                months.some(m => activeMonths.has(m));
 
-                const monthsOK =
-                    activeMonths.size === 0 ||
-                    months.some(m => activeMonths.has(m));
+            const isMatch = tagsOK && monthsOK;
 
-                isMatch = tagsOK && monthsOK;
-            }
-
+            layer._hasActiveFilters = hasFilters;
             layer._isMatch = isMatch;
-            layer._filteredOut = !isMatch;
+            layer._filteredOut = hasFilters && !isMatch;
 
             applyStyle(layer);
         });
@@ -260,39 +259,38 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderChips() {
         chipsEl.innerHTML = "";
 
-        activeTags.forEach(tag => {
-            const chip = document.createElement("span");
-            chip.textContent = `${tag} ✕`;
-            chip.style.cssText =
+        [...activeTags].forEach(t => {
+            const c = document.createElement("span");
+            c.textContent = `${t} ✕`;
+            c.style.cssText =
                 "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
-            chip.onclick = () => {
-                activeTags.delete(tag);
+            c.onclick = () => {
+                activeTags.delete(t);
                 renderChips();
                 applyFilters();
             };
-            chipsEl.appendChild(chip);
+            chipsEl.appendChild(c);
         });
 
-        activeMonths.forEach(m => {
-            const chip = document.createElement("span");
-            chip.textContent = `Month ${m} ✕`;
-            chip.style.cssText =
+        [...activeMonths].forEach(m => {
+            const c = document.createElement("span");
+            c.textContent = `Month ${m} ✕`;
+            c.style.cssText =
                 "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
-            chip.onclick = () => {
+            c.onclick = () => {
                 activeMonths.delete(m);
                 renderChips();
                 applyFilters();
             };
-            chipsEl.appendChild(chip);
+            chipsEl.appendChild(c);
         });
     }
 
-    applyBtn.addEventListener("click", () => {
+    applyBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
 
-        panel
-            .querySelectorAll('input[type="checkbox"]:checked')
+        panel.querySelectorAll('input[type="checkbox"]:checked')
             .forEach(cb => {
                 if (isNaN(cb.value)) activeTags.add(cb.value);
                 else activeMonths.add(cb.value);
@@ -301,14 +299,14 @@ document.addEventListener("DOMContentLoaded", () => {
         panel.style.display = "none";
         renderChips();
         applyFilters();
-    });
+    };
 
-    clearBtn.addEventListener("click", () => {
+    clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
         renderChips();
         applyFilters();
         panel.style.display = "none";
-    });
+    };
 
 });
