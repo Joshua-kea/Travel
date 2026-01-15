@@ -45,35 +45,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function getISO(p = {}) {
-        return (
-            p.ISO_A3 ||
-            p.ADM0_A3 ||
-            p.SOV_A3 ||
-            null
-        );
+        return p.ISO_A3 || p.ADM0_A3 || p.SOV_A3 || null;
     }
 
     /* =========================
-       STYLES (SIMPLE)
+       STYLES
     ========================= */
 
-    const BASE_STYLE = {
-        fillColor: "#e6ecef",
-        fillOpacity: 1,
+    const BASE_FILL = "#e6ecef";
+    const MATCH_FILL = "#2b7cff";
+
+    const BASE_OUTLINE = {
         weight: 1,
         color: "#8fa1ad"
     };
 
-    const MATCH_STYLE = {
-        fillColor: "#2b7cff",
-        fillOpacity: 1
-    };
-
-    const FADED_STYLE = {
-        fillOpacity: 0.08
-    };
-
-    const HOVER_STYLE = {
+    const HOVER_OUTLINE = {
         weight: 3,
         color: "#083d77"
     };
@@ -81,31 +68,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const renderer = L.canvas();
     const layers = [];
 
+    function applyFillStyle(layer) {
+        if (!layer._hasFilters) {
+            layer.setStyle({
+                fillColor: BASE_FILL,
+                fillOpacity: 1
+            });
+        } else if (layer._isMatch) {
+            layer.setStyle({
+                fillColor: MATCH_FILL,
+                fillOpacity: 1
+            });
+        } else {
+            layer.setStyle({
+                fillColor: BASE_FILL,
+                fillOpacity: 0.08
+            });
+        }
+    }
+
     function bindLayer(layer, place, label) {
         layer._place = place || null;
+        layer._hasFilters = false;
+        layer._isMatch = true;
 
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => {
-                window.location.href = place.url;
-            });
+            layer.on("click", () => window.location.href = place.url);
         }
 
-        // 👈 HOVER – som du havde før
+        // ✅ PÆN HOVER – KUN OUTLINE
         layer.on("mouseover", () => {
-            layer.setStyle(HOVER_STYLE);
+            layer.setStyle(HOVER_OUTLINE);
         });
 
         layer.on("mouseout", () => {
-            layer.setStyle({ weight: BASE_STYLE.weight, color: BASE_STYLE.color });
+            layer.setStyle(BASE_OUTLINE);
         });
 
         layers.push(layer);
     }
 
     /* =========================
-       LOAD COUNTRIES
+       LOAD DATA
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
@@ -114,14 +120,17 @@ document.addEventListener("DOMContentLoaded", () => {
             L.geoJSON(data, {
                 pane: "countries",
                 renderer,
-                style: BASE_STYLE,
+                style: {
+                    ...BASE_OUTLINE,
+                    fillColor: BASE_FILL,
+                    fillOpacity: 1
+                },
                 filter: f => {
                     const iso = getISO(f.properties);
                     return iso && iso !== "USA" && iso !== "GBR";
                 },
                 onEachFeature: (f, l) => {
-                    const iso = getISO(f.properties);
-                    bindLayer(l, byISO[iso], f.properties.NAME);
+                    bindLayer(l, byISO[getISO(f.properties)], f.properties.NAME);
                 }
             }).addTo(map);
         });
@@ -130,11 +139,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(r => r.json())
         .then(data => {
             const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
-
             L.geoJSON(usa, {
                 pane: "subdivisions",
                 renderer,
-                style: BASE_STYLE,
+                style: {
+                    ...BASE_OUTLINE,
+                    fillColor: BASE_FILL,
+                    fillOpacity: 1
+                },
                 onEachFeature: (f, l) => {
                     const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
                     bindLayer(l, byAdminKey[key], f.properties.name);
@@ -148,10 +160,14 @@ document.addEventListener("DOMContentLoaded", () => {
             L.geoJSON(data, {
                 pane: "subdivisions",
                 renderer,
-                style: BASE_STYLE,
+                style: {
+                    ...BASE_OUTLINE,
+                    fillColor: BASE_FILL,
+                    fillOpacity: 1
+                },
                 onEachFeature: (f, l) => {
                     const iso1 =
-                        (f.properties?.ISO_1 && f.properties.ISO_1 !== "NA")
+                        f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
                             ? f.properties.ISO_1
                             : "GB-ENG";
 
@@ -169,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTERS (WORKING)
+       FILTERS (VIRKER NU)
     ========================= */
 
     const panel = document.getElementById("filterPanel");
@@ -185,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     function applyFilters() {
-        const hasFilters = activeTags.size || activeMonths.size;
+        const hasFilters = activeTags.size > 0 || activeMonths.size > 0;
 
         layers.forEach(layer => {
             const place = layer._place;
@@ -202,13 +218,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 match = months.some(m => activeMonths.has(m));
             }
 
-            if (!hasFilters) {
-                layer.setStyle(BASE_STYLE);
-            } else if (match) {
-                layer.setStyle(MATCH_STYLE);
-            } else {
-                layer.setStyle(FADED_STYLE);
-            }
+            layer._hasFilters = hasFilters;
+            layer._isMatch = match;
+
+            applyFillStyle(layer);
         });
     }
 
