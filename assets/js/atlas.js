@@ -8,15 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       MAP SETUP
+       MAP
     ========================= */
 
     const map = L.map("map", {
         worldCopyJump: true,
         zoomControl: true,
         zoomAnimation: false,
-        fadeAnimation: false,
-        preferCanvas: false
+        fadeAnimation: false
     }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -52,26 +51,27 @@ document.addEventListener("DOMContentLoaded", () => {
        STYLES
     ========================= */
 
-    const BASE_FILL = "#e6ecef";
-    const MATCH_FILL = "#2b7cff";
-
-    const BASE_OUTLINE = {
+    const BASE_STYLE = {
+        fillColor: "#e6ecef",
+        fillOpacity: 1,
         weight: 1,
         color: "#8fa1ad"
     };
+
+    const MATCH_FILL = "#2b7cff";
+    const FADED_OPACITY = 0.08;
 
     const HOVER_OUTLINE = {
         weight: 3,
         color: "#083d77"
     };
 
-    const renderer = L.canvas();
     const layers = [];
 
-    function applyFillStyle(layer) {
+    function applyStyle(layer) {
         if (!layer._hasFilters) {
             layer.setStyle({
-                fillColor: BASE_FILL,
+                fillColor: BASE_STYLE.fillColor,
                 fillOpacity: 1
             });
         } else if (layer._isMatch) {
@@ -81,8 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         } else {
             layer.setStyle({
-                fillColor: BASE_FILL,
-                fillOpacity: 0.08
+                fillColor: BASE_STYLE.fillColor,
+                fillOpacity: FADED_OPACITY
             });
         }
     }
@@ -95,16 +95,22 @@ document.addEventListener("DOMContentLoaded", () => {
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => window.location.href = place.url);
+            layer.on("click", () => {
+                window.location.href = place.url;
+            });
         }
 
-        // ✅ PÆN HOVER – KUN OUTLINE
+        // Hover = ONLY outline
         layer.on("mouseover", () => {
             layer.setStyle(HOVER_OUTLINE);
+            layer.bringToFront();
         });
 
         layer.on("mouseout", () => {
-            layer.setStyle(BASE_OUTLINE);
+            layer.setStyle({
+                weight: BASE_STYLE.weight,
+                color: BASE_STYLE.color
+            });
         });
 
         layers.push(layer);
@@ -119,12 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             L.geoJSON(data, {
                 pane: "countries",
-                renderer,
-                style: {
-                    ...BASE_OUTLINE,
-                    fillColor: BASE_FILL,
-                    fillOpacity: 1
-                },
+                style: BASE_STYLE,
                 filter: f => {
                     const iso = getISO(f.properties);
                     return iso && iso !== "USA" && iso !== "GBR";
@@ -141,12 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
             L.geoJSON(usa, {
                 pane: "subdivisions",
-                renderer,
-                style: {
-                    ...BASE_OUTLINE,
-                    fillColor: BASE_FILL,
-                    fillOpacity: 1
-                },
+                style: BASE_STYLE,
                 onEachFeature: (f, l) => {
                     const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
                     bindLayer(l, byAdminKey[key], f.properties.name);
@@ -159,12 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             L.geoJSON(data, {
                 pane: "subdivisions",
-                renderer,
-                style: {
-                    ...BASE_OUTLINE,
-                    fillColor: BASE_FILL,
-                    fillOpacity: 1
-                },
+                style: BASE_STYLE,
                 onEachFeature: (f, l) => {
                     const iso1 =
                         f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
@@ -185,13 +176,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTERS (VIRKER NU)
+       FILTERS
     ========================= */
 
     const panel = document.getElementById("filterPanel");
     const toggleBtn = document.getElementById("toggleFilterPanel");
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
+    const chipsEl = document.getElementById("activeFilters");
 
     const activeTags = new Set();
     const activeMonths = new Set();
@@ -221,7 +213,37 @@ document.addEventListener("DOMContentLoaded", () => {
             layer._hasFilters = hasFilters;
             layer._isMatch = match;
 
-            applyFillStyle(layer);
+            applyStyle(layer);
+        });
+    }
+
+    function renderChips() {
+        chipsEl.innerHTML = "";
+
+        [...activeTags].forEach(tag => {
+            const chip = document.createElement("span");
+            chip.textContent = `${tag} ✕`;
+            chip.style.cssText =
+                "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
+            chip.onclick = () => {
+                activeTags.delete(tag);
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(chip);
+        });
+
+        [...activeMonths].forEach(m => {
+            const chip = document.createElement("span");
+            chip.textContent = `Month ${m} ✕`;
+            chip.style.cssText =
+                "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
+            chip.onclick = () => {
+                activeMonths.delete(m);
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(chip);
         });
     }
 
@@ -236,12 +258,14 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
         panel.style.display = "none";
+        renderChips();
         applyFilters();
     };
 
     clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
+        renderChips();
         applyFilters();
         panel.style.display = "none";
     };
