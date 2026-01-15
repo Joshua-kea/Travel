@@ -1,11 +1,8 @@
-console.log("ATLAS VERSION 10000 – SVG + WORKING FILTERS");
+console.log("ATLAS VERSION 10000 – FILTERS + HOVER FIXED");
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    if (!window.places || window.places.length === 0) {
-        console.error("No places loaded");
-        return;
-    }
+    if (!window.places || window.places.length === 0) return;
 
     /* =========================
        MAP
@@ -13,7 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const map = L.map("map", {
         worldCopyJump: true,
-        zoomControl: true
+        zoomControl: true,
+        preferCanvas: false
     }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -22,6 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ).addTo(map);
 
     map.zoomControl.setPosition("bottomright");
+
+    map.createPane("countries");
+    map.createPane("subdivisions");
+
+    map.getPane("countries").style.zIndex = 300;
+    map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
        LOOKUPS
@@ -40,55 +44,55 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       STYLES (SVG – IMPORTANT)
+       STYLES
     ========================= */
 
-    const BASE_STYLE = {
+    const STYLE_BASE = {
         fillColor: "#e6ecef",
         fillOpacity: 1,
         weight: 1,
         color: "#8fa1ad"
     };
 
-    const HOVER_STYLE = {
-        weight: 3,
-        color: "#455a64"
-    };
-
-    const MATCH_STYLE = {
+    const STYLE_MATCH = {
         fillColor: "#2b7cff",
         fillOpacity: 1,
-        weight: 2,
+        weight: 1.5,
         color: "#083d77"
     };
 
-    const FADED_STYLE = {
+    const STYLE_DIM = {
         fillColor: "#e6ecef",
-        fillOpacity: 0.12,
+        fillOpacity: 0.08,
         weight: 0.5,
         color: "#c0ccd3"
     };
 
+    const STYLE_HOVER = {
+        weight: 3,
+        color: "#083d77"
+    };
+
     /* =========================
-       FEATURE REGISTRY
+       REGISTRY
     ========================= */
 
     const layers = [];
 
     function applyStyle(layer) {
         if (!layer._hasFilters) {
-            layer.setStyle(BASE_STYLE);
+            layer.setStyle(STYLE_BASE);
         } else if (layer._isMatch) {
-            layer.setStyle(MATCH_STYLE);
+            layer.setStyle(STYLE_MATCH);
         } else {
-            layer.setStyle(FADED_STYLE);
+            layer.setStyle(STYLE_DIM);
         }
     }
 
     function bindLayer(layer, place, label) {
         layer._place = place || null;
-        layer._isMatch = true;
         layer._hasFilters = false;
+        layer._isMatch = true;
 
         layer.bindTooltip(label, { sticky: true });
 
@@ -96,8 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
             layer.on("click", () => window.location.href = place.url);
         }
 
+        // ✔️ NICE OUTLINE HOVER (LIKE IRELAND)
         layer.on("mouseover", () => {
-            layer.setStyle(HOVER_STYLE);
+            layer.setStyle({ ...layer.options, ...STYLE_HOVER });
         });
 
         layer.on("mouseout", () => {
@@ -108,14 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       LOAD COUNTRIES
+       LOAD DATA
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
-                style: BASE_STYLE,
+                pane: "countries",
+                style: STYLE_BASE,
                 filter: f => {
                     const iso = getISO(f.properties);
                     return iso && iso !== "USA" && iso !== "GBR";
@@ -126,16 +132,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }).addTo(map);
         });
 
-    /* =========================
-       USA STATES
-    ========================= */
-
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
         .then(r => r.json())
         .then(data => {
             const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
             L.geoJSON(usa, {
-                style: BASE_STYLE,
+                pane: "subdivisions",
+                style: STYLE_BASE,
                 onEachFeature: (f, l) => {
                     const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
                     bindLayer(l, byAdminKey[key], f.properties.name);
@@ -143,22 +146,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }).addTo(map);
         });
 
-    /* =========================
-       UK COUNTRIES
-    ========================= */
-
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
         .then(r => r.json())
         .then(data => {
             L.geoJSON(data, {
-                style: BASE_STYLE,
+                pane: "subdivisions",
+                style: STYLE_BASE,
                 onEachFeature: (f, l) => {
-                    const iso1 =
-                        f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
-                            ? f.properties.ISO_1
-                            : "GB-ENG";
+                    const iso1 = f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
+                        ? f.properties.ISO_1
+                        : "GB-ENG";
 
-                    const key = `GBR:${iso1}`.toUpperCase();
                     const labels = {
                         "GB-ENG": "England",
                         "GB-SCT": "Scotland",
@@ -166,19 +164,20 @@ document.addEventListener("DOMContentLoaded", () => {
                         "GB-NIR": "Northern Ireland"
                     };
 
-                    bindLayer(l, byAdminKey[key], labels[iso1]);
+                    bindLayer(l, byAdminKey[`GBR:${iso1}`], labels[iso1]);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       FILTERS (THIS NOW WORKS)
+       FILTERS (NOW ACTUALLY WORK)
     ========================= */
 
     const panel = document.getElementById("filterPanel");
     const toggleBtn = document.getElementById("toggleFilterPanel");
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
+    const chipsEl = document.getElementById("activeFilters");
 
     const activeTags = new Set();
     const activeMonths = new Set();
@@ -188,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     function applyFilters() {
-        const hasFilters = activeTags.size > 0 || activeMonths.size > 0;
+        const hasFilters = activeTags.size || activeMonths.size;
 
         layers.forEach(layer => {
             const place = layer._place;
@@ -200,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (activeTags.size) {
                 match = [...activeTags].every(t => tags.includes(t));
             }
-
             if (match && activeMonths.size) {
                 match = months.some(m => activeMonths.has(m));
             }
@@ -212,25 +210,39 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function renderChips() {
+        chipsEl.innerHTML = "";
+
+        [...activeTags].forEach(tag => {
+            const c = document.createElement("span");
+            c.textContent = `${tag} ✕`;
+            c.onclick = () => {
+                activeTags.delete(tag);
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(c);
+        });
+    }
+
     applyBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
 
-        panel.querySelectorAll("input[type='checkbox']:checked")
-            .forEach(cb => {
-                if (isNaN(cb.value)) activeTags.add(cb.value);
-                else activeMonths.add(cb.value);
-            });
+        panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
+            isNaN(cb.value) ? activeTags.add(cb.value) : activeMonths.add(cb.value);
+        });
 
         panel.style.display = "none";
+        renderChips();
         applyFilters();
     };
 
     clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
+        renderChips();
         applyFilters();
         panel.style.display = "none";
     };
-
 });
