@@ -1,3 +1,4 @@
+console.log("ATLAS VERSION 9999 - THIS SHOULD CHANGE");
 console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -127,4 +127,5 @@ cursor: pointer;
   window.BASEURL = "{{ site.baseurl }}";
 </script>
 
-<script src="{{ site.baseurl }}/assets/js/atlas.js"></script>
+<script src="{{ site.baseurl }}/assets/js/atlas.js?v=2026-01-15-1"></script>
+
