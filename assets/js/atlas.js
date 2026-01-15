@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       MAP
+       MAP SETUP
     ========================= */
 
     const map = L.map("map", {
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       LOOKUPS
+       LOOKUPS FROM MD FILES
     ========================= */
 
     const byISO = {};
@@ -91,12 +91,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         layer.bindTooltip(label, {
             sticky: true,
-            direction: "center",
-            opacity: 0.95
+            direction: "center"
         });
 
         if (place?.url) {
-            layer.on("click", () => window.location.href = place.url);
+            layer.on("click", () => {
+                window.location.href = place.url;
+            });
         }
 
         layer.on("mouseover", () => {
@@ -105,9 +106,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        layer.on("mouseout", () => applyStyle(layer));
+        layer.on("mouseout", () => {
+            applyStyle(layer);
+        });
 
         featureLayers.push({ layer, place });
+    }
+
+    /* =========================
+       ASYNC LOAD TRACKING
+    ========================= */
+
+    let pendingLayers = 0;
+
+    function layerLoaded() {
+        pendingLayers--;
+        if (pendingLayers === 0) {
+            console.log("All map layers loaded");
+            applyFilters(); // first real filter pass
+        }
     }
 
     /* =========================
@@ -115,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
        EXCEPT USA + UK
     ========================= */
 
+    pendingLayers++;
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
         .then(r => r.json())
         .then(data => {
@@ -131,16 +149,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     bindInteractive(l, byISO[iso], f.properties.NAME);
                 }
             }).addTo(map);
+            layerLoaded();
         });
 
     /* =========================
        USA STATES
     ========================= */
 
+    pendingLayers++;
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
         .then(r => r.json())
         .then(data => {
-            const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
+            const usa = data.features.filter(
+                f => f.properties?.adm0_a3 === "USA"
+            );
 
             L.geoJSON(usa, {
                 pane: "subdivisions",
@@ -151,12 +173,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     bindInteractive(l, byAdminKey[key], f.properties.name);
                 }
             }).addTo(map);
+            layerLoaded();
         });
 
     /* =========================
        UK COUNTRIES
     ========================= */
 
+    pendingLayers++;
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
         .then(r => r.json())
         .then(data => {
@@ -182,12 +206,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     bindInteractive(l, byAdminKey[key], labels[iso1]);
                 }
             }).addTo(map);
+            layerLoaded();
         });
 
     /* =========================
        TERRITORIES
     ========================= */
 
+    pendingLayers++;
     fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
         .then(r => r.json())
         .then(data => {
@@ -202,6 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             }).addTo(map);
+            layerLoaded();
         });
 
     /* =========================
@@ -218,7 +245,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeMonths = new Set();
 
     toggleBtn.addEventListener("click", () => {
-        panel.style.display = panel.style.display === "none" ? "block" : "none";
+        panel.style.display =
+            panel.style.display === "none" ? "block" : "none";
     });
 
     function applyFilters() {
@@ -246,11 +274,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const chip = document.createElement("span");
             chip.innerHTML = `${tag} <strong>✕</strong>`;
             chip.style.cssText = `
-              background:#eceff1;
-              border-radius:14px;
-              padding:0.25rem 0.6rem;
-              font-size:0.85rem;
-              cursor:pointer;
+                background:#eceff1;
+                border-radius:14px;
+                padding:0.25rem 0.6rem;
+                font-size:0.85rem;
+                cursor:pointer;
             `;
             chip.querySelector("strong").onclick = () => {
                 activeTags.delete(tag);
@@ -264,11 +292,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const chip = document.createElement("span");
             chip.innerHTML = `Month ${m} <strong>✕</strong>`;
             chip.style.cssText = `
-              background:#eceff1;
-              border-radius:14px;
-              padding:0.25rem 0.6rem;
-              font-size:0.85rem;
-              cursor:pointer;
+                background:#eceff1;
+                border-radius:14px;
+                padding:0.25rem 0.6rem;
+                font-size:0.85rem;
+                cursor:pointer;
             `;
             chip.querySelector("strong").onclick = () => {
                 activeMonths.delete(m);
