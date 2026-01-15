@@ -2,17 +2,10 @@ console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================
-       GUARD
-    ========================= */
-
-    if (!window.places || window.places.length === 0) {
-        console.error("No places loaded from Jekyll");
-        return;
-    }
+    if (!window.places || window.places.length === 0) return;
 
     /* =========================
-       MAP SETUP
+       MAP
     ========================= */
 
     const map = L.map("map", {
@@ -25,16 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-        {
-            attribution: "© OpenStreetMap & CARTO",
-            updateWhenZooming: false,
-            updateWhenIdle: true
-        }
+        { attribution: "© OpenStreetMap & CARTO" }
     ).addTo(map);
 
-    /* =========================
-       PANES
-    ========================= */
+    map.zoomControl.setPosition("bottomright");
 
     map.createPane("countries");
     map.createPane("territories");
@@ -48,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
        LOOKUPS
     ========================= */
 
-    const byISO = Object.create(null);
-    const byAdminKey = Object.create(null);
+    const byISO = {};
+    const byAdminKey = {};
 
     window.places.forEach(p => {
         if (p.iso) byISO[p.iso.toUpperCase()] = p;
@@ -60,33 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
        STYLES
     ========================= */
 
-    const BASE_STYLE = {
-        fillColor: "#cfd8dc",
-        fillOpacity: 1,
-        weight: 1,
-        color: "#90a4ae"
-    };
-
-    const HOVER_STYLE = {
-        weight: 2,
-        color: "#455a64",
-        fillColor: "#b0bec5"
-    };
+    const BASE_STYLE = { fillColor: "#cfd8dc", fillOpacity: 1, weight: 1, color: "#90a4ae" };
+    const HOVER_STYLE = { weight: 2, color: "#455a64", fillColor: "#b0bec5" };
 
     const featureLayers = [];
 
     function applyStyle(layer) {
         layer.setStyle({
-            fillColor: BASE_STYLE.fillColor,
-            fillOpacity: layer._filteredOut ? 0.15 : 1,
-            weight: BASE_STYLE.weight,
-            color: BASE_STYLE.color
+            ...BASE_STYLE,
+            fillOpacity: layer._filteredOut ? 0.15 : 1
         });
     }
 
-    function bindInteractive(layer, place, fallbackLabel) {
-        const label = place?.name || fallbackLabel || "Unknown";
-
+    function bindInteractive(layer, place, labelFallback) {
+        const label = place?.name || labelFallback || "Unknown";
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
@@ -94,9 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         layer.on("mouseover", () => {
-            if (!layer._filteredOut) {
-                layer.setStyle(HOVER_STYLE);
-            }
+            if (!layer._filteredOut) layer.setStyle(HOVER_STYLE);
         });
 
         layer.on("mouseout", () => applyStyle(layer));
@@ -115,170 +87,86 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             L.geoJSON(data, {
                 pane: "countries",
-                style: BASE_STYLE,
                 renderer,
-                interactive: true,
-                filter: f => {
-                    const p = f.properties || {};
-                    return !(
-                        p.ISO_A3 === "USA" || p.ADM0_A3 === "USA" || p.SOV_A3 === "USA" ||
-                        p.ISO_A3 === "GBR" || p.ADM0_A3 === "GBR" || p.SOV_A3 === "GBR"
-                    );
-                },
-                onEachFeature: (feature, layer) => {
-                    const p = feature.properties || {};
-                    const iso =
-                        (p.ISO_A3 && p.ISO_A3 !== "-99" && p.ISO_A3) ||
-                        (p.ADM0_A3 && p.ADM0_A3 !== "-99" && p.ADM0_A3) ||
-                        (p.SOV_A3 && p.SOV_A3 !== "-99" && p.SOV_A3);
-
-                    if (!iso) return;
-                    bindInteractive(layer, byISO[iso], p.NAME);
-                }
-            }).addTo(map);
-        });
-
-    /* =========================
-       USA STATES
-    ========================= */
-
-    fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            const usa = {
-                type: "FeatureCollection",
-                features: data.features.filter(f => f.properties?.adm0_a3 === "USA")
-            };
-
-            L.geoJSON(usa, {
-                pane: "subdivisions",
                 style: BASE_STYLE,
-                renderer,
-                interactive: true,
+                filter: f => !["USA", "GBR"].includes(
+                    f.properties?.ISO_A3 ||
+                    f.properties?.ADM0_A3 ||
+                    f.properties?.SOV_A3
+                ),
                 onEachFeature: (f, layer) => {
-                    const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
-                    bindInteractive(layer, byAdminKey[key], f.properties.name);
+                    const iso = f.properties?.ISO_A3;
+                    bindInteractive(layer, byISO[iso], f.properties.NAME);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       UK
+       FILTER LOGIC
     ========================= */
 
-    fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane: "subdivisions",
-                style: BASE_STYLE,
-                renderer,
-                interactive: true,
-                onEachFeature: (f, layer) => {
-                    const p = f.properties || {};
-                    const iso1 = (p.ISO_1 && p.ISO_1 !== "NA") ? p.ISO_1 : "GB-ENG";
-                    const key = `GBR:${iso1}`.toUpperCase();
-
-                    const labels = {
-                        "GB-ENG": "England",
-                        "GB-SCT": "Scotland",
-                        "GB-WLS": "Wales",
-                        "GB-NIR": "Northern Ireland"
-                    };
-
-                    bindInteractive(layer, byAdminKey[key], labels[iso1]);
-                }
-            }).addTo(map);
-        });
-
-    /* =========================
-       TERRITORIES
-    ========================= */
-
-    fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane: "territories",
-                style: BASE_STYLE,
-                renderer,
-                interactive: true,
-                onEachFeature: (f, layer) => {
-                    const key = f.properties?.ADMIN_KEY?.toUpperCase();
-                    if (!key) return;
-                    bindInteractive(layer, byAdminKey[key], f.properties.NAME);
-                }
-            }).addTo(map);
-        });
-
-    /* =========================
-       FILTER SYSTEM
-       (DROPDOWN + APPLY)
-    ========================= */
-
-    const openBtn = document.getElementById("openFilterBtn");
-    const dropdown = document.getElementById("filterDropdown");
     const applyBtn = document.getElementById("applyFilterBtn");
-    const filterContainer = document.getElementById("activeFilters");
+    const clearBtn = document.getElementById("clearFilterBtn");
+    const chips = document.getElementById("activeFilters");
 
-    const activeTags = new Set();
-
-    openBtn.addEventListener("click", () => {
-        dropdown.style.display =
-            dropdown.style.display === "none" ? "block" : "none";
-    });
+    let activeTags = new Set();
+    let activeMonths = new Set();
 
     function applyFilters() {
         featureLayers.forEach(({ layer, place }) => {
             const tags = place?.tags || [];
-            const matches =
+            const months = place?.best_months || [];
+
+            const tagMatch =
                 activeTags.size === 0 ||
                 [...activeTags].every(t => tags.includes(t));
 
-            layer._filteredOut = !matches;
+            const monthMatch =
+                activeMonths.size === 0 ||
+                months.some(m => activeMonths.has(String(m)));
+
+            layer._filteredOut = !(tagMatch && monthMatch);
             applyStyle(layer);
         });
     }
 
     function renderChips() {
-        filterContainer.innerHTML = "";
+        chips.innerHTML = "";
 
-        activeTags.forEach(tag => {
+        [...activeTags, ...activeMonths].forEach(val => {
             const chip = document.createElement("span");
+            chip.textContent = val;
             chip.style.cssText = `
-                background: #eceff1;
-                border-radius: 14px;
-                padding: 0.25rem 0.6rem;
-                font-size: 0.85rem;
-                display: inline-flex;
-                gap: 0.25rem;
-                align-items: center;
+              background:#eceff1;
+              border-radius:14px;
+              padding:0.25rem 0.6rem;
+              font-size:0.85rem;
             `;
-            chip.textContent = tag;
-
-            const close = document.createElement("span");
-            close.textContent = "✕";
-            close.style.cursor = "pointer";
-
-            close.addEventListener("click", () => {
-                activeTags.delete(tag);
-                renderChips();
-                applyFilters();
-            });
-
-            chip.appendChild(close);
-            filterContainer.appendChild(chip);
+            chips.appendChild(chip);
         });
     }
 
     applyBtn.addEventListener("click", () => {
         activeTags.clear();
+        activeMonths.clear();
 
-        dropdown
-            .querySelectorAll("input[type=checkbox]:checked")
-            .forEach(cb => activeTags.add(cb.value));
+        document.querySelectorAll('#filterPanel input[type="checkbox"]:checked')
+            .forEach(cb => {
+                if (isNaN(cb.value)) activeTags.add(cb.value);
+                else activeMonths.add(cb.value);
+            });
 
-        dropdown.style.display = "none";
+        renderChips();
+        applyFilters();
+    });
+
+    clearBtn.addEventListener("click", () => {
+        activeTags.clear();
+        activeMonths.clear();
+        document
+            .querySelectorAll('#filterPanel input[type="checkbox"]')
+            .forEach(cb => cb.checked = false);
+
         renderChips();
         applyFilters();
     });
