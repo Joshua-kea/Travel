@@ -66,36 +66,41 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#8fa1ad"
     };
 
-    // Used when NO filters are active
     const HOVER_BASE_STYLE = {
         fillColor: "#d5e0e6",
         weight: 2,
         color: "#4f6d7a"
     };
 
-    // Match when filters ARE active
     const MATCH_STYLE = {
-        fillColor: "#5f93b0",   // strong blue
+        fillColor: "#2b7cff",
         fillOpacity: 1,
-        weight: 1.5,
-        color: "#2f4f5f"
+        weight: 2,
+        color: "#083d77"
     };
 
     const HOVER_MATCH_STYLE = {
-        fillColor: "#3f7f9f",
+        fillColor: "#1a5ed8",
         fillOpacity: 1,
-        weight: 2.5,
-        color: "#1f3f4f"
+        weight: 3,
+        color: "#052a52"
     };
 
     const renderer = L.canvas();
+
+    /* =========================
+       FEATURE REGISTRY
+    ========================= */
+
     const featureLayers = [];
 
     function applyStyle(layer) {
         if (layer._filteredOut) {
             layer.setStyle({
-                ...BASE_STYLE,
-                fillOpacity: 0.08
+                fillColor: "#e8ecef",
+                fillOpacity: 0.06,
+                weight: 0.5,
+                color: "#c0ccd3"
             });
             return;
         }
@@ -109,6 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function bindInteractive(layer, place, fallbackLabel) {
         const label = place?.name || fallbackLabel || "Unknown";
+
+        // 🔑 VIGTIGT: bind place direkte på layer
+        layer._place = place || null;
 
         layer.bindTooltip(label, { sticky: true });
 
@@ -134,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
             applyStyle(layer);
         });
 
-        featureLayers.push({ layer, place });
+        featureLayers.push(layer);
     }
 
     /* =========================
@@ -143,18 +151,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let pending = 0;
 
-    function done() {
+    function layerDone() {
         pending--;
-        if (pending === 0) applyFilters();
+        if (pending === 0) {
+            console.log("All map layers loaded");
+            applyFilters();
+        }
     }
 
-    function safeFetch(url, cb) {
+    function safeFetch(url, onData) {
         pending++;
         fetch(url)
             .then(r => r.ok ? r.json() : Promise.reject(url))
-            .then(cb)
-            .catch(() => {})
-            .finally(done);
+            .then(onData)
+            .catch(err => console.warn("Skipped:", err))
+            .finally(layerDone);
     }
 
     /* =========================
@@ -215,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================
-       FILTER LOGIC
+       FILTER STATE
     ========================= */
 
     const panel = document.getElementById("filterPanel");
@@ -234,19 +245,24 @@ document.addEventListener("DOMContentLoaded", () => {
     function applyFilters() {
         const hasFilters = activeTags.size > 0 || activeMonths.size > 0;
 
-        featureLayers.forEach(({ layer, place }) => {
+        featureLayers.forEach(layer => {
+            const place = layer._place;
             const tags = place?.tags || [];
             const months = (place?.best_months || []).map(String);
 
-            const tagsOK =
-                activeTags.size === 0 ||
-                [...activeTags].every(t => tags.includes(t));
+            let isMatch = true;
 
-            const monthsOK =
-                activeMonths.size === 0 ||
-                months.some(m => activeMonths.has(m));
+            if (hasFilters) {
+                const tagsOK =
+                    activeTags.size === 0 ||
+                    [...activeTags].every(t => tags.includes(t));
 
-            const isMatch = tagsOK && monthsOK;
+                const monthsOK =
+                    activeMonths.size === 0 ||
+                    months.some(m => activeMonths.has(m));
+
+                isMatch = tagsOK && monthsOK;
+            }
 
             layer._hasActiveFilters = hasFilters;
             layer._isMatch = isMatch;
@@ -259,30 +275,30 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderChips() {
         chipsEl.innerHTML = "";
 
-        [...activeTags].forEach(t => {
-            const c = document.createElement("span");
-            c.textContent = `${t} ✕`;
-            c.style.cssText =
+        [...activeTags].forEach(tag => {
+            const chip = document.createElement("span");
+            chip.textContent = `${tag} ✕`;
+            chip.style.cssText =
                 "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
-            c.onclick = () => {
-                activeTags.delete(t);
+            chip.onclick = () => {
+                activeTags.delete(tag);
                 renderChips();
                 applyFilters();
             };
-            chipsEl.appendChild(c);
+            chipsEl.appendChild(chip);
         });
 
         [...activeMonths].forEach(m => {
-            const c = document.createElement("span");
-            c.textContent = `Month ${m} ✕`;
-            c.style.cssText =
+            const chip = document.createElement("span");
+            chip.textContent = `Month ${m} ✕`;
+            chip.style.cssText =
                 "background:#eceff1;border-radius:14px;padding:0.25rem 0.6rem;font-size:0.85rem;cursor:pointer;";
-            c.onclick = () => {
+            chip.onclick = () => {
                 activeMonths.delete(m);
                 renderChips();
                 applyFilters();
             };
-            chipsEl.appendChild(c);
+            chipsEl.appendChild(chip);
         });
     }
 
