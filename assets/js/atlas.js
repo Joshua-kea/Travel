@@ -1,4 +1,3 @@
-console.log("ATLAS VERSION 9999 - THIS SHOULD CHANGE");
 console.log("ATLAS.JS LOADED");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -59,17 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#8fa1ad"
     };
 
-    const MATCH_FILL = "#2b7cff";
-    const FADED_OPACITY = 0.08;
-
     const HOVER_OUTLINE = {
         weight: 3,
         color: "#083d77"
     };
 
+    const MATCH_FILL = "#2b7cff";
+    const FADED_OPACITY = 0.08;
+
     const layers = [];
 
-    function applyStyle(layer) {
+    function applyFilterStyle(layer) {
         if (!layer._hasFilters) {
             layer.setStyle({
                 fillColor: BASE_STYLE.fillColor,
@@ -101,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Hover = ONLY outline
+        // ✅ PÆN SVG HOVER (outline only)
         layer.on("mouseover", () => {
             layer.setStyle(HOVER_OUTLINE);
             layer.bringToFront();
@@ -214,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
             layer._hasFilters = hasFilters;
             layer._isMatch = match;
 
-            applyStyle(layer);
+            applyFilterStyle(layer);
         });
     }
 
