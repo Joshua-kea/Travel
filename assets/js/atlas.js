@@ -1,8 +1,8 @@
-console.log("ATLAS – BRUTAL FILTER MODE");
+console.log("ATLAS – FILTERS ACTUALLY WORK");
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    if (!window.places || window.places.length === 0) return;
+    if (!window.places?.length) return;
 
     /* =========================
        MAP
@@ -10,8 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const map = L.map("map", {
         worldCopyJump: true,
-        zoomControl: true,
-        preferCanvas: false
+        zoomControl: true
     }).setView([20, 0], 2);
 
     L.tileLayer(
@@ -39,12 +38,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
     });
 
-    function getISO(p = {}) {
-        return p.ISO_A3 || p.ADM0_A3 || p.SOV_A3 || null;
+    function getCountryKey(p = {}) {
+        if (p.ADM0_A3 && p.ADM0_A3 !== "-99") return p.ADM0_A3;
+        if (p.ISO_A3 && p.ISO_A3 !== "-99") return p.ISO_A3;
+        if (p.SOV_A3 && p.SOV_A3 !== "-99") return p.SOV_A3;
+        return null;
+    }
+
+    function normalizeMonths(value) {
+        return Array.isArray(value) ? value.map(String) : [];
     }
 
     /* =========================
-       HARD STYLES (NO MERGE)
+       STYLES
     ========================= */
 
     const STYLE_BASE = {
@@ -54,21 +60,21 @@ document.addEventListener("DOMContentLoaded", () => {
         color: "#9fb0bb"
     };
 
-    const STYLE_FILTER_DIM = {
-        fillColor: "#ffffff",   // ⬅️ HELT HVID
+    const STYLE_DIM = {
+        fillColor: "#ffffff",
         fillOpacity: 1,
         weight: 0.5,
-        color: "#d0d0d0"
+        color: "#dddddd"
     };
 
-    const STYLE_FILTER_MATCH = {
-        fillColor: "#ff0000",   // ⬅️ HELT RØD
+    const STYLE_MATCH = {
+        fillColor: "#ff0000",
         fillOpacity: 1,
         weight: 2,
-        color: "#8b0000"
+        color: "#7a0000"
     };
 
-    const STYLE_FILTER_MATCH_HOVER = {
+    const STYLE_MATCH_HOVER = {
         fillColor: "#cc0000",
         fillOpacity: 1,
         weight: 3,
@@ -88,18 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const layers = [];
 
-    function setBase(layer) {
-        layer.setStyle(STYLE_BASE);
-    }
-
-    function setDim(layer) {
-        layer.setStyle(STYLE_FILTER_DIM);
-    }
-
-    function setMatch(layer) {
-        layer.setStyle(STYLE_FILTER_MATCH);
-    }
-
     function bindLayer(layer, place, label) {
         layer._place = place || null;
         layer._hasFilters = false;
@@ -115,21 +109,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!layer._hasFilters) {
                 layer.setStyle(STYLE_HOVER_NORMAL);
             } else if (layer._isMatch) {
-                layer.setStyle(STYLE_FILTER_MATCH_HOVER);
+                layer.setStyle(STYLE_MATCH_HOVER);
             }
         });
 
         layer.on("mouseout", () => {
-            if (!layer._hasFilters) {
-                setBase(layer);
-            } else if (layer._isMatch) {
-                setMatch(layer);
-            } else {
-                setDim(layer);
-            }
+            applyStyle(layer);
         });
 
         layers.push(layer);
+    }
+
+    function applyStyle(layer) {
+        if (!layer._hasFilters) layer.setStyle(STYLE_BASE);
+        else if (layer._isMatch) layer.setStyle(STYLE_MATCH);
+        else layer.setStyle(STYLE_DIM);
     }
 
     /* =========================
@@ -143,11 +137,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 pane: "countries",
                 style: STYLE_BASE,
                 filter: f => {
-                    const iso = getISO(f.properties);
-                    return iso && iso !== "USA" && iso !== "GBR";
+                    const key = getCountryKey(f.properties);
+                    return key && key !== "USA" && key !== "GBR";
                 },
                 onEachFeature: (f, l) => {
-                    bindLayer(l, byISO[getISO(f.properties)], f.properties.NAME);
+                    const key = getCountryKey(f.properties);
+                    bindLayer(l, byISO[key], f.properties.NAME);
                 }
             }).addTo(map);
         });
@@ -227,16 +222,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const hasFilters = activeTags.size || activeMonths.size;
 
         layers.forEach(layer => {
-            console.log(
-                layer.feature?.properties?.NAME,
-                layer._place
-            );
-        });
-
-        layers.forEach(layer => {
             const place = layer._place;
             const tags = place?.tags || [];
-            const months = (place?.best_months || []).map(String);
+            const months = normalizeMonths(place?.best_months);
 
             let match = true;
 
@@ -250,9 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
             layer._hasFilters = hasFilters;
             layer._isMatch = match;
 
-            if (!hasFilters) setBase(layer);
-            else if (match) setMatch(layer);
-            else setDim(layer);
+            applyStyle(layer);
         });
     }
 
@@ -276,5 +262,4 @@ document.addEventListener("DOMContentLoaded", () => {
         applyFilters();
         panel.style.display = "none";
     };
-
 });
