@@ -176,8 +176,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 interactive: true,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
-                    const iso1 = p.ISO_1 || null;
-                    const key = iso1 ? `GBR:${iso1}`.toUpperCase() : null;
+
+                    // England uses ISO_1 = "NA" in this dataset
+                    const iso1 = (p.ISO_1 && p.ISO_1 !== "NA") ? p.ISO_1 : "GB-ENG";
+                    const key = `GBR:${iso1}`.toUpperCase();
 
                     const labelMap = {
                         "GB-ENG": "England",
@@ -189,12 +191,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const fallbackLabel =
                         labelMap[iso1] ||
                         p.NAME_1 ||
-                        p.VARNAME_1 ||
                         "United Kingdom";
 
                     bindInteractive(
                         layer,
-                        key ? byAdminKey[key] : null,
+                        byAdminKey[key],
                         fallbackLabel
                     );
                 }
