@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         zoomControl: true,
         zoomAnimation: false,
         fadeAnimation: false,
-        preferCanvas: true
+        preferCanvas: false
     }).setView([20, 0], 2);
 
     L.tileLayer(
