@@ -90,8 +90,15 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        layer.on("mouseover", () => layer.setStyle(HOVER_STYLE));
-        layer.on("mouseout", () => layer.setStyle(BASE_STYLE));
+        layer.on("mouseover", () => {
+            if (!layer._filteredOut) {
+                layer.setStyle(HOVER_STYLE);
+            }
+        });
+
+        layer.on("mouseout", () => {
+            layer.setStyle(BASE_STYLE);
+        });
 
         featureLayers.push({ layer, place });
     }
@@ -99,7 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const renderer = L.canvas();
 
     /* =========================
-       COUNTRIES
+       COUNTRIES (ADMIN-0)
+       EXCLUDE USA + UK
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
@@ -156,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       UK
+       UK SUBDIVISIONS
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
@@ -205,11 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       MULTI-TAG FILTER SYSTEM
+       MULTI-TAG FILTER (CHECKBOX)
     ========================= */
-
-    const tagSelect = document.getElementById("tagFilter");
-    const filterContainer = document.getElementById("activeFilters");
 
     const activeTags = new Set();
 
@@ -221,54 +226,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 activeTags.size === 0 ||
                 [...activeTags].every(tag => tags.includes(tag));
 
+            layer._filteredOut = !matches;
+
             layer.setStyle({
                 fillOpacity: matches ? 1 : 0.15
             });
         });
     }
 
-    function renderActiveFilters() {
-        filterContainer.innerHTML = "";
+    document
+        .querySelectorAll("#tagFilters input[type=checkbox]")
+        .forEach(cb => {
+            cb.addEventListener("change", () => {
+                activeTags.clear();
 
-        activeTags.forEach(tag => {
-            const chip = document.createElement("span");
-            chip.textContent = tag;
-            chip.style.cssText = `
-                display: inline-block;
-                padding: 0.25rem 0.5rem;
-                margin-right: 0.25rem;
-                background: #eceff1;
-                border-radius: 12px;
-                font-size: 0.85rem;
-                cursor: pointer;
-            `;
+                document
+                    .querySelectorAll("#tagFilters input[type=checkbox]:checked")
+                    .forEach(c => activeTags.add(c.value));
 
-            const close = document.createElement("span");
-            close.textContent = " ✕";
-            close.style.marginLeft = "0.25rem";
-
-            close.addEventListener("click", () => {
-                activeTags.delete(tag);
-                renderActiveFilters();
                 applyFilters();
             });
-
-            chip.appendChild(close);
-            filterContainer.appendChild(chip);
         });
-    }
-
-    if (tagSelect && filterContainer) {
-        tagSelect.addEventListener("change", () => {
-            const tag = tagSelect.value;
-            if (!tag) return;
-
-            activeTags.add(tag);
-            tagSelect.value = "";
-
-            renderActiveFilters();
-            applyFilters();
-        });
-    }
 
 });

@@ -6,15 +6,16 @@ permalink: /atlas/
 
 # World map
 
-<p>Select month and/or tag to highlight suitable countries.</p>
+<p>Select month and one or more tags to highlight suitable countries.</p>
 
 <!-- =========================
      FILTER CONTROLS
 ========================= -->
 
-<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 0.75rem;">
 
-  <select id="monthFilter">
+  <!-- Month filter (klar til senere brug) -->
+  <select id="monthFilter" style="max-width: 200px;">
     <option value="">All months</option>
     <option value="1">January</option>
     <option value="2">February</option>
@@ -30,32 +31,17 @@ permalink: /atlas/
     <option value="12">December</option>
   </select>
 
-  <select id="tagFilter">
-    <option value="">Add tag filter…</option>
-    <option value="culture">Culture</option>
-    <option value="food">Food</option>
-    <option value="cheap">Cheap</option>
-    <option value="expensive">Expensive</option>
-    <option value="island">Island</option>
-    <option value="gay_friendly">Gay friendly</option>
-  </select>
+  <!-- TAG FILTERS (MULTI-SELECT) -->
+  <div id="tagFilters" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <label><input type="checkbox" value="culture"> Culture</label>
+    <label><input type="checkbox" value="food"> Food</label>
+    <label><input type="checkbox" value="cheap"> Cheap</label>
+    <label><input type="checkbox" value="expensive"> Expensive</label>
+    <label><input type="checkbox" value="island"> Island</label>
+    <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
+  </div>
 
 </div>
-
-<!-- =========================
-     ACTIVE FILTER CHIPS
-     (THIS IS WHAT JS USES)
-========================= -->
-
-<div
-  id="activeFilters"
-  style="
-    margin-top: 0.5rem;
-    display: flex;
-    gap: 0.25rem;
-    flex-wrap: wrap;
-  "
-></div>
 
 <!-- =========================
      MAP
@@ -76,7 +62,6 @@ permalink: /atlas/
 
 <!-- =========================
      DATA FROM JEKYLL
-     (ALL CLICKABLE PLACES)
 ========================= -->
 
 <script>
