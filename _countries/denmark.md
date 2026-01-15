@@ -4,7 +4,7 @@ iso: DNK
 name: "Denmark"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere]
 ---
 
 # Denmark

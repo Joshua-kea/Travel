@@ -4,7 +4,7 @@ iso: BIH
 name: "Bosnia and Herzegovina"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere]
 ---
 
 # Bosnia and Herzegovina

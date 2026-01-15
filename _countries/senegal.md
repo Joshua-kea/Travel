@@ -4,7 +4,7 @@ iso: SEN
 name: "Senegal"
 continent: Africa
 gay_friendliness:
-tags: []
+tags: [mwashere, fandf]
 ---
 
 # Senegal

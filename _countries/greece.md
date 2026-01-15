@@ -4,7 +4,7 @@ iso: GRC
 name: "Greece"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Greece

@@ -4,7 +4,7 @@ iso: BEN
 name: "Benin"
 continent: Africa
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # Benin

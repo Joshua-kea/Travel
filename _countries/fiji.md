@@ -4,7 +4,7 @@ iso: FJI
 name: "Fiji"
 continent: Oceania
 gay_friendliness:
-tags: []
+tags: [island, beach]
 ---
 
 # Fiji

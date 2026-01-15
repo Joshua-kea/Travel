@@ -4,7 +4,7 @@ iso: HKG
 name: "Hong Kong"
 continent: Asia
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Hong Kong

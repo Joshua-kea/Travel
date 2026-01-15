@@ -4,7 +4,7 @@ iso: THA
 name: "Thailand"
 continent: Asia
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere, fandf]
 ---
 
 # Thailand

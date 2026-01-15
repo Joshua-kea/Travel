@@ -4,7 +4,7 @@ iso: ALB
 name: "Albania"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jgohere]
 ---
 
 # Albania

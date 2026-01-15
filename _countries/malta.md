@@ -4,7 +4,7 @@ iso: MLT
 name: "Malta"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Malta

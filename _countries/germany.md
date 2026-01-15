@@ -4,7 +4,7 @@ iso: DEU
 name: "Germany"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere]
 ---
 
 # Germany

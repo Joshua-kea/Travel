@@ -4,7 +4,7 @@ iso: MAR
 name: "Morocco"
 continent: Africa
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere, fandf]
 ---
 
 # Morocco

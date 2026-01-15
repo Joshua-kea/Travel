@@ -4,7 +4,7 @@ iso: NLD
 name: "Netherlands"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # Netherlands

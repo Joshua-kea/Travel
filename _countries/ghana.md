@@ -4,7 +4,7 @@ iso: GHA
 name: "Ghana"
 continent: Africa
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # Ghana

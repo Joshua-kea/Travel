@@ -4,7 +4,7 @@ iso: ESP
 name: "Spain"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere, fandf]
 ---
 
 # Spain

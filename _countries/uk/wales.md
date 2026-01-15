@@ -4,7 +4,7 @@ admin_key: "GBR:GB-WLS"
 name: "Wales"
 parent_country: UK
 continent: Europe
-tags: []
+tags: [mwashere]
 ---
 
 # Wales

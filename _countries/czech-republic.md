@@ -4,7 +4,7 @@ iso: CZE
 name: "Czech Republic"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Czech Republic

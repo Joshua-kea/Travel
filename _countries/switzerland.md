@@ -4,7 +4,7 @@ iso: CHE
 name: "Switzerland"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # Switzerland

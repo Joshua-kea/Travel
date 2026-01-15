@@ -4,7 +4,7 @@ iso: TGO
 name: "Togo"
 continent: Africa
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # Togo

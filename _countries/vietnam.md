@@ -4,7 +4,7 @@ iso: VNM
 name: "Vietnam"
 continent: Asia
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # Vietnam

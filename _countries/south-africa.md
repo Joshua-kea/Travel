@@ -4,7 +4,7 @@ iso: ZAF
 name: "South Africa"
 continent: Africa
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # South Africa

@@ -4,7 +4,7 @@ iso: VAT
 name: "Vatican"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Vatican

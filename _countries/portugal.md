@@ -4,7 +4,7 @@ iso: PRT
 name: "Portugal"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere, fandf]
 ---
 
 # Portugal

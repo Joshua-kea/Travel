@@ -4,7 +4,7 @@ iso: FIN
 name: "Finland"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # Finland

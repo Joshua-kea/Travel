@@ -4,7 +4,7 @@ iso: NOR
 name: "Norway"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere]
 ---
 
 # Norway

@@ -4,7 +4,7 @@ iso: HUN
 name: "Hungary"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Hungary

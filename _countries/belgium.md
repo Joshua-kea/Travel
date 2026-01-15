@@ -4,7 +4,7 @@ iso: BEL
 name: "Belgium"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Belgium

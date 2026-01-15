@@ -4,7 +4,7 @@ iso: ITA
 name: "Italy"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere]
 ---
 
 # Italy

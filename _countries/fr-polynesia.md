@@ -4,7 +4,7 @@ iso: PYF
 name: "Fr. Polynesia"
 continent:
 gay_friendliness:
-tags: []
+tags: [jgohere, island, beach]
 ---
 
 # Fr. Polynesia

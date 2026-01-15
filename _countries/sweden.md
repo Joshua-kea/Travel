@@ -4,7 +4,7 @@ iso: SWE
 name: "Sweden"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere, mwashere]
 ---
 
 # Sweden

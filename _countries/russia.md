@@ -4,7 +4,7 @@ iso: RUS
 name: "Russia"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Russia

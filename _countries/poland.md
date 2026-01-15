@@ -4,7 +4,7 @@ iso: POL
 name: "Poland"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [jwashere]
 ---
 
 # Poland
