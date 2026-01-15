@@ -227,6 +227,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const hasFilters = activeTags.size || activeMonths.size;
 
         layers.forEach(layer => {
+            console.log(
+                layer.feature?.properties?.NAME,
+                layer._place
+            );
+        });
+
+        layers.forEach(layer => {
             const place = layer._place;
             const tags = place?.tags || [];
             const months = (place?.best_months || []).map(String);
