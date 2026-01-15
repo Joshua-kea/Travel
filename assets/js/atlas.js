@@ -1,4 +1,4 @@
-console.log("ATLAS – CLEAN & CORRECT");
+console.log("ATLAS – FILTERS ACTUALLY WORK");
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -44,47 +44,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       VISUAL STYLES
+       STYLES
     ========================= */
 
-    // Normal map
     const STYLE_BASE = {
         fillColor: "#e6ecef",
         fillOpacity: 1,
         weight: 1,
-        color: "#8fa1ad"
+        color: "#9fb0bb"   // 👈 lysere outline
     };
 
-    // Hover (no filters) – Ireland look
     const STYLE_HOVER = {
-        fillColor: "#c5d1d8",
+        fillColor: "#cfd9df",
         fillOpacity: 1,
         weight: 2,
-        color: "#4f6d7a"
+        color: "#6f8896"
     };
 
-    // Filters active – non-matching
     const STYLE_DIM = {
-        fillColor: "#e6ecef",
-        fillOpacity: 0.08,
-        weight: 0.5,
-        color: "#c0ccd3"
+        fillColor: "#dde3e6",
+        fillOpacity: 0.15,
+        weight: 0.4,
+        color: "#c7d1d8"
     };
 
-    // Filters active – MATCH (THIS MUST POP)
     const STYLE_MATCH = {
-        fillColor: "#ff6b3d",   // 🔥 VERY CLEAR HIGHLIGHT COLOR
+        fillColor: "#ff5a1f",   // 🔥 MEGET TYDELIG
         fillOpacity: 1,
         weight: 2,
-        color: "#8c2d12"
+        color: "#b93a0a"
     };
 
-    // Hover on MATCH
     const STYLE_MATCH_HOVER = {
-        fillColor: "#e9552b",
+        fillColor: "#e64a14",
         fillOpacity: 1,
         weight: 3,
-        color: "#5f1e0c"
+        color: "#8c2a07"
     };
 
     /* =========================
@@ -122,9 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        layer.on("mouseout", () => {
-            applyStyle(layer);
-        });
+        layer.on("mouseout", () => applyStyle(layer));
 
         layers.push(layer);
     }
@@ -188,13 +181,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTERS
+       FILTERS + CHIPS
     ========================= */
 
     const panel = document.getElementById("filterPanel");
     const toggleBtn = document.getElementById("toggleFilterPanel");
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
+    const chipsEl = document.getElementById("activeFilters");
 
     const activeTags = new Set();
     const activeMonths = new Set();
@@ -202,6 +196,23 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBtn.onclick = () => {
         panel.style.display = panel.style.display === "none" ? "block" : "none";
     };
+
+    function renderChips() {
+        chipsEl.innerHTML = "";
+
+        [...activeTags].forEach(tag => {
+            const chip = document.createElement("span");
+            chip.textContent = `${tag} ×`;
+            chip.style.cssText =
+                "background:#eef1f3;padding:0.25rem 0.6rem;border-radius:999px;font-size:0.85rem;cursor:pointer;";
+            chip.onclick = () => {
+                activeTags.delete(tag);
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(chip);
+        });
+    }
 
     function applyFilters() {
         const hasFilters = activeTags.size > 0 || activeMonths.size > 0;
@@ -237,12 +248,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         panel.style.display = "none";
+        renderChips();
         applyFilters();
     };
 
     clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
+        renderChips();
         applyFilters();
         panel.style.display = "none";
     };
