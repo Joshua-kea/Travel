@@ -176,10 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 interactive: true,
                 onEachFeature: (feature, layer) => {
                     const p = feature.properties || {};
-                    const iso1 = p.ISO_1;
-                    if (!iso1) return;
-
-                    const key = `GBR:${iso1}`.toUpperCase();
+                    const iso1 = p.ISO_1 || null;
+                    const key = iso1 ? `GBR:${iso1}`.toUpperCase() : null;
 
                     const labelMap = {
                         "GB-ENG": "England",
@@ -188,7 +186,17 @@ document.addEventListener("DOMContentLoaded", () => {
                         "GB-NIR": "Northern Ireland"
                     };
 
-                    bindInteractive(layer, byAdminKey[key], labelMap[iso1]);
+                    const fallbackLabel =
+                        labelMap[iso1] ||
+                        p.NAME_1 ||
+                        p.VARNAME_1 ||
+                        "United Kingdom";
+
+                    bindInteractive(
+                        layer,
+                        key ? byAdminKey[key] : null,
+                        fallbackLabel
+                    );
                 }
             }).addTo(map);
         });
