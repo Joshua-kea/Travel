@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("subdivisions").style.zIndex = 400;
 
     /* =========================
-       PLACE LOOKUP (SOURCE OF TRUTH)
+       LOOKUPS
     ========================= */
 
     const byISO = {};
@@ -44,17 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
     });
 
-    function getISO(props = {}) {
+    function getISO(p = {}) {
         return (
-            props.ISO_A3 ||
-            props.ADM0_A3 ||
-            props.SOV_A3 ||
+            p.ISO_A3 ||
+            p.ADM0_A3 ||
+            p.SOV_A3 ||
             null
         );
     }
 
     /* =========================
-       STYLES
+       STYLES (SIMPLE)
     ========================= */
 
     const BASE_STYLE = {
@@ -66,54 +66,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const MATCH_STYLE = {
         fillColor: "#2b7cff",
-        fillOpacity: 1,
-        weight: 2,
-        color: "#083d77"
+        fillOpacity: 1
+    };
+
+    const FADED_STYLE = {
+        fillOpacity: 0.08
     };
 
     const HOVER_STYLE = {
-        fillColor: "#1a5ed8",
-        fillOpacity: 1,
         weight: 3,
-        color: "#052a52"
+        color: "#083d77"
     };
 
-    /* =========================
-       FEATURE REGISTRY
-    ========================= */
+    const renderer = L.canvas();
+    const layers = [];
 
-    const features = [];
+    function bindLayer(layer, place, label) {
+        layer._place = place || null;
 
-    function applyStyle(f) {
-        if (f.filteredOut) {
-            f.layer.setStyle({
-                fillOpacity: 0.06,
-                weight: 0.5
+        layer.bindTooltip(label, { sticky: true });
+
+        if (place?.url) {
+            layer.on("click", () => {
+                window.location.href = place.url;
             });
-        } else {
-            f.layer.setStyle(f.hasFilters && f.isMatch ? MATCH_STYLE : BASE_STYLE);
         }
-    }
 
-    function bind(layer, placeKey, fallbackLabel) {
-        layer.bindTooltip(fallbackLabel, { sticky: true });
-
+        // 👈 HOVER – som du havde før
         layer.on("mouseover", () => {
-            if (layer._isMatch) layer.setStyle(HOVER_STYLE);
+            layer.setStyle(HOVER_STYLE);
         });
 
-        layer.on("mouseout", () => applyStyle(layer._featureRef));
+        layer.on("mouseout", () => {
+            layer.setStyle({ weight: BASE_STYLE.weight, color: BASE_STYLE.color });
+        });
 
-        const featureRef = {
-            layer,
-            placeKey,
-            isMatch: true,
-            filteredOut: false,
-            hasFilters: false
-        };
-
-        layer._featureRef = featureRef;
-        features.push(featureRef);
+        layers.push(layer);
     }
 
     /* =========================
@@ -125,11 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             L.geoJSON(data, {
                 pane: "countries",
+                renderer,
                 style: BASE_STYLE,
+                filter: f => {
+                    const iso = getISO(f.properties);
+                    return iso && iso !== "USA" && iso !== "GBR";
+                },
                 onEachFeature: (f, l) => {
                     const iso = getISO(f.properties);
-                    if (!iso || iso === "USA" || iso === "GBR") return;
-                    bind(l, iso.toUpperCase(), f.properties.NAME);
+                    bindLayer(l, byISO[iso], f.properties.NAME);
                 }
             }).addTo(map);
         });
@@ -137,82 +129,108 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
         .then(r => r.json())
         .then(data => {
-            data.features
-                .filter(f => f.properties?.adm0_a3 === "USA")
-                .forEach(f => {
-                    const l = L.geoJSON(f, { style: BASE_STYLE }).addTo(map);
-                    bind(l, `USA:${f.properties.iso_3166_2}`, f.properties.name);
-                });
+            const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
+
+            L.geoJSON(usa, {
+                pane: "subdivisions",
+                renderer,
+                style: BASE_STYLE,
+                onEachFeature: (f, l) => {
+                    const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
+                    bindLayer(l, byAdminKey[key], f.properties.name);
+                }
+            }).addTo(map);
         });
 
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
         .then(r => r.json())
         .then(data => {
-            data.features.forEach(f => {
-                const iso = f.properties?.ISO_1 || "GB-ENG";
-                const l = L.geoJSON(f, { style: BASE_STYLE }).addTo(map);
-                bind(l, `GBR:${iso}`, f.properties.NAME_1 || iso);
-            });
+            L.geoJSON(data, {
+                pane: "subdivisions",
+                renderer,
+                style: BASE_STYLE,
+                onEachFeature: (f, l) => {
+                    const iso1 =
+                        (f.properties?.ISO_1 && f.properties.ISO_1 !== "NA")
+                            ? f.properties.ISO_1
+                            : "GB-ENG";
+
+                    const key = `GBR:${iso1}`.toUpperCase();
+                    const labels = {
+                        "GB-ENG": "England",
+                        "GB-SCT": "Scotland",
+                        "GB-WLS": "Wales",
+                        "GB-NIR": "Northern Ireland"
+                    };
+
+                    bindLayer(l, byAdminKey[key], labels[iso1]);
+                }
+            }).addTo(map);
         });
 
     /* =========================
-       FILTER LOGIC
+       FILTERS (WORKING)
     ========================= */
+
+    const panel = document.getElementById("filterPanel");
+    const toggleBtn = document.getElementById("toggleFilterPanel");
+    const applyBtn = document.getElementById("applyFilterBtn");
+    const clearBtn = document.getElementById("clearFilterBtn");
 
     const activeTags = new Set();
     const activeMonths = new Set();
 
+    toggleBtn.onclick = () => {
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    };
+
     function applyFilters() {
-        const hasFilters = activeTags.size > 0 || activeMonths.size > 0;
+        const hasFilters = activeTags.size || activeMonths.size;
 
-        features.forEach(f => {
-            const place =
-                byISO[f.placeKey] ||
-                byAdminKey[f.placeKey];
-
+        layers.forEach(layer => {
+            const place = layer._place;
             const tags = place?.tags || [];
             const months = (place?.best_months || []).map(String);
 
             let match = true;
 
-            if (hasFilters) {
-                if (activeTags.size > 0) {
-                    match = [...activeTags].every(t => tags.includes(t));
-                }
-                if (match && activeMonths.size > 0) {
-                    match = months.some(m => activeMonths.has(m));
-                }
+            if (activeTags.size) {
+                match = [...activeTags].every(t => tags.includes(t));
             }
 
-            f.hasFilters = hasFilters;
-            f.isMatch = match;
-            f.filteredOut = hasFilters && !match;
+            if (match && activeMonths.size) {
+                match = months.some(m => activeMonths.has(m));
+            }
 
-            applyStyle(f);
+            if (!hasFilters) {
+                layer.setStyle(BASE_STYLE);
+            } else if (match) {
+                layer.setStyle(MATCH_STYLE);
+            } else {
+                layer.setStyle(FADED_STYLE);
+            }
         });
     }
 
-    /* =========================
-       UI
-    ========================= */
-
-    document.getElementById("applyFilterBtn").onclick = () => {
+    applyBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
 
-        document
-            .querySelectorAll("#filterPanel input:checked")
+        panel.querySelectorAll("input[type='checkbox']:checked")
             .forEach(cb => {
                 if (isNaN(cb.value)) activeTags.add(cb.value);
                 else activeMonths.add(cb.value);
             });
 
+        panel.style.display = "none";
         applyFilters();
     };
 
-    document.getElementById("clearFilterBtn").onclick = () => {
+    clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
         applyFilters();
+        panel.style.display = "none";
     };
+
 });
