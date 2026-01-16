@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     map.createPane("countries");
     map.createPane("subdivisions");
+
     map.getPane("countries").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
 
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       FILTER STATE
+       FILTER STATE (shared)
     ========================= */
 
     const activeTags = new Set();
@@ -68,11 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (activeTags.size) {
             if (![...activeTags].every(t => tags.includes(t))) return false;
         }
-
         if (activeMonths.size) {
             if (!months.some(m => activeMonths.has(m))) return false;
         }
-
         return true;
     }
 
@@ -120,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       LOAD DATA (kort)
+       LOAD COUNTRIES (EXCEPT USA + UK)
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
@@ -135,6 +134,56 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 onEachFeature: (f, l) => {
                     bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
+                }
+            }).addTo(map);
+        });
+
+    /* =========================
+       LOAD USA STATES
+    ========================= */
+
+    fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
+        .then(r => r.json())
+        .then(data => {
+            const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
+            L.geoJSON(usa, {
+                pane: "subdivisions",
+                style: STYLE_BASE,
+                onEachFeature: (f, l) => {
+                    const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
+                    bindLayer(l, byAdminKey[key], f.properties.name);
+                }
+            }).addTo(map);
+        });
+
+    /* =========================
+       LOAD UK COUNTRIES
+    ========================= */
+
+    fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
+        .then(r => r.json())
+        .then(data => {
+            L.geoJSON(data, {
+                pane: "subdivisions",
+                style: STYLE_BASE,
+                onEachFeature: (f, l) => {
+                    const iso1 =
+                        f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
+                            ? f.properties.ISO_1
+                            : "GB-ENG";
+
+                    const labels = {
+                        "GB-ENG": "England",
+                        "GB-SCT": "Scotland",
+                        "GB-WLS": "Wales",
+                        "GB-NIR": "Northern Ireland"
+                    };
+
+                    bindLayer(
+                        l,
+                        byAdminKey[`GBR:${iso1}`],
+                        labels[iso1]
+                    );
                 }
             }).addTo(map);
         });
@@ -159,9 +208,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const chip = document.createElement("span");
             chip.textContent = `${tag} ×`;
             chip.style.cssText = `
-              background:#6b8f9c;color:white;
-              padding:0.25rem 0.7rem;border-radius:999px;
-              cursor:pointer;font-size:0.75rem;
+              background:#6b8f9c;
+              color:white;
+              padding:0.25rem 0.7rem;
+              border-radius:999px;
+              cursor:pointer;
+              font-size:0.75rem;
             `;
             chip.onclick = () => {
                 activeTags.delete(tag);
@@ -210,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* =========================
-       LIST VIEW
+       VIEW SWITCH (MAP / LIST)
     ========================= */
 
     const mapView = document.getElementById("mapView");
@@ -227,8 +279,10 @@ document.addEventListener("DOMContentLoaded", () => {
             .forEach(place => {
                 const li = document.createElement("li");
                 li.style.cssText = `
-                  padding:1rem;background:#f6f8f9;
-                  border-radius:10px;cursor:pointer;
+                  padding:1rem;
+                  background:#f6f8f9;
+                  border-radius:10px;
+                  cursor:pointer;
                 `;
                 li.innerHTML = `
                   <strong>${place.name}</strong><br>
