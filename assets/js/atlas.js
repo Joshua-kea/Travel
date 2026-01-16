@@ -8,10 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
        MAP
     ========================= */
 
-    const INITIAL_VIEW = {
-        center: [20, 0],
-        zoom: 3
-    };
+    const INITIAL_VIEW = { center: [20, 0], zoom: 3 };
 
     const map = L.map("map", {
         zoomControl: true,
@@ -20,17 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-        {
-            attribution: "© OpenStreetMap & CARTO",
-            noWrap: true
-        }
+        { attribution: "© OpenStreetMap & CARTO", noWrap: true }
     ).addTo(map);
 
     map.zoomControl.setPosition("bottomright");
 
     map.createPane("countries");
     map.createPane("subdivisions");
-
     map.getPane("countries").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
 
@@ -62,43 +55,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
+       FILTER STATE
+    ========================= */
+
+    const activeTags = new Set();
+    const activeMonths = new Set();
+
+    function placeMatchesFilters(place) {
+        const tags = place?.tags || [];
+        const months = normalizeMonths(place?.best_months);
+
+        if (activeTags.size) {
+            if (![...activeTags].every(t => tags.includes(t))) return false;
+        }
+
+        if (activeMonths.size) {
+            if (!months.some(m => activeMonths.has(m))) return false;
+        }
+
+        return true;
+    }
+
+    /* =========================
        STYLES
     ========================= */
 
-    const STYLE_BASE = {
-        fillColor: "#e8eef1",
-        fillOpacity: 1,
-        weight: 0.8,
-        color: "#a9bcc8"
-    };
-
-    const STYLE_DIM = {
-        fillColor: "#f8f9fa",
-        fillOpacity: 1,
-        weight: 0.5,
-        color: "#e1e4e6"
-    };
-
-    const STYLE_MATCH = {
-        fillColor: "#6b8f9c",
-        fillOpacity: 1,
-        weight: 1.5,
-        color: "#4e6f7c"
-    };
-
-    const STYLE_MATCH_HOVER = {
-        fillColor: "#577f8c",
-        fillOpacity: 1,
-        weight: 2.5,
-        color: "#3e5f6b"
-    };
-
-    const STYLE_HOVER_NORMAL = {
-        fillColor: "#d6e1e7",
-        fillOpacity: 1,
-        weight: 2,
-        color: "#7d98a6"
-    };
+    const STYLE_BASE = { fillColor:"#e8eef1", fillOpacity:1, weight:0.8, color:"#a9bcc8" };
+    const STYLE_DIM  = { fillColor:"#f8f9fa", fillOpacity:1, weight:0.5, color:"#e1e4e6" };
+    const STYLE_MATCH = { fillColor:"#6b8f9c", fillOpacity:1, weight:1.5, color:"#4e6f7c" };
+    const STYLE_MATCH_HOVER = { fillColor:"#577f8c", fillOpacity:1, weight:2.5, color:"#3e5f6b" };
+    const STYLE_HOVER_NORMAL = { fillColor:"#d6e1e7", fillOpacity:1, weight:2, color:"#7d98a6" };
 
     /* =========================
        REGISTRY
@@ -114,9 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => {
-                window.location.href = place.url;
-            });
+            layer.on("click", () => window.location.href = place.url);
         }
 
         layer.on("mouseover", () => {
@@ -126,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         layer.on("mouseout", () => applyStyle(layer));
-
         layers.push(layer);
     }
 
@@ -137,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       LOAD DATA
+       LOAD DATA (kort)
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
@@ -151,52 +134,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     return key && key !== "USA" && key !== "GBR";
                 },
                 onEachFeature: (f, l) => {
-                    const key = getCountryKey(f.properties);
-                    bindLayer(l, byISO[key], f.properties.NAME);
-                }
-            }).addTo(map);
-        });
-
-    fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
-            L.geoJSON(usa, {
-                pane: "subdivisions",
-                style: STYLE_BASE,
-                onEachFeature: (f, l) => {
-                    const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
-                    bindLayer(l, byAdminKey[key], f.properties.name);
-                }
-            }).addTo(map);
-        });
-
-    fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane: "subdivisions",
-                style: STYLE_BASE,
-                onEachFeature: (f, l) => {
-                    const iso1 =
-                        f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
-                            ? f.properties.ISO_1
-                            : "GB-ENG";
-
-                    const labels = {
-                        "GB-ENG": "England",
-                        "GB-SCT": "Scotland",
-                        "GB-WLS": "Wales",
-                        "GB-NIR": "Northern Ireland"
-                    };
-
-                    bindLayer(l, byAdminKey[`GBR:${iso1}`], labels[iso1]);
+                    bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       FILTERS (unchanged)
+       FILTER UI
     ========================= */
 
     const panel = document.getElementById("filterPanel");
@@ -204,9 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
     const chipsEl = document.getElementById("activeFilters");
-
-    const activeTags = new Set();
-    const activeMonths = new Set();
 
     toggleBtn.onclick = () => {
         panel.style.display = panel.style.display === "none" ? "block" : "none";
@@ -218,12 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const chip = document.createElement("span");
             chip.textContent = `${tag} ×`;
             chip.style.cssText = `
-                background:#6b8f9c;
-                color:white;
-                padding:0.25rem 0.7rem;
-                border-radius:999px;
-                cursor:pointer;
-                font-size:0.75rem;
+              background:#6b8f9c;color:white;
+              padding:0.25rem 0.7rem;border-radius:999px;
+              cursor:pointer;font-size:0.75rem;
             `;
             chip.onclick = () => {
                 activeTags.delete(tag);
@@ -238,32 +176,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const hasFilters = activeTags.size || activeMonths.size;
 
         layers.forEach(layer => {
-            const place = layer._place;
-            const tags = place?.tags || [];
-            const months = normalizeMonths(place?.best_months);
-
-            let match = true;
-
-            if (activeTags.size) {
-                match = [...activeTags].every(t => tags.includes(t));
-            }
-            if (match && activeMonths.size) {
-                match = months.some(m => activeMonths.has(m));
-            }
-
+            const match = placeMatchesFilters(layer._place);
             layer._hasFilters = hasFilters;
             layer._isMatch = match;
-
             applyStyle(layer);
         });
+
+        if (listView.style.display === "block") {
+            renderList();
+        }
     }
 
     applyBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
+
         panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
             isNaN(cb.value) ? activeTags.add(cb.value) : activeMonths.add(cb.value);
         });
+
         panel.style.display = "none";
         renderChips();
         applyFilters();
@@ -279,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* =========================
-       VIEW SWITCH (MAP / LIST)
+       LIST VIEW
     ========================= */
 
     const mapView = document.getElementById("mapView");
@@ -290,40 +221,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderList() {
         listEl.innerHTML = "";
-        window.places.forEach(place => {
-            const li = document.createElement("li");
-            li.style.cssText = `
-                padding: 1rem;
-                background: #f6f8f9;
-                border-radius: 10px;
-                cursor: pointer;
-            `;
-            li.innerHTML = `
-                <strong>${place.name}</strong><br>
-                <span style="font-size:0.75rem; color:#6b7280;">
+
+        window.places
+            .filter(placeMatchesFilters)
+            .forEach(place => {
+                const li = document.createElement("li");
+                li.style.cssText = `
+                  padding:1rem;background:#f6f8f9;
+                  border-radius:10px;cursor:pointer;
+                `;
+                li.innerHTML = `
+                  <strong>${place.name}</strong><br>
+                  <span style="font-size:0.75rem;color:#6b7280;">
                     ${place.tags?.join(", ") || ""}
-                </span>
-            `;
-            li.onclick = () => window.location.href = place.url;
-            listEl.appendChild(li);
-        });
+                  </span>
+                `;
+                li.onclick = () => window.location.href = place.url;
+                listEl.appendChild(li);
+            });
     }
 
     mapBtn.onclick = () => {
         mapView.style.display = "block";
         listView.style.display = "none";
-        mapBtn.style.background = "#6b8f9c";
-        mapBtn.style.color = "white";
-        listBtn.style.background = "transparent";
         map.invalidateSize();
     };
 
     listBtn.onclick = () => {
         mapView.style.display = "none";
         listView.style.display = "block";
-        listBtn.style.background = "#6b8f9c";
-        listBtn.style.color = "white";
-        mapBtn.style.background = "transparent";
         renderList();
     };
 
