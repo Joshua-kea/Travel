@@ -15,14 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const map = L.map("map", {
         zoomControl: true,
-        worldCopyJump: false   // ingen globe-jump
+        worldCopyJump: false
     }).setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom);
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
         {
             attribution: "© OpenStreetMap & CARTO",
-            noWrap: true        // ingen horisontal gentagelse
+            noWrap: true
         }
     ).addTo(map);
 
@@ -34,14 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("countries").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
 
-    /* =========================
-       RESET VIEW ON BACK
-    ========================= */
-
     window.addEventListener("pageshow", () => {
-        map.setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom, {
-            animate: false
-        });
+        map.setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom, { animate: false });
     });
 
     /* =========================
@@ -127,17 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         layer.on("mouseover", () => {
             layer.bringToFront();
-
-            if (!layer._hasFilters) {
-                layer.setStyle(STYLE_HOVER_NORMAL);
-            } else if (layer._isMatch) {
-                layer.setStyle(STYLE_MATCH_HOVER);
-            }
+            if (!layer._hasFilters) layer.setStyle(STYLE_HOVER_NORMAL);
+            else if (layer._isMatch) layer.setStyle(STYLE_MATCH_HOVER);
         });
 
-        layer.on("mouseout", () => {
-            applyStyle(layer);
-        });
+        layer.on("mouseout", () => applyStyle(layer));
 
         layers.push(layer);
     }
@@ -208,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTERS
+       FILTERS (unchanged)
     ========================= */
 
     const panel = document.getElementById("filterPanel");
@@ -273,11 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
     applyBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
-
         panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
             isNaN(cb.value) ? activeTags.add(cb.value) : activeMonths.add(cb.value);
         });
-
         panel.style.display = "none";
         renderChips();
         applyFilters();
@@ -286,14 +272,59 @@ document.addEventListener("DOMContentLoaded", () => {
     clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
-
-        panel.querySelectorAll("input[type='checkbox']").forEach(cb => {
-            cb.checked = false;
-        });
-
+        panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
         renderChips();
         applyFilters();
         panel.style.display = "none";
+    };
+
+    /* =========================
+       VIEW SWITCH (MAP / LIST)
+    ========================= */
+
+    const mapView = document.getElementById("mapView");
+    const listView = document.getElementById("listView");
+    const mapBtn = document.getElementById("viewMapBtn");
+    const listBtn = document.getElementById("viewListBtn");
+    const listEl = document.getElementById("placeList");
+
+    function renderList() {
+        listEl.innerHTML = "";
+        window.places.forEach(place => {
+            const li = document.createElement("li");
+            li.style.cssText = `
+                padding: 1rem;
+                background: #f6f8f9;
+                border-radius: 10px;
+                cursor: pointer;
+            `;
+            li.innerHTML = `
+                <strong>${place.name}</strong><br>
+                <span style="font-size:0.75rem; color:#6b7280;">
+                    ${place.tags?.join(", ") || ""}
+                </span>
+            `;
+            li.onclick = () => window.location.href = place.url;
+            listEl.appendChild(li);
+        });
+    }
+
+    mapBtn.onclick = () => {
+        mapView.style.display = "block";
+        listView.style.display = "none";
+        mapBtn.style.background = "#6b8f9c";
+        mapBtn.style.color = "white";
+        listBtn.style.background = "transparent";
+        map.invalidateSize();
+    };
+
+    listBtn.onclick = () => {
+        mapView.style.display = "none";
+        listView.style.display = "block";
+        listBtn.style.background = "#6b8f9c";
+        listBtn.style.color = "white";
+        mapBtn.style.background = "transparent";
+        renderList();
     };
 
 });
