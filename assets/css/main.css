@@ -1,28 +1,21 @@
 /* =========================
-   GLOBAL BACKGROUND
-   (fallback outside map)
+   BASE PAGE
 ========================= */
 
 body {
-    background: #d76cf5;
+    background: #ffffff;
 }
 
 /* =========================
-   MAP / OCEAN COLOR
-   (CARTO tiles background)
+   MAP
 ========================= */
 
 #map {
-    background: #d76cf5;
-}
-
-.leaflet-tile-pane {
-    background: #d76cf5;
+    width: 100%;
 }
 
 /* =========================
    LEAFLET TOOLTIP
-   (travel-friendly)
 ========================= */
 
 .leaflet-tooltip {
