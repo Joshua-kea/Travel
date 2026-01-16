@@ -4,7 +4,7 @@ iso: SGP
 name: "Singapore"
 continent: Asia
 gay_friendliness:
-tags: []
+tags: [mwashere]
 ---
 
 # Singapore

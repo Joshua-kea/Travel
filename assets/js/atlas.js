@@ -53,40 +53,45 @@ document.addEventListener("DOMContentLoaded", () => {
        STYLES (TRAVEL PALETTE)
     ========================= */
 
+    /* =========================
+   STYLES – WARM TRAVEL JOURNAL
+========================= */
+
     const STYLE_BASE = {
-        fillColor: "#e8eef1",
+        fillColor: "#f1efe9",
         fillOpacity: 1,
         weight: 0.8,
-        color: "#a9bcc8"
+        color: "#c9bfb3"
     };
 
     const STYLE_DIM = {
-        fillColor: "#f8f9fa",
+        fillColor: "#faf9f7",
         fillOpacity: 1,
         weight: 0.5,
-        color: "#e1e4e6"
+        color: "#e0dad2"
     };
 
     const STYLE_MATCH = {
-        fillColor: "#6b8f9c",
+        fillColor: "#c97c5d",
         fillOpacity: 1,
         weight: 1.5,
-        color: "#4e6f7c"
+        color: "#a9654c"
     };
 
     const STYLE_MATCH_HOVER = {
-        fillColor: "#577f8c",
+        fillColor: "#b86b4d",
         fillOpacity: 1,
         weight: 2.5,
-        color: "#3e5f6b"
+        color: "#8f4f3b"
     };
 
     const STYLE_HOVER_NORMAL = {
-        fillColor: "#d6e1e7",
+        fillColor: "#e5dfd5",
         fillOpacity: 1,
         weight: 2,
-        color: "#7d98a6"
+        color: "#b7ab9e"
     };
+
 
     /* =========================
        REGISTRY
