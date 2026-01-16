@@ -157,13 +157,13 @@ gap: 0.4rem;
   "
 >
   <div
-    id="map"
-    style="
-      height: 75vh;
-      min-height: 600px;
-      border-radius: 0;
-    "
-  ></div>
+  id="map"
+  style="
+    height: 85vh;
+    min-height: 700px;
+    border-radius: 0;
+  "
+></div>
 </div>
 
 <link
