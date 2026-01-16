@@ -58,38 +58,38 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
     const STYLE_BASE = {
-        fillColor: "#f1efe9",
+        fillColor: "#e8eef1",
         fillOpacity: 1,
         weight: 0.8,
-        color: "#c9bfb3"
+        color: "#a9bcc8"
     };
 
     const STYLE_DIM = {
-        fillColor: "#faf9f7",
+        fillColor: "#f8f9fa",
         fillOpacity: 1,
         weight: 0.5,
-        color: "#e0dad2"
+        color: "#e1e4e6"
     };
 
     const STYLE_MATCH = {
-        fillColor: "#c97c5d",
+        fillColor: "#6b8f9c",
         fillOpacity: 1,
         weight: 1.5,
-        color: "#a9654c"
+        color: "#4e6f7c"
     };
 
     const STYLE_MATCH_HOVER = {
-        fillColor: "#b86b4d",
+        fillColor: "#577f8c",
         fillOpacity: 1,
         weight: 2.5,
-        color: "#8f4f3b"
+        color: "#3e5f6b"
     };
 
     const STYLE_HOVER_NORMAL = {
-        fillColor: "#e5dfd5",
+        fillColor: "#d6e1e7",
         fillOpacity: 1,
         weight: 2,
-        color: "#b7ab9e"
+        color: "#7d98a6"
     };
 
 
