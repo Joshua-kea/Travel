@@ -50,42 +50,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       STYLES
+       STYLES (TRAVEL PALETTE)
     ========================= */
 
     const STYLE_BASE = {
-        fillColor: "#e6ecef",
+        fillColor: "#e8eef1",
         fillOpacity: 1,
-        weight: 1,
-        color: "#9fb0bb"
+        weight: 0.8,
+        color: "#a9bcc8"
     };
 
     const STYLE_DIM = {
-        fillColor: "#ffffff",
+        fillColor: "#f8f9fa",
         fillOpacity: 1,
         weight: 0.5,
-        color: "#dddddd"
+        color: "#e1e4e6"
     };
 
     const STYLE_MATCH = {
-        fillColor: "#ff0000",
+        fillColor: "#6b8f9c",
         fillOpacity: 1,
-        weight: 2,
-        color: "#7a0000"
+        weight: 1.5,
+        color: "#4e6f7c"
     };
 
     const STYLE_MATCH_HOVER = {
-        fillColor: "#cc0000",
+        fillColor: "#577f8c",
         fillOpacity: 1,
-        weight: 3,
-        color: "#5a0000"
+        weight: 2.5,
+        color: "#3e5f6b"
     };
 
     const STYLE_HOVER_NORMAL = {
-        fillColor: "#cfd9df",
+        fillColor: "#d6e1e7",
         fillOpacity: 1,
         weight: 2,
-        color: "#6f8896"
+        color: "#7d98a6"
     };
 
     /* =========================
@@ -106,6 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         layer.on("mouseover", () => {
+            layer.bringToFront();
+
             if (!layer._hasFilters) {
                 layer.setStyle(STYLE_HOVER_NORMAL);
             } else if (layer._isMatch) {
@@ -186,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTERS
+       FILTERS (UNCHANGED LOGIC)
     ========================= */
 
     const panel = document.getElementById("filterPanel");
@@ -207,8 +209,14 @@ document.addEventListener("DOMContentLoaded", () => {
         activeTags.forEach(tag => {
             const chip = document.createElement("span");
             chip.textContent = `${tag} ×`;
-            chip.style.cssText =
-                "background:#eee;padding:0.25rem 0.6rem;border-radius:999px;cursor:pointer;";
+            chip.style.cssText = `
+                background:#6b8f9c;
+                color:white;
+                padding:0.25rem 0.7rem;
+                border-radius:999px;
+                cursor:pointer;
+                font-size:0.75rem;
+            `;
             chip.onclick = () => {
                 activeTags.delete(tag);
                 renderChips();

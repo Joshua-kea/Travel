@@ -2,11 +2,16 @@
 .leaflet-container {
     background: #dde3e6;
 }
+
+/* Tooltip: travel-friendly */
 .leaflet-tooltip {
-    background: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.97);
     border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.5rem;
     box-shadow: none;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    color: #2f3e46;
 }
 
 .leaflet-tooltip::before {

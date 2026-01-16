@@ -6,7 +6,10 @@ permalink: /atlas/
 
 # World map
 
-<p>Select filters to highlight suitable countries.</p>
+<p style="max-width: 640px;">
+Explore destinations around the world and use filters to find places that match
+your travel interests and preferred time of year.
+</p>
 
 <!-- =========================
      FILTER CONTROLS
@@ -14,17 +17,20 @@ permalink: /atlas/
 
 <div style="margin: 0 0 0.75rem 20px; position: relative; z-index: 1001;">
 
+  <!-- TOGGLE BUTTON -->
 <button
 id="toggleFilterPanel"
 style="
-padding: 0.4rem 0.6rem;
-border-radius: 4px;
-border: 1px solid #ccc;
-background: #fff;
+padding: 0.45rem 0.9rem;
+border-radius: 999px;
+border: none;
+background: #6b8f9c;
+color: #ffffff;
+font-weight: 500;
 cursor: pointer;
 "
 >
-    Add filters
+    Plan your trip
   </button>
 
   <!-- FILTER PANEL -->
@@ -33,27 +39,27 @@ cursor: pointer;
     style="
       display: none;
       position: absolute;
-      top: 2.5rem;
+      top: 2.75rem;
       left: 0;
       background: #ffffff;
-      border-radius: 8px;
-      padding: 1rem;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
       width: 300px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.15);
     "
   >
-    <strong>Filters</strong>
+    <strong style="font-size: 1rem;">Plan your trip</strong>
 
     <!-- MONTHS -->
-    <div style="margin-top: 0.75rem;">
-      <div style="font-size: 0.85rem; margin-bottom: 0.25rem;">
+    <div style="margin-top: 0.9rem;">
+      <div style="font-size: 0.85rem; margin-bottom: 0.35rem; color:#4a5a63;">
         When do you travel?
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem;">
         {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
         {% for m in months %}
-          <label>
+          <label style="font-size:0.8rem;">
             <input type="checkbox" value="{{ forloop.index }}">
             {{ m }}
           </label>
@@ -62,31 +68,55 @@ cursor: pointer;
     </div>
 
     <!-- TAGS -->
-    <div style="margin-top: 0.75rem;">
-      <div style="font-size: 0.85rem; margin-bottom: 0.25rem;">
+    <div style="margin-top: 0.9rem;">
+      <div style="font-size: 0.85rem; margin-bottom: 0.35rem; color:#4a5a63;">
         Interests
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size:0.8rem;">
         <label><input type="checkbox" value="culture"> Culture</label>
         <label><input type="checkbox" value="food"> Food</label>
-        <label><input type="checkbox" value="cheap"> Cheap</label>
-        <label><input type="checkbox" value="expensive"> Expensive</label>
+        <label><input type="checkbox" value="cheap"> Budget friendly</label>
+        <label><input type="checkbox" value="expensive"> Luxury</label>
         <label><input type="checkbox" value="island"> Island</label>
         <label><input type="checkbox" value="beach"> Beach destination</label>
-        <label><input type="checkbox" value="fandf"> Friends/family live here</label>
+        <label><input type="checkbox" value="fandf"> Friends / family live here</label>
         <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
         <label><input type="checkbox" value="jwashere"> Places J has been</label>
         <label><input type="checkbox" value="mwashere"> Places M has been</label>
-        <label><input type="checkbox" value="jgohere"> Places J wants to visit asap</label>
-        <label><input type="checkbox" value="mgohere"> Places M wants to visit asap</label>
+        <label><input type="checkbox" value="jgohere"> Places J wants to visit soon</label>
+        <label><input type="checkbox" value="mgohere"> Places M wants to visit soon</label>
       </div>
     </div>
 
     <!-- ACTIONS -->
-    <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-      <button id="applyFilterBtn" style="flex: 1;">Apply</button>
-      <button id="clearFilterBtn" style="flex: 1;">Clear</button>
+    <div style="margin-top: 1.1rem; display: flex; gap: 0.5rem;">
+      <button
+        id="applyFilterBtn"
+        style="
+          flex: 1;
+          border-radius: 6px;
+          border: none;
+          background: #6b8f9c;
+          color: white;
+          padding: 0.4rem;
+          cursor: pointer;
+        "
+      >
+        Apply
+      </button>
+      <button
+        id="clearFilterBtn"
+        style="
+          flex: 1;
+          border-radius: 6px;
+          border: 1px solid #ccd5da;
+          background: #ffffff;
+          cursor: pointer;
+        "
+      >
+        Clear
+      </button>
     </div>
   </div>
 
@@ -105,9 +135,12 @@ cursor: pointer;
 ></div>
 
 <!-- MAP -->
-<div id="map" style="height: 600px;"></div>
+<div id="map" style="height: 600px; border-radius: 12px;"></div>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
@@ -128,4 +161,3 @@ cursor: pointer;
 </script>
 
 <script src="{{ site.baseurl }}/assets/js/atlas.js?v=2026-01-15-1"></script>
-
