@@ -28,10 +28,14 @@ background: #6b8f9c;
 color: #ffffff;
 font-weight: 500;
 cursor: pointer;
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
 "
 >
-    Plan your trip
-  </button>
+<span style="font-size:0.9rem;">Filters</span>
+<span style="font-size:0.85rem; opacity:0.8;">＋</span>
+</button>
 
   <!-- FILTER PANEL -->
   <div

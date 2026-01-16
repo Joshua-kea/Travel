@@ -266,8 +266,15 @@ document.addEventListener("DOMContentLoaded", () => {
     clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
+
+        // Uncheck all checkboxes
+        panel.querySelectorAll("input[type='checkbox']").forEach(cb => {
+            cb.checked = false;
+        });
+
         renderChips();
         applyFilters();
         panel.style.display = "none";
     };
+
 });
