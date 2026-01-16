@@ -29,20 +29,38 @@ browse places that match your travel interests and preferred time of year.
 
   <!-- VIEW SWITCH -->
   <div
+    id="viewSwitch"
     style="
+      position: relative;
       display: inline-flex;
       border-radius: 999px;
       background: #eef3f6;
-      padding: 0.2rem;
+      padding: 0.25rem;
     "
   >
+    <div
+      id="viewIndicator"
+      style="
+        position: absolute;
+        top: 0.25rem;
+        left: 0.25rem;
+        width: calc(50% - 0.25rem);
+        height: calc(100% - 0.5rem);
+        background: #6b8f9c;
+        border-radius: 999px;
+        transition: transform 0.25s ease;
+      "
+    ></div>
+
     <button
       id="viewMapBtn"
       style="
-        padding: 0.35rem 0.8rem;
+        position: relative;
+        z-index: 1;
+        padding: 0.35rem 0.9rem;
         border-radius: 999px;
         border: none;
-        background: #6b8f9c;
+        background: transparent;
         color: white;
         cursor: pointer;
         font-size: 0.8rem;
@@ -50,13 +68,17 @@ browse places that match your travel interests and preferred time of year.
     >
       Map
     </button>
+
     <button
       id="viewListBtn"
       style="
-        padding: 0.35rem 0.8rem;
+        position: relative;
+        z-index: 1;
+        padding: 0.35rem 0.9rem;
         border-radius: 999px;
         border: none;
         background: transparent;
+        color: #374151;
         cursor: pointer;
         font-size: 0.8rem;
       "
@@ -101,49 +123,32 @@ gap: 0.4rem;
       z-index: 2001;
     "
   >
-    <strong style="font-size: 1rem;">Filters</strong>
+    <strong>Filters</strong>
 
-    <!-- MONTHS -->
-    <div style="margin-top: 0.9rem;">
-      <div style="font-size: 0.85rem; margin-bottom: 0.35rem; color:#4a5a63;">
-        When do you travel?
-      </div>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem;">
+    <div style="margin-top:0.9rem;">
+      <div style="font-size:0.85rem;">When do you travel?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.35rem;">
         {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
         {% for m in months %}
-          <label style="font-size:0.8rem;">
-            <input type="checkbox" value="{{ forloop.index }}">
-            {{ m }}
-          </label>
+          <label><input type="checkbox" value="{{ forloop.index }}"> {{ m }}</label>
         {% endfor %}
       </div>
     </div>
 
-    <!-- TAGS -->
-    <div style="margin-top: 0.9rem;">
-      <div style="font-size: 0.85rem; margin-bottom: 0.35rem; color:#4a5a63;">
-        Interests
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size:0.8rem;">
+    <div style="margin-top:0.9rem;">
+      <div style="font-size:0.85rem;">Interests</div>
+      <div style="display:flex;flex-direction:column;gap:0.35rem;">
         <label><input type="checkbox" value="culture"> Culture</label>
         <label><input type="checkbox" value="food"> Food</label>
         <label><input type="checkbox" value="cheap"> Budget friendly</label>
         <label><input type="checkbox" value="expensive"> Luxury</label>
         <label><input type="checkbox" value="island"> Island</label>
-        <label><input type="checkbox" value="beach"> Beach destination</label>
-        <label><input type="checkbox" value="fandf"> Friends / family live here</label>
+        <label><input type="checkbox" value="beach"> Beach</label>
         <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
-        <label><input type="checkbox" value="jwashere"> Places J has been</label>
-        <label><input type="checkbox" value="mwashere"> Places M has been</label>
-        <label><input type="checkbox" value="jgohere"> Places J wants to visit soon</label>
-        <label><input type="checkbox" value="mgohere"> Places M wants to visit soon</label>
       </div>
     </div>
 
-    <!-- ACTIONS -->
-    <div style="margin-top: 1.1rem; display: flex; gap: 0.5rem;">
+    <div style="margin-top:1rem;display:flex;gap:0.5rem;">
       <button id="applyFilterBtn" style="flex:1;">Apply</button>
       <button id="clearFilterBtn" style="flex:1;">Clear</button>
     </div>
@@ -151,61 +156,16 @@ gap: 0.4rem;
 
 </div>
 
-<!-- ACTIVE FILTER CHIPS -->
-<div
-  id="activeFilters"
-  style="
-    margin-bottom: 1rem;
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  "
-></div>
+<div id="activeFilters" style="margin-bottom:1rem;display:flex;gap:0.4rem;flex-wrap:wrap;"></div>
 
-<!-- =========================
-     MAP VIEW
-========================= -->
-
-<div
-  id="mapView"
-  style="
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-  "
->
-  <div
-    id="map"
-    style="
-      height: 85vh;
-      min-height: 700px;
-      border-radius: 0;
-    "
-  ></div>
+<!-- MAP VIEW -->
+<div id="mapView" style="width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);">
+  <div id="map" style="height:85vh;min-height:700px;"></div>
 </div>
 
-<!-- =========================
-     LIST VIEW
-========================= -->
-
-<div
-  id="listView"
-  style="
-    display: none;
-    max-width: 1000px;
-    margin: 0 auto;
-  "
->
-  <ul
-    id="placeList"
-    style="
-      list-style: none;
-      padding: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1rem;
-    "
-  ></ul>
+<!-- LIST VIEW -->
+<div id="listView" style="display:none;max-width:1000px;margin:0 auto;">
+  <ul id="placeList" style="list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;"></ul>
 </div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -224,8 +184,7 @@ gap: 0.4rem;
       },
     {% endfor %}
   ];
-
   window.BASEURL = "{{ site.baseurl }}";
 </script>
 
-<script src="{{ site.baseurl }}/assets/js/atlas.js?v=2026-01-17-2"></script>
+<script src="{{ site.baseurl }}/assets/js/atlas.js"></script>
