@@ -8,9 +8,6 @@ continent: Asia
 gay_friendliness:
 tags: []
 language:
-- English
-- French
-
 
 currency:
 

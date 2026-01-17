@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 admin_key: "GBR:GB-SCT"
 name: "Scotland"
@@ -7,11 +8,18 @@ parent_country: UK
 continent: Europe
 tags: [jwashere, mwashere]
 
+
+
+
+
+
+
 language:
+  - English
 
-currency:
+currency: Pound sterling
 
-capital:
+capital: Edinburgh
 ---
 
 # Scotland
