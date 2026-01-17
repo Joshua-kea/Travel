@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ page.name }} – Atlas</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{ '/assets/css/country.css' | relative_url }}">
@@ -12,79 +11,87 @@
 
 <main class="country-page">
 
-    <!-- =========================
-         HEADER
-    ========================= -->
-
+    <!-- HEADER -->
     <header class="country-header">
-        {% if page.flag %}
-        <img
-                src="{{ page.flag | relative_url }}"
-                alt="{{ page.name }} flag"
-                class="country-flag"
-        >
+        <h1>{{ page.name }}</h1>
+        {% if page.continent %}
+        <span class="continent">{{ page.continent }}</span>
         {% endif %}
-
-        <div class="country-title">
-            <h1>{{ page.name }}</h1>
-
-            {% if page.continent %}
-            <span class="continent">{{ page.continent }}</span>
-            {% endif %}
-        </div>
     </header>
 
-    <!-- =========================
-         META INFORMATION
-    ========================= -->
+    <div class="country-layout">
 
-    <section class="country-meta">
+        <!-- SIDEBAR -->
+        <aside class="country-sidebar">
 
-        {% if page.language and page.language.size > 0 %}
-        <div class="meta-block">
-            <label>Language</label>
-            <ul>
-                {% for lang in page.language %}
-                <li>{{ lang }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
+            {% if page.language and page.language.size > 0 %}
+            <div class="fact">
+                <label>Language</label>
+                <ul>
+                    {% for lang in page.language %}
+                    <li>{{ lang }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
 
-        {% if page.capital %}
-        <div class="meta-block">
-            <label>Capital</label>
-            <div class="meta-value">{{ page.capital }}</div>
-        </div>
-        {% endif %}
+            {% if page.capital %}
+            <div class="fact">
+                <label>Capital</label>
+                <div>{{ page.capital }}</div>
+            </div>
+            {% endif %}
 
-        {% if page.currency %}
-        <div class="meta-block">
-            <label>Currency</label>
-            <div class="meta-value">{{ page.currency }}</div>
-        </div>
-        {% endif %}
+            {% if page.currency %}
+            <div class="fact">
+                <label>Currency</label>
+                <div>
+                    {{ page.currency.name }}
+                    {% if page.currency.symbol %}
+                    ({{ page.currency.symbol }})
+                    {% endif %}
+                </div>
 
-        {% if page.tags and page.tags.size > 0 %}
-        <div class="meta-block">
-            <label>Tags</label>
-            <ul class="tags">
-                {% for tag in page.tags %}
-                <li>{{ tag }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
+                {% if page.currency.rates %}
+                <div class="rates">
+                    <div>1 EUR ≈ {{ page.currency.rates.eur_1 }}</div>
+                    <div>100 EUR ≈ {{ page.currency.rates.eur_100 }}</div>
+                    <div>1 DKK ≈ {{ page.currency.rates.dkk_1 }}</div>
+                    <div>100 DKK ≈ {{ page.currency.rates.dkk_100 }}</div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
 
-    </section>
+            {% if page.gay_friendliness %}
+            <div class="fact">
+                <label>Gay equality</label>
+                <div class="gay-bar">
+                    <div
+                            class="gay-fill"
+                            style="
+                          width: {{ page.gay_friendliness }}%;
+                          background: linear-gradient(
+                            90deg,
+                            red,
+                            yellow,
+                            green
+                          );
+                        "
+                    ></div>
+                </div>
+                <div class="gay-score">{{ page.gay_friendliness }} / 100</div>
+            </div>
+            {% endif %}
 
-    <!-- =========================
-         MAIN CONTENT
-    ========================= -->
+        </aside>
 
-    <section class="country-content">
-        {{ content }}
-    </section>
+        <!-- MAIN CONTENT -->
+        <section class="country-content">
+            {{ content }}
+        </section>
+
+    </div>
 
 </main>
 
