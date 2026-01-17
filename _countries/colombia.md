@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: COL
 name: "Colombia"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: co
 ---
 
 # Colombia

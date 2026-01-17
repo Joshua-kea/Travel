@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: NAM
 name: "Namibia"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: na
 ---
 
 # Namibia

@@ -68,6 +68,7 @@ body {
 
 .fact .value {
     font-size: 0.95rem;
+    line-height: 1.4;
 }
 
 .fact ul {
@@ -177,3 +178,20 @@ body {
         margin-bottom: 2rem;
     }
 }
+/* =========================
+   FLAG
+========================= */
+.country-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.country-flag {
+    width: 42px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+}
+

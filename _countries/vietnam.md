@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: VNM
 name: "Vietnam"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: vn
 ---
 
 # Vietnam

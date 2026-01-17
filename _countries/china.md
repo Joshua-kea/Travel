@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: CHN
 name: "China"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: cn
 ---
 
 # China

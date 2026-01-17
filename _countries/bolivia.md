@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: BOL
 name: "Bolivia"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: bo
 ---
 
 # Bolivia

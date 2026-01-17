@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: IND
 name: "India"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: in
 ---
 
 # India

@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: BIH
 name: "Bosnia and Herzegovina"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: ba
 ---
 
 # Bosnia and Herzegovina

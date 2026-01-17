@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: FIN
 name: "Finland"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: fi
 ---
 
 # Finland

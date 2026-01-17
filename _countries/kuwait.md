@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: KWT
 name: "Kuwait"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: kw
 ---
 
 # Kuwait

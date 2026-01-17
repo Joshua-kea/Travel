@@ -1,4 +1,5 @@
 ---
+
 layout: country
 iso: AGO
 name: "Angola"
@@ -27,7 +28,7 @@ budget:
 gay_details: >
     Has been legal since 2021. No censorship, and discrimination is illegal. 
     But marriage is illegal, and there is not much support for trans people.
-
+iso2: ao
 ---
 
 # Angola

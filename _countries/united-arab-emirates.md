@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: ARE
 name: "United Arab Emirates"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: ae
 ---
 
 # United Arab Emirates

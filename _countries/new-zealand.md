@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: NZL
 name: "New Zealand"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: nz
 ---
 
 # New Zealand

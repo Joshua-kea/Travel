@@ -3,6 +3,7 @@
 
 
 
+
 layout: country
 iso: SRB
 name: "Republic of Serbia"
@@ -19,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+iso2: rs
 ---
 
 # Republic of Serbia
