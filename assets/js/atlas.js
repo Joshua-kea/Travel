@@ -263,26 +263,89 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderList() {
         listEl.innerHTML = "";
-        window.places
-            .filter(placeMatchesFilters)
-            .forEach(place => {
-                const li = document.createElement("li");
-                li.style.cssText = `
-                  padding:1rem;
-                  background:#f6f8f9;
-                  border-radius:10px;
-                  cursor:pointer;
-                `;
-                li.innerHTML = `
-                  <strong>${place.name}</strong><br>
-                  <span style="font-size:0.75rem;color:#6b7280;">
+
+        // 1. Filtrer steder (samme logik som map)
+        const filtered = window.places.filter(placeMatchesFilters);
+
+        if (!filtered.length) {
+            listEl.innerHTML = "<p>No places match your filters.</p>";
+            return;
+        }
+
+        // 2. Gruppér efter kontinent
+        const byContinent = {};
+
+        filtered.forEach(place => {
+            const continent = place.continent || "Other";
+            if (!byContinent[continent]) {
+                byContinent[continent] = [];
+            }
+            byContinent[continent].push(place);
+        });
+
+        // 3. Fast rækkefølge på kontinenter
+        const continentOrder = [
+            "Europe",
+            "Asia",
+            "Africa",
+            "North America",
+            "South America",
+            "Oceania",
+            "Other"
+        ];
+
+        continentOrder.forEach(continent => {
+            const places = byContinent[continent];
+            if (!places || !places.length) return;
+
+            // 4. Sortér alfabetisk
+            places.sort((a, b) => a.name.localeCompare(b.name));
+
+            // 5. Kontinent-header
+            const header = document.createElement("h2");
+            header.textContent = continent;
+            header.style.cssText = `
+            margin: 2rem 0 0.75rem;
+            font-size: 1.2rem;
+            color: #374151;
+        `;
+            listEl.appendChild(header);
+
+            // 6. Grid container pr. kontinent
+            const grid = document.createElement("div");
+            grid.style.cssText = `
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+        `;
+
+            places.forEach(place => {
+                const card = document.createElement("div");
+                card.style.cssText = `
+                padding: 1rem;
+                background: #f6f8f9;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: transform 0.15s ease;
+            `;
+                card.onmouseenter = () => card.style.transform = "translateY(-2px)";
+                card.onmouseleave = () => card.style.transform = "none";
+
+                card.innerHTML = `
+                <strong>${place.name}</strong><br>
+                <span style="font-size:0.75rem;color:#6b7280;">
                     ${(place.tags || []).join(", ")}
-                  </span>
-                `;
-                li.onclick = () => window.location.href = place.url;
-                listEl.appendChild(li);
+                </span>
+            `;
+
+                card.onclick = () => window.location.href = place.url;
+                grid.appendChild(card);
             });
+
+            listEl.appendChild(grid);
+        });
     }
+
 
     function setView(view) {
         if (view === "map") {
