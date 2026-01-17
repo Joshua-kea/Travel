@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!window.places?.length) return;
 
     /* =========================
-       MAP
+       MAP SETUP
     ========================= */
 
     const INITIAL_VIEW = { center: [20, 0], zoom: 3 };
@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeMonths = new Set();
 
     function normalizeMonths(value) {
-        // IMPORTANT FIX: ensure numbers → strings
         return Array.isArray(value) ? value.map(v => String(v)) : [];
     }
 
@@ -68,29 +67,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const tags = place.tags || [];
         const months = normalizeMonths(place.best_months);
 
-        if (activeTags.size) {
-            if (![...activeTags].every(t => tags.includes(t))) return false;
+        if (activeTags.size && ![...activeTags].every(t => tags.includes(t))) {
+            return false;
         }
 
-        if (activeMonths.size) {
-            if (!months.some(m => activeMonths.has(m))) return false;
+        if (activeMonths.size && !months.some(m => activeMonths.has(m))) {
+            return false;
         }
 
         return true;
     }
 
     /* =========================
-       STYLES
+       MAP STYLES
     ========================= */
 
-    const STYLE_BASE = { fillColor: "#e8eef1", fillOpacity: 1, weight: 0.8, color: "#a9bcc8" };
-    const STYLE_DIM = { fillColor: "#f8f9fa", fillOpacity: 1, weight: 0.5, color: "#e1e4e6" };
-    const STYLE_MATCH = { fillColor: "#6b8f9c", fillOpacity: 1, weight: 1.5, color: "#4e6f7c" };
-    const STYLE_MATCH_HOVER = { fillColor: "#577f8c", fillOpacity: 1, weight: 2.5, color: "#3e5f6b" };
-    const STYLE_HOVER_NORMAL = { fillColor: "#d6e1e7", fillOpacity: 1, weight: 2, color: "#7d98a6" };
+    const STYLE_BASE  = { fillColor:"#e8eef1", fillOpacity:1, weight:0.8, color:"#a9bcc8" };
+    const STYLE_DIM   = { fillColor:"#f8f9fa", fillOpacity:1, weight:0.5, color:"#e1e4e6" };
+    const STYLE_MATCH = { fillColor:"#6b8f9c", fillOpacity:1, weight:1.5, color:"#4e6f7c" };
+    const STYLE_MATCH_HOVER = { fillColor:"#577f8c", fillOpacity:1, weight:2.5, color:"#3e5f6b" };
+    const STYLE_HOVER_NORMAL = { fillColor:"#d6e1e7", fillOpacity:1, weight:2, color:"#7d98a6" };
 
     /* =========================
-       REGISTRY
+       MAP REGISTRY
     ========================= */
 
     const layers = [];
@@ -103,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         layer.bindTooltip(label, { sticky: true });
 
         if (place?.url) {
-            layer.on("click", () => window.location.href = place.url);
+            layer.on("click", () => location.href = place.url);
         }
 
         layer.on("mouseover", () => {
@@ -137,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       LOAD DATA
+       LOAD GEO DATA
     ========================= */
 
     fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
@@ -177,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 pane: "subdivisions",
                 style: STYLE_BASE,
                 onEachFeature: (f, l) => {
-                    const iso1 =
+                    const iso =
                         f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
                             ? f.properties.ISO_1
                             : "GB-ENG";
@@ -189,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "GB-NIR": "Northern Ireland"
                     };
 
-                    bindLayer(l, byAdminKey[`GBR:${iso1}`], labels[iso1]);
+                    bindLayer(l, byAdminKey[`GBR:${iso}`], labels[iso]);
                 }
             }).addTo(map);
         });
@@ -199,13 +198,34 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const panel = document.getElementById("filterPanel");
-    const toggleBtn = document.getElementById("toggleFilterPanel");
-    const applyBtn = document.getElementById("applyFilterBtn");
-    const clearBtn = document.getElementById("clearFilterBtn");
     const chipsEl = document.getElementById("activeFilters");
 
-    toggleBtn.onclick = () => {
+    document.getElementById("toggleFilterPanel").onclick = () => {
         panel.style.display = panel.style.display === "none" ? "block" : "none";
+    };
+
+    document.getElementById("applyFilterBtn").onclick = () => {
+        activeTags.clear();
+        activeMonths.clear();
+
+        panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
+            isNaN(cb.value)
+                ? activeTags.add(cb.value)
+                : activeMonths.add(String(cb.value));
+        });
+
+        panel.style.display = "none";
+        renderChips();
+        applyFilters();
+    };
+
+    document.getElementById("clearFilterBtn").onclick = () => {
+        activeTags.clear();
+        activeMonths.clear();
+        panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
+        renderChips();
+        applyFilters();
+        panel.style.display = "none";
     };
 
     function renderChips() {
@@ -214,13 +234,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const chip = document.createElement("span");
             chip.textContent = `${tag} ×`;
             chip.style.cssText = `
-                background:#6b8f9c;
-                color:white;
-                padding:0.25rem 0.7rem;
-                border-radius:999px;
-                cursor:pointer;
-                font-size:0.75rem;
-            `;
+        background:#6b8f9c;
+        color:white;
+        padding:0.25rem 0.7rem;
+        border-radius:999px;
+        cursor:pointer;
+        font-size:0.75rem;
+      `;
             chip.onclick = () => {
                 activeTags.delete(tag);
                 renderChips();
@@ -229,28 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
             chipsEl.appendChild(chip);
         });
     }
-
-    applyBtn.onclick = () => {
-        activeTags.clear();
-        activeMonths.clear();
-
-        panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
-            isNaN(cb.value) ? activeTags.add(cb.value) : activeMonths.add(String(cb.value));
-        });
-
-        panel.style.display = "none";
-        renderChips();
-        applyFilters();
-    };
-
-    clearBtn.onclick = () => {
-        activeTags.clear();
-        activeMonths.clear();
-        panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
-        renderChips();
-        applyFilters();
-        panel.style.display = "none";
-    };
 
     /* =========================
        VIEW SWITCH
@@ -264,88 +262,88 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderList() {
         listEl.innerHTML = "";
 
-        // 1. Filtrer steder (samme logik som map)
         const filtered = window.places.filter(placeMatchesFilters);
-
         if (!filtered.length) {
             listEl.innerHTML = "<p>No places match your filters.</p>";
             return;
         }
 
-        // 2. Gruppér efter kontinent
         const byContinent = {};
-
-        filtered.forEach(place => {
-            const continent = place.continent || "Other";
-            if (!byContinent[continent]) {
-                byContinent[continent] = [];
-            }
-            byContinent[continent].push(place);
+        filtered.forEach(p => {
+            const c = p.continent || "Other";
+            (byContinent[c] ||= []).push(p);
         });
 
-        // 3. Fast rækkefølge på kontinenter
-        const continentOrder = [
-            "Europe",
-            "Asia",
-            "Africa",
-            "North America",
-            "South America",
-            "Oceania",
-            "Other"
-        ];
+        const continents = Object.keys(byContinent).sort((a, b) =>
+            a.localeCompare(b)
+        );
 
-        continentOrder.forEach(continent => {
-            const places = byContinent[continent];
-            if (!places || !places.length) return;
+        continents.forEach(continent => {
+            const places = byContinent[continent].sort((a, b) =>
+                a.name.localeCompare(b.name)
+            );
 
-            // 4. Sortér alfabetisk
-            places.sort((a, b) => a.name.localeCompare(b.name));
+            const section = document.createElement("section");
+            section.style.marginBottom = "3rem";
 
-            // 5. Kontinent-header
             const header = document.createElement("h2");
             header.textContent = continent;
             header.style.cssText = `
-            margin: 2rem 0 0.75rem;
-            font-size: 1.2rem;
-            color: #374151;
-        `;
-            listEl.appendChild(header);
+        margin:0 0 0.75rem;
+        font-size:0.9rem;
+        font-weight:600;
+        text-transform:uppercase;
+        letter-spacing:0.04em;
+        color:#6b7280;
+      `;
 
-            // 6. Grid container pr. kontinent
             const grid = document.createElement("div");
             grid.style.cssText = `
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1rem;
-        `;
+        display:grid;
+        grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+        gap:1rem;
+      `;
 
             places.forEach(place => {
                 const card = document.createElement("div");
                 card.style.cssText = `
-                padding: 1rem;
-                background: #f6f8f9;
-                border-radius: 10px;
-                cursor: pointer;
-                transition: transform 0.15s ease;
-            `;
-                card.onmouseenter = () => card.style.transform = "translateY(-2px)";
-                card.onmouseleave = () => card.style.transform = "none";
+          padding:0.9rem 1rem;
+          background:#f9fafb;
+          border-radius:8px;
+          border:1px solid #eef1f3;
+          cursor:pointer;
+          transition:transform 0.15s ease, box-shadow 0.15s ease;
+        `;
+
+                card.onmouseenter = () => {
+                    card.style.transform = "translateY(-2px)";
+                    card.style.boxShadow = "0 4px 10px rgba(0,0,0,0.06)";
+                };
+                card.onmouseleave = () => {
+                    card.style.transform = "none";
+                    card.style.boxShadow = "none";
+                };
 
                 card.innerHTML = `
-                <strong>${place.name}</strong><br>
-                <span style="font-size:0.75rem;color:#6b7280;">
-                    ${(place.tags || []).join(", ")}
-                </span>
-            `;
+          <div style="font-weight:600;">${place.name}</div>
+          ${
+                    place.tags?.length
+                        ? `<div style="font-size:0.75rem;color:#6b7280;margin-top:0.25rem;">
+                   ${place.tags.join(", ")}
+                 </div>`
+                        : ""
+                }
+        `;
 
-                card.onclick = () => window.location.href = place.url;
+                card.onclick = () => location.href = place.url;
                 grid.appendChild(card);
             });
 
-            listEl.appendChild(grid);
+            section.appendChild(header);
+            section.appendChild(grid);
+            listEl.appendChild(section);
         });
     }
-
 
     function setView(view) {
         if (view === "map") {
