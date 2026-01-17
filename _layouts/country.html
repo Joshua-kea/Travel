@@ -47,15 +47,11 @@
                 <label>Budget</label>
 
                 {% if page.budget.dkk %}
-                <div class="value">
-                    {{ page.budget.dkk }} DKK
-                </div>
+                <div class="value">{{ page.budget.dkk }} DKK</div>
                 {% endif %}
 
                 {% if page.budget.eur %}
-                <div class="budget-secondary">
-                    {{ page.budget.eur }} EUR
-                </div>
+                <div class="budget-secondary">{{ page.budget.eur }} EUR</div>
                 {% endif %}
             </div>
             {% endif %}
@@ -105,6 +101,7 @@
             {% if page.gay_friendliness %}
             <div class="fact">
                 <label>Gay equality</label>
+
                 <div class="gay-bar">
                     <div
                             class="gay-fill"
@@ -114,7 +111,17 @@
                         ">
                     </div>
                 </div>
+
                 <div class="gay-score">{{ page.gay_friendliness }}/100</div>
+
+                {% if page.gay_details %}
+                <details class="gay-details">
+                    <summary>More details</summary>
+                    <div class="gay-details-content">
+                        {{ page.gay_details | markdownify }}
+                    </div>
+                </details>
+                {% endif %}
             </div>
             {% endif %}
 

@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 admin_key: "USA:US-NE"
 name: "Nebraska"
@@ -21,6 +22,7 @@ currency: US dollar
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

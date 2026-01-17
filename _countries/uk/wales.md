@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 admin_key: "GBR:GB-WLS"
 name: "Wales"
@@ -24,6 +25,7 @@ capital: Cardiff
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

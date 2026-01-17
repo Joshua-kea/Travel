@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: PSE
 name: "Palestine"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

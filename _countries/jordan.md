@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: JOR
 name: "Jordan"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

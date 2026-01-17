@@ -2,6 +2,7 @@
 
 
 
+
 name: "Japan"
 iso: JPN
 layout: country
@@ -27,6 +28,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

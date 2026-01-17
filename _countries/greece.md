@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: GRC
 name: "Greece"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

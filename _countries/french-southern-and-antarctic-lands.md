@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: ATF
 name: "French Southern and Antarctic Lands"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

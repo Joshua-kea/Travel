@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 admin_key: "GBR:GB-SCT"
 name: "Scotland"
@@ -24,6 +25,7 @@ capital: Edinburgh
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

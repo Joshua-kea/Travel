@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 admin_key: "GBR:GB-ENG"
 name: "England"
@@ -24,6 +25,7 @@ capital: London
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

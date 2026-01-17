@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: THA
 name: "Thailand"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

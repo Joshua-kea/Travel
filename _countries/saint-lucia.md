@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: LCA
 name: "Saint Lucia"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

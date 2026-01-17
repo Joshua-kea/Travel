@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 name: "Aruba"
 iso: ABW
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

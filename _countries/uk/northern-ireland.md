@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 admin_key: "GBR:GB-NIR"
 name: "Northern Ireland"
@@ -24,6 +25,7 @@ capital: Belfast
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

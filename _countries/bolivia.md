@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: BOL
 name: "Bolivia"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

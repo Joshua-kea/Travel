@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: HRV
 name: "Croatia"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

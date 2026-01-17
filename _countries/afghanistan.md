@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: AFG
 name: "Afghanistan"
@@ -16,6 +17,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: LKA
 name: "Sri Lanka"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

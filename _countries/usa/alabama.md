@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 admin_key: "USA:US-AL"
 name: "Alabama"
@@ -23,6 +24,7 @@ capital: Montgomery
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: SRB
 name: "Republic of Serbia"
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

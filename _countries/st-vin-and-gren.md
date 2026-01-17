@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 iso: VCT
 name: "St. Vin. and Gren."
@@ -17,6 +18,7 @@ capital:
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 

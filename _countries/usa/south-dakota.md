@@ -2,6 +2,7 @@
 
 
 
+
 layout: country
 admin_key: "USA:US-SD"
 name: "South Dakota"
@@ -22,6 +23,7 @@ currency: US dollar
 budget:
   dkk:
   eur:
+gay_details:
 
 ---
 
