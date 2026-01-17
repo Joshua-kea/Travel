@@ -1,179 +1,126 @@
-/* =========================
-BASE
-========================= */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.name }} – Atlas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-body {
-margin: 0;
-background: #ffffff;
-color: #111827;
-font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
+    <link rel="stylesheet" href="{{ '/assets/css/country.css' | relative_url }}">
+</head>
+<body>
 
-.country-page {
-max-width: 1100px;
-margin: 0 auto;
-padding: 2.5rem 2rem;
-}
+<main class="country-page">
 
-/* =========================
-HEADER
-========================= */
+    <!-- HEADER -->
+    <header class="country-header">
+        <h1>{{ page.name }}</h1>
+        {% if page.continent %}
+        <div class="continent">{{ page.continent }}</div>
+        {% endif %}
+    </header>
 
-.country-header {
-margin-bottom: 2rem;
-}
+    <div class="country-layout">
 
-.country-header h1 {
-margin: 0;
-font-size: 2.2rem;
-}
+        <!-- SIDEBAR -->
+        <aside class="country-sidebar">
 
-.continent {
-margin-top: 0.3rem;
-font-size: 0.9rem;
-color: #6b7280;
-}
+            {% if page.language and page.language.size > 0 %}
+            <div class="fact">
+                <label>Language</label>
+                <ul>
+                    {% for lang in page.language %}
+                    <li>{{ lang }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
 
-/* =========================
-LAYOUT
-========================= */
+            {% if page.capital %}
+            <div class="fact">
+                <label>Capital</label>
+                <div class="value">{{ page.capital }}</div>
+            </div>
+            {% endif %}
 
-.country-layout {
-display: grid;
-grid-template-columns: 260px 1fr;
-gap: 3rem;
-}
+            {% if page.currency %}
+            <div class="fact">
+                <label>Currency</label>
 
-/* =========================
-SIDEBAR
-========================= */
+                {% if page.currency.name %}
+                <div class="value">
+                    {{ page.currency.name }}
+                    {% if page.currency.symbol or page.currency.code %}
+                    <span class="currency-meta">
+                        {% if page.currency.symbol %}{{ page.currency.symbol }}{% endif %}
+                        {% if page.currency.code %} ({{ page.currency.code }}){% endif %}
+                    </span>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="value">{{ page.currency }}</div>
+                {% endif %}
 
-.country-sidebar {
-border-right: 1px solid #e5e7eb;
-padding-right: 2rem;
-}
+                {% if page.currency.rates %}
+                <div class="rates">
 
-.fact {
-margin-bottom: 1.8rem;
-}
+                    <div class="rate-block">
+                        <div class="rate-label">1 {{ page.currency.name }}</div>
+                        <div class="rate-values">
+                            <div>{{ page.currency.rates.per_1.eur }} EUR</div>
+                            <div>{{ page.currency.rates.per_1.dkk }} DKK</div>
+                        </div>
+                    </div>
 
-.fact label {
-display: block;
-font-size: 0.75rem;
-text-transform: uppercase;
-letter-spacing: 0.08em;
-color: #6b7280;
-margin-bottom: 0.4rem;
-}
+                    <div class="rate-block">
+                        <div class="rate-label">100 {{ page.currency.name }}</div>
+                        <div class="rate-values">
+                            <div>{{ page.currency.rates.per_100.eur }} EUR</div>
+                            <div>{{ page.currency.rates.per_100.dkk }} DKK</div>
+                        </div>
+                    </div>
 
-.fact .value {
-font-size: 0.95rem;
-}
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
 
-.fact ul {
-margin: 0;
-padding-left: 1.1rem;
-}
+            {% if page.gay_friendliness %}
+            <div class="fact">
+                <label>Gay equality</label>
+                <div class="gay-bar">
+                    <div
+                            class="gay-fill"
+                            style="
+                          width: {{ page.gay_friendliness }}%;
+                          background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);
+                        ">
+                    </div>
+                </div>
+                <div class="gay-score">{{ page.gay_friendliness }}/100</div>
+            </div>
+            {% endif %}
 
-/* =========================
-TAGS
-========================= */
+            {% if page.tags and page.tags.size > 0 %}
+            <div class="fact">
+                <label>Tags</label>
+                <ul class="tags">
+                    {% for tag in page.tags %}
+                    <li>{{ tag }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
 
-.tags {
-display: flex;
-flex-wrap: wrap;
-gap: 0.4rem;
-}
+        </aside>
 
-.tags li {
-background: #eef2f5;
-padding: 0.25rem 0.6rem;
-border-radius: 999px;
-font-size: 0.7rem;
-}
+        <!-- MAIN CONTENT -->
+        <section class="country-content">
+            {{ content }}
+        </section>
 
-/* =========================
-CURRENCY
-========================= */
+    </div>
 
-.currency-meta {
-font-size: 0.75rem;
-color: #6b7280;
-margin-left: 0.25rem;
-}
+</main>
 
-.rates {
-margin-top: 0.5rem;
-font-size: 0.75rem;
-color: #4b5563;
-line-height: 1.5;
-}
-
-.rate-block {
-margin-top: 0.6rem;
-}
-
-.rate-label {
-font-size: 0.75rem;
-color: #374151;
-}
-
-.rate-values {
-margin-left: 0.6rem;
-font-size: 0.75rem;
-color: #4b5563;
-line-height: 1.4;
-}
-
-/* =========================
-GAY EQUALITY BAR
-========================= */
-
-.gay-bar {
-height: 6px;
-background: #e5e7eb;
-border-radius: 999px;
-overflow: hidden;
-}
-
-.gay-fill {
-height: 100%;
-border-radius: 999px;
-}
-
-.gay-score {
-font-size: 0.75rem;
-margin-top: 0.3rem;
-color: #374151;
-}
-
-/* =========================
-CONTENT
-========================= */
-
-.country-content {
-max-width: 700px;
-}
-
-.country-content h1,
-.country-content h2,
-.country-content h3 {
-margin-top: 0;
-}
-
-/* =========================
-RESPONSIVE
-========================= */
-
-@media (max-width: 800px) {
-.country-layout {
-grid-template-columns: 1fr;
-}
-
-.country-sidebar {
-border-right: none;
-border-bottom: 1px solid #e5e7eb;
-padding-bottom: 2rem;
-margin-bottom: 2rem;
-}
-}
+</body>
+</html>
