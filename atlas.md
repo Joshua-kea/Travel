@@ -146,10 +146,9 @@ gap: 0.4rem;
         <label><input type="checkbox" value="island"> Island</label>
         <label><input type="checkbox" value="beach"> Beach</label>
         <label><input type="checkbox" value="walkable"> Walkable</label>
-        <label><input type="checkbox" value="beach"> Beach</label>
         <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
-        <label><input type="checkbox" value="j_wants_to_go"> Places J wants to go asap</label>
-        <label><input type="checkbox" value="m_wants_to_go"> Places M wants to go asap</label>
+        <label><input type="checkbox" value="j_wants_to_go"> Places J wants to visit asap</label>
+        <label><input type="checkbox" value="m_wants_to_go"> Places M wants to visit asap</label>
         <label><input type="checkbox" value="j_has_been"> Places J has been</label>
         <label><input type="checkbox" value="m_has_been"> Places M has been</label>
       </div>

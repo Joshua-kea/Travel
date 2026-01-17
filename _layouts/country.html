@@ -15,7 +15,7 @@
     <header class="country-header">
         <h1>{{ page.name }}</h1>
         {% if page.continent %}
-        <span class="continent">{{ page.continent }}</span>
+        <div class="continent">{{ page.continent }}</div>
         {% endif %}
     </header>
 
@@ -38,19 +38,24 @@
             {% if page.capital %}
             <div class="fact">
                 <label>Capital</label>
-                <div>{{ page.capital }}</div>
+                <div class="value">{{ page.capital }}</div>
             </div>
             {% endif %}
 
             {% if page.currency %}
             <div class="fact">
                 <label>Currency</label>
-                <div>
+
+                {% if page.currency.name %}
+                <div class="value">
                     {{ page.currency.name }}
                     {% if page.currency.symbol %}
                     ({{ page.currency.symbol }})
                     {% endif %}
                 </div>
+                {% else %}
+                <div class="value">{{ page.currency }}</div>
+                {% endif %}
 
                 {% if page.currency.rates %}
                 <div class="rates">
@@ -69,18 +74,22 @@
                 <div class="gay-bar">
                     <div
                             class="gay-fill"
-                            style="
-                          width: {{ page.gay_friendliness }}%;
-                          background: linear-gradient(
-                            90deg,
-                            red,
-                            yellow,
-                            green
-                          );
-                        "
-                    ></div>
+                            style="width: {{ page.gay_friendliness }}%;
+                               background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);">
+                    </div>
                 </div>
-                <div class="gay-score">{{ page.gay_friendliness }} / 100</div>
+                <div class="gay-score">{{ page.gay_friendliness }}/100</div>
+            </div>
+            {% endif %}
+
+            {% if page.tags and page.tags.size > 0 %}
+            <div class="fact">
+                <label>Tags</label>
+                <ul class="tags">
+                    {% for tag in page.tags %}
+                    <li>{{ tag }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             {% endif %}
 
