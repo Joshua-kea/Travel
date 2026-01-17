@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: LBY
 name: "Libya"
 continent: Africa
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Libya

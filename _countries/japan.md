@@ -1,4 +1,5 @@
 ---
+
 name: "Japan"
 iso: JPN
 layout: country
@@ -15,6 +16,8 @@ tags:
 
 best_months: [3,4,5,10,11]
 ok_months: [2,6]
+language:
+
 ---
 
 

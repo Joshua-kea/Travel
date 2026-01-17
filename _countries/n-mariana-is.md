@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: MNP
 name: "N. Mariana Is."
 continent:
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # N. Mariana Is.

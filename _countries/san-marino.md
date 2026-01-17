@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: SMR
 name: "San Marino"
 continent: Europe
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # San Marino

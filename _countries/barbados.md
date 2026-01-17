@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: BRB
 name: "Barbados"
 continent: North America
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Barbados

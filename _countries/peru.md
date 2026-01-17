@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: PER
 name: "Peru"
 continent: South America
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Peru

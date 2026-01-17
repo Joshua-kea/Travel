@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: ITA
 name: "Italy"
 continent: Europe
 gay_friendliness:
 tags: [jwashere, mwashere]
+language:
+
 ---
 
 # Italy

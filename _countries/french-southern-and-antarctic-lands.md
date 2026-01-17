@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: ATF
 name: "French Southern and Antarctic Lands"
 continent: 
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # French Southern and Antarctic Lands

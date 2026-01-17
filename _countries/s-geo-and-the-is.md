@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: SGS
 name: "S. Geo. and the Is."
 continent:
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # S. Geo. and the Is.

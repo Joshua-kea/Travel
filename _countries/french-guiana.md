@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: GUF
 name: "French Guiana"
 continent: 
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # French Guiana

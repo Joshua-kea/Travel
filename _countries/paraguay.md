@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: PRY
 name: "Paraguay"
 continent: South America
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Paraguay

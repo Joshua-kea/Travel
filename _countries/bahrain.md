@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: BHR
 name: "Bahrain"
 continent: Asia
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Bahrain

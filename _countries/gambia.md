@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: GMB
 name: "Gambia"
 continent: Africa
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Gambia

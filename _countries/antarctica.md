@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: ATA
 name: "Antarctica"
 continent: Antarctica
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Antarctica

@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: IMN
 name: "Isle of Man"
 continent:
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Isle of Man

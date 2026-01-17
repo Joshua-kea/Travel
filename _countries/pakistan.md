@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: PAK
 name: "Pakistan"
 continent: Asia
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Pakistan

@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: VCT
 name: "St. Vin. and Gren."
 continent: North America
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # St. Vin. and Gren.

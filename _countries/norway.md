@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: NOR
 name: "Norway"
 continent: Europe
 gay_friendliness:
 tags: [jwashere, mwashere]
+language:
+
 ---
 
 # Norway

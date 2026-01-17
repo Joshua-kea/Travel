@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: BTN
 name: "Bhutan"
 continent: Asia
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Bhutan

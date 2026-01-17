@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: TGO
 name: "Togo"
 continent: Africa
 gay_friendliness:
 tags: [mwashere]
+language:
+
 ---
 
 # Togo

@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: JAM
 name: "Jamaica"
 continent: North America
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Jamaica

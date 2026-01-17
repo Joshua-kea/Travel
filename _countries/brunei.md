@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: BRN
 name: "Brunei"
 continent: Asia
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Brunei

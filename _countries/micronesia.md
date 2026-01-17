@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: FSM
 name: "Micronesia"
 continent: Oceania
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Micronesia

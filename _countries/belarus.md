@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: BLR
 name: "Belarus"
 continent: Europe
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Belarus

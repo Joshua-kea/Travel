@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: HMD
 name: "Heard I. and McDonald Is."
 continent:
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Heard I. and McDonald Is.

@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: PLW
 name: "Palau"
 continent: Oceania
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Palau

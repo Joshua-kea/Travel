@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: ZMB
 name: "Zambia"
 continent: Africa
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Zambia

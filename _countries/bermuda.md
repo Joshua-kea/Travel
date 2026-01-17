@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: BMU
 name: "Bermuda"
 continent: North America
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Bermuda

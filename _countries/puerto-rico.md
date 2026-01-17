@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: PRI
 name: "Puerto Rico"
 continent: 
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Puerto Rico

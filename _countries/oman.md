@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: OMN
 name: "Oman"
 continent: Asia
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Oman

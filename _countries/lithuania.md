@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: LTU
 name: "Lithuania"
 continent: Europe
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Lithuania

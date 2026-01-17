@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: GGY
 name: "Guernsey"
 continent:
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Guernsey

@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: SSD
 name: "South Sudan"
 continent: Africa
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # South Sudan

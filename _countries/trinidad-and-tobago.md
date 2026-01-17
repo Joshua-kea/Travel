@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: TTO
 name: "Trinidad and Tobago"
 continent: North America
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Trinidad and Tobago

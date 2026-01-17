@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: SOM
 name: "Somalia"
 continent: Africa
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Somalia

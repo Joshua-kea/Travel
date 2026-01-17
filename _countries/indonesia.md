@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: IDN
 name: "Indonesia"
 continent: Asia
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Indonesia

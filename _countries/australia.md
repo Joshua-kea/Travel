@@ -1,10 +1,13 @@
 ---
+
 layout: country
 iso: AUS
 name: "Australia"
 continent: Oceania
 gay_friendliness:
 tags: []
+language:
+
 ---
 
 # Australia
