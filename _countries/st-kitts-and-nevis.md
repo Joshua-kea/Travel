@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: KNA
 name: "St. Kitts and Nevis"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # St. Kitts and Nevis

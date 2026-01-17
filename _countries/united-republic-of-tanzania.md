@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: TZA
 name: "United Republic of Tanzania"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # United Republic of Tanzania

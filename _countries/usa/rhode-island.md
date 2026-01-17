@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 admin_key: "USA:US-RI"
 name: "Rhode Island"
@@ -17,6 +18,10 @@ language:
   - English
 
 currency: US dollar
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Rhode Island

@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: BIH
 name: "Bosnia and Herzegovina"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Bosnia and Herzegovina

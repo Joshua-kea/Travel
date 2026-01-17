@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: COG
 name: "Republic of the Congo"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Republic of the Congo

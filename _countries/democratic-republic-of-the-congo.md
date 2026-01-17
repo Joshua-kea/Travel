@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: COD
 name: "Democratic Republic of the Congo"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Democratic Republic of the Congo

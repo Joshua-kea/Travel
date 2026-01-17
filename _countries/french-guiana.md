@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: GUF
 name: "French Guiana"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # French Guiana

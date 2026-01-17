@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: PNG
 name: "Papua New Guinea"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Papua New Guinea

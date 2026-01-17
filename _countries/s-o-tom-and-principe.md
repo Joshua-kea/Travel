@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: STP
 name: "São Tomé and Principe"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # São Tomé and Principe

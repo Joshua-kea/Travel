@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 admin_key: "USA:US-NJ"
 name: "New Jersey"
@@ -17,6 +18,10 @@ language:
   - English
 
 currency: US dollar
+budget:
+  dkk:
+  eur:
+
 ---
 
 # New Jersey

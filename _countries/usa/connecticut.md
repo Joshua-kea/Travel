@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 admin_key: "USA:US-CT"
 name: "Connecticut"
@@ -17,6 +18,10 @@ language:
   - English
 
 currency: US dollar
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Connecticut

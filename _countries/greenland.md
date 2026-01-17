@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: GRL
 name: "Greenland"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Greenland

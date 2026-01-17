@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 admin_key: "GBR:GB-NIR"
 name: "Northern Ireland"
@@ -20,6 +21,10 @@ language:
 currency: Pound sterling
 
 capital: Belfast
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Northern Ireland

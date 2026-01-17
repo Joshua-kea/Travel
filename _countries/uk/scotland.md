@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 admin_key: "GBR:GB-SCT"
 name: "Scotland"
@@ -20,6 +21,10 @@ language:
 currency: Pound sterling
 
 capital: Edinburgh
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Scotland

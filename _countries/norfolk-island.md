@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: NFK
 name: "Norfolk Island"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Norfolk Island

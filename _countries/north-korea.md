@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: PRK
 name: "North Korea"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # North Korea

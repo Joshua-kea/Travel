@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: BLZ
 name: "Belize"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Belize

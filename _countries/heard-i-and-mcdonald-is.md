@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: HMD
 name: "Heard I. and McDonald Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Heard I. and McDonald Is.

@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: PYF
 name: "Fr. Polynesia"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Fr. Polynesia

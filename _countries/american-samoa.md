@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: ASM
 name: "American Samoa"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # American Samoa

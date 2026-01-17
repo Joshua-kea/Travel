@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: TTO
 name: "Trinidad and Tobago"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Trinidad and Tobago

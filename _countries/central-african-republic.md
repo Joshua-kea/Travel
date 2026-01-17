@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: CAF
 name: "Central African Republic"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Central African Republic

@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: CZE
 name: "Czech Republic"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Czech Republic

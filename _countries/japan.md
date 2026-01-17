@@ -1,6 +1,7 @@
 ---
 
 
+
 name: "Japan"
 iso: JPN
 layout: country
@@ -23,6 +24,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 

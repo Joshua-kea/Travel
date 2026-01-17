@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: GNQ
 name: "Equatorial Guinea"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Equatorial Guinea

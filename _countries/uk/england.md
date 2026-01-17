@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 admin_key: "GBR:GB-ENG"
 name: "England"
@@ -20,6 +21,10 @@ language:
 currency: Pound sterling
 
 capital: London
+budget:
+  dkk:
+  eur:
+
 ---
 
 # England

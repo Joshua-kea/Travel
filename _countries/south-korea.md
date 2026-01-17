@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: KOR
 name: "South Korea"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # South Korea

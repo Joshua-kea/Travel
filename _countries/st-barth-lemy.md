@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: BLM
 name: "St-Barthélemy"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # St-Barthélemy

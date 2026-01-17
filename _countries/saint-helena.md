@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: SHN
 name: "Saint Helena"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Saint Helena

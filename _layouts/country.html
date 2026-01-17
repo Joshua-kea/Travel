@@ -42,6 +42,28 @@
             </div>
             {% endif %}
 
+            {% if page.budget %}
+            <div class="fact">
+                <label>Budget</label>
+
+                {% if page.budget.dkk %}
+                <div class="value">
+                    {{ page.budget.dkk }} DKK
+                </div>
+                {% else %}
+                <div class="value">
+                    {{ page.budget }}
+                </div>
+                {% endif %}
+
+                {% if page.budget.eur %}
+                <div class="budget-secondary">
+                    {{ page.budget.eur }} EUR
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
             {% if page.currency %}
             <div class="fact">
                 <label>Currency</label>

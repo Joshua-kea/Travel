@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: CRI
 name: "Costa Rica"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Costa Rica

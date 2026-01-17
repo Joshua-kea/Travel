@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: CAN
 name: "Canada"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Canada

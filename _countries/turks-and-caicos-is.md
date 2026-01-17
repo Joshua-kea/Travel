@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: TCA
 name: "Turks and Caicos Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Turks and Caicos Is.

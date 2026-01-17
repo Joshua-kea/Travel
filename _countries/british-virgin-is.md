@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: VGB
 name: "British Virgin Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # British Virgin Is.

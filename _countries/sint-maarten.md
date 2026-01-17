@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: SXM
 name: "Sint Maarten"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Sint Maarten

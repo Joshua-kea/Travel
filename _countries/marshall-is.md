@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: MHL
 name: "Marshall Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Marshall Is.

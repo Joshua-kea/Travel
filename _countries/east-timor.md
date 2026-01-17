@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: TLS
 name: "East Timor"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # East Timor

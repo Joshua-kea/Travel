@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 name: "Aruba"
 iso: ABW
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Aruba

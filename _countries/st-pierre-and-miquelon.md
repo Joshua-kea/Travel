@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: SPM
 name: "St. Pierre and Miquelon"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # St. Pierre and Miquelon

@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: WLF
 name: "Wallis and Futuna Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Wallis and Futuna Is.

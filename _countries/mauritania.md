@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: MRT
 name: "Mauritania"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Mauritania

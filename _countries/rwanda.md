@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: RWA
 name: "Rwanda"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Rwanda

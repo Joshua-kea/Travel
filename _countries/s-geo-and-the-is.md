@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: SGS
 name: "S. Geo. and the Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # S. Geo. and the Is.

@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: ARE
 name: "United Arab Emirates"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # United Arab Emirates

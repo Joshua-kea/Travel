@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: AFG
 name: "Afghanistan"
@@ -12,6 +13,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Afghanistan

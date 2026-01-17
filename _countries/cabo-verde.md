@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: CPV
 name: "Cabo Verde"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Cabo Verde

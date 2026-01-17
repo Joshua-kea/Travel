@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: BEN
 name: "Benin"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Benin

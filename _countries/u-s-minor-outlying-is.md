@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: UMI
 name: "U.S. Minor Outlying Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # U.S. Minor Outlying Is.

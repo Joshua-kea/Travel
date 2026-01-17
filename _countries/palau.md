@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: PLW
 name: "Palau"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Palau

@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: BWA
 name: "Botswana"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Botswana

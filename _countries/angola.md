@@ -1,4 +1,5 @@
 ---
+
 layout: country
 iso: AGO
 name: "Angola"
@@ -22,6 +23,10 @@ currency:
     per_100:
       eur: 0.11
       dkk: 0.82
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Angola

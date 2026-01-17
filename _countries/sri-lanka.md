@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: LKA
 name: "Sri Lanka"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Sri Lanka

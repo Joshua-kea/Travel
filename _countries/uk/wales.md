@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 admin_key: "GBR:GB-WLS"
 name: "Wales"
@@ -20,6 +21,10 @@ language:
 currency: Pound sterling
 
 capital: Cardiff
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Wales

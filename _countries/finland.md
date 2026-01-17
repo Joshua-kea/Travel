@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: FIN
 name: "Finland"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Finland

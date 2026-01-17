@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: MNP
 name: "N. Mariana Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # N. Mariana Is.

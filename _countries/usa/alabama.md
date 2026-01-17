@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 admin_key: "USA:US-AL"
 name: "Alabama"
@@ -19,6 +20,10 @@ language:
 currency: US dollar
 
 capital: Montgomery
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Alabama

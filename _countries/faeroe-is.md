@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: FRO
 name: "Faeroe Is."
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Faeroe Is.

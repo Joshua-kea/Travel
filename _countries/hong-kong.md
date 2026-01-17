@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: HKG
 name: "Hong Kong"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Hong Kong

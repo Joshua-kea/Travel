@@ -1,6 +1,7 @@
 ---
 
 
+
 layout: country
 iso: FSM
 name: "Micronesia"
@@ -13,6 +14,10 @@ language:
 currency:
 
 capital:
+budget:
+  dkk:
+  eur:
+
 ---
 
 # Micronesia
