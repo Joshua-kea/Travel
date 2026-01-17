@@ -19,11 +19,12 @@ browse places that match your travel interests and preferred time of year.
   style="
     position: sticky;
     top: 1rem;
-    z-index: 2000;
+    z-index: 5000;
     display: flex;
     gap: 0.75rem;
     align-items: center;
     margin-bottom: 1rem;
+    pointer-events: auto;
   "
 >
 

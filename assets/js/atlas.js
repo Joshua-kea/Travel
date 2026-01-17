@@ -1,4 +1,4 @@
-console.log("ATLAS – FILTERS ACTUALLY WORK");
+console.log("ATLAS – READY");
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
         zoomControl: true,
         worldCopyJump: false
     }).setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom);
+
+    map.getContainer().style.zIndex = "1"; // IMPORTANT: allow UI clicks above map
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
@@ -58,25 +60,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const activeMonths = new Set();
 
     function normalizeMonths(value) {
-        return Array.isArray(value) ? value.map(v => String(v)) : [];
+        return Array.isArray(value) ? value.map(String) : [];
     }
 
-    function placeMatchesFilters(place) {
+    function placeMatches(place) {
         if (!place) return false;
 
-        if (activeTags.size && !activeTagsHas(place)) return false;
-        if (activeMonths.size && !monthsMatch(place)) return false;
+        if (activeTags.size) {
+            if (![...activeTags].every(t => place.tags?.includes(t))) return false;
+        }
+
+        if (activeMonths.size) {
+            const months = normalizeMonths(place.best_months);
+            if (!months.some(m => activeMonths.has(m))) return false;
+        }
 
         return true;
-    }
-
-    function activeTagsHas(place) {
-        return [...activeTags].every(t => place.tags?.includes(t));
-    }
-
-    function monthsMatch(place) {
-        const months = normalizeMonths(place.best_months);
-        return months.some(m => activeMonths.has(m));
     }
 
     /* =========================
@@ -86,8 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const STYLE_BASE  = { fillColor:"#e8eef1", fillOpacity:1, weight:0.8, color:"#a9bcc8" };
     const STYLE_DIM   = { fillColor:"#f8f9fa", fillOpacity:1, weight:0.5, color:"#e1e4e6" };
     const STYLE_MATCH = { fillColor:"#6b8f9c", fillOpacity:1, weight:1.5, color:"#4e6f7c" };
-    const STYLE_MATCH_HOVER = { fillColor:"#577f8c", fillOpacity:1, weight:2.5, color:"#3e5f6b" };
-    const STYLE_HOVER_NORMAL = { fillColor:"#d6e1e7", fillOpacity:1, weight:2, color:"#7d98a6" };
+    const STYLE_HOVER = { fillColor:"#577f8c", fillOpacity:1, weight:2.5, color:"#3e5f6b" };
 
     /* =========================
        MAP REGISTRY
@@ -107,9 +105,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         layer.on("mouseover", () => {
-            layer.bringToFront();
-            if (!layer._hasFilters) layer.setStyle(STYLE_HOVER_NORMAL);
-            else if (layer._isMatch) layer.setStyle(STYLE_MATCH_HOVER);
+            if (layer._hasFilters && layer._isMatch) {
+                layer.setStyle(STYLE_HOVER);
+            }
         });
 
         layer.on("mouseout", () => applyStyle(layer));
@@ -127,13 +125,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         layers.forEach(layer => {
             layer._hasFilters = hasFilters;
-            layer._isMatch = placeMatchesFilters(layer._place);
+            layer._isMatch = placeMatches(layer._place);
             applyStyle(layer);
         });
 
-        if (listView.style.display === "block") {
-            renderList();
-        }
+        if (listView.style.display === "block") renderList();
     }
 
     /* =========================
@@ -150,24 +146,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     const key = getCountryKey(f.properties);
                     return key && key !== "USA" && key !== "GBR";
                 },
-                onEachFeature: (f, l) => {
-                    bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
-                }
+                onEachFeature: (f, l) =>
+                    bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME)
             }).addTo(map);
         });
 
     fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
         .then(r => r.json())
         .then(data => {
-            const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
-            L.geoJSON(usa, {
-                pane: "subdivisions",
-                style: STYLE_BASE,
-                onEachFeature: (f, l) => {
-                    const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
-                    bindLayer(l, byAdminKey[key], f.properties.name);
+            L.geoJSON(
+                data.features.filter(f => f.properties?.adm0_a3 === "USA"),
+                {
+                    pane: "subdivisions",
+                    style: STYLE_BASE,
+                    onEachFeature: (f, l) =>
+                        bindLayer(l, byAdminKey[`USA:${f.properties.iso_3166_2}`], f.properties.name)
                 }
-            }).addTo(map);
+            ).addTo(map);
         });
 
     fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
@@ -190,18 +185,67 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       LIST VIEW (FIXED LAYOUT)
+       FILTER UI
     ========================= */
 
-    const mapView = document.getElementById("mapView");
+    const panel = document.getElementById("filterPanel");
+    const chipsEl = document.getElementById("activeFilters");
+
+    document.getElementById("toggleFilterPanel").onclick = () => {
+        panel.style.display = panel.style.display === "none" ? "block" : "none";
+    };
+
+    document.getElementById("applyFilterBtn").onclick = () => {
+        activeTags.clear();
+        activeMonths.clear();
+
+        panel.querySelectorAll("input:checked").forEach(cb => {
+            isNaN(cb.value) ? activeTags.add(cb.value) : activeMonths.add(String(cb.value));
+        });
+
+        panel.style.display = "none";
+        renderChips();
+        applyFilters();
+    };
+
+    document.getElementById("clearFilterBtn").onclick = () => {
+        activeTags.clear();
+        activeMonths.clear();
+        panel.querySelectorAll("input").forEach(cb => cb.checked = false);
+        renderChips();
+        applyFilters();
+        panel.style.display = "none";
+    };
+
+    function renderChips() {
+        chipsEl.innerHTML = "";
+        activeTags.forEach(tag => {
+            const chip = document.createElement("span");
+            chip.textContent = `${tag} ×`;
+            chip.style.cssText =
+                "background:#6b8f9c;color:#fff;padding:0.25rem 0.7rem;border-radius:999px;font-size:0.75rem;cursor:pointer";
+            chip.onclick = () => {
+                activeTags.delete(tag);
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(chip);
+        });
+    }
+
+    /* =========================
+       LIST VIEW
+    ========================= */
+
+    const mapView  = document.getElementById("mapView");
     const listView = document.getElementById("listView");
-    const listEl = document.getElementById("placeList");
+    const listEl   = document.getElementById("placeList");
     const indicator = document.getElementById("viewIndicator");
 
     function renderList() {
         listEl.innerHTML = "";
 
-        const filtered = window.places.filter(placeMatchesFilters);
+        const filtered = window.places.filter(placeMatches);
         if (!filtered.length) {
             listEl.innerHTML = "<p>No places match your filters.</p>";
             return;
@@ -213,51 +257,39 @@ document.addEventListener("DOMContentLoaded", () => {
             (byContinent[c] ||= []).push(p);
         });
 
-        Object.keys(byContinent)
-            .sort((a, b) => a.localeCompare(b))
-            .forEach(continent => {
+        Object.keys(byContinent).sort().forEach(continent => {
+            const section = document.createElement("section");
+            section.style.margin = "2.5rem 0";
 
-                const places = byContinent[continent]
-                    .sort((a, b) => a.name.localeCompare(b.name));
+            const h = document.createElement("h2");
+            h.textContent = continent.toUpperCase();
+            h.style.cssText =
+                "margin-bottom:1rem;font-size:0.8rem;letter-spacing:0.1em;color:#6b7280";
 
-                const section = document.createElement("section");
-                section.style.margin = "3rem 0";
+            const grid = document.createElement("div");
+            grid.style.cssText =
+                "display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem";
 
-                const header = document.createElement("h2");
-                header.textContent = continent.toUpperCase();
-                header.style.cssText = `
-          margin-bottom:1rem;
-          font-size:0.85rem;
-          letter-spacing:0.08em;
-          color:#6b7280;
-        `;
-
-                const grid = document.createElement("div");
-                grid.style.cssText = `
-          display:grid;
-          grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-          gap:1rem;
-        `;
-
-                places.forEach(place => {
+            byContinent[continent]
+                .sort((a,b)=>a.name.localeCompare(b.name))
+                .forEach(p => {
                     const card = document.createElement("div");
-                    card.style.cssText = `
-            padding:0.9rem 1rem;
-            background:#f9fafb;
-            border-radius:8px;
-            border:1px solid #eef1f3;
-            cursor:pointer;
-          `;
-                    card.innerHTML = `<strong>${place.name}</strong>`;
-                    card.onclick = () => location.href = place.url;
+                    card.style.cssText =
+                        "padding:0.9rem 1rem;background:#f9fafb;border-radius:8px;border:1px solid #eef1f3;cursor:pointer";
+                    card.innerHTML = `<strong>${p.name}</strong>`;
+                    card.onclick = () => location.href = p.url;
                     grid.appendChild(card);
                 });
 
-                section.appendChild(header);
-                section.appendChild(grid);
-                listEl.appendChild(section);
-            });
+            section.appendChild(h);
+            section.appendChild(grid);
+            listEl.appendChild(section);
+        });
     }
+
+    /* =========================
+       VIEW SWITCH
+    ========================= */
 
     function setView(view) {
         if (view === "map") {
@@ -273,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    document.getElementById("viewMapBtn").onclick = () => setView("map");
+    document.getElementById("viewMapBtn").onclick  = () => setView("map");
     document.getElementById("viewListBtn").onclick = () => setView("list");
 
 });
