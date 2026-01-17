@@ -90,10 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const STYLE_DIM = {
-        fillColor: "#f8f9fa",
+        fillColor: "#dde5ea",   // blød blågrå
         fillOpacity: 1,
         weight: 0.5,
-        color: "#e1e4e6"
+        color: "#c6d2d9"
     };
 
     const STYLE_MATCH = {
