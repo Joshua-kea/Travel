@@ -24,8 +24,8 @@ currency:
       eur: 0.11
       dkk: 0.82
 budget:
-  dkk:
-  eur:
+  dkk: 5.000-10.000
+  eur: 670-1340
 
 ---
 
