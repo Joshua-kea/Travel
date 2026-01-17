@@ -1,6 +1,4 @@
 ---
-
-
 layout: country
 iso: AGO
 name: "Angola"
@@ -8,8 +6,7 @@ continent: Africa
 gay_friendliness: 42
 tags: []
 
-language:
-Portuguese
+language: [Portuguese]
 
 capital: Luanda
 
@@ -27,9 +24,9 @@ currency:
 budget:
   dkk: 5.000 - 10.000
   eur: 670 - 1340
-gay_details:
-Has been legal since 2021. No censorship, and discrimination is illegal. 
-But marriage is illegal, and there is not much support for trans people.
+gay_details: >
+    Has been legal since 2021. No censorship, and discrimination is illegal. 
+    But marriage is illegal, and there is not much support for trans people.
 
 ---
 
