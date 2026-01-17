@@ -51,9 +51,9 @@
                     {{ page.currency.name }}
                     {% if page.currency.symbol or page.currency.code %}
                     <span class="currency-meta">
-                            {% if page.currency.symbol %}{{ page.currency.symbol }}{% endif %}
-                            {% if page.currency.code %} ({{ page.currency.code }}){% endif %}
-                        </span>
+                {% if page.currency.symbol %}{{ page.currency.symbol }}{% endif %}
+                {% if page.currency.code %} ({{ page.currency.code }}){% endif %}
+            </span>
                     {% endif %}
                 </div>
                 {% else %}
@@ -62,10 +62,16 @@
 
                 {% if page.currency.rates %}
                 <div class="rates">
-                    <div>1 EUR ≈ {{ page.currency.rates.eur_1 }}</div>
-                    <div>100 EUR ≈ {{ page.currency.rates.eur_100 }}</div>
-                    <div>1 DKK ≈ {{ page.currency.rates.dkk_1 }}</div>
-                    <div>100 DKK ≈ {{ page.currency.rates.dkk_100 }}</div>
+                    <div>
+                        1 {{ page.currency.name }}
+                        = {{ page.currency.rates.per_1.eur }} EUR
+                        &amp; {{ page.currency.rates.per_1.dkk }} DKK
+                    </div>
+                    <div>
+                        100 {{ page.currency.name }}
+                        = {{ page.currency.rates.per_100.eur }} EUR
+                        &amp; {{ page.currency.rates.per_100.dkk }} DKK
+                    </div>
                 </div>
                 {% endif %}
             </div>
