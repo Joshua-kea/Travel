@@ -89,8 +89,14 @@ body {
 }
 
 /* =========================
-   CURRENCY RATES
+   CURRENCY
 ========================= */
+
+.currency-meta {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-left: 0.25rem;
+}
 
 .rates {
     margin-top: 0.4rem;

@@ -49,8 +49,11 @@
                 {% if page.currency.name %}
                 <div class="value">
                     {{ page.currency.name }}
-                    {% if page.currency.symbol %}
-                    ({{ page.currency.symbol }})
+                    {% if page.currency.symbol or page.currency.code %}
+                    <span class="currency-meta">
+                            {% if page.currency.symbol %}{{ page.currency.symbol }}{% endif %}
+                            {% if page.currency.code %} ({{ page.currency.code }}){% endif %}
+                        </span>
                     {% endif %}
                 </div>
                 {% else %}
