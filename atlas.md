@@ -165,7 +165,7 @@ gap: 0.4rem;
 
 <!-- LIST VIEW -->
 <div id="listView" style="display:none;max-width:1000px;margin:0 auto;">
-  <ul id="placeList" style="list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;"></ul>
+<div id="placeList"></div>
 </div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
