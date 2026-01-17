@@ -178,6 +178,7 @@ gap: 0.4rem;
         name: {{ place.name | jsonify }},
         iso: {{ place.iso | jsonify }},
         admin_key: {{ place.admin_key | jsonify }},
+        continent: {{ place.continent | jsonify }},
         url: "{{ site.baseurl }}{{ place.url }}",
         tags: {{ place.tags | jsonify }},
         best_months: {{ place.best_months | default: "[]" | jsonify }}
