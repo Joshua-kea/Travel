@@ -62,22 +62,27 @@
 
                 {% if page.currency.rates %}
                 <div class="rates">
-                    <div>
-                        1 {{ page.currency.name }}
-                        = {{ page.currency.rates.per_1.eur }} EUR
-                        &amp; {{ page.currency.rates.per_1.dkk }} DKK
+
+                    <div class="rate-block">
+                        <div class="rate-label">1 {{ page.currency.name }}</div>
+                        <div class="rate-values">
+                            <div>{{ page.currency.rates.per_1.eur }} EUR</div>
+                            <div>{{ page.currency.rates.per_1.dkk }} DKK</div>
+                        </div>
                     </div>
-                    <div>
-                        100 {{ page.currency.name }}
-                        = {{ page.currency.rates.per_100.eur }} EUR
-                        &amp; {{ page.currency.rates.per_100.dkk }} DKK
+
+                    <div class="rate-block">
+                        <div class="rate-label">100 {{ page.currency.name }}</div>
+                        <div class="rate-values">
+                            <div>{{ page.currency.rates.per_100.eur }} EUR</div>
+                            <div>{{ page.currency.rates.per_100.dkk }} DKK</div>
+                        </div>
                     </div>
+
                 </div>
                 {% endif %}
-            </div>
-            {% endif %}
 
-            {% if page.gay_friendliness %}
+                {% if page.gay_friendliness %}
             <div class="fact">
                 <label>Gay equality</label>
                 <div class="gay-bar">
