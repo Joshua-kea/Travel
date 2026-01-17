@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: CRI
 name: "Costa Rica"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Costa Rica

@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: FIN
 name: "Finland"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Finland

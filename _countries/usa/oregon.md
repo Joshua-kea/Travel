@@ -1,9 +1,16 @@
 ---
+
 layout: country
 admin_key: "USA:US-OR"
 name: "Oregon"
 parent_country: United States of America
 continent: North America
+
+language:
+
+currency:
+
+capital:
 ---
 
 # Oregon

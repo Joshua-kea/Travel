@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: SWE
 name: "Sweden"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere, mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Sweden

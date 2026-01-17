@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: FJI
 name: "Fiji"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [island, beach]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Fiji

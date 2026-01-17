@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: MUS
 name: "Mauritius"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Mauritius

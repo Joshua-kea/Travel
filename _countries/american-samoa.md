@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: ASM
 name: "American Samoa"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # American Samoa

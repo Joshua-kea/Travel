@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: TZA
 name: "United Republic of Tanzania"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # United Republic of Tanzania

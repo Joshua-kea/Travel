@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: AFG
 name: "Afghanistan"
@@ -10,6 +11,10 @@ language:
 - English
 - French
 
+
+currency:
+
+capital:
 ---
 
 # Afghanistan

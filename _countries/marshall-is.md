@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: MHL
 name: "Marshall Is."
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Marshall Is.

@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: TCD
 name: "Chad"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Chad

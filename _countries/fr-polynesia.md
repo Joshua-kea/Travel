@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: PYF
 name: "Fr. Polynesia"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jgohere, island, beach]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Fr. Polynesia

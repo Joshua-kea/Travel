@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: VIR
 name: "U.S. Virgin Is."
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # U.S. Virgin Is.

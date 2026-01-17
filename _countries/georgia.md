@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: GEO
 name: "Georgia"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Georgia

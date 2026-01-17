@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: BIH
 name: "Bosnia and Herzegovina"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere, mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Bosnia and Herzegovina

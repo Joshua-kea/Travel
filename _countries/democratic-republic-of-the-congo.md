@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: COD
 name: "Democratic Republic of the Congo"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Democratic Republic of the Congo

@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: CIV
 name: "Ivory Coast"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Ivory Coast

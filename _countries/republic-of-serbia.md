@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: SRB
 name: "Republic of Serbia"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Republic of Serbia

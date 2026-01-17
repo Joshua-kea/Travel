@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: GNQ
 name: "Equatorial Guinea"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Equatorial Guinea

@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: SPM
 name: "St. Pierre and Miquelon"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # St. Pierre and Miquelon

@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: COG
 name: "Republic of the Congo"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Republic of the Congo

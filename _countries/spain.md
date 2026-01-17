@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: ESP
 name: "Spain"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere, mwashere, fandf]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Spain

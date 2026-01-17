@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: SGS
 name: "S. Geo. and the Is."
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # S. Geo. and the Is.

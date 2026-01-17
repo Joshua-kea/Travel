@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: NLD
 name: "Netherlands"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Netherlands

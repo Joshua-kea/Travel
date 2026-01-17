@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: PCN
 name: "Pitcairn Is."
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Pitcairn Is.

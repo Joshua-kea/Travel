@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: PNG
 name: "Papua New Guinea"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Papua New Guinea

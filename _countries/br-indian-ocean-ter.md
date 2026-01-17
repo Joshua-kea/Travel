@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: IOT
 name: "Br. Indian Ocean Ter."
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Br. Indian Ocean Ter.

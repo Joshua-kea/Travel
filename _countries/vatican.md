@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: VAT
 name: "Vatican"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Vatican

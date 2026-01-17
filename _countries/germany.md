@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: DEU
 name: "Germany"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere, mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Germany

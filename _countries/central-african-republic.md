@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: CAF
 name: "Central African Republic"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Central African Republic

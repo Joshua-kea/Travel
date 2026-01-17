@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: ATG
 name: "Antigua and Barb."
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Antigua and Barb.

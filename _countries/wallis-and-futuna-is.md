@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: WLF
 name: "Wallis and Futuna Is."
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Wallis and Futuna Is.

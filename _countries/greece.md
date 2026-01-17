@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: GRC
 name: "Greece"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Greece

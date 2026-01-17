@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 name: "Aruba"
 iso: ABW
@@ -8,6 +9,10 @@ continent: North America
 tags: [island]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Aruba

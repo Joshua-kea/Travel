@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: KOR
 name: "South Korea"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # South Korea

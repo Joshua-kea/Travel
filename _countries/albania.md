@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: ALB
 name: "Albania"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jgohere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Albania

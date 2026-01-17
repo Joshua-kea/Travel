@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: SEN
 name: "Senegal"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [mwashere, fandf]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Senegal

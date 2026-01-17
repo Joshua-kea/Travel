@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: MNG
 name: "Mongolia"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Mongolia

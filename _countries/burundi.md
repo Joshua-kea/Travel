@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: BDI
 name: "Burundi"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Burundi

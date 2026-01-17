@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: VNM
 name: "Vietnam"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Vietnam

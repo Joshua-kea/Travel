@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: ARE
 name: "United Arab Emirates"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # United Arab Emirates

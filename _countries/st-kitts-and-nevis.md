@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: KNA
 name: "St. Kitts and Nevis"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # St. Kitts and Nevis

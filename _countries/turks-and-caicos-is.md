@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: TCA
 name: "Turks and Caicos Is."
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Turks and Caicos Is.

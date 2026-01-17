@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: ATF
 name: "French Southern and Antarctic Lands"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # French Southern and Antarctic Lands

@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: GIN
 name: "Guinea"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Guinea

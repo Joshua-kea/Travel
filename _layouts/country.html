@@ -2,44 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ page.title }} – Atlas</title>
+    <title>{{ page.name }} – Atlas</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{ '/assets/css/country.css' | relative_url }}">
-
-    <!-- Valgfrit: basis reset -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
 <main class="country-page">
 
-    <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================= -->
+
     <header class="country-header">
         {% if page.flag %}
-        <img src="{{ page.flag | relative_url }}" alt="{{ page.title }} flag" class="country-flag">
+        <img
+                src="{{ page.flag | relative_url }}"
+                alt="{{ page.name }} flag"
+                class="country-flag"
+        >
         {% endif %}
 
         <div class="country-title">
-            <h1>{{ page.title }}</h1>
+            <h1>{{ page.name }}</h1>
+
             {% if page.continent %}
             <span class="continent">{{ page.continent }}</span>
             {% endif %}
         </div>
     </header>
 
-    <!-- META INFO -->
+    <!-- =========================
+         META INFORMATION
+    ========================= -->
+
     <section class="country-meta">
 
-        {% if page.gay_friendly_score %}
+        {% if page.language and page.language.size > 0 %}
         <div class="meta-block">
-            <label>Gay friendliness</label>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: {{ page.gay_friendly_score }}%"></div>
-            </div>
+            <label>Language</label>
+            <ul>
+                {% for lang in page.language %}
+                <li>{{ lang }}</li>
+                {% endfor %}
+            </ul>
         </div>
         {% endif %}
 
-        {% if page.tags %}
+        {% if page.capital %}
+        <div class="meta-block">
+            <label>Capital</label>
+            <div class="meta-value">{{ page.capital }}</div>
+        </div>
+        {% endif %}
+
+        {% if page.currency %}
+        <div class="meta-block">
+            <label>Currency</label>
+            <div class="meta-value">{{ page.currency }}</div>
+        </div>
+        {% endif %}
+
+        {% if page.tags and page.tags.size > 0 %}
         <div class="meta-block">
             <label>Tags</label>
             <ul class="tags">
@@ -52,7 +78,10 @@
 
     </section>
 
-    <!-- MAIN CONTENT -->
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
     <section class="country-content">
         {{ content }}
     </section>

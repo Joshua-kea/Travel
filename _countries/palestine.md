@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: PSE
 name: "Palestine"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Palestine

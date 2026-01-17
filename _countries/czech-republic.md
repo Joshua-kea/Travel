@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: CZE
 name: "Czech Republic"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Czech Republic

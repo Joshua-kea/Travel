@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: ESH
 name: "Western Sahara"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Western Sahara

@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: OMN
 name: "Oman"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Oman

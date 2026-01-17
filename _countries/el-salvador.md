@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: SLV
 name: "El Salvador"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # El Salvador

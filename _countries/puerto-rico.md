@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: PRI
 name: "Puerto Rico"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Puerto Rico

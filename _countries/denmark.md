@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: DNK
 name: "Denmark"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere, mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Denmark

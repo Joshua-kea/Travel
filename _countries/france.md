@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: FRA
 name: "France"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [food, expensive, jwashere, mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # France

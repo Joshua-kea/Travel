@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: STP
 name: "São Tomé and Principe"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: []
 language:
 
+
+currency:
+
+capital:
 ---
 
 # São Tomé and Principe

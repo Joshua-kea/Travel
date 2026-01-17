@@ -1,5 +1,6 @@
 ---
 
+
 layout: country
 iso: ITA
 name: "Italy"
@@ -8,6 +9,10 @@ gay_friendliness:
 tags: [jwashere, mwashere]
 language:
 
+
+currency:
+
+capital:
 ---
 
 # Italy
