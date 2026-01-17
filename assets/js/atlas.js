@@ -64,18 +64,19 @@ document.addEventListener("DOMContentLoaded", () => {
     function placeMatchesFilters(place) {
         if (!place) return false;
 
-        const tags = place.tags || [];
-        const months = normalizeMonths(place.best_months);
-
-        if (activeTags.size && ![...activeTags].every(t => tags.includes(t))) {
-            return false;
-        }
-
-        if (activeMonths.size && !months.some(m => activeMonths.has(m))) {
-            return false;
-        }
+        if (activeTags.size && !activeTagsHas(place)) return false;
+        if (activeMonths.size && !monthsMatch(place)) return false;
 
         return true;
+    }
+
+    function activeTagsHas(place) {
+        return [...activeTags].every(t => place.tags?.includes(t));
+    }
+
+    function monthsMatch(place) {
+        const months = normalizeMonths(place.best_months);
+        return months.some(m => activeMonths.has(m));
     }
 
     /* =========================
@@ -176,82 +177,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 pane: "subdivisions",
                 style: STYLE_BASE,
                 onEachFeature: (f, l) => {
-                    const iso =
-                        f.properties?.ISO_1 && f.properties.ISO_1 !== "NA"
-                            ? f.properties.ISO_1
-                            : "GB-ENG";
-
+                    const iso = f.properties?.ISO_1 || "GB-ENG";
                     const labels = {
                         "GB-ENG": "England",
                         "GB-SCT": "Scotland",
                         "GB-WLS": "Wales",
                         "GB-NIR": "Northern Ireland"
                     };
-
                     bindLayer(l, byAdminKey[`GBR:${iso}`], labels[iso]);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       FILTER UI
-    ========================= */
-
-    const panel = document.getElementById("filterPanel");
-    const chipsEl = document.getElementById("activeFilters");
-
-    document.getElementById("toggleFilterPanel").onclick = () => {
-        panel.style.display = panel.style.display === "none" ? "block" : "none";
-    };
-
-    document.getElementById("applyFilterBtn").onclick = () => {
-        activeTags.clear();
-        activeMonths.clear();
-
-        panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
-            isNaN(cb.value)
-                ? activeTags.add(cb.value)
-                : activeMonths.add(String(cb.value));
-        });
-
-        panel.style.display = "none";
-        renderChips();
-        applyFilters();
-    };
-
-    document.getElementById("clearFilterBtn").onclick = () => {
-        activeTags.clear();
-        activeMonths.clear();
-        panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
-        renderChips();
-        applyFilters();
-        panel.style.display = "none";
-    };
-
-    function renderChips() {
-        chipsEl.innerHTML = "";
-        activeTags.forEach(tag => {
-            const chip = document.createElement("span");
-            chip.textContent = `${tag} ×`;
-            chip.style.cssText = `
-        background:#6b8f9c;
-        color:white;
-        padding:0.25rem 0.7rem;
-        border-radius:999px;
-        cursor:pointer;
-        font-size:0.75rem;
-      `;
-            chip.onclick = () => {
-                activeTags.delete(tag);
-                renderChips();
-                applyFilters();
-            };
-            chipsEl.appendChild(chip);
-        });
-    }
-
-    /* =========================
-       VIEW SWITCH
+       LIST VIEW (FIXED LAYOUT)
     ========================= */
 
     const mapView = document.getElementById("mapView");
@@ -274,75 +213,50 @@ document.addEventListener("DOMContentLoaded", () => {
             (byContinent[c] ||= []).push(p);
         });
 
-        const continents = Object.keys(byContinent).sort((a, b) =>
-            a.localeCompare(b)
-        );
+        Object.keys(byContinent)
+            .sort((a, b) => a.localeCompare(b))
+            .forEach(continent => {
 
-        continents.forEach(continent => {
-            const places = byContinent[continent].sort((a, b) =>
-                a.name.localeCompare(b.name)
-            );
+                const places = byContinent[continent]
+                    .sort((a, b) => a.name.localeCompare(b.name));
 
-            const section = document.createElement("section");
-            section.style.marginBottom = "3rem";
+                const section = document.createElement("section");
+                section.style.margin = "3rem 0";
 
-            const header = document.createElement("h2");
-            header.textContent = continent;
-            header.style.cssText = `
-        margin:0 0 0.75rem;
-        font-size:0.9rem;
-        font-weight:600;
-        text-transform:uppercase;
-        letter-spacing:0.04em;
-        color:#6b7280;
-      `;
-
-            const grid = document.createElement("div");
-            grid.style.cssText = `
-        display:grid;
-        grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-        gap:1rem;
-      `;
-
-            places.forEach(place => {
-                const card = document.createElement("div");
-                card.style.cssText = `
-          padding:0.9rem 1rem;
-          background:#f9fafb;
-          border-radius:8px;
-          border:1px solid #eef1f3;
-          cursor:pointer;
-          transition:transform 0.15s ease, box-shadow 0.15s ease;
+                const header = document.createElement("h2");
+                header.textContent = continent.toUpperCase();
+                header.style.cssText = `
+          margin-bottom:1rem;
+          font-size:0.85rem;
+          letter-spacing:0.08em;
+          color:#6b7280;
         `;
 
-                card.onmouseenter = () => {
-                    card.style.transform = "translateY(-2px)";
-                    card.style.boxShadow = "0 4px 10px rgba(0,0,0,0.06)";
-                };
-                card.onmouseleave = () => {
-                    card.style.transform = "none";
-                    card.style.boxShadow = "none";
-                };
-
-                card.innerHTML = `
-          <div style="font-weight:600;">${place.name}</div>
-          ${
-                    place.tags?.length
-                        ? `<div style="font-size:0.75rem;color:#6b7280;margin-top:0.25rem;">
-                   ${place.tags.join(", ")}
-                 </div>`
-                        : ""
-                }
+                const grid = document.createElement("div");
+                grid.style.cssText = `
+          display:grid;
+          grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+          gap:1rem;
         `;
 
-                card.onclick = () => location.href = place.url;
-                grid.appendChild(card);
+                places.forEach(place => {
+                    const card = document.createElement("div");
+                    card.style.cssText = `
+            padding:0.9rem 1rem;
+            background:#f9fafb;
+            border-radius:8px;
+            border:1px solid #eef1f3;
+            cursor:pointer;
+          `;
+                    card.innerHTML = `<strong>${place.name}</strong>`;
+                    card.onclick = () => location.href = place.url;
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(header);
+                section.appendChild(grid);
+                listEl.appendChild(section);
             });
-
-            section.appendChild(header);
-            section.appendChild(grid);
-            listEl.appendChild(section);
-        });
     }
 
     function setView(view) {
