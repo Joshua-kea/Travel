@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         worldCopyJump: false
     }).setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom);
 
-    map.getContainer().style.zIndex = "1";
-
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
         { attribution: "© OpenStreetMap & CARTO", noWrap: true }
@@ -90,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const STYLE_DIM = {
-        fillColor: "#dde5ea",   // blød blågrå
+        fillColor: "#dde5ea",
         fillOpacity: 1,
         weight: 0.5,
         color: "#c6d2d9"
@@ -136,12 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         layer.on("mouseover", () => {
             layer.bringToFront();
-
-            if (!layer._hasFilters) {
-                layer.setStyle(STYLE_HOVER_NORMAL);
-            } else if (layer._isMatch) {
-                layer.setStyle(STYLE_MATCH_HOVER);
-            }
+            if (!layer._hasFilters) layer.setStyle(STYLE_HOVER_NORMAL);
+            else if (layer._isMatch) layer.setStyle(STYLE_MATCH_HOVER);
         });
 
         layer.on("mouseout", () => applyStyle(layer));
@@ -164,9 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
             applyStyle(layer);
         });
 
-        if (listView.style.display === "block") {
-            renderList();
-        }
+        if (listView.style.display === "block") renderList();
     }
 
     /* =========================
@@ -223,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTER UI
+       FILTER UI + CHIPS
     ========================= */
 
     const panel = document.getElementById("filterPanel");
@@ -236,8 +228,15 @@ document.addEventListener("DOMContentLoaded", () => {
         panel.style.display = panel.style.display === "none" ? "block" : "none";
     };
 
+    function uncheckFilterCheckbox(value) {
+        panel.querySelectorAll("input[type='checkbox']").forEach(cb => {
+            if (cb.value === value) cb.checked = false;
+        });
+    }
+
     function renderChips() {
         chipsEl.innerHTML = "";
+
         activeTags.forEach(tag => {
             const chip = document.createElement("span");
             chip.textContent = `${tag} ×`;
@@ -251,6 +250,27 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             chip.onclick = () => {
                 activeTags.delete(tag);
+                uncheckFilterCheckbox(tag);
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(chip);
+        });
+
+        activeMonths.forEach(month => {
+            const chip = document.createElement("span");
+            chip.textContent = `Month ${month} ×`;
+            chip.style.cssText = `
+                background:#6b8f9c;
+                color:white;
+                padding:0.25rem 0.7rem;
+                border-radius:999px;
+                cursor:pointer;
+                font-size:0.75rem;
+            `;
+            chip.onclick = () => {
+                activeMonths.delete(month);
+                uncheckFilterCheckbox(month);
                 renderChips();
                 applyFilters();
             };
