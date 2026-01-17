@@ -194,4 +194,20 @@ body {
     border-radius: 4px;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
 }
+/* =========================
+   BACK TO ATLAS
+========================= */
+
+.back-to-atlas {
+    display: inline-block;
+    margin-bottom: 1.2rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    text-decoration: none;
+}
+
+.back-to-atlas:hover {
+    color: #111827;
+    text-decoration: underline;
+}
 
