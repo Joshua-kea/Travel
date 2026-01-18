@@ -12,7 +12,7 @@ browse places that match your travel interests and preferred time of year.
 </p>
 
 <!-- =========================
-     CONTROLS
+     VIEW SWITCH + FILTERS
 ========================= -->
 
 <div
@@ -54,14 +54,34 @@ browse places that match your travel interests and preferred time of year.
 
     <button
       id="viewMapBtn"
-      style="background:none;border:none;padding:0.35rem 0.9rem;color:white;cursor:pointer;"
+      style="
+        position: relative;
+        z-index: 1;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        border: none;
+        background: transparent;
+        color: white;
+        cursor: pointer;
+        font-size: 0.8rem;
+      "
     >
       Map
     </button>
 
     <button
       id="viewListBtn"
-      style="background:none;border:none;padding:0.35rem 0.9rem;color:#374151;cursor:pointer;"
+      style="
+        position: relative;
+        z-index: 1;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        border: none;
+        background: transparent;
+        color: #374151;
+        cursor: pointer;
+        font-size: 0.8rem;
+      "
     >
       List
     </button>
@@ -76,7 +96,11 @@ border-radius: 999px;
 border: none;
 background: #6b8f9c;
 color: #ffffff;
+font-weight: 500;
 cursor: pointer;
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
 "
 >
     Filters +
@@ -93,37 +117,24 @@ cursor: pointer;
       width: 320px;
       max-height: calc(100vh - 6rem);
       background: #ffffff;
-      border-radius: 14px;
+      border-radius: 12px;
       box-shadow: 0 10px 24px rgba(0,0,0,0.15);
       z-index: 2001;
-      overflow: hidden;
+      flex-direction: column;
     "
   >
 
     <!-- HEADER -->
-    <div
-      style="
-        padding: 1rem 1.1rem;
-        border-bottom: 1px solid #e5e7eb;
-        font-weight: 600;
-      "
-    >
-      Filters
+    <div style="padding: 1rem 1.1rem; border-bottom: 1px solid #e5e7eb;">
+      <strong>Filters</strong>
     </div>
 
     <!-- SCROLLABLE CONTENT -->
-    <div
-      style="
-        padding: 1rem 1.1rem;
-        overflow-y: auto;
-        max-height: calc(100vh - 12rem);
-      "
-    >
+    <div style="padding: 1rem 1.1rem; overflow-y: auto; flex: 1;">
 
-      <!-- MONTHS -->
       <div style="margin-bottom: 1rem;">
-        <div style="margin-bottom: 0.3rem;">When do you travel?</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;">
+        <div style="font-size:0.85rem;">When do you travel?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.35rem;">
           {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
           {% for m in months %}
             <label><input type="checkbox" value="{{ forloop.index }}"> {{ m }}</label>
@@ -131,10 +142,9 @@ cursor: pointer;
         </div>
       </div>
 
-      <!-- INTERESTS -->
       <div>
-        <div style="margin-bottom:0.3rem;">Interests</div>
-        <div style="display:flex;flex-direction:column;gap:.35rem;">
+        <div style="font-size:0.85rem;">Interests</div>
+        <div style="display:flex;flex-direction:column;gap:0.35rem;">
           <label><input type="checkbox" value="culture"> Culture</label>
           <label><input type="checkbox" value="food"> Food</label>
           <label><input type="checkbox" value="cheap"> Budget friendly</label>
@@ -169,16 +179,19 @@ cursor: pointer;
     </div>
 
   </div>
+
 </div>
 
-<!-- ACTIVE FILTER CHIPS -->
 <div
   id="activeFilters"
-  style="margin-bottom:1rem;display:flex;gap:.4rem;flex-wrap:wrap;"
+  style="margin-bottom:1rem;display:flex;gap:0.4rem;flex-wrap:wrap;"
 ></div>
 
 <!-- MAP VIEW -->
-<div id="mapView">
+<div
+  id="mapView"
+  style="width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);"
+>
   <div id="map" style="height:85vh;min-height:700px;"></div>
 </div>
 
@@ -189,4 +202,22 @@ cursor: pointer;
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  window.places = [
+    {% for place in site.countries %}
+      {
+        name: {{ place.name | jsonify }},
+        iso: {{ place.iso | jsonify }},
+        admin_key: {{ place.admin_key | jsonify }},
+        continent: {{ place.continent | jsonify }},
+        url: "{{ site.baseurl }}{{ place.url }}",
+        tags: {{ place.tags | jsonify }},
+        best_months: {{ place.best_months | default: "[]" | jsonify }}
+      },
+    {% endfor %}
+  ];
+  window.BASEURL = "{{ site.baseurl }}";
+</script>
+
 <script src="{{ site.baseurl }}/assets/js/atlas.js"></script>
