@@ -297,7 +297,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderList() {
         listEl.innerHTML = "";
 
-        // 1. Filtrér lande
         const filtered = window.places.filter(placeMatchesFilters);
 
         if (!filtered.length) {
@@ -305,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 2. Gruppér efter continent
+        // Gruppér efter continent
         const byContinent = {};
 
         filtered.forEach(place => {
@@ -316,37 +315,37 @@ document.addEventListener("DOMContentLoaded", () => {
             byContinent[continent].push(place);
         });
 
-        // 3. Sortér kontinenter alfabetisk
+        // Sortér kontinenter alfabetisk
         const continents = Object.keys(byContinent).sort((a, b) =>
             a.localeCompare(b)
         );
 
-        // 4. Render hver continent-sektion
         continents.forEach(continent => {
             const section = document.createElement("section");
-            section.style.marginBottom = "2rem";
+            section.style.marginBottom = "2.5rem";
 
             const heading = document.createElement("h2");
             heading.textContent = continent;
-            heading.style.marginBottom = "0.6rem";
+            heading.style.marginBottom = "0.75rem";
             section.appendChild(heading);
 
             const grid = document.createElement("div");
             grid.style.display = "grid";
-            grid.style.gridTemplateColumns = "repeat(auto-fill, minmax(160px, 1fr))";
-            grid.style.gap = "0.5rem";
+            grid.style.gridTemplateColumns = "repeat(3, 1fr)"; // 🔒 FAST 3 KOLONNER
+            grid.style.gap = "0.6rem";
 
-            // Sortér lande alfabetisk
             byContinent[continent]
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .forEach(place => {
                     const item = document.createElement("div");
                     item.textContent = place.name;
+
                     item.style.cursor = "pointer";
-                    item.style.padding = "0.35rem 0.5rem";
+                    item.style.padding = "0.5rem 0.65rem";
                     item.style.borderRadius = "6px";
                     item.style.background = "#eef3f6";
-                    item.style.fontSize = "0.85rem";
+                    item.style.fontSize = "0.95rem"; // 🔍 STØRRE TEKST
+                    item.style.lineHeight = "1.2";
 
                     item.onmouseenter = () => {
                         item.style.background = "#dfe8ee";
@@ -366,6 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
             listEl.appendChild(section);
         });
     }
+
 
     function setView(view) {
         if (view === "map") {
