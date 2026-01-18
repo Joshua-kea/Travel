@@ -50,26 +50,43 @@
             </div>
             {% endif %}
 
-            {% if page.best_months and page.best_months.size > 0 %}
+            {% if page.best_months %}
             <div class="fact">
                 <label>Best months to visit</label>
                 <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
-                    {% for m in page.best_months %}
-                    {% assign idx = m | plus: 0 | minus: 1 %}
+
+                    {% assign months_raw = page.best_months %}
+                    {% if months_raw contains "," %}
+                    {% assign months = months_raw | split: "," %}
+                    {% else %}
+                    {% assign months = months_raw %}
+                    {% endif %}
+
+                    {% for m in months %}
+                    {% assign idx = m | strip | plus: 0 | minus: 1 %}
                     <li>{{ month_names[idx] }}</li>
                     {% endfor %}
                 </ul>
             </div>
             {% endif %}
 
-            {% if page.ok_months and page.ok_months.size > 0 %}
+
+            {% if page.ok_months %}
             <div class="fact">
                 <label>Okay months</label>
                 <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
-                    {% for m in page.ok_months %}
-                    {% assign idx = m | plus: 0 | minus: 1 %}
+
+                    {% assign months_raw = page.ok_months %}
+                    {% if months_raw contains "," %}
+                    {% assign months = months_raw | split: "," %}
+                    {% else %}
+                    {% assign months = months_raw %}
+                    {% endif %}
+
+                    {% for m in months %}
+                    {% assign idx = m | strip | plus: 0 | minus: 1 %}
                     <li>{{ month_names[idx] }}</li>
                     {% endfor %}
                 </ul>
