@@ -5,18 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!window.places?.length) return;
 
     /* =========================
-       FILTER STATE
+       FILTER STATE (INIT FIRST)
     ========================= */
 
     const activeTags = new Set();
     const activeMonths = new Set();
 
-    // ✅ URL FILTERS SKAL KOMME FØRST
     const params = new URLSearchParams(window.location.search);
     const tagFromURL = params.get("tag");
-    if (tagFromURL) {
-        activeTags.add(tagFromURL);
-    }
+    if (tagFromURL) activeTags.add(tagFromURL);
 
     function normalizeMonths(value) {
         return Array.isArray(value) ? value.map(v => String(v)) : [];
@@ -130,8 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         layer.on("mouseout", () => applyStyle(layer));
 
         layers.push(layer);
-
-        // ✅ NU VIRKER URL-FILTRET
         applyFilters();
     }
 
@@ -187,5 +182,48 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }).addTo(map);
         });
+
+    /* =========================
+       VIEW SWITCH (FIXED)
+    ========================= */
+
+    const mapView = document.getElementById("mapView");
+    const listView = document.getElementById("listView");
+    const listEl = document.getElementById("placeList");
+    const indicator = document.getElementById("viewIndicator");
+
+    function renderList() {
+        listEl.innerHTML = "";
+        const filtered = window.places.filter(placeMatchesFilters);
+
+        if (!filtered.length) {
+            listEl.innerHTML = "<p>No places match your filters.</p>";
+            return;
+        }
+
+        filtered.forEach(place => {
+            const div = document.createElement("div");
+            div.textContent = place.name;
+            div.onclick = () => location.href = place.url;
+            listEl.appendChild(div);
+        });
+    }
+
+    function setView(view) {
+        if (view === "map") {
+            mapView.style.display = "block";
+            listView.style.display = "none";
+            indicator.style.transform = "translateX(0%)";
+            map.invalidateSize();
+        } else {
+            mapView.style.display = "none";
+            listView.style.display = "block";
+            indicator.style.transform = "translateX(100%)";
+            renderList();
+        }
+    }
+
+    document.getElementById("viewMapBtn").onclick = () => setView("map");
+    document.getElementById("viewListBtn").onclick = () => setView("list");
 
 });
