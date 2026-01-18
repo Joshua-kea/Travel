@@ -237,39 +237,20 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderChips() {
         chipsEl.innerHTML = "";
 
-        activeMonths.forEach(month => {
-            const chip = document.createElement("span");
-            chip.textContent = `Month ${month} ×`;
-            chip.style.cssText = `
-                background:#6b8f9c;
-                color:white;
-                padding:0.25rem 0.7rem;
-                border-radius:999px;
-                cursor:pointer;
-                font-size:0.75rem;
-            `;
-            chip.onclick = () => {
-                activeMonths.delete(month);
-                renderChips();
-                applyFilters();
-            };
-            chipsEl.appendChild(chip);
-        });
-
         activeTags.forEach(tag => {
             const chip = document.createElement("span");
             chip.textContent = `${tag} ×`;
             chip.style.cssText = `
                 background:#6b8f9c;
                 color:white;
-                padding:0.25rem 0.7rem;
+                padding:0.2rem 0.55rem;
                 border-radius:999px;
                 cursor:pointer;
-                font-size:0.75rem;
+                font-size:0.7rem;
             `;
             chip.onclick = () => {
                 activeTags.delete(tag);
-                updateURL(); // NEW
+                updateURL();
                 renderChips();
                 applyFilters();
             };
@@ -314,14 +295,21 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* =========================
-       URL TAG BOOTSTRAP  // NEW
+       INIT FILTERS FROM URL
     ========================= */
 
     const params = new URLSearchParams(window.location.search);
-    const urlTag = params.get("tag");
+    const tagFromURL = params.get("tag");
 
-    if (urlTag) {
-        activeTags.add(urlTag);
+    if (tagFromURL) {
+        activeTags.add(tagFromURL);
+
+        document
+            .querySelectorAll(`#filterPanel input[type="checkbox"]`)
+            .forEach(cb => {
+                if (cb.value === tagFromURL) cb.checked = true;
+            });
+
         renderChips();
         applyFilters();
     }
