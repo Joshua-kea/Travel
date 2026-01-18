@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: JEY
+iso2: jersey
 name: "Jersey"
 continent: Europe
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: HKG
+iso2: hk
 name: "Hong Kong"
 continent: Asia
 gay_friendliness:

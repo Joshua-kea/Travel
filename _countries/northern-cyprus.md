@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: CYN
+iso2: ncyprus
 name: "Northern Cyprus"
 continent: Europe
 gay_friendliness:

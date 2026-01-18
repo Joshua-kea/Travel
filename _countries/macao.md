@@ -1,7 +1,8 @@
 ---
 layout: country
 iso: MAC
-name: "Macao"
+iso2: macau
+name: "Macau"
 continent: Asia
 gay_friendliness:
 tags: []
@@ -18,6 +19,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Macao
+# Macau
 
 Write your notes about Macao here.

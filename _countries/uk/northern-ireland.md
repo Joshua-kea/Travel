@@ -1,6 +1,7 @@
 ---
 layout: country
 admin_key: "GBR:GB-NIR"
+iso2: nireland
 name: "Northern Ireland"
 parent_country: UK
 continent: Europe

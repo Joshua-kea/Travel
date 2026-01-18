@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: IMN
+iso2: iofman
 name: "Isle of Man"
 continent: Europe
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: NOR
+iso2: no
 name: "Norway"
 continent: Europe
 gay_friendliness:
@@ -15,7 +16,6 @@ budget:
   dkk:
   eur:
 gay_details:
-iso2: no
 best_months: []
 ok_months: []
 ---

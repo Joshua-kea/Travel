@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: PSE
+iso2: palestine
 name: "Palestine"
 continent: Asia
 gay_friendliness:

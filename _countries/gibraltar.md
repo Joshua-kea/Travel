@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GIB
+iso2: gibraltar
 name: "Gibraltar"
 continent: Europe
 gay_friendliness:

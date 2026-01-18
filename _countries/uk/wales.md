@@ -1,6 +1,7 @@
 ---
 layout: country
 admin_key: "GBR:GB-WLS"
+iso2: wales
 name: "Wales"
 parent_country: UK
 continent: Europe

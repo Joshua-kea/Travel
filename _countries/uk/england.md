@@ -1,6 +1,7 @@
 ---
 layout: country
 admin_key: "GBR:GB-ENG"
+iso2: england
 name: "England"
 parent_country: UK
 continent: Europe

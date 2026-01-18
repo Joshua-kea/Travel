@@ -1,6 +1,7 @@
 ---
 layout: country
 admin_key: "GBR:GB-SCT"
+iso2: scotland
 name: "Scotland"
 parent_country: UK
 continent: Europe

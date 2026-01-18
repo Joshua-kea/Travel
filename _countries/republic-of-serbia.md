@@ -1,7 +1,7 @@
 ---
 layout: country
 iso: SRB
-name: "Republic of Serbia"
+name: "Serbia"
 continent: Europe
 gay_friendliness:
 tags: []
@@ -19,6 +19,6 @@ iso2: rs
 best_months: []
 ok_months: []
 ---
-# Republic of Serbia
+# Serbia
 
 Write your notes about Republic of Serbia here.
