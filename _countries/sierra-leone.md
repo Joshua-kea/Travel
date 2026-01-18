@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SLE
+iso2: sl
 name: "Sierra Leone"
 continent: Africa
 gay_friendliness:

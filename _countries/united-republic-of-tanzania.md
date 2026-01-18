@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TZA
+iso2: tz
 name: "Tanzania"
 continent: Africa
 gay_friendliness:

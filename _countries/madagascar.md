@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MDG
+iso2: mg
 name: "Madagascar"
 continent: Africa
 gay_friendliness:

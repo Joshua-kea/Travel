@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: COG
+iso2: cg
 name: "Republic of the Congo"
 continent: Africa
 gay_friendliness:

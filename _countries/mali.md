@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MLI
+iso2: ml
 name: "Mali"
 continent: Africa
 gay_friendliness:

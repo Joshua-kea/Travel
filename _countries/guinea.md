@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GIN
+iso2: gn
 name: "Guinea"
 continent: Africa
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GNB
+iso2: gw
 name: "Guinea Bissau"
 continent: Africa
 gay_friendliness:

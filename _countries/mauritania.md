@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MRT
+iso2: mr
 name: "Mauritania"
 continent: Africa
 gay_friendliness:

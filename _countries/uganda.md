@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: UGA
+iso2: ug
 name: "Uganda"
 continent: Africa
 gay_friendliness:

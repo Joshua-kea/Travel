@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BFA
+iso2: bf
 name: "Burkina Faso"
 continent: Africa
 gay_friendliness:

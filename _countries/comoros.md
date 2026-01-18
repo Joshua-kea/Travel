@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: COM
+iso2: km
 name: "Comoros"
 continent: Africa
 gay_friendliness:

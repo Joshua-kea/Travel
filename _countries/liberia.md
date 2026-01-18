@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: LBR
+iso2: lr
 name: "Liberia"
 continent: Africa
 gay_friendliness:

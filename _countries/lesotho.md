@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: LSO
+iso2: ls
 name: "Lesotho"
 continent: Africa
 gay_friendliness:

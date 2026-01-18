@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SWZ
+iso2: sz
 name: "Swaziland"
 continent: Africa
 gay_friendliness:

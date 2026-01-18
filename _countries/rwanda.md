@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: RWA
+iso2: rw
 name: "Rwanda"
 continent: Africa
 gay_friendliness:

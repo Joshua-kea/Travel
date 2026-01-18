@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SOM
+iso2: so
 name: "Somalia"
 continent: Africa
 gay_friendliness:

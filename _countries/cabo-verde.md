@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: CPV
+iso2: cv
 name: "Cabo Verde"
 continent: Africa
 gay_friendliness:

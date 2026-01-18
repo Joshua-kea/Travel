@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: STP
+iso2: st
 name: "São Tomé and Príncipe"
 continent: Africa
 gay_friendliness:

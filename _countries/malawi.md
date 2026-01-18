@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MWI
+iso2: mw
 name: "Malawi"
 continent: Africa
 gay_friendliness:

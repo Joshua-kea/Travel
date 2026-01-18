@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TCD
+iso2: td
 name: "Chad"
 continent: Africa
 gay_friendliness:

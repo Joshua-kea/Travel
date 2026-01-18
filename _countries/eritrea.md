@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: ERI
+iso2: er
 name: "Eritrea"
 continent: Africa
 gay_friendliness:

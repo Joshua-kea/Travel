@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: CAF
+iso2: cf
 name: "Central African Republic"
 continent: Africa
 gay_friendliness:

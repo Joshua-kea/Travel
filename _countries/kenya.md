@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: KEN
+iso2: ke
 name: "Kenya"
 continent: Africa
 gay_friendliness:

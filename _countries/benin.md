@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BEN
+iso2: bj
 name: "Benin"
 continent: Africa
 gay_friendliness:

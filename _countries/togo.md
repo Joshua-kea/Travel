@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TGO
+iso2: tg
 name: "Togo"
 continent: Africa
 gay_friendliness:

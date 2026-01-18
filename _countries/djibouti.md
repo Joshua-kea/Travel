@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: DJI
+iso2: dj
 name: "Djibouti"
 continent: Africa
 gay_friendliness:

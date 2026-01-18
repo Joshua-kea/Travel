@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: ETH
+iso2: et
 name: "Ethiopia"
 continent: Africa
 gay_friendliness:

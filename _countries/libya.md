@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: LBY
+iso2: ly
 name: "Libya"
 continent: Africa
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MOZ
+iso2: mz
 name: "Mozambique"
 continent: Africa
 gay_friendliness:

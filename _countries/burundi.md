@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BDI
+iso2: bi
 name: "Burundi"
 continent: Africa
 gay_friendliness:

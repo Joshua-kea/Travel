@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MUS
+iso2: mu
 name: "Mauritius"
 continent: Africa
 gay_friendliness:

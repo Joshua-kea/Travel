@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: CMR
+iso2: cm
 name: "Cameroon"
 continent: Africa
 gay_friendliness:

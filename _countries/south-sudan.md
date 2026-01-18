@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SSD
+iso2: ss
 name: "South Sudan"
 continent: Africa
 gay_friendliness:

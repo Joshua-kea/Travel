@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SYC
+iso2: sc
 name: "Seychelles"
 continent: Africa
 gay_friendliness:

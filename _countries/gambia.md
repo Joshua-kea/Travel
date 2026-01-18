@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GMB
+iso2: gm
 name: "Gambia"
 continent: Africa
 gay_friendliness:

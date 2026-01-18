@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: ESH
+iso2: eh
 name: "Western Sahara"
 continent: Africa
 gay_friendliness:

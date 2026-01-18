@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GNQ
+iso2: gq
 name: "Equatorial Guinea"
 continent: Africa
 gay_friendliness:

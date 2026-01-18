@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: COD
+iso2: cd
 name: "Democratic Republic of the Congo"
 continent: Africa
 gay_friendliness:

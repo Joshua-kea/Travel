@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SDN
+iso2: sd
 name: "Sudan"
 continent: Africa
 gay_friendliness:
