@@ -114,7 +114,7 @@ gap: 0.4rem;
       position: absolute;
       top: 3rem;
       left: 0;
-      width: 320px;
+      width: 340px;
       background: #ffffff;
       border-radius: 12px;
       box-shadow: 0 10px 24px rgba(0,0,0,0.15);
@@ -133,18 +133,21 @@ gap: 0.4rem;
       Filters
     </div>
 
-    <!-- SCROLLABLE CONTENT -->
+    <!-- SCROLLABLE CONTENT (INCLUDING APPLY / CLEAR) -->
     <div
       style="
         padding: 1rem 1.1rem;
-        max-height: calc(100vh - 14rem);
+        max-height: calc(100vh - 10rem);
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
       "
     >
 
       <!-- MONTHS -->
-      <div style="margin-bottom: 1rem;">
-        <div style="font-size:0.85rem;">
+      <div>
+        <div style="font-size:0.85rem; margin-bottom:0.35rem;">
           Preferred travel months
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.35rem;">
@@ -159,7 +162,9 @@ gap: 0.4rem;
 
       <!-- INTERESTS -->
       <div>
-        <div style="font-size:0.85rem;">Interests</div>
+        <div style="font-size:0.85rem; margin-bottom:0.35rem;">
+          Interests
+        </div>
         <div style="display:flex;flex-direction:column;gap:0.35rem;">
           <label><input type="checkbox" value="culture"> Culture</label>
           <label><input type="checkbox" value="food"> Food</label>
@@ -179,29 +184,23 @@ gap: 0.4rem;
         </div>
       </div>
 
-    </div>
+      <!-- APPLY / CLEAR (INSIDE SCROLL) -->
+      <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
+        <button id="clearFilterBtn" style="flex:1;">Clear</button>
+        <button id="applyFilterBtn" style="flex:1;">Apply</button>
+      </div>
 
-    <!-- FOOTER -->
-    <div
-      style="
-        padding: 0.8rem 1.1rem;
-        border-top: 1px solid #e5e7eb;
-        display: flex;
-        gap: 0.5rem;
-      "
-    >
-      <button id="clearFilterBtn" style="flex:1;">Clear</button>
-      <button id="applyFilterBtn" style="flex:1;">Apply</button>
     </div>
 
   </div>
 </div>
 
-<!-- ACTIVE FILTER CHIPS -->
+<!-- ACTIVE FILTER LABEL -->
 <div style="margin-bottom:0.35rem;font-size:0.75rem;color:#6b7280;">
   Active filters
 </div>
 
+<!-- ACTIVE FILTER CHIPS -->
 <div
   id="activeFilters"
   style="margin-bottom:1rem;display:flex;gap:0.4rem;flex-wrap:wrap;"

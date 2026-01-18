@@ -61,11 +61,9 @@
             {% if page.budget and (page.budget.dkk or page.budget.eur) %}
             <div class="fact">
                 <label>Budget</label>
-
                 {% if page.budget.dkk %}
                 <div class="value">{{ page.budget.dkk }} DKK</div>
                 {% endif %}
-
                 {% if page.budget.eur %}
                 <div class="budget-secondary">{{ page.budget.eur }} EUR</div>
                 {% endif %}
@@ -86,29 +84,21 @@
                     </span>
                     {% endif %}
                 </div>
-                {% else %}
-                <div class="value">{{ page.currency }}</div>
                 {% endif %}
 
                 {% if page.currency.rates %}
                 <div class="rates">
-
                     <div class="rate-block">
-                        <div class="rate-label">1 {{ page.currency.name }}</div>
-                        <div class="rate-values">
-                            <div>{{ page.currency.rates.per_1.eur }} EUR</div>
-                            <div>{{ page.currency.rates.per_1.dkk }} DKK</div>
-                        </div>
+                        <strong>1 {{ page.currency.name }} =</strong>
+                        <div>{{ page.currency.rates.per_1.eur }} EUR</div>
+                        <div>{{ page.currency.rates.per_1.dkk }} DKK</div>
                     </div>
 
-                    <div class="rate-block">
-                        <div class="rate-label">100 {{ page.currency.name }}</div>
-                        <div class="rate-values">
-                            <div>{{ page.currency.rates.per_100.eur }} EUR</div>
-                            <div>{{ page.currency.rates.per_100.dkk }} DKK</div>
-                        </div>
+                    <div class="rate-block" style="margin-top:0.5rem;">
+                        <strong>100 {{ page.currency.name }} =</strong>
+                        <div>{{ page.currency.rates.per_100.eur }} EUR</div>
+                        <div>{{ page.currency.rates.per_100.dkk }} DKK</div>
                     </div>
-
                 </div>
                 {% endif %}
             </div>
@@ -117,7 +107,7 @@
             {% if page.best_months and page.best_months.size > 0 %}
             <div class="fact">
                 <label>Best months to visit</label>
-                <ul class="tags">
+                <ul class="month-tags">
                     {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
                     {% for m in page.best_months %}
                     <li>{{ months[m | minus: 1] }}</li>
@@ -129,7 +119,7 @@
             {% if page.ok_months and page.ok_months.size > 0 %}
             <div class="fact">
                 <label>Okay months</label>
-                <ul class="tags tags-secondary">
+                <ul class="month-tags muted">
                     {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
                     {% for m in page.ok_months %}
                     <li>{{ months[m | minus: 1] }}</li>
