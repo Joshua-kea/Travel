@@ -56,7 +56,8 @@
                 <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
                     {% for m in page.best_months %}
-                    <li>{{ month_names[m | minus: 1] }}</li>
+                    {% assign idx = m | plus: 0 | minus: 1 %}
+                    <li>{{ month_names[idx] }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -68,7 +69,8 @@
                 <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
                     {% for m in page.ok_months %}
-                    <li>{{ month_names[m | minus: 1] }}</li>
+                    {% assign idx = m | plus: 0 | minus: 1 %}
+                    <li>{{ month_names[idx] }}</li>
                     {% endfor %}
                 </ul>
             </div>
