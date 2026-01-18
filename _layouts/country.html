@@ -154,8 +154,10 @@
                     {% assign label = tag %}
                     {% for pair in tag_labels %}
                     {% assign kv = pair | split: ":" %}
-                    {% if kv[0] == tag %}
-                    {% assign label = kv[1] %}
+                    {% assign key = kv[0] | strip %}
+                    {% assign value = kv[1] | strip %}
+                    {% if key == tag %}
+                    {% assign label = value %}
                     {% endif %}
                     {% endfor %}
 
