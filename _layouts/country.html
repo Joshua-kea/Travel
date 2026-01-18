@@ -12,52 +12,61 @@
 
 <main class="country-page">
 
-    <a href="{{ '/atlas/' | relative_url }}" class="back-to-atlas">
-        ← Back to atlas
-    </a>
+    <a href="{{ '/atlas/' | relative_url }}" class="back-to-atlas">← Back to atlas</a>
 
     <header class="country-header">
-
         {% if page.iso2 %}
-        <img
-                src="{{ '/assets/flags/' | relative_url }}{{ page.iso2 }}.svg"
-                alt="{{ page.name }} flag"
-                class="country-flag">
+        <img src="{{ '/assets/flags/' | relative_url }}{{ page.iso2 }}.svg" class="country-flag">
         {% endif %}
-
         <div>
             <h1>{{ page.name }}</h1>
-            {% if page.continent %}
             <div class="continent">{{ page.continent }}</div>
-            {% endif %}
         </div>
-
     </header>
 
     <div class="country-layout">
 
         <aside class="country-sidebar">
 
-            {% if page.language and page.language.size > 0 %}
-            <div class="fact">
-                <label>Language</label>
-                <div class="value">{{ page.language | join: ", " }}</div>
-            </div>
+            {% if page.language %}
+            <div class="fact"><label>Language</label><div>{{ page.language | join: ", " }}</div></div>
             {% endif %}
 
             {% if page.capital %}
+            <div class="fact"><label>Capital</label><div>{{ page.capital }}</div></div>
+            {% endif %}
+
+            {% if page.currency %}
             <div class="fact">
-                <label>Capital</label>
-                <div class="value">{{ page.capital }}</div>
+                <label>Currency</label>
+                <div>{{ page.currency.name }} ({{ page.currency.code }})</div>
             </div>
             {% endif %}
 
-            {% if page.tags and page.tags.size > 0 %}
+            {% if page.budget %}
+            <div class="fact">
+                <label>Budget</label>
+                <div>{{ page.budget.dkk }} DKK</div>
+                <div class="muted">{{ page.budget.eur }} EUR</div>
+            </div>
+            {% endif %}
+
+            {% if page.gay_friendliness %}
+            <div class="fact">
+                <label>Gay equality</label>
+                <div class="gay-bar">
+                    <div class="gay-fill" style="width:{{ page.gay_friendliness }}%"></div>
+                </div>
+                <div class="muted">{{ page.gay_friendliness }}/100</div>
+            </div>
+            {% endif %}
+
+            {% if page.tags %}
             <div class="fact">
                 <label>Tags</label>
                 <div class="tags">
                     {% for tag in page.tags %}
-                    <button class="tag">{{ tag | replace: "_", " " }}</button>
+                    <a class="tag" href="{{ '/atlas/' | relative_url }}?tag={{ tag }}">{{ tag | replace:"_"," " }}</a>
                     {% endfor %}
                 </div>
             </div>
@@ -70,8 +79,6 @@
         </section>
 
     </div>
-
 </main>
-
 </body>
 </html>
