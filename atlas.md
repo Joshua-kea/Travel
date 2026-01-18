@@ -115,23 +115,34 @@ gap: 0.4rem;
       top: 3rem;
       left: 0;
       width: 320px;
-      max-height: calc(100vh - 6rem);
       background: #ffffff;
       border-radius: 12px;
       box-shadow: 0 10px 24px rgba(0,0,0,0.15);
       z-index: 2001;
-      flex-direction: column;
     "
   >
 
     <!-- HEADER -->
-    <div style="padding: 1rem 1.1rem; border-bottom: 1px solid #e5e7eb;">
-      <strong>Filters</strong>
+    <div
+      style="
+        padding: 1rem 1.1rem;
+        border-bottom: 1px solid #e5e7eb;
+        font-weight: 600;
+      "
+    >
+      Filters
     </div>
 
     <!-- SCROLLABLE CONTENT -->
-    <div style="padding: 1rem 1.1rem; overflow-y: auto; flex: 1;">
+    <div
+      style="
+        padding: 1rem 1.1rem;
+        max-height: calc(100vh - 14rem);
+        overflow-y: auto;
+      "
+    >
 
+      <!-- MONTHS -->
       <div style="margin-bottom: 1rem;">
         <div style="font-size:0.85rem;">When do you travel?</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.35rem;">
@@ -142,6 +153,7 @@ gap: 0.4rem;
         </div>
       </div>
 
+      <!-- INTERESTS -->
       <div>
         <div style="font-size:0.85rem;">Interests</div>
         <div style="display:flex;flex-direction:column;gap:0.35rem;">
@@ -179,9 +191,9 @@ gap: 0.4rem;
     </div>
 
   </div>
-
 </div>
 
+<!-- ACTIVE FILTER CHIPS -->
 <div
   id="activeFilters"
   style="margin-bottom:1rem;display:flex;gap:0.4rem;flex-wrap:wrap;"
