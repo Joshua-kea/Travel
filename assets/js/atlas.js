@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
        MAP SETUP
     ========================= */
 
-    const INITIAL_VIEW = { center: [20, 0], zoom: 3 };
+    const INITIAL_VIEW = {center: [20, 0], zoom: 3};
 
     const map = L.map("map", {
         zoomControl: true,
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-        { attribution: "© OpenStreetMap & CARTO", noWrap: true }
+        {attribution: "© OpenStreetMap & CARTO", noWrap: true}
     ).addTo(map);
 
     map.zoomControl.setPosition("bottomright");
@@ -81,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
        MAP STYLES
     ========================= */
 
-    const STYLE_BASE = { fillColor:"#e8eef1", fillOpacity:1, weight:0.8, color:"#a9bcc8" };
-    const STYLE_DIM  = { fillColor:"#dde5ea", fillOpacity:1, weight:0.5, color:"#c6d2d9" };
-    const STYLE_MATCH = { fillColor:"#6b8f9c", fillOpacity:1, weight:1.5, color:"#4e6f7c" };
-    const STYLE_MATCH_HOVER = { fillColor:"#577f8c", fillOpacity:1, weight:2.5, color:"#3e5f6b" };
-    const STYLE_HOVER_NORMAL = { fillColor:"#d6e1e7", fillOpacity:1, weight:2, color:"#7d98a6" };
+    const STYLE_BASE = {fillColor: "#e8eef1", fillOpacity: 1, weight: 0.8, color: "#a9bcc8"};
+    const STYLE_DIM = {fillColor: "#dde5ea", fillOpacity: 1, weight: 0.5, color: "#c6d2d9"};
+    const STYLE_MATCH = {fillColor: "#6b8f9c", fillOpacity: 1, weight: 1.5, color: "#4e6f7c"};
+    const STYLE_MATCH_HOVER = {fillColor: "#577f8c", fillOpacity: 1, weight: 2.5, color: "#3e5f6b"};
+    const STYLE_HOVER_NORMAL = {fillColor: "#d6e1e7", fillOpacity: 1, weight: 2, color: "#7d98a6"};
 
     /* =========================
        MAP REGISTRY
@@ -112,104 +112,108 @@ document.addEventListener("DOMContentLoaded", () => {
         layer._hasFilters = false;
         layer._isMatch = true;
 
-        layer.bindTooltip(label || "", { sticky:true, direction:"center" });
+        layer.bindTooltip(label || "", {sticky: true, direction: "center"});
 
         if (place?.url) {
-            layer.on("click", () => location.href = place.url);
+            layer.on("click", () => {
+                window.open(place.url, "_blank", "noopener");
+            });
+
+            layer.on("mouseover", () => {
+                layer.bringToFront();
+                if (!layer._hasFilters) layer.setStyle(STYLE_HOVER_NORMAL);
+                else if (layer._isMatch) layer.setStyle(STYLE_MATCH_HOVER);
+            });
+
+            layer.on("mouseout", () => applyStyle(layer));
+
+            layers.push(layer);
+            applyFilters();
         }
-
-        layer.on("mouseover", () => {
-            layer.bringToFront();
-            if (!layer._hasFilters) layer.setStyle(STYLE_HOVER_NORMAL);
-            else if (layer._isMatch) layer.setStyle(STYLE_MATCH_HOVER);
-        });
-
-        layer.on("mouseout", () => applyStyle(layer));
-
-        layers.push(layer);
-        applyFilters();
     }
 
-    /* =========================
-       LOAD GEO DATA
+        /* =========================
+           LOAD GEO DATA
+        ========================= */
+
+        fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
+            .then(r => r.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    pane: "countries",
+                    style: STYLE_BASE,
+                    filter: f => {
+                        const key = getCountryKey(f.properties);
+                        return key && key !== "USA" && key !== "GBR";
+                    },
+                    onEachFeature: (f, l) => {
+                        bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
+                    }
+                }).addTo(map);
+            });
+
+        fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
+            .then(r => r.json())
+            .then(data => {
+                const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
+                L.geoJSON(usa, {
+                    pane: "subdivisions",
+                    style: STYLE_BASE,
+                    onEachFeature: (f, l) => {
+                        const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
+                        bindLayer(l, byAdminKey[key], f.properties.name);
+                    }
+                }).addTo(map);
+            });
+
+        fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
+            .then(r => r.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    pane: "subdivisions",
+                    style: STYLE_BASE,
+                    onEachFeature: (f, l) => {
+                        const p = f.properties || {};
+                        let iso = p.ISO_1 || "";
+                        let label = "";
+                        if (p.GID_1 === "GBR.1_1") {
+                            iso = "GB-ENG";
+                            label = "England";
+                        } else if (iso === "GB-SCT") label = "Scotland";
+                        else if (iso === "GB-WLS") label = "Wales";
+                        else if (iso === "GB-NIR") label = "Northern Ireland";
+                        bindLayer(l, byAdminKey[`GBR:${iso}`], label);
+                    }
+                }).addTo(map);
+            });
+
+        /* =========================
+       FILTER UI + CHIPS (RESTORED)
     ========================= */
 
-    fetch(`${window.BASEURL}/assets/data/countries.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane:"countries",
-                style:STYLE_BASE,
-                filter:f => {
-                    const key = getCountryKey(f.properties);
-                    return key && key !== "USA" && key !== "GBR";
-                },
-                onEachFeature:(f,l) => {
-                    bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
-                }
-            }).addTo(map);
-        });
+        const panel = document.getElementById("filterPanel");
+        const toggleBtn = document.getElementById("toggleFilterPanel");
+        const applyBtn = document.getElementById("applyFilterBtn");
+        const clearBtn = document.getElementById("clearFilterBtn");
+        const chipsEl = document.getElementById("activeFilters");
 
-    fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
-            L.geoJSON(usa, {
-                pane:"subdivisions",
-                style:STYLE_BASE,
-                onEachFeature:(f,l) => {
-                    const key = `USA:${f.properties.iso_3166_2}`.toUpperCase();
-                    bindLayer(l, byAdminKey[key], f.properties.name);
-                }
-            }).addTo(map);
-        });
+        if (panel && toggleBtn) {
+            panel.style.display = "none";
 
-    fetch(`${window.BASEURL}/assets/data/uk.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane:"subdivisions",
-                style:STYLE_BASE,
-                onEachFeature:(f,l) => {
-                    const p = f.properties || {};
-                    let iso = p.ISO_1 || "";
-                    let label = "";
-                    if (p.GID_1 === "GBR.1_1") { iso="GB-ENG"; label="England"; }
-                    else if (iso==="GB-SCT") label="Scotland";
-                    else if (iso==="GB-WLS") label="Wales";
-                    else if (iso==="GB-NIR") label="Northern Ireland";
-                    bindLayer(l, byAdminKey[`GBR:${iso}`], label);
-                }
-            }).addTo(map);
-        });
+            toggleBtn.onclick = () => {
+                panel.style.display = panel.style.display === "none" ? "block" : "none";
+            };
+        }
 
-    /* =========================
-   FILTER UI + CHIPS (RESTORED)
-========================= */
+        function renderChips() {
+            if (!chipsEl) return;
 
-    const panel = document.getElementById("filterPanel");
-    const toggleBtn = document.getElementById("toggleFilterPanel");
-    const applyBtn = document.getElementById("applyFilterBtn");
-    const clearBtn = document.getElementById("clearFilterBtn");
-    const chipsEl = document.getElementById("activeFilters");
+            chipsEl.innerHTML = "";
 
-    if (panel && toggleBtn) {
-        panel.style.display = "none";
-
-        toggleBtn.onclick = () => {
-            panel.style.display = panel.style.display === "none" ? "block" : "none";
-        };
-    }
-
-    function renderChips() {
-        if (!chipsEl) return;
-
-        chipsEl.innerHTML = "";
-
-        activeTags.forEach(tag => {
-            const chip = document.createElement("span");
-            chip.textContent = `${tag} ×`;
-            chip.style.cssText = `
+            activeTags.forEach(tag => {
+                const chip = document.createElement("span");
+                chip.textContent = `${tag} ×`;
+                chip.style.cssText = `
             background:#6b8f9c;
             color:white;
             padding:0.2rem 0.55rem;
@@ -218,170 +222,173 @@ document.addEventListener("DOMContentLoaded", () => {
             font-size:0.7rem;
         `;
 
-            chip.onclick = () => {
-                // 1. Fjern tag fra state
-                activeTags.delete(tag);
+                chip.onclick = () => {
+                    // 1. Fjern tag fra state
+                    activeTags.delete(tag);
 
-                // 2. Fjern checkmark i filter-panelet (DET MANGLEDE)
-                document
-                    .querySelectorAll('#filterPanel input[type="checkbox"]')
-                    .forEach(cb => {
-                        if (cb.value === tag) cb.checked = false;
-                    });
+                    // 2. Fjern checkmark i filter-panelet (DET MANGLEDE)
+                    document
+                        .querySelectorAll('#filterPanel input[type="checkbox"]')
+                        .forEach(cb => {
+                            if (cb.value === tag) cb.checked = false;
+                        });
 
-                // 3. Sync resten
+                    // 3. Sync resten
+                    updateURL();
+                    renderChips();
+                    applyFilters();
+                };
+
+                chipsEl.appendChild(chip);
+            });
+        }
+
+        function updateURL() {
+            const params = new URLSearchParams(window.location.search);
+            if (activeTags.size === 1) {
+                params.set("tag", [...activeTags][0]);
+            } else {
+                params.delete("tag");
+            }
+            history.replaceState({}, "", `${location.pathname}?${params}`);
+        }
+
+        if (applyBtn) {
+            applyBtn.onclick = () => {
+                activeTags.clear();
+                activeMonths.clear();
+
+                panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
+                    isNaN(cb.value)
+                        ? activeTags.add(cb.value)
+                        : activeMonths.add(String(cb.value));
+                });
+
                 updateURL();
                 renderChips();
                 applyFilters();
+                panel.style.display = "none";
             };
-
-            chipsEl.appendChild(chip);
-        });
-    }
-
-    function updateURL() {
-        const params = new URLSearchParams(window.location.search);
-        if (activeTags.size === 1) {
-            params.set("tag", [...activeTags][0]);
-        } else {
-            params.delete("tag");
         }
-        history.replaceState({}, "", `${location.pathname}?${params}`);
-    }
 
-    if (applyBtn) {
-        applyBtn.onclick = () => {
-            activeTags.clear();
-            activeMonths.clear();
+        if (clearBtn) {
+            clearBtn.onclick = () => {
+                activeTags.clear();
+                activeMonths.clear();
+                panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
+                updateURL();
+                renderChips();
+                applyFilters();
+                panel.style.display = "none";
+            };
+        }
 
-            panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
-                isNaN(cb.value)
-                    ? activeTags.add(cb.value)
-                    : activeMonths.add(String(cb.value));
+        /* init chips if tag came from URL */
+        if (activeTags.size) {
+            renderChips();
+            applyFilters();
+        }
+
+        /* =========================
+           VIEW SWITCH (FIXED)
+        ========================= */
+
+        const mapView = document.getElementById("mapView");
+        const listView = document.getElementById("listView");
+        const listEl = document.getElementById("placeList");
+        const indicator = document.getElementById("viewIndicator");
+
+        function renderList() {
+            listEl.innerHTML = "";
+
+            const filtered = window.places.filter(placeMatchesFilters);
+
+            if (!filtered.length) {
+                listEl.innerHTML = "<p>No places match your filters.</p>";
+                return;
+            }
+
+            // Gruppér efter continent
+            const byContinent = {};
+
+            filtered.forEach(place => {
+                const continent = place.continent || "Other";
+                if (!byContinent[continent]) {
+                    byContinent[continent] = [];
+                }
+                byContinent[continent].push(place);
             });
 
-            updateURL();
-            renderChips();
-            applyFilters();
-            panel.style.display = "none";
-        };
-    }
+            // Sortér kontinenter alfabetisk
+            const continents = Object.keys(byContinent).sort((a, b) =>
+                a.localeCompare(b, "da-DK")
+            );
 
-    if (clearBtn) {
-        clearBtn.onclick = () => {
-            activeTags.clear();
-            activeMonths.clear();
-            panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
-            updateURL();
-            renderChips();
-            applyFilters();
-            panel.style.display = "none";
-        };
-    }
+            continents.forEach(continent => {
+                const section = document.createElement("section");
+                section.style.marginBottom = "2.5rem";
 
-    /* init chips if tag came from URL */
-    if (activeTags.size) {
-        renderChips();
-        applyFilters();
-    }
+                const heading = document.createElement("h2");
+                heading.textContent = continent;
+                heading.style.marginBottom = "0.75rem";
+                section.appendChild(heading);
 
-    /* =========================
-       VIEW SWITCH (FIXED)
-    ========================= */
+                const grid = document.createElement("div");
+                grid.style.display = "grid";
+                grid.style.gridTemplateColumns = "repeat(3, 1fr)"; // 🔒 FAST 3 KOLONNER
+                grid.style.gap = "0.6rem";
 
-    const mapView = document.getElementById("mapView");
-    const listView = document.getElementById("listView");
-    const listEl = document.getElementById("placeList");
-    const indicator = document.getElementById("viewIndicator");
+                byContinent[continent]
+                    .sort((a, b) => a.name.localeCompare(b.name, "da-DK"))
+                    .forEach(place => {
+                        const item = document.createElement("div");
+                        item.textContent = place.name;
 
-    function renderList() {
-        listEl.innerHTML = "";
-
-        const filtered = window.places.filter(placeMatchesFilters);
-
-        if (!filtered.length) {
-            listEl.innerHTML = "<p>No places match your filters.</p>";
-            return;
-        }
-
-        // Gruppér efter continent
-        const byContinent = {};
-
-        filtered.forEach(place => {
-            const continent = place.continent || "Other";
-            if (!byContinent[continent]) {
-                byContinent[continent] = [];
-            }
-            byContinent[continent].push(place);
-        });
-
-        // Sortér kontinenter alfabetisk
-        const continents = Object.keys(byContinent).sort((a, b) =>
-            a.localeCompare(b)
-        );
-
-        continents.forEach(continent => {
-            const section = document.createElement("section");
-            section.style.marginBottom = "2.5rem";
-
-            const heading = document.createElement("h2");
-            heading.textContent = continent;
-            heading.style.marginBottom = "0.75rem";
-            section.appendChild(heading);
-
-            const grid = document.createElement("div");
-            grid.style.display = "grid";
-            grid.style.gridTemplateColumns = "repeat(3, 1fr)"; // 🔒 FAST 3 KOLONNER
-            grid.style.gap = "0.6rem";
-
-            byContinent[continent]
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .forEach(place => {
-                    const item = document.createElement("div");
-                    item.textContent = place.name;
-
-                    item.style.cursor = "pointer";
-                    item.style.padding = "0.5rem 0.65rem";
-                    item.style.borderRadius = "6px";
-                    item.style.background = "#eef3f6";
-                    item.style.fontSize = "0.95rem"; // 🔍 STØRRE TEKST
-                    item.style.lineHeight = "1.2";
-
-                    item.onmouseenter = () => {
-                        item.style.background = "#dfe8ee";
-                    };
-                    item.onmouseleave = () => {
+                        item.style.cursor = "pointer";
+                        item.style.padding = "0.5rem 0.65rem";
+                        item.style.borderRadius = "6px";
                         item.style.background = "#eef3f6";
-                    };
+                        item.style.fontSize = "0.95rem"; // 🔍 STØRRE TEKST
+                        item.style.lineHeight = "1.2";
 
-                    item.onclick = () => {
-                        location.href = place.url;
-                    };
+                        item.onmouseenter = () => {
+                            item.style.background = "#dfe8ee";
+                        };
+                        item.onmouseleave = () => {
+                            item.style.background = "#eef3f6";
+                        };
 
-                    grid.appendChild(item);
-                });
+                        item.onclick = () => {
+                            window.open(place.url, "_blank", "noopener");
+                        };
 
-            section.appendChild(grid);
-            listEl.appendChild(section);
-        });
-    }
+                        grid.appendChild(item);
+                    });
 
-
-    function setView(view) {
-        if (view === "map") {
-            mapView.style.display = "block";
-            listView.style.display = "none";
-            indicator.style.transform = "translateX(0%)";
-            map.invalidateSize();
-        } else {
-            mapView.style.display = "none";
-            listView.style.display = "block";
-            indicator.style.transform = "translateX(100%)";
-            renderList();
+                section.appendChild(grid);
+                listEl.appendChild(section);
+            });
         }
+
+
+        function setView(view) {
+            if (view === "map") {
+                mapView.style.display = "block";
+                listView.style.display = "none";
+                indicator.style.transform = "translateX(0%)";
+                map.invalidateSize();
+            } else {
+                mapView.style.display = "none";
+                listView.style.display = "block";
+                indicator.style.transform = "translateX(100%)";
+                renderList();
+            }
+        }
+
+        document.getElementById("viewMapBtn").onclick = () => setView("map");
+        document.getElementById("viewListBtn").onclick = () => setView("list");
+
     }
 
-    document.getElementById("viewMapBtn").onclick = () => setView("map");
-    document.getElementById("viewListBtn").onclick = () => setView("list");
-
-});
+)
+    ;
