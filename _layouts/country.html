@@ -6,21 +6,17 @@
     <meta charset="UTF-8">
     <title>{{ page.name }} – Atlas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="{{ '/assets/css/country.css' | relative_url }}">
 </head>
 <body>
 
 <main class="country-page">
 
-    <!-- BACK TO ATLAS -->
     <a href="{{ '/atlas/' | relative_url }}" class="back-to-atlas">
         ← Back to atlas
     </a>
 
-    <!-- HEADER -->
     <header class="country-header">
-
         {% if page.iso2 %}
         <img
                 src="{{ '/assets/flags/' | relative_url }}{{ page.iso2 }}.svg"
@@ -34,20 +30,16 @@
             <div class="continent">{{ page.continent }}</div>
             {% endif %}
         </div>
-
     </header>
 
     <div class="country-layout">
 
-        <!-- SIDEBAR -->
         <aside class="country-sidebar">
 
             {% if page.language and page.language.size > 0 %}
             <div class="fact">
                 <label>Language</label>
-                <div class="value">
-                    {{ page.language | join: ", " }}
-                </div>
+                <div class="value">{{ page.language | join: ", " }}</div>
             </div>
             {% endif %}
 
@@ -58,25 +50,27 @@
             </div>
             {% endif %}
 
-            {% if page.best_months %}
+            {% if page.best_months and page.best_months.size > 0 %}
             <div class="fact">
                 <label>Best months to visit</label>
-                <ul class="months">
+                <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
                     {% for m in page.best_months %}
-                    <li>{{ month_names[m | minus: 1] }}</li>
+                    {% assign idx = m | plus: 0 | minus: 1 %}
+                    <li>{{ month_names[idx] }}</li>
                     {% endfor %}
                 </ul>
             </div>
             {% endif %}
 
-            {% if page.ok_months %}
+            {% if page.ok_months and page.ok_months.size > 0 %}
             <div class="fact">
                 <label>Okay months</label>
-                <ul class="months">
+                <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
                     {% for m in page.ok_months %}
-                    <li>{{ month_names[m | minus: 1] }}</li>
+                    {% assign idx = m | plus: 0 | minus: 1 %}
+                    <li>{{ month_names[idx] }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -85,18 +79,16 @@
             {% if page.budget and (page.budget.dkk or page.budget.eur) %}
             <div class="fact">
                 <label>Budget</label>
-
                 {% if page.budget.dkk %}
                 <div class="value">{{ page.budget.dkk }} DKK</div>
                 {% endif %}
-
                 {% if page.budget.eur %}
                 <div class="budget-secondary">{{ page.budget.eur }} EUR</div>
                 {% endif %}
             </div>
             {% endif %}
 
-            {% if page.currency %}
+            {% if page.currency and page.currency.rates %}
             <div class="fact">
                 <label>Currency</label>
 
@@ -112,32 +104,27 @@
                 </div>
                 {% endif %}
 
-                {% if page.currency.rates %}
-                <div class="currency-rates">
-
-                    <div>
-                        <strong>1 {{ page.currency.name }} =</strong><br>
-                        {{ page.currency.rates.per_1.eur }} EUR<br>
-                        {{ page.currency.rates.per_1.dkk }} DKK
-                    </div>
-
-                    <br>
-
-                    <div>
-                        <strong>100 {{ page.currency.name }} =</strong><br>
-                        {{ page.currency.rates.per_100.eur }} EUR<br>
-                        {{ page.currency.rates.per_100.dkk }} DKK
-                    </div>
-
+                <div class="value" style="margin-top:0.4rem;">
+                    1 {{ page.currency.name }} =
                 </div>
-                {% endif %}
+                <div class="budget-secondary">
+                    {{ page.currency.rates.per_1.eur }} EUR<br>
+                    {{ page.currency.rates.per_1.dkk }} DKK
+                </div>
+
+                <div class="value" style="margin-top:0.6rem;">
+                    100 {{ page.currency.name }} =
+                </div>
+                <div class="budget-secondary">
+                    {{ page.currency.rates.per_100.eur }} EUR<br>
+                    {{ page.currency.rates.per_100.dkk }} DKK
+                </div>
             </div>
             {% endif %}
 
             {% if page.gay_friendliness %}
             <div class="fact">
                 <label>Gay equality</label>
-
                 <div class="gay-bar">
                     <div
                             class="gay-fill"
@@ -147,7 +134,6 @@
                         ">
                     </div>
                 </div>
-
                 <div class="gay-score">{{ page.gay_friendliness }}/100</div>
 
                 {% if page.gay_details %}
@@ -174,7 +160,6 @@
 
         </aside>
 
-        <!-- MAIN CONTENT -->
         <section class="country-content">
             {{ content }}
         </section>
