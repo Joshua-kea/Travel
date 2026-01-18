@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("countries").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
 
+    /* Tooltips over polygons, under UI */
     map.getPane("tooltipPane").style.zIndex = 450;
 
     window.addEventListener("pageshow", () => {
@@ -128,7 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
         layer._hasFilters = false;
         layer._isMatch = true;
 
-        layer.bindTooltip(label, {
+        /* Hover-only tooltip — never permanent */
+        layer.bindTooltip(label || "", {
             sticky: true,
             direction: "center"
         });
@@ -169,7 +171,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     return key && key !== "USA" && key !== "GBR";
                 },
                 onEachFeature: (f, l) => {
-                    bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
+                    bindLayer(
+                        l,
+                        byISO[getCountryKey(f.properties)],
+                        f.properties.NAME
+                    );
                 }
             }).addTo(map);
         });
@@ -196,22 +202,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: STYLE_BASE,
                 onEachFeature: (f, l) => {
 
-                    /* 🔧 CRITICAL FIX: normalize England ISO */
                     let iso = f.properties?.ISO_1 || "";
 
-                    if (iso === "ENG") iso = "GB-ENG";
+                    /* 🔴 ABSOLUT FIX: England må ALDRIG være tom */
+                    let label = "";
 
-                    const labels = {
-                        "GB-ENG": "England",
-                        "GB-SCT": "Scotland",
-                        "GB-WLS": "Wales",
-                        "GB-NIR": "Northern Ireland"
-                    };
+                    if (iso === "ENG" || iso === "GB-ENG" || !iso) {
+                        iso = "GB-ENG";
+                        label = "England";
+                    } else if (iso === "GB-SCT") {
+                        label = "Scotland";
+                    } else if (iso === "GB-WLS") {
+                        label = "Wales";
+                    } else if (iso === "GB-NIR") {
+                        label = "Northern Ireland";
+                    }
 
                     bindLayer(
                         l,
                         byAdminKey[`GBR:${iso}`],
-                        labels[iso]
+                        label
                     );
                 }
             }).addTo(map);
@@ -226,6 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
     const chipsEl = document.getElementById("activeFilters");
+
+    /* 🔧 FIX: panel must NEVER start open */
+    panel.style.display = "none";
 
     toggleBtn.onclick = () => {
         panel.style.display = panel.style.display === "none" ? "block" : "none";
