@@ -116,16 +116,27 @@
             {% if page.gay_friendliness %}
             <div class="fact">
                 <label>Gay equality</label>
+
                 <div class="gay-bar">
                     <div
                             class="gay-fill"
                             style="
-                            width: {{ page.gay_friendliness }}%;
-                            background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);
-                        ">
+            width: {{ page.gay_friendliness }}%;
+            background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);
+        ">
                     </div>
                 </div>
+
                 <div class="gay-score">{{ page.gay_friendliness }}/100</div>
+
+                {% if page.gay_details %}
+                <details class="gay-details">
+                    <summary>More details</summary>
+                    <div class="gay-details-content">
+                        {{ page.gay_details | markdownify }}
+                    </div>
+                </details>
+                {% endif %}
             </div>
             {% endif %}
 
