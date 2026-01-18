@@ -2,7 +2,7 @@
 layout: country
 iso: PRI
 name: "Puerto Rico"
-continent: 
+continent: North America
 gay_friendliness:
 tags: []
 language:

@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: MAF
-name: "St-Martin"
-continent:
+name: "Saint Martin"
+continent: North America
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# St-Martin
+# Saint Martin
 
 Write your notes about St-Martin here.

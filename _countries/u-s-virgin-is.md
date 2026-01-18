@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: VIR
-name: "U.S. Virgin Is."
-continent:
+name: "U.S. Virgin Islands"
+continent: North America
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# U.S. Virgin Is.
+# U.S. Virgin Islands
 
 Write your notes about U.S. Virgin Is. here.

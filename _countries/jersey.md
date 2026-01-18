@@ -2,7 +2,7 @@
 layout: country
 iso: JEY
 name: "Jersey"
-continent:
+continent: Europe
 gay_friendliness:
 tags: []
 language:

@@ -2,7 +2,7 @@
 layout: country
 iso: AIA
 name: "Anguilla"
-continent:
+continent: North America
 gay_friendliness: 53
 tags: []
 language:

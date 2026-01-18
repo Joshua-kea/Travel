@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: TCA
-name: "Turks and Caicos Is."
-continent:
+name: "Turks and Caicos Islands"
+continent: North America
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Turks and Caicos Is.
+# Turks and Caicos Islands
 
 Write your notes about Turks and Caicos Is. here.

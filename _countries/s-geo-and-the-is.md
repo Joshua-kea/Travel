@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: SGS
-name: "S. Geo. and the Is."
-continent:
+name: "South Georgia and the South Sandwich Islands"
+continent: Antarctica
 gay_friendliness:
 tags: []
 language:

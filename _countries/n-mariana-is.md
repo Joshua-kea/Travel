@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: MNP
-name: "N. Mariana Is."
-continent:
+name: "Northern Mariana Islands"
+continent: Oceania
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# N. Mariana Is.
+# Northern Mariana Islands
 
 Write your notes about N. Mariana Is. here.

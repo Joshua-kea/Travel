@@ -2,7 +2,7 @@
 layout: country
 iso: KOS
 name: "Kosovo"
-continent: 
+continent: Europe
 gay_friendliness:
 tags: []
 language:

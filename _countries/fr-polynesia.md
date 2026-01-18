@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: PYF
-name: "Fr. Polynesia"
-continent:
+name: "French Polynesia"
+continent: Oceania
 gay_friendliness:
 tags: [j_wants_to_go, island, beach]
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Fr. Polynesia
+# French Polynesia
 
 Write your notes about Fr. Polynesia here.

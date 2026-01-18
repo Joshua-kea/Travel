@@ -2,7 +2,7 @@
 layout: country
 iso: SOL
 name: "Somaliland"
-continent: 
+continent: Africa
 gay_friendliness:
 tags: []
 language:

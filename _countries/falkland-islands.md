@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: FLK
-name: "Falkland Islands"
-continent: 
+name: "Falkland Island"
+continent: South America
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Falkland Islands
+# Falkland Island
 
 Write your notes about Falkland Islands here.

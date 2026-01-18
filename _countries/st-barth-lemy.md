@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: BLM
-name: "St-Barthélemy"
-continent:
+name: "Saint Barthélemy"
+continent: North America
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# St-Barthélemy
+# Saint Barthélemy
 
 Write your notes about St-Barthélemy here.

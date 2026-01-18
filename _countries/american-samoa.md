@@ -2,7 +2,7 @@
 layout: country
 iso: ASM
 name: "American Samoa"
-continent:
+continent: Oceania
 gay_friendliness: 71
 tags: [island, beach]
 language:

@@ -2,7 +2,7 @@
 layout: country
 iso: CYN
 name: "Northern Cyprus"
-continent: 
+continent: Europe
 gay_friendliness:
 tags: []
 language:

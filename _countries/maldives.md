@@ -2,7 +2,7 @@
 layout: country
 iso: MDV
 name: "Maldives"
-continent:
+continent: Asia
 gay_friendliness:
 tags: []
 language:

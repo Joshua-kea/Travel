@@ -2,7 +2,7 @@
 layout: country
 iso: NFK
 name: "Norfolk Island"
-continent:
+continent: Oceania
 gay_friendliness:
 tags: []
 language:

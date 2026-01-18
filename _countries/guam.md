@@ -2,7 +2,7 @@
 layout: country
 iso: GUM
 name: "Guam"
-continent:
+continent: Oceania
 gay_friendliness:
 tags: []
 language:

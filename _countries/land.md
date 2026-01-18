@@ -2,7 +2,7 @@
 layout: country
 iso: ALA
 name: "Åland"
-continent:
+continent: Europe
 gay_friendliness:
 tags: []
 language:

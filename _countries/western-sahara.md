@@ -2,11 +2,10 @@
 layout: country
 iso: ESH
 name: "Western Sahara"
-continent: 
+continent: Africa
 gay_friendliness:
 tags: []
 language:
-
 
 currency:
 

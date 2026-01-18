@@ -1,10 +1,10 @@
 ---
 layout: country
 iso: COK
-name: "Cook Is."
-continent:
+name: "Cook Islands"
+continent: Oceania
 gay_friendliness:
-tags: []
+tags: [island]
 language:
 
 

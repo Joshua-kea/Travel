@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: FRO
-name: "Faeroe Is."
-continent:
+name: "Faeroe Islands"
+continent: Europe
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Faeroe Is.
+# Faeroe Islands
 
 Write your notes about Faeroe Is. here.

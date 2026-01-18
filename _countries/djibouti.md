@@ -2,7 +2,7 @@
 layout: country
 iso: DJI
 name: "Djibouti"
-continent: 
+continent: Africa
 gay_friendliness:
 tags: [j_wants_to_go]
 language:

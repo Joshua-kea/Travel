@@ -2,7 +2,7 @@
 layout: country
 iso: GGY
 name: "Guernsey"
-continent:
+continent: Europe
 gay_friendliness:
 tags: []
 language:

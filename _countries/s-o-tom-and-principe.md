@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: STP
-name: "São Tomé and Principe"
-continent:
+name: "São Tomé and Príncipe"
+continent: Africa
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# São Tomé and Principe
+# São Tomé and Príncipe
 
 Write your notes about São Tomé and Principe here.

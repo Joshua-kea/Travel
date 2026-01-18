@@ -2,7 +2,7 @@
 layout: country
 iso: GIB
 name: "Gibraltar"
-continent:
+continent: Europe
 gay_friendliness:
 tags: []
 language:

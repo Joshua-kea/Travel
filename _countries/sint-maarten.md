@@ -2,7 +2,7 @@
 layout: country
 iso: SXM
 name: "Sint Maarten"
-continent:
+continent: North America
 gay_friendliness:
 tags: []
 language:

@@ -2,7 +2,7 @@
 layout: country
 iso: MSR
 name: "Montserrat"
-continent:
+continent: North America
 gay_friendliness:
 tags: []
 language:

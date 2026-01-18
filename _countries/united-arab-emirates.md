@@ -2,7 +2,7 @@
 layout: country
 iso: ARE
 name: "United Arab Emirates"
-continent: 
+continent: Asia
 gay_friendliness:
 tags: []
 language:

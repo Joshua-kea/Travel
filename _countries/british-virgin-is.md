@@ -1,10 +1,10 @@
 ---
 layout: country
 iso: VGB
-name: "British Virgin Is."
-continent:
+name: "British Virgin Islands"
+continent: North America
 gay_friendliness:
-tags: []
+tags: [island]
 language:
 
 
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# British Virgin Is.
+# British Virgin Islands.
 
 Write your notes about British Virgin Is. here.

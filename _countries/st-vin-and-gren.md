@@ -1,7 +1,7 @@
 ---
 layout: country
 iso: VCT
-name: "St. Vin. and Gren."
+name: "Saint Vincent and the Grenadines"
 continent: North America
 gay_friendliness:
 tags: []
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# St. Vin. and Gren.
+# Saint Vincent and the Grenadines
 
 Write your notes about St. Vin. and Gren. here.

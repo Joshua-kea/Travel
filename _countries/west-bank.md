@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: PSE
-name: "West Bank"
-continent: 
+name: "Palestine"
+continent: Asia
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# West Bank
+# Palestine
 
 Write your notes about West Bank here.

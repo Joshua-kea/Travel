@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: PCN
-name: "Pitcairn Is."
-continent:
+name: "Pitcairn Islands"
+continent: Oceania
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Pitcairn Is.
+# Pitcairn Islands
 
 Write your notes about Pitcairn Is. here.

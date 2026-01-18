@@ -2,7 +2,7 @@
 layout: country
 iso: CUW
 name: "Curaçao"
-continent:
+continent: South America
 gay_friendliness:
 tags: []
 language:

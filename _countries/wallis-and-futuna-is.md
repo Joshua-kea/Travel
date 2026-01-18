@@ -1,8 +1,8 @@
 ---
 layout: country
 iso: WLF
-name: "Wallis and Futuna Is."
-continent:
+name: "Wallis and Futuna Islands"
+continent: Oceania
 gay_friendliness:
 tags: []
 language:
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Wallis and Futuna Is.
+# Wallis and Futuna Islands
 
 Write your notes about Wallis and Futuna Is. here.

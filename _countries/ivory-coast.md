@@ -1,7 +1,7 @@
 ---
 layout: country
 iso: CIV
-name: "Ivory Coast"
+name: "Côte d'Ivoire"
 continent: Africa
 gay_friendliness:
 tags: []
@@ -19,6 +19,6 @@ iso2: ci
 best_months: []
 ok_months: []
 ---
-# Ivory Coast
+# Côte d'Ivoire
 
-Write your notes about Ivory Coast here.
+Write your notes about Côte d'Ivoire here.

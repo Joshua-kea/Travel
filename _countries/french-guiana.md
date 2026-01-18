@@ -2,7 +2,7 @@
 layout: country
 iso: GUF
 name: "French Guiana"
-continent: 
+continent: South America
 gay_friendliness:
 tags: []
 language:

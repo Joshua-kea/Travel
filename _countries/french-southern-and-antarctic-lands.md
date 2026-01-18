@@ -2,7 +2,7 @@
 layout: country
 iso: ATF
 name: "French Southern and Antarctic Lands"
-continent: 
+continent: Antarctica
 gay_friendliness:
 tags: []
 language:

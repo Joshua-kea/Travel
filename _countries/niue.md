@@ -2,7 +2,7 @@
 layout: country
 iso: NIU
 name: "Niue"
-continent:
+continent: Oceania
 gay_friendliness:
 tags: []
 language:

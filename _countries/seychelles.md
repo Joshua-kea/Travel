@@ -2,7 +2,7 @@
 layout: country
 iso: SYC
 name: "Seychelles"
-continent:
+continent: Africa
 gay_friendliness:
 tags: []
 language:

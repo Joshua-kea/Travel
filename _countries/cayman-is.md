@@ -1,10 +1,10 @@
 ---
 layout: country
 iso: CYM
-name: "Cayman Is."
-continent:
+name: "Cayman Islands"
+continent: North America
 gay_friendliness:
-tags: []
+tags: [island]
 language:
 
 
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Cayman Is.
+# Cayman Islands
 
 Write your notes about Cayman Is. here.
