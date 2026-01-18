@@ -202,19 +202,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 style: STYLE_BASE,
                 onEachFeature: (f, l) => {
 
-                    let iso = f.properties?.ISO_1 || "";
-
-                    /* 🔴 ABSOLUT FIX: England må ALDRIG være tom */
+                    const props = f.properties || {};
+                    let iso = props.ISO_1 || "";
                     let label = "";
 
-                    if (iso === "ENG" || iso === "GB-ENG" || !iso) {
+                    if (props.GID_1 === "GBR.1_1") {
                         iso = "GB-ENG";
                         label = "England";
-                    } else if (iso === "GB-SCT") {
+                    }
+                    else if (iso === "GB-SCT") {
                         label = "Scotland";
-                    } else if (iso === "GB-WLS") {
+                    }
+                    else if (iso === "GB-WLS") {
                         label = "Wales";
-                    } else if (iso === "GB-NIR") {
+                    }
+                    else if (iso === "GB-NIR") {
                         label = "Northern Ireland";
                     }
 
