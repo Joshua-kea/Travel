@@ -144,11 +144,15 @@ gap: 0.4rem;
 
       <!-- MONTHS -->
       <div style="margin-bottom: 1rem;">
-        <div style="font-size:0.85rem;">When do you travel?</div>
+        <div style="font-size:0.85rem;">
+          Preferred travel months
+        </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.35rem;">
           {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
           {% for m in months %}
-            <label><input type="checkbox" value="{{ forloop.index }}"> {{ m }}</label>
+            <label>
+              <input type="checkbox" value="{{ forloop.index }}"> {{ m }}
+            </label>
           {% endfor %}
         </div>
       </div>
@@ -194,6 +198,10 @@ gap: 0.4rem;
 </div>
 
 <!-- ACTIVE FILTER CHIPS -->
+<div style="margin-bottom:0.35rem;font-size:0.75rem;color:#6b7280;">
+  Active filters
+</div>
+
 <div
   id="activeFilters"
   style="margin-bottom:1rem;display:flex;gap:0.4rem;flex-wrap:wrap;"

@@ -219,19 +219,62 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
-       FILTER UI
+       FILTER UI + CHIPS
     ========================= */
 
     const panel = document.getElementById("filterPanel");
     const toggleBtn = document.getElementById("toggleFilterPanel");
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
+    const chipsEl = document.getElementById("activeFilters");
 
     panel.style.display = "none";
 
     toggleBtn.onclick = () => {
         panel.style.display = panel.style.display === "none" ? "block" : "none";
     };
+
+    function renderChips() {
+        chipsEl.innerHTML = "";
+
+        activeMonths.forEach(month => {
+            const chip = document.createElement("span");
+            chip.textContent = `Month ${month} ×`;
+            chip.style.cssText = `
+                background:#6b8f9c;
+                color:white;
+                padding:0.25rem 0.7rem;
+                border-radius:999px;
+                cursor:pointer;
+                font-size:0.75rem;
+            `;
+            chip.onclick = () => {
+                activeMonths.delete(month);
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(chip);
+        });
+
+        activeTags.forEach(tag => {
+            const chip = document.createElement("span");
+            chip.textContent = `${tag} ×`;
+            chip.style.cssText = `
+                background:#6b8f9c;
+                color:white;
+                padding:0.25rem 0.7rem;
+                border-radius:999px;
+                cursor:pointer;
+                font-size:0.75rem;
+            `;
+            chip.onclick = () => {
+                activeTags.delete(tag);
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(chip);
+        });
+    }
 
     applyBtn.onclick = () => {
         activeTags.clear();
@@ -244,6 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         panel.style.display = "none";
+        renderChips();
         applyFilters();
     };
 
@@ -251,6 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         activeTags.clear();
         activeMonths.clear();
         panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
+        renderChips();
         applyFilters();
         panel.style.display = "none";
     };
