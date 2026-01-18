@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: ATF
+iso2: fsaal
 name: "French Southern and Antarctic Lands"
 continent: Antarctica
 gay_friendliness:

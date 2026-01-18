@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SGS
+iso2: sgatssi
 name: "South Georgia and the South Sandwich Islands"
 continent: Antarctica
 gay_friendliness:

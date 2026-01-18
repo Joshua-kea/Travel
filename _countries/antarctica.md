@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: ATA
+iso2: antarctica
 name: "Antarctica"
 continent: Antarctica
 gay_friendliness:
