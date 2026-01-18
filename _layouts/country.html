@@ -17,13 +17,11 @@
     </a>
 
     <header class="country-header">
-        {% if page.iso2 %}
         <img
-                src="{{ '/assets/flags/' | relative_url }}{{ page.iso2 | downcase }}.svg"
+                src="/assets/flags/{{ page.iso2 | default: 'xx' | downcase }}.svg"
                 alt="{{ page.name }} flag"
                 class="country-flag"
                 onerror="this.style.display='none'">
-        {% endif %}
 
 
         <div>
