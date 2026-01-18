@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("countries").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
 
-    /* 🔧 FIX: tooltips must render above polygons */
     map.getPane("tooltipPane").style.zIndex = 450;
 
     window.addEventListener("pageshow", () => {
@@ -129,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
         layer._hasFilters = false;
         layer._isMatch = true;
 
-        /* 🔧 FIX: hover-only tooltip, centered */
         layer.bindTooltip(label, {
             sticky: true,
             direction: "center"
@@ -140,9 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         layer.on("mouseover", () => {
-            /* 🔧 FIX: hovered layer ALWAYS on top (England fix) */
             layer.bringToFront();
-
             if (!layer._hasFilters) layer.setStyle(STYLE_HOVER_NORMAL);
             else if (layer._isMatch) layer.setStyle(STYLE_MATCH_HOVER);
         });
@@ -156,18 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!layer._hasFilters) layer.setStyle(STYLE_BASE);
         else if (layer._isMatch) layer.setStyle(STYLE_MATCH);
         else layer.setStyle(STYLE_DIM);
-    }
-
-    function applyFilters() {
-        const hasFilters = activeTags.size || activeMonths.size;
-
-        layers.forEach(layer => {
-            layer._hasFilters = hasFilters;
-            layer._isMatch = placeMatchesFilters(layer._place);
-            applyStyle(layer);
-        });
-
-        if (listView.style.display === "block") renderList();
     }
 
     /* =========================
@@ -185,11 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     return key && key !== "USA" && key !== "GBR";
                 },
                 onEachFeature: (f, l) => {
-                    bindLayer(
-                        l,
-                        byISO[getCountryKey(f.properties)],
-                        f.properties.NAME
-                    );
+                    bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
                 }
             }).addTo(map);
         });
@@ -215,7 +195,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 pane: "subdivisions",
                 style: STYLE_BASE,
                 onEachFeature: (f, l) => {
-                    const iso = f.properties?.ISO_1 || "GB-ENG";
+
+                    /* 🔧 CRITICAL FIX: normalize England ISO */
+                    let iso = f.properties?.ISO_1 || "";
+
+                    if (iso === "ENG") iso = "GB-ENG";
+
                     const labels = {
                         "GB-ENG": "England",
                         "GB-SCT": "Scotland",
@@ -223,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         "GB-NIR": "Northern Ireland"
                     };
 
-                    /* 🔧 FIX: hover-only, but always visible on hover */
                     bindLayer(
                         l,
                         byAdminKey[`GBR:${iso}`],
