@@ -1,7 +1,6 @@
 ---
 layout: country
-iso:
-iso2:
+iso: MTQ
 name: "Martinique"
 continent: North America
 gay_friendliness:
