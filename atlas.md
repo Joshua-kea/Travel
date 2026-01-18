@@ -11,6 +11,10 @@ Explore destinations around the world and switch between map and list view to
 browse places that match your travel interests and preferred time of year.
 </p>
 
+<!-- =========================
+     CONTROLS
+========================= -->
+
 <div
   style="
     position: sticky;
@@ -48,8 +52,19 @@ browse places that match your travel interests and preferred time of year.
       "
     ></div>
 
-    <button id="viewMapBtn">Map</button>
-    <button id="viewListBtn">List</button>
+    <button
+      id="viewMapBtn"
+      style="background:none;border:none;padding:0.35rem 0.9rem;color:white;cursor:pointer;"
+    >
+      Map
+    </button>
+
+    <button
+      id="viewListBtn"
+      style="background:none;border:none;padding:0.35rem 0.9rem;color:#374151;cursor:pointer;"
+    >
+      List
+    </button>
   </div>
 
   <!-- FILTER BUTTON -->
@@ -71,41 +86,54 @@ cursor: pointer;
   <div
     id="filterPanel"
     style="
-      display:none;
-      position:absolute;
-      top:3rem;
-      left:0;
-      width:320px;
-      max-height:calc(100vh - 5rem);
-      background:#fff;
-      border-radius:14px;
-      box-shadow:0 10px 24px rgba(0,0,0,0.15);
-      z-index:2001;
-      display:flex;
-      flex-direction:column;
+      display: none;
+      position: absolute;
+      top: 3rem;
+      left: 0;
+      width: 320px;
+      max-height: calc(100vh - 6rem);
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+      z-index: 2001;
+      overflow: hidden;
     "
   >
 
-    <div style="padding:1rem 1.1rem;border-bottom:1px solid #e5e7eb;">
-      <strong>Filters</strong>
+    <!-- HEADER -->
+    <div
+      style="
+        padding: 1rem 1.1rem;
+        border-bottom: 1px solid #e5e7eb;
+        font-weight: 600;
+      "
+    >
+      Filters
     </div>
 
-    <!-- SCROLL AREA -->
-    <div style="padding:1rem 1.1rem;overflow-y:auto;flex:1;">
-      <!-- months -->
-      <div style="margin-bottom:1rem;">
-        <div>When do you travel?</div>
+    <!-- SCROLLABLE CONTENT -->
+    <div
+      style="
+        padding: 1rem 1.1rem;
+        overflow-y: auto;
+        max-height: calc(100vh - 12rem);
+      "
+    >
+
+      <!-- MONTHS -->
+      <div style="margin-bottom: 1rem;">
+        <div style="margin-bottom: 0.3rem;">When do you travel?</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;">
           {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
           {% for m in months %}
-          <label><input type="checkbox" value="{{ forloop.index }}"> {{ m }}</label>
+            <label><input type="checkbox" value="{{ forloop.index }}"> {{ m }}</label>
           {% endfor %}
         </div>
       </div>
 
-      <!-- interests -->
+      <!-- INTERESTS -->
       <div>
-        <div>Interests</div>
+        <div style="margin-bottom:0.3rem;">Interests</div>
         <div style="display:flex;flex-direction:column;gap:.35rem;">
           <label><input type="checkbox" value="culture"> Culture</label>
           <label><input type="checkbox" value="food"> Food</label>
@@ -124,10 +152,18 @@ cursor: pointer;
           <label><input type="checkbox" value="m_has_been"> Places M has been</label>
         </div>
       </div>
+
     </div>
 
     <!-- FOOTER -->
-    <div style="padding:.8rem 1.1rem;border-top:1px solid #e5e7eb;display:flex;gap:.5rem;">
+    <div
+      style="
+        padding: 0.8rem 1.1rem;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        gap: 0.5rem;
+      "
+    >
       <button id="clearFilterBtn" style="flex:1;">Clear</button>
       <button id="applyFilterBtn" style="flex:1;">Apply</button>
     </div>
@@ -135,12 +171,18 @@ cursor: pointer;
   </div>
 </div>
 
-<div id="activeFilters" style="margin-bottom:1rem;display:flex;gap:.4rem;flex-wrap:wrap;"></div>
+<!-- ACTIVE FILTER CHIPS -->
+<div
+  id="activeFilters"
+  style="margin-bottom:1rem;display:flex;gap:.4rem;flex-wrap:wrap;"
+></div>
 
+<!-- MAP VIEW -->
 <div id="mapView">
   <div id="map" style="height:85vh;min-height:700px;"></div>
 </div>
 
+<!-- LIST VIEW -->
 <div id="listView" style="display:none;max-width:1000px;margin:0 auto;">
   <div id="placeList"></div>
 </div>
