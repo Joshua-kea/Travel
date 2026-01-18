@@ -18,7 +18,7 @@
 
     <header class="country-header">
         <img
-                src="/assets/flags/{{ page.iso2 | default: 'xx' | downcase }}.svg"
+                src="{{ '/assets/flags/' | relative_url }}{{ page.iso2 | default: 'xx' | downcase }}.svg"
                 alt="{{ page.name }} flag"
                 class="country-flag"
                 onerror="this.style.display='none'">
