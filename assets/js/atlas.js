@@ -2,137 +2,137 @@ console.log("ATLAS – FILTERS ACTUALLY WORK");
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    if (!window.places?.length) return;
+        if (!window.places?.length) return;
 
-    /* =========================
-       FILTER STATE (INIT FIRST)
-    ========================= */
+        /* =========================
+           FILTER STATE (INIT FIRST)
+        ========================= */
 
-    const activeTags = new Set();
-    const activeMonths = new Set();
+        const activeTags = new Set();
+        const activeMonths = new Set();
 
-    const params = new URLSearchParams(window.location.search);
-    const tagFromURL = params.get("tag");
-    if (tagFromURL) activeTags.add(tagFromURL);
+        const params = new URLSearchParams(window.location.search);
+        const tagFromURL = params.get("tag");
+        if (tagFromURL) activeTags.add(tagFromURL);
 
-    function normalizeMonths(value) {
-        return Array.isArray(value) ? value.map(v => String(v)) : [];
-    }
-
-    function placeMatchesFilters(place) {
-        if (!place) return false;
-
-        if (activeTags.size) {
-            if (![...activeTags].every(t => place.tags?.includes(t))) return false;
+        function normalizeMonths(value) {
+            return Array.isArray(value) ? value.map(v => String(v)) : [];
         }
 
-        if (activeMonths.size) {
-            const months = normalizeMonths(place.best_months);
-            if (!months.some(m => activeMonths.has(m))) return false;
+        function placeMatchesFilters(place) {
+            if (!place) return false;
+
+            if (activeTags.size) {
+                if (![...activeTags].every(t => place.tags?.includes(t))) return false;
+            }
+
+            if (activeMonths.size) {
+                const months = normalizeMonths(place.best_months);
+                if (!months.some(m => activeMonths.has(m))) return false;
+            }
+
+            return true;
         }
 
-        return true;
-    }
+        /* =========================
+           MAP SETUP
+        ========================= */
 
-    /* =========================
-       MAP SETUP
-    ========================= */
+        const INITIAL_VIEW = {center: [20, 0], zoom: 3};
 
-    const INITIAL_VIEW = {center: [20, 0], zoom: 3};
+        const map = L.map("map", {
+            zoomControl: true,
+            worldCopyJump: false
+        }).setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom);
 
-    const map = L.map("map", {
-        zoomControl: true,
-        worldCopyJump: false
-    }).setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom);
+        L.tileLayer(
+            "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
+            {attribution: "© OpenStreetMap & CARTO", noWrap: true}
+        ).addTo(map);
 
-    L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-        {attribution: "© OpenStreetMap & CARTO", noWrap: true}
-    ).addTo(map);
+        map.zoomControl.setPosition("bottomright");
 
-    map.zoomControl.setPosition("bottomright");
+        map.createPane("countries");
+        map.createPane("subdivisions");
+        map.createPane("territories");
+        map.getPane("territories").style.zIndex = 350;
+        map.getPane("countries").style.zIndex = 300;
+        map.getPane("subdivisions").style.zIndex = 400;
+        map.getPane("tooltipPane").style.zIndex = 450;
 
-    map.createPane("countries");
-    map.createPane("subdivisions");
-    map.createPane("territories");
-    map.getPane("territories").style.zIndex = 350;
-    map.getPane("countries").style.zIndex = 300;
-    map.getPane("subdivisions").style.zIndex = 400;
-    map.getPane("tooltipPane").style.zIndex = 450;
+        /* =========================
+           LOOKUPS
+        ========================= */
 
-    /* =========================
-       LOOKUPS
-    ========================= */
+        const byISO = {};
+        const byAdminKey = {};
 
-    const byISO = {};
-    const byAdminKey = {};
-
-    window.places.forEach(p => {
-        if (p.iso) byISO[p.iso.toUpperCase()] = p;
-        if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
-    });
-
-    function getCountryKey(p = {}) {
-        if (p.ADM0_A3 && p.ADM0_A3 !== "-99") return p.ADM0_A3;
-        if (p.ISO_A3 && p.ISO_A3 !== "-99") return p.ISO_A3;
-        if (p.SOV_A3 && p.SOV_A3 !== "-99") return p.SOV_A3;
-        return null;
-    }
-
-    /* =========================
-       MAP STYLES
-    ========================= */
-
-    const STYLE_BASE = {fillColor: "#e8eef1", fillOpacity: 1, weight: 0.8, color: "#a9bcc8"};
-    const STYLE_DIM = {fillColor: "#dde5ea", fillOpacity: 1, weight: 0.5, color: "#c6d2d9"};
-    const STYLE_MATCH = {fillColor: "#6b8f9c", fillOpacity: 1, weight: 1.5, color: "#4e6f7c"};
-    const STYLE_MATCH_HOVER = {fillColor: "#577f8c", fillOpacity: 1, weight: 2.5, color: "#3e5f6b"};
-    const STYLE_HOVER_NORMAL = {fillColor: "#d6e1e7", fillOpacity: 1, weight: 2, color: "#7d98a6"};
-
-    /* =========================
-       MAP REGISTRY
-    ========================= */
-
-    const layers = [];
-
-    function applyStyle(layer) {
-        if (!layer._hasFilters) layer.setStyle(STYLE_BASE);
-        else if (layer._isMatch) layer.setStyle(STYLE_MATCH);
-        else layer.setStyle(STYLE_DIM);
-    }
-
-    function applyFilters() {
-        layers.forEach(layer => {
-            layer._hasFilters = activeTags.size > 0 || activeMonths.size > 0;
-            layer._isMatch = layer._place ? placeMatchesFilters(layer._place) : false;
-            applyStyle(layer);
+        window.places.forEach(p => {
+            if (p.iso) byISO[p.iso.toUpperCase()] = p;
+            if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
         });
-    }
 
-    function bindLayer(layer, place, label) {
-        layer._place = place || null;
-        layer._hasFilters = false;
-        layer._isMatch = true;
-
-        layer.bindTooltip(label || "", {sticky: true, direction: "center"});
-
-        if (place?.url) {
-            layer.on("click", () => {
-                window.open(place.url, "_blank", "noopener");
-            });
-
-            layer.on("mouseover", () => {
-                layer.bringToFront();
-                if (!layer._hasFilters) layer.setStyle(STYLE_HOVER_NORMAL);
-                else if (layer._isMatch) layer.setStyle(STYLE_MATCH_HOVER);
-            });
-
-            layer.on("mouseout", () => applyStyle(layer));
-
-            layers.push(layer);
-            applyFilters();
+        function getCountryKey(p = {}) {
+            if (p.ADM0_A3 && p.ADM0_A3 !== "-99") return p.ADM0_A3;
+            if (p.ISO_A3 && p.ISO_A3 !== "-99") return p.ISO_A3;
+            if (p.SOV_A3 && p.SOV_A3 !== "-99") return p.SOV_A3;
+            return null;
         }
-    }
+
+        /* =========================
+           MAP STYLES
+        ========================= */
+
+        const STYLE_BASE = {fillColor: "#e8eef1", fillOpacity: 1, weight: 0.8, color: "#a9bcc8"};
+        const STYLE_DIM = {fillColor: "#dde5ea", fillOpacity: 1, weight: 0.5, color: "#c6d2d9"};
+        const STYLE_MATCH = {fillColor: "#6b8f9c", fillOpacity: 1, weight: 1.5, color: "#4e6f7c"};
+        const STYLE_MATCH_HOVER = {fillColor: "#577f8c", fillOpacity: 1, weight: 2.5, color: "#3e5f6b"};
+        const STYLE_HOVER_NORMAL = {fillColor: "#d6e1e7", fillOpacity: 1, weight: 2, color: "#7d98a6"};
+
+        /* =========================
+           MAP REGISTRY
+        ========================= */
+
+        const layers = [];
+
+        function applyStyle(layer) {
+            if (!layer._hasFilters) layer.setStyle(STYLE_BASE);
+            else if (layer._isMatch) layer.setStyle(STYLE_MATCH);
+            else layer.setStyle(STYLE_DIM);
+        }
+
+        function applyFilters() {
+            layers.forEach(layer => {
+                layer._hasFilters = activeTags.size > 0 || activeMonths.size > 0;
+                layer._isMatch = layer._place ? placeMatchesFilters(layer._place) : false;
+                applyStyle(layer);
+            });
+        }
+
+        function bindLayer(layer, place, label) {
+            layer._place = place || null;
+            layer._hasFilters = false;
+            layer._isMatch = true;
+
+            layer.bindTooltip(label || "", {sticky: true, direction: "center"});
+
+            if (place?.url) {
+                layer.on("click", () => {
+                    window.open(place.url, "_blank", "noopener");
+                });
+
+                layer.on("mouseover", () => {
+                    layer.bringToFront();
+                    if (!layer._hasFilters) layer.setStyle(STYLE_HOVER_NORMAL);
+                    else if (layer._isMatch) layer.setStyle(STYLE_MATCH_HOVER);
+                });
+
+                layer.on("mouseout", () => applyStyle(layer));
+
+                layers.push(layer);
+                applyFilters();
+            }
+        }
 
         /* =========================
            LOAD GEO DATA
@@ -154,27 +154,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 }).addTo(map);
             });
 
-    fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
-        .then(r => r.json())
-        .then(data => {
-            L.geoJSON(data, {
-                pane: "territories",
-                style: STYLE_BASE,
-                onEachFeature: (f, l) => {
-                    const iso = f.properties?.iso_a3 || f.properties?.ISO_A3;
-                    const place = iso ? byISO[iso] : null;
+        fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
+            .then(r => r.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    pane: "territories",
+                    style: STYLE_BASE,
+                    onEachFeature: (f, l) => {
+                        const iso = f.properties?.iso_a3;
+                        const place = iso ? byISO[iso] : null;
 
-                    bindLayer(
-                        l,
-                        place,
-                        f.properties?.name || f.properties?.NAME
-                    );
-                }
-            }).addTo(map);
-        });
+                        bindLayer(
+                            l,
+                            place,
+                            f.properties?.name
+                        );
+
+                        // 👇 VIGTIG LINJE
+                        l.on("mouseover", () => l.bringToFront());
+
+                    }
+                }).addTo(map);
+            });
 
 
-    fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
+        fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
             .then(r => r.json())
             .then(data => {
                 const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
@@ -227,31 +231,31 @@ document.addEventListener("DOMContentLoaded", () => {
             };
         }
 
-    const MONTH_NAMES = {
-        "1": "Jan",
-        "2": "Feb",
-        "3": "Mar",
-        "4": "Apr",
-        "5": "May",
-        "6": "Jun",
-        "7": "Jul",
-        "8": "Aug",
-        "9": "Sep",
-        "10": "Oct",
-        "11": "Nov",
-        "12": "Dec"
-    };
+        const MONTH_NAMES = {
+            "1": "Jan",
+            "2": "Feb",
+            "3": "Mar",
+            "4": "Apr",
+            "5": "May",
+            "6": "Jun",
+            "7": "Jul",
+            "8": "Aug",
+            "9": "Sep",
+            "10": "Oct",
+            "11": "Nov",
+            "12": "Dec"
+        };
 
-    function renderChips() {
-        if (!chipsEl) return;
+        function renderChips() {
+            if (!chipsEl) return;
 
-        chipsEl.innerHTML = "";
+            chipsEl.innerHTML = "";
 
-        /* TAG CHIPS */
-        activeTags.forEach(tag => {
-            const chip = document.createElement("span");
-            chip.textContent = `${tag} ×`;
-            chip.style.cssText = `
+            /* TAG CHIPS */
+            activeTags.forEach(tag => {
+                const chip = document.createElement("span");
+                chip.textContent = `${tag} ×`;
+                chip.style.cssText = `
             background:#6b8f9c;
             color:white;
             padding:0.2rem 0.55rem;
@@ -260,28 +264,28 @@ document.addEventListener("DOMContentLoaded", () => {
             font-size:0.7rem;
         `;
 
-            chip.onclick = () => {
-                activeTags.delete(tag);
+                chip.onclick = () => {
+                    activeTags.delete(tag);
 
-                document
-                    .querySelectorAll('#filterPanel input[type="checkbox"]')
-                    .forEach(cb => {
-                        if (cb.value === tag) cb.checked = false;
-                    });
+                    document
+                        .querySelectorAll('#filterPanel input[type="checkbox"]')
+                        .forEach(cb => {
+                            if (cb.value === tag) cb.checked = false;
+                        });
 
-                updateURL();
-                renderChips();
-                applyFilters();
-            };
+                    updateURL();
+                    renderChips();
+                    applyFilters();
+                };
 
-            chipsEl.appendChild(chip);
-        });
+                chipsEl.appendChild(chip);
+            });
 
-        /* MONTH CHIPS */
-        activeMonths.forEach(month => {
-            const chip = document.createElement("span");
-            chip.textContent = `${MONTH_NAMES[month]} ×`;
-            chip.style.cssText = `
+            /* MONTH CHIPS */
+            activeMonths.forEach(month => {
+                const chip = document.createElement("span");
+                chip.textContent = `${MONTH_NAMES[month]} ×`;
+                chip.style.cssText = `
             background:#94a3b8;
             color:white;
             padding:0.2rem 0.55rem;
@@ -290,25 +294,25 @@ document.addEventListener("DOMContentLoaded", () => {
             font-size:0.7rem;
         `;
 
-            chip.onclick = () => {
-                activeMonths.delete(month);
+                chip.onclick = () => {
+                    activeMonths.delete(month);
 
-                document
-                    .querySelectorAll('#filterPanel input[type="checkbox"]')
-                    .forEach(cb => {
-                        if (cb.value === month) cb.checked = false;
-                    });
+                    document
+                        .querySelectorAll('#filterPanel input[type="checkbox"]')
+                        .forEach(cb => {
+                            if (cb.value === month) cb.checked = false;
+                        });
 
-                updateURL();
-                renderChips();
-                applyFilters();
-            };
+                    updateURL();
+                    renderChips();
+                    applyFilters();
+                };
 
-            chipsEl.appendChild(chip);
-        });
-    }
+                chipsEl.appendChild(chip);
+            });
+        }
 
-    function updateURL() {
+        function updateURL() {
             const params = new URLSearchParams(window.location.search);
             if (activeTags.size === 1) {
                 params.set("tag", [...activeTags][0]);
@@ -454,6 +458,5 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("viewListBtn").onclick = () => setView("list");
 
     }
-
 )
-    ;
+;

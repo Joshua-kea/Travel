@@ -9,6 +9,8 @@
       "properties": {
         "id": "french-guiana",
         "name": "French Guiana",
+        "iso_a3": "GUF",
         "parent": "FRA",
         "kind": "territory"
-      }}]}
+      }
+    }]}
