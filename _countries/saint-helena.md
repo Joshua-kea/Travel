@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SHN
+iso2: helena
 name: "Saint Helena"
 continent: Africa
 gay_friendliness:

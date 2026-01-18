@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SOL
+iso2: somaliland
 name: "Somaliland"
 continent: Africa
 gay_friendliness:
