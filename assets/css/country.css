@@ -221,3 +221,16 @@ body {
         padding-right: 0;
     }
 }
+.tag-chip {
+    text-decoration: none;
+    color: #374151;
+    background: #eef2f5;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    display: inline-block;
+}
+
+.tag-chip:hover {
+    background: #e2e8f0;
+}

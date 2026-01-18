@@ -55,17 +55,8 @@
                 <label>Best months to visit</label>
                 <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
-
-                    {% assign months_raw = page.best_months %}
-                    {% if months_raw contains "," %}
-                    {% assign months = months_raw | split: "," %}
-                    {% else %}
-                    {% assign months = months_raw %}
-                    {% endif %}
-
-                    {% for m in months %}
-                    {% assign idx = m | strip | plus: 0 | minus: 1 %}
-                    <li>{{ month_names[idx] }}</li>
+                    {% for m in page.best_months %}
+                    <li>{{ month_names[m | minus: 1] }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -76,17 +67,8 @@
                 <label>Okay months</label>
                 <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
-
-                    {% assign months_raw = page.ok_months %}
-                    {% if months_raw contains "," %}
-                    {% assign months = months_raw | split: "," %}
-                    {% else %}
-                    {% assign months = months_raw %}
-                    {% endif %}
-
-                    {% for m in months %}
-                    {% assign idx = m | strip | plus: 0 | minus: 1 %}
-                    <li>{{ month_names[idx] }}</li>
+                    {% for m in page.ok_months %}
+                    <li>{{ month_names[m | minus: 1] }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -108,30 +90,21 @@
             <div class="fact">
                 <label>Currency</label>
 
-                {% if page.currency.name %}
                 <div class="value">
                     {{ page.currency.name }}
-                    {% if page.currency.symbol or page.currency.code %}
                     <span class="currency-meta">
-                        {% if page.currency.symbol %}{{ page.currency.symbol }}{% endif %}
-                        {% if page.currency.code %} ({{ page.currency.code }}){% endif %}
+                        {{ page.currency.symbol }} ({{ page.currency.code }})
                     </span>
-                    {% endif %}
                 </div>
-                {% endif %}
 
-                <div class="value" style="margin-top:0.4rem;">
-                    1 {{ page.currency.name }} =
-                </div>
-                <div class="budget-secondary">
+                <div class="budget-secondary" style="margin-top:0.4rem;">
+                    1 {{ page.currency.name }} =<br>
                     {{ page.currency.rates.per_1.eur }} EUR<br>
                     {{ page.currency.rates.per_1.dkk }} DKK
                 </div>
 
-                <div class="value" style="margin-top:0.6rem;">
-                    100 {{ page.currency.name }} =
-                </div>
-                <div class="budget-secondary">
+                <div class="budget-secondary" style="margin-top:0.6rem;">
+                    100 {{ page.currency.name }} =<br>
                     {{ page.currency.rates.per_100.eur }} EUR<br>
                     {{ page.currency.rates.per_100.dkk }} DKK
                 </div>
@@ -151,26 +124,47 @@
                     </div>
                 </div>
                 <div class="gay-score">{{ page.gay_friendliness }}/100</div>
-
-                {% if page.gay_details %}
-                <details class="gay-details">
-                    <summary>More details</summary>
-                    <div class="gay-details-content">
-                        {{ page.gay_details | markdownify }}
-                    </div>
-                </details>
-                {% endif %}
             </div>
             {% endif %}
 
             {% if page.tags and page.tags.size > 0 %}
             <div class="fact">
                 <label>Tags</label>
+
+                {% assign tag_labels =
+                "culture:Culture,
+                food:Food,
+                cheap:Budget friendly,
+                expensive:Expensive,
+                island:Island,
+                beach:Beach,
+                walkable:Walkable,
+                short_trip:Short trip,
+                long_trip:Long trip,
+                friends_and_family:Friends & family,
+                gay_friendly:Gay friendly,
+                j_wants_to_go:J wants to go,
+                m_wants_to_go:M wants to go,
+                j_has_been:J has been,
+                m_has_been:M has been"
+                | split: "," %}
+
                 <ul class="tags">
                     {% for tag in page.tags %}
+                    {% assign label = tag %}
+                    {% for pair in tag_labels %}
+                    {% assign kv = pair | split: ":" %}
+                    {% if kv[0] == tag %}
+                    {% assign label = kv[1] %}
+                    {% endif %}
+                    {% endfor %}
+
                     <li>
-                        <a href="{{ '/atlas/?tag=' | relative_url }}{{ tag }}">
-                            {{ tag }}
+                        <a
+                                href="{{ '/atlas/?tag=' | relative_url }}{{ tag }}"
+                                class="tag-chip"
+                        >
+                            {{ label }}
                         </a>
                     </li>
                     {% endfor %}
