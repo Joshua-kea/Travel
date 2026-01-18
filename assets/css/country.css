@@ -225,12 +225,15 @@ body {
     text-decoration: none;
     color: #374151;
     background: #eef2f5;
-    padding: 0.35rem 0.75rem;
+
+    padding: 0.2rem 0.55rem;   /* mindre */
     border-radius: 999px;
-    font-size: 0.7rem;
+
+    font-size: 0.65rem;       /* mindre */
+    line-height: 1;
     display: inline-block;
 }
 
 .tag-chip:hover {
-    background: #e2e8f0;
+    background: #e5edf2;
 }
