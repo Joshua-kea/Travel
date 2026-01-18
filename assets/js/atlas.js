@@ -217,12 +217,24 @@ document.addEventListener("DOMContentLoaded", () => {
             cursor:pointer;
             font-size:0.7rem;
         `;
+
             chip.onclick = () => {
+                // 1. Fjern tag fra state
                 activeTags.delete(tag);
+
+                // 2. Fjern checkmark i filter-panelet (DET MANGLEDE)
+                document
+                    .querySelectorAll('#filterPanel input[type="checkbox"]')
+                    .forEach(cb => {
+                        if (cb.value === tag) cb.checked = false;
+                    });
+
+                // 3. Sync resten
                 updateURL();
                 renderChips();
                 applyFilters();
             };
+
             chipsEl.appendChild(chip);
         });
     }
@@ -284,6 +296,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderList() {
         listEl.innerHTML = "";
+
+        // 1. Filtrér lande
         const filtered = window.places.filter(placeMatchesFilters);
 
         if (!filtered.length) {
@@ -291,11 +305,65 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // 2. Gruppér efter continent
+        const byContinent = {};
+
         filtered.forEach(place => {
-            const div = document.createElement("div");
-            div.textContent = place.name;
-            div.onclick = () => location.href = place.url;
-            listEl.appendChild(div);
+            const continent = place.continent || "Other";
+            if (!byContinent[continent]) {
+                byContinent[continent] = [];
+            }
+            byContinent[continent].push(place);
+        });
+
+        // 3. Sortér kontinenter alfabetisk
+        const continents = Object.keys(byContinent).sort((a, b) =>
+            a.localeCompare(b)
+        );
+
+        // 4. Render hver continent-sektion
+        continents.forEach(continent => {
+            const section = document.createElement("section");
+            section.style.marginBottom = "2rem";
+
+            const heading = document.createElement("h2");
+            heading.textContent = continent;
+            heading.style.marginBottom = "0.6rem";
+            section.appendChild(heading);
+
+            const grid = document.createElement("div");
+            grid.style.display = "grid";
+            grid.style.gridTemplateColumns = "repeat(auto-fill, minmax(160px, 1fr))";
+            grid.style.gap = "0.5rem";
+
+            // Sortér lande alfabetisk
+            byContinent[continent]
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .forEach(place => {
+                    const item = document.createElement("div");
+                    item.textContent = place.name;
+                    item.style.cursor = "pointer";
+                    item.style.padding = "0.35rem 0.5rem";
+                    item.style.borderRadius = "6px";
+                    item.style.background = "#eef3f6";
+                    item.style.fontSize = "0.85rem";
+
+                    item.onmouseenter = () => {
+                        item.style.background = "#dfe8ee";
+                    };
+                    item.onmouseleave = () => {
+                        item.style.background = "#eef3f6";
+                    };
+
+                    item.onclick = () => {
+                        location.href = place.url;
+                    };
+
+                    grid.appendChild(item);
+                });
+
+            section.appendChild(grid);
+            listEl.appendChild(section);
         });
     }
 
