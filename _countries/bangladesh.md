@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BGD
+iso2: bd
 name: "Bangladesh"
 continent: Asia
 gay_friendliness:

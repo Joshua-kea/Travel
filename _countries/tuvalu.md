@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TUV
+iso2: tv
 name: "Tuvalu"
 continent: Oceania
 gay_friendliness:

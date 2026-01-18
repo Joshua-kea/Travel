@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: VCT
+iso2: vc
 name: "Saint Vincent and the Grenadines"
 continent: North America
 gay_friendliness:

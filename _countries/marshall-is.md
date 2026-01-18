@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MHL
+iso2: mh
 name: "Marshall Is."
 continent: Oceania
 gay_friendliness:

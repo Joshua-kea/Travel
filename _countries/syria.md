@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SYR
+iso2: sy
 name: "Syria"
 continent: Asia
 gay_friendliness:

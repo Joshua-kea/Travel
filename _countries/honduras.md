@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: HND
+iso2: hn
 name: "Honduras"
 continent: North America
 gay_friendliness:

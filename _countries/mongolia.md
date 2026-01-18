@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MNG
+iso2: mn
 name: "Mongolia"
 continent: Asia
 gay_friendliness:

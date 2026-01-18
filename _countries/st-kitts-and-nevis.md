@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: KNA
+iso2: kn
 name: "St. Kitts and Nevis"
 continent: North America
 gay_friendliness:

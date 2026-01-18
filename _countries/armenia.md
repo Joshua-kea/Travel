@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: ARM
+iso2: am
 name: "Armenia"
 continent: Asia
 gay_friendliness:

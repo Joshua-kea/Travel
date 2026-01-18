@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: DOM
+iso2: do
 name: "Dominican Republic"
 continent: North America
 gay_friendliness:

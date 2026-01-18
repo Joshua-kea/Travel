@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: VEN
+iso2: ve
 name: "Venezuela"
 continent: South America
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: PNG
+iso2: pg
 name: "Papua New Guinea"
 continent: Oceania
 gay_friendliness:

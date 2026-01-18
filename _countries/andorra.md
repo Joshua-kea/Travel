@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: AND
+iso2: ad
 name: "Andorra"
 continent: Europe
 gay_friendliness: 80

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: AFG
+iso2: af
 name: "Afghanistan"
 continent: Asia
 gay_friendliness: 1

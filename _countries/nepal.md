@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: NPL
+iso2: np
 name: "Nepal"
 continent: Asia
 gay_friendliness:

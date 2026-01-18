@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: NIC
+iso2: ni
 name: "Nicaragua"
 continent: North America
 gay_friendliness:

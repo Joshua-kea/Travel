@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TJK
+iso2: tj
 name: "Tajikistan"
 continent: Asia
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: PLW
+iso2: pw
 name: "Palau"
 continent: Oceania
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BRN
+iso2: bn
 name: "Brunei"
 continent: Asia
 gay_friendliness:

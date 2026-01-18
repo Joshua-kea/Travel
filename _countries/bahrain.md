@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BHR
+iso2: bh
 name: "Bahrain"
 continent: Asia
 gay_friendliness:

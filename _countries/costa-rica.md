@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: CRI
+iso2: cr
 name: "Costa Rica"
 continent: North America
 gay_friendliness:

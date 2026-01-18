@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MDA
+iso2: md
 name: "Moldova"
 continent: Europe
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TTO
+iso2: tt
 name: "Trinidad and Tobago"
 continent: North America
 gay_friendliness:

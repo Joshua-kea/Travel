@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BRB
+iso2: bb
 name: "Barbados"
 continent: North America
 gay_friendliness:

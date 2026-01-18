@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: VUT
+iso2: vu
 name: "Vanuatu"
 continent: Oceania
 gay_friendliness:

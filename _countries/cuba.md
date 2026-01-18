@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: CUB
+iso2: cu
 name: "Cuba"
 continent: North America
 gay_friendliness:

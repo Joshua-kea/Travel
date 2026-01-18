@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: AZE
+iso2: az
 name: "Azerbaijan"
 continent: Asia
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: WSM
+iso2: ws
 name: "Samoa"
 continent: Oceania
 gay_friendliness:

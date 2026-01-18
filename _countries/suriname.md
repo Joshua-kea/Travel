@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SUR
+iso2: sr
 name: "Suriname"
 continent: South America
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: ECU
+iso2: ec
 name: "Ecuador"
 continent: South America
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: SLV
+iso2: sv
 name: "El Salvador"
 continent: North America
 gay_friendliness:

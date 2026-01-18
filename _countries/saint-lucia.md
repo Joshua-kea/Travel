@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: LCA
+iso2: lc
 name: "Saint Lucia"
 continent: North America
 gay_friendliness:

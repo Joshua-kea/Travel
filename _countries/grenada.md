@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GRD
+iso2: gd
 name: "Grenada"
 continent: North America
 gay_friendliness:

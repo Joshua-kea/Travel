@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: YEM
+iso2: ye
 name: "Yemen"
 continent: Asia
 gay_friendliness:

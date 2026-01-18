@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: UZB
+iso2: uz
 name: "Uzbekistan"
 continent: Asia
 gay_friendliness:

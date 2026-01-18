@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TLS
+iso2: tl
 name: "East Timor"
 continent: Asia
 gay_friendliness:

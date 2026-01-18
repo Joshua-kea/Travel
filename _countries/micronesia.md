@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: FSM
+iso2: fm
 name: "Micronesia"
 continent: Oceania
 gay_friendliness:

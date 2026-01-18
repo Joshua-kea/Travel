@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: ATG
+iso2: ag
 name: "Antigua and Barbuda"
 continent: North America
 gay_friendliness:

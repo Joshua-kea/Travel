@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: NRU
+iso2: nr
 name: "Nauru"
 continent: Oceania
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: PAN
+iso2: pa
 name: "Panama"
 continent: North America
 gay_friendliness:

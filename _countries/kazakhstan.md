@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: KAZ
+iso2: kz
 name: "Kazakhstan"
 continent: Asia
 gay_friendliness:

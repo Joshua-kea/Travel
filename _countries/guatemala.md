@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GTM
+iso2: gt
 name: "Guatemala"
 continent: North America
 gay_friendliness:

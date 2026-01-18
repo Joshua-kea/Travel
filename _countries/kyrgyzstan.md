@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: KGZ
+iso2: kg
 name: "Kyrgyzstan"
 continent: Asia
 gay_friendliness:

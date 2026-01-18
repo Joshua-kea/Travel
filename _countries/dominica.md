@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: DMA
+iso2: dm
 name: "Dominica"
 continent: North America
 gay_friendliness:

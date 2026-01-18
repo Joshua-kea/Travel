@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MCO
+iso2: mc
 name: "Monaco"
 continent: Europe
 gay_friendliness:

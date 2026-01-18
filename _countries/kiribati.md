@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: KIR
+iso2: ki
 name: "Kiribati"
 continent: Oceania
 gay_friendliness:

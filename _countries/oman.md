@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: OMN
+iso2: om
 name: "Oman"
 continent: Asia
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: MDV
+iso2: mv
 name: "Maldives"
 continent: Asia
 gay_friendliness:

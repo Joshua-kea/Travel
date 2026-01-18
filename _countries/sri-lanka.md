@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: LKA
+iso2: lk
 name: "Sri Lanka"
 continent: Asia
 gay_friendliness:

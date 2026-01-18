@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: IRQ
+iso2: iq
 name: "Iraq"
 continent: Asia
 gay_friendliness:

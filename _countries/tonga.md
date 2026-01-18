@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TON
+iso2: to
 name: "Tonga"
 continent: Oceania
 gay_friendliness:

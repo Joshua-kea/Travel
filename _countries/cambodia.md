@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: KHM
+iso2: kh
 name: "Cambodia"
 continent: Asia
 gay_friendliness:

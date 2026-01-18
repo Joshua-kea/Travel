@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: LAO
+iso2: la
 name: "Laos"
 continent: Asia
 gay_friendliness:

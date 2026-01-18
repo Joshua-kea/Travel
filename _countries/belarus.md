@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BLR
+iso2: by
 name: "Belarus"
 continent: Europe
 gay_friendliness:

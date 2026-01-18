@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: HTI
+iso2: ht
 name: "Haiti"
 continent: North America
 gay_friendliness:

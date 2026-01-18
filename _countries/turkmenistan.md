@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TKM
+iso2: tm
 name: "Turkmenistan"
 continent: Asia
 gay_friendliness:

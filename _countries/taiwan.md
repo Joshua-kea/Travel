@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: TWN
+iso2: tw
 name: "Taiwan"
 continent: Asia
 gay_friendliness:

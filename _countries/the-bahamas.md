@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BHS
+iso2: bs
 name: "The Bahamas"
 continent: North America
 gay_friendliness:

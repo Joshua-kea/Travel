@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: LIE
+iso2: li
 name: "Liechtenstein"
 continent: Europe
 gay_friendliness:

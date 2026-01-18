@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: PAK
+iso2: pk
 name: "Pakistan"
 continent: Asia
 gay_friendliness:

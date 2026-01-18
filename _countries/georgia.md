@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GEO
+iso2: ge
 name: "Georgia"
 continent: Asia
 gay_friendliness:

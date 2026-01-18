@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GUY
+iso2: gy
 name: "Guyana"
 continent: South America
 gay_friendliness:

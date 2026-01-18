@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: BLZ
+iso2: bz
 name: "Belize"
 continent: North America
 gay_friendliness:

@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: VAT
+iso2: va
 name: "Vatican"
 continent: Europe
 gay_friendliness:
