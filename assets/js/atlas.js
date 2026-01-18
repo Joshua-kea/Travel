@@ -5,6 +5,39 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!window.places?.length) return;
 
     /* =========================
+       FILTER STATE
+    ========================= */
+
+    const activeTags = new Set();
+    const activeMonths = new Set();
+
+    // ✅ URL FILTERS SKAL KOMME FØRST
+    const params = new URLSearchParams(window.location.search);
+    const tagFromURL = params.get("tag");
+    if (tagFromURL) {
+        activeTags.add(tagFromURL);
+    }
+
+    function normalizeMonths(value) {
+        return Array.isArray(value) ? value.map(v => String(v)) : [];
+    }
+
+    function placeMatchesFilters(place) {
+        if (!place) return false;
+
+        if (activeTags.size) {
+            if (![...activeTags].every(t => place.tags?.includes(t))) return false;
+        }
+
+        if (activeMonths.size) {
+            const months = normalizeMonths(place.best_months);
+            if (!months.some(m => activeMonths.has(m))) return false;
+        }
+
+        return true;
+    }
+
+    /* =========================
        MAP SETUP
     ========================= */
 
@@ -45,32 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (p.ISO_A3 && p.ISO_A3 !== "-99") return p.ISO_A3;
         if (p.SOV_A3 && p.SOV_A3 !== "-99") return p.SOV_A3;
         return null;
-    }
-
-    /* =========================
-       FILTER STATE
-    ========================= */
-
-    const activeTags = new Set();
-    const activeMonths = new Set();
-
-    function normalizeMonths(value) {
-        return Array.isArray(value) ? value.map(v => String(v)) : [];
-    }
-
-    function placeMatchesFilters(place) {
-        if (!place) return false;
-
-        if (activeTags.size) {
-            if (![...activeTags].every(t => place.tags?.includes(t))) return false;
-        }
-
-        if (activeMonths.size) {
-            const months = normalizeMonths(place.best_months);
-            if (!months.some(m => activeMonths.has(m))) return false;
-        }
-
-        return true;
     }
 
     /* =========================
@@ -124,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         layers.push(layer);
 
-        // 🔥 DET HER ER FIXET
+        // ✅ NU VIRKER URL-FILTRET
         applyFilters();
     }
 
@@ -180,28 +187,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }).addTo(map);
         });
-
-    /* =========================
-       URL TAG INIT
-    ========================= */
-
-    const params = new URLSearchParams(window.location.search);
-    const tag = params.get("tag");
-    if (tag) activeTags.add(tag);
-
-    /* =========================
-       VIEW SWITCH (uændret)
-    ========================= */
-
-    document.getElementById("viewMapBtn").onclick = () => {
-        document.getElementById("mapView").style.display = "block";
-        document.getElementById("listView").style.display = "none";
-        map.invalidateSize();
-    };
-
-    document.getElementById("viewListBtn").onclick = () => {
-        document.getElementById("mapView").style.display = "none";
-        document.getElementById("listView").style.display = "block";
-    };
 
 });
