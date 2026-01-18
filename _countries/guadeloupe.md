@@ -1,7 +1,6 @@
 ---
 layout: country
-iso:
-iso2:
+iso: GLP
 name: "Guadeloupe"
 continent: North America
 gay_friendliness:
