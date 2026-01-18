@@ -2,7 +2,7 @@
 layout: country
 iso: SHN
 name: "Saint Helena"
-continent:
+continent: Africa
 gay_friendliness:
 tags: []
 language:

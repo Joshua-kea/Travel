@@ -1,7 +1,7 @@
 ---
 layout: country
 iso: TZA
-name: "United Republic of Tanzania"
+name: "Tanzania"
 continent: Africa
 gay_friendliness:
 tags: []
@@ -18,6 +18,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# United Republic of Tanzania
+# Tanzania
 
 Write your notes about United Republic of Tanzania here.
