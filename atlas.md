@@ -24,7 +24,6 @@ browse places that match your travel interests and preferred time of year.
     gap: 0.75rem;
     align-items: center;
     margin-bottom: 1rem;
-    pointer-events: auto;
   "
 >
 
@@ -104,8 +103,7 @@ align-items: center;
 gap: 0.4rem;
 "
 >
-    <span style="font-size:0.9rem;">Filters</span>
-    <span style="font-size:0.85rem; opacity:0.8;">＋</span>
+    Filters +
   </button>
 
   <!-- FILTER PANEL -->
@@ -116,56 +114,76 @@ gap: 0.4rem;
       position: absolute;
       top: 3rem;
       left: 0;
+      width: 320px;
+      max-height: calc(100vh - 6rem);
       background: #ffffff;
-      border-radius: 10px;
-      padding: 1rem 1.1rem;
-      width: 300px;
+      border-radius: 12px;
       box-shadow: 0 10px 24px rgba(0,0,0,0.15);
       z-index: 2001;
+      display: flex;
+      flex-direction: column;
     "
   >
-    <strong>Filters</strong>
 
-    <div style="margin-top:0.9rem;">
-      <div style="font-size:0.85rem;">When do you travel?</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.35rem;">
-        {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
-        {% for m in months %}
-          <label><input type="checkbox" value="{{ forloop.index }}"> {{ m }}</label>
-        {% endfor %}
-      </div>
+    <!-- HEADER -->
+    <div style="padding: 1rem 1.1rem; border-bottom: 1px solid #e5e7eb;">
+      <strong>Filters</strong>
     </div>
 
-    <div style="margin-top:0.9rem;">
-      <div style="font-size:0.85rem;">Interests</div>
-      <div style="display:flex;flex-direction:column;gap:0.35rem;">
-        <label><input type="checkbox" value="culture"> Culture</label>
-        <label><input type="checkbox" value="food"> Food</label>
-        <label><input type="checkbox" value="cheap"> Budget friendly</label>
-        <label><input type="checkbox" value="expensive"> Expensive</label>
-        <label><input type="checkbox" value="island"> Island</label>
-        <label><input type="checkbox" value="beach"> Beach</label>
-        <label><input type="checkbox" value="walkable"> Walkable</label>
-        <label><input type="checkbox" value="short_trip"> Short trip</label>
-        <label><input type="checkbox" value="long_trip"> Long trip</label>
-        <label><input type="checkbox" value="friends_and_family"> Friends/family live here</label>
-        <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
-        <label><input type="checkbox" value="j_wants_to_go"> Places J wants to visit asap</label>
-        <label><input type="checkbox" value="m_wants_to_go"> Places M wants to visit asap</label>
-        <label><input type="checkbox" value="j_has_been"> Places J has been</label>
-        <label><input type="checkbox" value="m_has_been"> Places M has been</label>
+    <!-- SCROLLABLE CONTENT -->
+    <div style="padding: 1rem 1.1rem; overflow-y: auto; flex: 1;">
+
+      <div style="margin-bottom: 1rem;">
+        <div style="font-size:0.85rem;">When do you travel?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.35rem;">
+          {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
+          {% for m in months %}
+            <label><input type="checkbox" value="{{ forloop.index }}"> {{ m }}</label>
+          {% endfor %}
+        </div>
       </div>
+
+      <div>
+        <div style="font-size:0.85rem;">Interests</div>
+        <div style="display:flex;flex-direction:column;gap:0.35rem;">
+          <label><input type="checkbox" value="culture"> Culture</label>
+          <label><input type="checkbox" value="food"> Food</label>
+          <label><input type="checkbox" value="cheap"> Budget friendly</label>
+          <label><input type="checkbox" value="expensive"> Expensive</label>
+          <label><input type="checkbox" value="island"> Island</label>
+          <label><input type="checkbox" value="beach"> Beach</label>
+          <label><input type="checkbox" value="walkable"> Walkable</label>
+          <label><input type="checkbox" value="short_trip"> Short trip</label>
+          <label><input type="checkbox" value="long_trip"> Long trip</label>
+          <label><input type="checkbox" value="friends_and_family"> Friends/family live here</label>
+          <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
+          <label><input type="checkbox" value="j_wants_to_go"> Places J wants to visit asap</label>
+          <label><input type="checkbox" value="m_wants_to_go"> Places M wants to visit asap</label>
+          <label><input type="checkbox" value="j_has_been"> Places J has been</label>
+          <label><input type="checkbox" value="m_has_been"> Places M has been</label>
+        </div>
+      </div>
+
     </div>
 
-    <div style="margin-top:1rem;display:flex;gap:0.5rem;">
-      <button id="applyFilterBtn" style="flex:1;">Apply</button>
+    <!-- FOOTER -->
+    <div
+      style="
+        padding: 0.8rem 1.1rem;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        gap: 0.5rem;
+      "
+    >
       <button id="clearFilterBtn" style="flex:1;">Clear</button>
+      <button id="applyFilterBtn" style="flex:1;">Apply</button>
     </div>
+
   </div>
 
 </div>
 
-<div id="activeFilters" style="margin-bottom:1rem;display:flex;gap:0.4rem;flex-wrap:wrap;"></div>
+<div id="activeFilters" style="margin-bottom:1rem;display:flex;gapflex-wrap:wrap;gap:0.4rem;"></div>
 
 <!-- MAP VIEW -->
 <div id="mapView" style="width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);">
@@ -174,7 +192,7 @@ gap: 0.4rem;
 
 <!-- LIST VIEW -->
 <div id="listView" style="display:none;max-width:1000px;margin:0 auto;">
-<div id="placeList"></div>
+  <div id="placeList"></div>
 </div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>

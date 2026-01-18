@@ -1,7 +1,3 @@
-/* =========================
-   BASE
-========================= */
-
 body {
     margin: 0;
     background: #ffffff;
@@ -15,11 +11,10 @@ body {
     padding: 2.5rem 2rem;
 }
 
-/* =========================
-   HEADER
-========================= */
-
 .country-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
@@ -34,19 +29,11 @@ body {
     color: #6b7280;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-
 .country-layout {
     display: grid;
     grid-template-columns: 260px 1fr;
     gap: 3rem;
 }
-
-/* =========================
-   SIDEBAR
-========================= */
 
 .country-sidebar {
     border-right: 1px solid #e5e7eb;
@@ -68,17 +55,7 @@ body {
 
 .fact .value {
     font-size: 0.95rem;
-    line-height: 1.4;
 }
-
-.fact ul {
-    margin: 0;
-    padding-left: 1.1rem;
-}
-
-/* =========================
-   TAGS
-========================= */
 
 .tags {
     display: flex;
@@ -86,117 +63,29 @@ body {
     gap: 0.4rem;
 }
 
-.tags li {
+.tag {
     background: #eef2f5;
-    padding: 0.25rem 0.6rem;
+    border: none;
+    padding: 0.35rem 0.7rem;
     border-radius: 999px;
     font-size: 0.7rem;
-}
-
-/* =========================
-   CURRENCY
-========================= */
-
-.currency-meta {
-    font-size: 0.75rem;
-    color: #6b7280;
-    margin-left: 0.25rem;
-}
-
-.rates {
-    margin-top: 0.5rem;
-    font-size: 0.75rem;
-    color: #4b5563;
-    line-height: 1.5;
-}
-
-.rate-block {
-    margin-top: 0.6rem;
-}
-
-.rate-label {
-    font-size: 0.75rem;
+    cursor: pointer;
     color: #374151;
 }
 
-.rate-values {
-    margin-left: 0.6rem;
-    font-size: 0.75rem;
-    color: #4b5563;
-    line-height: 1.4;
+.tag:hover {
+    background: #6b8f9c;
+    color: white;
 }
-
-/* =========================
-   GAY EQUALITY BAR
-========================= */
-
-.gay-bar {
-    height: 6px;
-    background: #e5e7eb;
-    border-radius: 999px;
-    overflow: hidden;
-}
-
-.gay-fill {
-    height: 100%;
-    border-radius: 999px;
-}
-
-.gay-score {
-    font-size: 0.75rem;
-    margin-top: 0.3rem;
-    color: #374151;
-}
-
-/* =========================
-   CONTENT
-========================= */
 
 .country-content {
     max-width: 700px;
 }
 
-.country-content h1,
-.country-content h2,
-.country-content h3 {
-    margin-top: 0;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 800px) {
-    .country-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .country-sidebar {
-        border-right: none;
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
-    }
-}
-/* =========================
-   FLAG
-========================= */
-.country-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
 .country-flag {
     width: 42px;
-    height: auto;
     border-radius: 4px;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
 }
-/* =========================
-   BACK TO ATLAS
-========================= */
 
 .back-to-atlas {
     display: inline-block;
@@ -211,3 +100,15 @@ body {
     text-decoration: underline;
 }
 
+@media (max-width: 800px) {
+    .country-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .country-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+    }
+}

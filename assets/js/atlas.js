@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
     map.getPane("countries").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
 
+    /* 🔧 FIX: tooltips over layers, under UI */
+    map.getPane("tooltipPane").style.zIndex = 380;
+
     window.addEventListener("pageshow", () => {
         map.setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom, { animate: false });
     });
@@ -121,12 +124,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const layers = [];
 
-    function bindLayer(layer, place, label) {
+    function bindLayer(layer, place, label, permanentLabel = false) {
         layer._place = place || null;
         layer._hasFilters = false;
         layer._isMatch = true;
 
-        layer.bindTooltip(label, { sticky: true });
+        layer.bindTooltip(label, {
+            sticky: !permanentLabel,
+            permanent: permanentLabel,
+            direction: permanentLabel ? "center" : "auto",
+            className: permanentLabel ? "country-label" : ""
+        });
 
         if (place?.url) {
             layer.on("click", () => location.href = place.url);
@@ -209,7 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         "GB-WLS": "Wales",
                         "GB-NIR": "Northern Ireland"
                     };
-                    bindLayer(l, byAdminKey[`GBR:${iso}`], labels[iso]);
+                    /* 🔧 FIX: UK labels always visible */
+                    bindLayer(l, byAdminKey[`GBR:${iso}`], labels[iso], true);
                 }
             }).addTo(map);
         });
