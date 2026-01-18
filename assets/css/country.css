@@ -34,12 +34,9 @@ body {
 }
 
 .country-flag {
-    height: 36px;      /* justér hvis du vil */
-    width: auto;
-    display: block;
+    width: 42px;
     border-radius: 4px;
 }
-
 
 /* =========================
    LAYOUT
