@@ -269,11 +269,22 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             chip.onclick = () => {
                 activeTags.delete(tag);
+                updateURL(); // NEW
                 renderChips();
                 applyFilters();
             };
             chipsEl.appendChild(chip);
         });
+    }
+
+    function updateURL() {
+        const params = new URLSearchParams(window.location.search);
+        if (activeTags.size === 1) {
+            params.set("tag", [...activeTags][0]);
+        } else {
+            params.delete("tag");
+        }
+        history.replaceState({}, "", `${location.pathname}?${params}`);
     }
 
     applyBtn.onclick = () => {
@@ -286,19 +297,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 : activeMonths.add(String(cb.value));
         });
 
-        panel.style.display = "none";
+        updateURL();
         renderChips();
         applyFilters();
+        panel.style.display = "none";
     };
 
     clearBtn.onclick = () => {
         activeTags.clear();
         activeMonths.clear();
         panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
+        updateURL();
         renderChips();
         applyFilters();
         panel.style.display = "none";
     };
+
+    /* =========================
+       URL TAG BOOTSTRAP  // NEW
+    ========================= */
+
+    const params = new URLSearchParams(window.location.search);
+    const urlTag = params.get("tag");
+
+    if (urlTag) {
+        activeTags.add(urlTag);
+        renderChips();
+        applyFilters();
+    }
 
     /* =========================
        VIEW SWITCH
