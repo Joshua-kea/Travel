@@ -42,12 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const map = L.map("map", {
             zoomControl: true,
-            worldCopyJump: false
+            worldCopyJump: true
         }).setView(INITIAL_VIEW.center, INITIAL_VIEW.zoom);
 
         L.tileLayer(
             "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
-            {attribution: "© OpenStreetMap & CARTO", noWrap: true}
+            {attribution: "© OpenStreetMap & CARTO"}
         ).addTo(map);
 
         map.zoomControl.setPosition("bottomright");
