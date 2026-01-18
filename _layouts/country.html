@@ -58,12 +58,38 @@
             </div>
             {% endif %}
 
+            {% if page.best_months %}
+            <div class="fact">
+                <label>Best months to visit</label>
+                <ul class="months">
+                    {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
+                    {% for m in page.best_months %}
+                    <li>{{ month_names[m | minus: 1] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if page.ok_months %}
+            <div class="fact">
+                <label>Okay months</label>
+                <ul class="months">
+                    {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
+                    {% for m in page.ok_months %}
+                    <li>{{ month_names[m | minus: 1] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
             {% if page.budget and (page.budget.dkk or page.budget.eur) %}
             <div class="fact">
                 <label>Budget</label>
+
                 {% if page.budget.dkk %}
                 <div class="value">{{ page.budget.dkk }} DKK</div>
                 {% endif %}
+
                 {% if page.budget.eur %}
                 <div class="budget-secondary">{{ page.budget.eur }} EUR</div>
                 {% endif %}
@@ -87,44 +113,24 @@
                 {% endif %}
 
                 {% if page.currency.rates %}
-                <div class="rates">
-                    <div class="rate-block">
-                        <strong>1 {{ page.currency.name }} =</strong>
-                        <div>{{ page.currency.rates.per_1.eur }} EUR</div>
-                        <div>{{ page.currency.rates.per_1.dkk }} DKK</div>
+                <div class="currency-rates">
+
+                    <div>
+                        <strong>1 {{ page.currency.name }} =</strong><br>
+                        {{ page.currency.rates.per_1.eur }} EUR<br>
+                        {{ page.currency.rates.per_1.dkk }} DKK
                     </div>
 
-                    <div class="rate-block" style="margin-top:0.5rem;">
-                        <strong>100 {{ page.currency.name }} =</strong>
-                        <div>{{ page.currency.rates.per_100.eur }} EUR</div>
-                        <div>{{ page.currency.rates.per_100.dkk }} DKK</div>
+                    <br>
+
+                    <div>
+                        <strong>100 {{ page.currency.name }} =</strong><br>
+                        {{ page.currency.rates.per_100.eur }} EUR<br>
+                        {{ page.currency.rates.per_100.dkk }} DKK
                     </div>
+
                 </div>
                 {% endif %}
-            </div>
-            {% endif %}
-
-            {% if page.best_months and page.best_months.size > 0 %}
-            <div class="fact">
-                <label>Best months to visit</label>
-                <ul class="month-tags">
-                    {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
-                    {% for m in page.best_months %}
-                    <li>{{ months[m | minus: 1] }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-
-            {% if page.ok_months and page.ok_months.size > 0 %}
-            <div class="fact">
-                <label>Okay months</label>
-                <ul class="month-tags muted">
-                    {% assign months = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
-                    {% for m in page.ok_months %}
-                    <li>{{ months[m | minus: 1] }}</li>
-                    {% endfor %}
-                </ul>
             </div>
             {% endif %}
 
@@ -136,8 +142,8 @@
                     <div
                             class="gay-fill"
                             style="
-                          width: {{ page.gay_friendliness }}%;
-                          background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);
+                            width: {{ page.gay_friendliness }}%;
+                            background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);
                         ">
                     </div>
                 </div>
