@@ -71,7 +71,6 @@
             </div>
             {% endif %}
 
-
             {% if page.ok_months %}
             <div class="fact">
                 <label>Okay months</label>
@@ -169,7 +168,11 @@
                 <label>Tags</label>
                 <ul class="tags">
                     {% for tag in page.tags %}
-                    <li>{{ tag }}</li>
+                    <li>
+                        <a href="{{ '/atlas/?tag=' | relative_url }}{{ tag }}">
+                            {{ tag }}
+                        </a>
+                    </li>
                     {% endfor %}
                 </ul>
             </div>
