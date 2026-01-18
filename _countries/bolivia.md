@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: BOL
 name: "Bolivia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: bo
+best_months: []
+ok_months: []
 ---
-
 # Bolivia
 
 Write your notes about Bolivia here.

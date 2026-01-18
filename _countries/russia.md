@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ru
+best_months: []
+ok_months: []
 ---
-
 # Russia
 
 Write your notes about Russia here.

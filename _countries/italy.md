@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: it
+best_months: []
+ok_months: []
 ---
-
 # Italy
 
 Write your notes about Italy here.

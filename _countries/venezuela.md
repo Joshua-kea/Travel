@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: VEN
 name: "Venezuela"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Venezuela
 
 Write your notes about Venezuela here.

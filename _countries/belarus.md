@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: BLR
 name: "Belarus"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Belarus
 
 Write your notes about Belarus here.

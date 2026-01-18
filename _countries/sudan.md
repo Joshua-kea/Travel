@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SDN
 name: "Sudan"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Sudan
 
 Write your notes about Sudan here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: PAN
 name: "Panama"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Panama
 
 Write your notes about Panama here.

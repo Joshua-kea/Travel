@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: BHS
 name: "The Bahamas"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # The Bahamas
 
 Write your notes about The Bahamas here.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: ARE
 name: "United Arab Emirates"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ae
+best_months: []
+ok_months: []
 ---
-
 # United Arab Emirates
 
 Write your notes about United Arab Emirates here.

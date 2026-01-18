@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: no
+best_months: []
+ok_months: []
 ---
-
 # Norway
 
 Write your notes about Norway here.

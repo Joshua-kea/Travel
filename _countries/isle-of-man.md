@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: IMN
 name: "Isle of Man"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Isle of Man
 
 Write your notes about Isle of Man here.

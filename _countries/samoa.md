@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: WSM
 name: "Samoa"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Samoa
 
 Write your notes about Samoa here.

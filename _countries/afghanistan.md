@@ -15,9 +15,9 @@ budget:
   eur:
 gay_details: >
   Illegal. Death penalty as punishment. Especially strict under Taliban law.
-
+best_months: []
+ok_months: []
 ---
-
 # Afghanistan
 
 Write your notes about Afghanistan here.

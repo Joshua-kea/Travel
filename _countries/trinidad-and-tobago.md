@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TTO
 name: "Trinidad and Tobago"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Trinidad and Tobago
 
 Write your notes about Trinidad and Tobago here.

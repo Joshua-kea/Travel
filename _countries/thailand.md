@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: th
+best_months: []
+ok_months: []
 ---
-
 # Thailand
 
 Write your notes about Thailand here.

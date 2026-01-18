@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: ROU
 name: "Romania"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ro
+best_months: []
+ok_months: []
 ---
-
 # Romania
 
 Write your notes about Romania here.

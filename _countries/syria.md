@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SYR
 name: "Syria"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Syria
 
 Write your notes about Syria here.

@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: at
+best_months: []
+ok_months: []
 ---
-
 # Austria
 
 Write your notes about Austria here.

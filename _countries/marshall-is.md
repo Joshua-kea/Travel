@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MHL
 name: "Marshall Is."
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Marshall Is.
 
 Write your notes about Marshall Is. here.

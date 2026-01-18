@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: mx
+best_months: []
+ok_months: []
 ---
-
 # Mexico
 
 Write your notes about Mexico here.

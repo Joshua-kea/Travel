@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: LSO
 name: "Lesotho"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Lesotho
 
 Write your notes about Lesotho here.

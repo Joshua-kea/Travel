@@ -15,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Hong Kong
 
 Write your notes about Hong Kong here.

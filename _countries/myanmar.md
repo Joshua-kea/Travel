@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MMR
 name: "Myanmar"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Myanmar
 
 Write your notes about Myanmar here.

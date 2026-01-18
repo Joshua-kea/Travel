@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SLV
 name: "El Salvador"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # El Salvador
 
 Write your notes about El Salvador here.

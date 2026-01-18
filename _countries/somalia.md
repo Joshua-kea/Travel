@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SOM
 name: "Somalia"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Somalia
 
 Write your notes about Somalia here.

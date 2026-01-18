@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: VUT
 name: "Vanuatu"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Vanuatu
 
 Write your notes about Vanuatu here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: JAM
 name: "Jamaica"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Jamaica
 
 Write your notes about Jamaica here.

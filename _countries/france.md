@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: fr
+best_months: []
+ok_months: []
 ---
-
 # France
 
 Write your notes about France here.

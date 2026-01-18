@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: IOT
 name: "Br. Indian Ocean Ter."
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Br. Indian Ocean Ter.
 
 Write your notes about Br. Indian Ocean Ter. here.

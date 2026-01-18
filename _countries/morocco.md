@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ma
+best_months: []
+ok_months: []
 ---
-
 # Morocco
 
 Write your notes about Morocco here.

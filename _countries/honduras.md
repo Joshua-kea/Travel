@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: HND
 name: "Honduras"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Honduras
 
 Write your notes about Honduras here.

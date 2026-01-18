@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: LCA
 name: "Saint Lucia"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Saint Lucia
 
 Write your notes about Saint Lucia here.

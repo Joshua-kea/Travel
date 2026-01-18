@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: PER
 name: "Peru"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: pe
+best_months: []
+ok_months: []
 ---
-
 # Peru
 
 Write your notes about Peru here.

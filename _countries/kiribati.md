@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: KIR
 name: "Kiribati"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Kiribati
 
 Write your notes about Kiribati here.

@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: hu
+best_months: []
+ok_months: []
 ---
-
 # Hungary
 
 Write your notes about Hungary here.

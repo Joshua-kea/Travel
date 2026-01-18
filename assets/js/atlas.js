@@ -26,8 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     map.createPane("subdivisions");
     map.getPane("countries").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
-
-    /* Tooltips over polygons, under UI */
     map.getPane("tooltipPane").style.zIndex = 450;
 
     window.addEventListener("pageshow", () => {
@@ -67,10 +65,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function placeMatchesFilters(place) {
         if (!place) return false;
 
+        /* TAGS = AND */
         if (activeTags.size) {
             if (![...activeTags].every(t => place.tags?.includes(t))) return false;
         }
 
+        /* MONTHS = OR (best_months ONLY) */
         if (activeMonths.size) {
             const months = normalizeMonths(place.best_months);
             if (!months.some(m => activeMonths.has(m))) return false;
@@ -129,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
         layer._hasFilters = false;
         layer._isMatch = true;
 
-        /* Hover-only tooltip — never permanent */
         layer.bindTooltip(label || "", {
             sticky: true,
             direction: "center"
@@ -156,6 +155,14 @@ document.addEventListener("DOMContentLoaded", () => {
         else layer.setStyle(STYLE_DIM);
     }
 
+    function applyFilters() {
+        layers.forEach(layer => {
+            layer._hasFilters = activeTags.size > 0 || activeMonths.size > 0;
+            layer._isMatch = layer._place ? placeMatchesFilters(layer._place) : false;
+            applyStyle(layer);
+        });
+    }
+
     /* =========================
        LOAD GEO DATA
     ========================= */
@@ -171,11 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     return key && key !== "USA" && key !== "GBR";
                 },
                 onEachFeature: (f, l) => {
-                    bindLayer(
-                        l,
-                        byISO[getCountryKey(f.properties)],
-                        f.properties.NAME
-                    );
+                    bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
                 }
             }).addTo(map);
         });
@@ -201,100 +204,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 pane: "subdivisions",
                 style: STYLE_BASE,
                 onEachFeature: (f, l) => {
-
                     const props = f.properties || {};
                     let iso = props.ISO_1 || "";
                     let label = "";
 
-                    if (props.GID_1 === "GBR.1_1") {
-                        iso = "GB-ENG";
-                        label = "England";
-                    }
-                    else if (iso === "GB-SCT") {
-                        label = "Scotland";
-                    }
-                    else if (iso === "GB-WLS") {
-                        label = "Wales";
-                    }
-                    else if (iso === "GB-NIR") {
-                        label = "Northern Ireland";
-                    }
+                    if (props.GID_1 === "GBR.1_1") { iso = "GB-ENG"; label = "England"; }
+                    else if (iso === "GB-SCT") label = "Scotland";
+                    else if (iso === "GB-WLS") label = "Wales";
+                    else if (iso === "GB-NIR") label = "Northern Ireland";
 
-                    bindLayer(
-                        l,
-                        byAdminKey[`GBR:${iso}`],
-                        label
-                    );
+                    bindLayer(l, byAdminKey[`GBR:${iso}`], label);
                 }
             }).addTo(map);
         });
 
     /* =========================
-       FILTER UI + CHIPS
+       FILTER UI
     ========================= */
 
     const panel = document.getElementById("filterPanel");
     const toggleBtn = document.getElementById("toggleFilterPanel");
     const applyBtn = document.getElementById("applyFilterBtn");
     const clearBtn = document.getElementById("clearFilterBtn");
-    const chipsEl = document.getElementById("activeFilters");
 
-    /* 🔧 FIX: panel must NEVER start open */
     panel.style.display = "none";
 
     toggleBtn.onclick = () => {
         panel.style.display = panel.style.display === "none" ? "block" : "none";
     };
-
-    function uncheckFilterCheckbox(value) {
-        panel.querySelectorAll("input[type='checkbox']").forEach(cb => {
-            if (cb.value === value) cb.checked = false;
-        });
-    }
-
-    function renderChips() {
-        chipsEl.innerHTML = "";
-
-        activeTags.forEach(tag => {
-            const chip = document.createElement("span");
-            chip.textContent = `${tag} ×`;
-            chip.style.cssText = `
-                background:#6b8f9c;
-                color:white;
-                padding:0.25rem 0.7rem;
-                border-radius:999px;
-                cursor:pointer;
-                font-size:0.75rem;
-            `;
-            chip.onclick = () => {
-                activeTags.delete(tag);
-                uncheckFilterCheckbox(tag);
-                renderChips();
-                applyFilters();
-            };
-            chipsEl.appendChild(chip);
-        });
-
-        activeMonths.forEach(month => {
-            const chip = document.createElement("span");
-            chip.textContent = `Month ${month} ×`;
-            chip.style.cssText = `
-                background:#6b8f9c;
-                color:white;
-                padding:0.25rem 0.7rem;
-                border-radius:999px;
-                cursor:pointer;
-                font-size:0.75rem;
-            `;
-            chip.onclick = () => {
-                activeMonths.delete(month);
-                uncheckFilterCheckbox(month);
-                renderChips();
-                applyFilters();
-            };
-            chipsEl.appendChild(chip);
-        });
-    }
 
     applyBtn.onclick = () => {
         activeTags.clear();
@@ -307,7 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         panel.style.display = "none";
-        renderChips();
         applyFilters();
     };
 
@@ -315,13 +251,12 @@ document.addEventListener("DOMContentLoaded", () => {
         activeTags.clear();
         activeMonths.clear();
         panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
-        renderChips();
         applyFilters();
         panel.style.display = "none";
     };
 
     /* =========================
-       VIEW SWITCH + LIST VIEW
+       VIEW SWITCH
     ========================= */
 
     const mapView = document.getElementById("mapView");
@@ -338,56 +273,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const byContinent = {};
-        filtered.forEach(p => {
-            const c = p.continent || "Other";
-            (byContinent[c] ||= []).push(p);
+        filtered.forEach(place => {
+            const div = document.createElement("div");
+            div.textContent = place.name;
+            div.onclick = () => location.href = place.url;
+            listEl.appendChild(div);
         });
-
-        Object.keys(byContinent)
-            .sort((a, b) => a.localeCompare(b))
-            .forEach(continent => {
-
-                const places = byContinent[continent]
-                    .sort((a, b) => a.name.localeCompare(b.name));
-
-                const section = document.createElement("section");
-                section.style.margin = "3rem 0";
-
-                const header = document.createElement("h2");
-                header.textContent = continent.toUpperCase();
-                header.style.cssText = `
-                    margin-bottom:1rem;
-                    font-size:0.85rem;
-                    letter-spacing:0.08em;
-                    color:#6b7280;
-                `;
-
-                const grid = document.createElement("div");
-                grid.style.cssText = `
-                    display:grid;
-                    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-                    gap:1rem;
-                `;
-
-                places.forEach(place => {
-                    const card = document.createElement("div");
-                    card.style.cssText = `
-                        padding:0.9rem 1rem;
-                        background:#f9fafb;
-                        border-radius:8px;
-                        border:1px solid #eef1f3;
-                        cursor:pointer;
-                    `;
-                    card.innerHTML = `<strong>${place.name}</strong>`;
-                    card.onclick = () => location.href = place.url;
-                    grid.appendChild(card);
-                });
-
-                section.appendChild(header);
-                section.appendChild(grid);
-                listEl.appendChild(section);
-            });
     }
 
     function setView(view) {

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: NCL
 name: "New Caledonia"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # New Caledonia
 
 Write your notes about New Caledonia here.

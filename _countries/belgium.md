@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: be
+best_months: []
+ok_months: []
 ---
-
 # Belgium
 
 Write your notes about Belgium here.

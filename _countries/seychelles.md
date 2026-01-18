@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SYC
 name: "Seychelles"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Seychelles
 
 Write your notes about Seychelles here.

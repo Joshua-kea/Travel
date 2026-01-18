@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TUV
 name: "Tuvalu"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Tuvalu
 
 Write your notes about Tuvalu here.

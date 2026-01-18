@@ -17,8 +17,9 @@ budget:
   eur:
 gay_details:
 iso2: dk
+best_months: []
+ok_months: []
 ---
-
 # Denmark
 
 Write your notes about Denmark here.

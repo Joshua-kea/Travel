@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: RWA
 name: "Rwanda"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Rwanda
 
 Write your notes about Rwanda here.

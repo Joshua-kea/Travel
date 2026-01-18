@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: ALA
 name: "Åland"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Åland
 
 Write your notes about Åland here.

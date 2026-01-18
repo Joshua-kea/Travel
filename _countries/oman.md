@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: OMN
 name: "Oman"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Oman
 
 Write your notes about Oman here.

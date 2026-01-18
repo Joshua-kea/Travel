@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MLI
 name: "Mali"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Mali
 
 Write your notes about Mali here.

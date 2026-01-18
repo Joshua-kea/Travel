@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MDV
 name: "Maldives"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Maldives
 
 Write your notes about Maldives here.

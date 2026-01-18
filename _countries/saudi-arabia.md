@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: SAU
 name: "Saudi Arabia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: sa
+best_months: []
+ok_months: []
 ---
-
 # Saudi Arabia
 
 Write your notes about Saudi Arabia here.

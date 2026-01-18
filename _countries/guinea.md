@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: GIN
 name: "Guinea"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Guinea
 
 Write your notes about Guinea here.

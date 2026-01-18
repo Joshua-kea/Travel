@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 admin_key: "USA:US-MI"
 name: "Michigan"
@@ -23,7 +19,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Michigan

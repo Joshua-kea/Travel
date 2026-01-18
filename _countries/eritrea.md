@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: ERI
 name: "Eritrea"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Eritrea
 
 Write your notes about Eritrea here.

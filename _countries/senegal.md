@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: sn
+best_months: []
+ok_months: []
 ---
-
 # Senegal
 
 Write your notes about Senegal here.

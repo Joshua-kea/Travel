@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: ZWE
 name: "Zimbabwe"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: zw
+best_months: []
+ok_months: []
 ---
-
 # Zimbabwe
 
 Write your notes about Zimbabwe here.

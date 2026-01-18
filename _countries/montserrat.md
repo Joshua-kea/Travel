@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MSR
 name: "Montserrat"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Montserrat
 
 Write your notes about Montserrat here.

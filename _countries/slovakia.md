@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: SVK
 name: "Slovakia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: sk
+best_months: []
+ok_months: []
 ---
-
 # Slovakia
 
 Write your notes about Slovakia here.

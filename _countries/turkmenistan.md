@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TKM
 name: "Turkmenistan"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Turkmenistan
 
 Write your notes about Turkmenistan here.

@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ch
+best_months: []
+ok_months: []
 ---
-
 # Switzerland
 
 Write your notes about Switzerland here.

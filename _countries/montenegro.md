@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: MNE
 name: "Montenegro"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: me
+best_months: []
+ok_months: []
 ---
-
 # Montenegro
 
 Write your notes about Montenegro here.

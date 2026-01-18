@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 admin_key: "USA:US-SD"
 name: "South Dakota"
@@ -24,7 +20,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # South Dakota

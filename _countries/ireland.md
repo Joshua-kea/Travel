@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ie
+best_months: []
+ok_months: []
 ---
-
 # Ireland
 
 Write your notes about Ireland here.

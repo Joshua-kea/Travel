@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: GNB
 name: "Guinea Bissau"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Guinea Bissau
 
 Write your notes about Guinea Bissau here.

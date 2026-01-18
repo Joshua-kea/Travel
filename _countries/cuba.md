@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: CUB
 name: "Cuba"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Cuba
 
 Write your notes about Cuba here.

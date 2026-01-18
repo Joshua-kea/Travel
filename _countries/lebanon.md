@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: LBN
 name: "Lebanon"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: lb
+best_months: []
+ok_months: []
 ---
-
 # Lebanon
 
 Write your notes about Lebanon here.

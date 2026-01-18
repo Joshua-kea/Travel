@@ -17,7 +17,7 @@ budget:
   eur:
 gay_friendliness: 80
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # England

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: IRQ
 name: "Iraq"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Iraq
 
 Write your notes about Iraq here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: CRI
 name: "Costa Rica"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Costa Rica
 
 Write your notes about Costa Rica here.

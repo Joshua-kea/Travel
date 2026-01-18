@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TJK
 name: "Tajikistan"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Tajikistan
 
 Write your notes about Tajikistan here.

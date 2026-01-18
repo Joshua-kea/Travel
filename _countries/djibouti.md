@@ -15,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Djibouti
 
 Write your notes about Djibouti here.

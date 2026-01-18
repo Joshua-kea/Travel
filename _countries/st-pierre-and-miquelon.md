@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SPM
 name: "St. Pierre and Miquelon"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # St. Pierre and Miquelon
 
 Write your notes about St. Pierre and Miquelon here.

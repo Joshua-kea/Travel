@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: COL
 name: "Colombia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: co
+best_months: []
+ok_months: []
 ---
-
 # Colombia
 
 Write your notes about Colombia here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: VCT
 name: "St. Vin. and Gren."
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # St. Vin. and Gren.
 
 Write your notes about St. Vin. and Gren. here.

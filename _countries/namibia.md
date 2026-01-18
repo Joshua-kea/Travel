@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: NAM
 name: "Namibia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: na
+best_months: []
+ok_months: []
 ---
-
 # Namibia
 
 Write your notes about Namibia here.

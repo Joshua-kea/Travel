@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TWN
 name: "Taiwan"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Taiwan
 
 Write your notes about Taiwan here.

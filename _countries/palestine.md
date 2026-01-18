@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: PSE
 name: "Palestine"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Palestine
 
 Write your notes about Palestine here.

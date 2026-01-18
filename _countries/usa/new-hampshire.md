@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 admin_key: "USA:US-NH"
 name: "New Hampshire"
@@ -23,7 +19,7 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # New Hampshire

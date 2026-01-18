@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: DOM
 name: "Dominican Republic"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Dominican Republic
 
 Write your notes about Dominican Republic here.

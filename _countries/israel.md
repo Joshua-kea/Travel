@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: ISR
 name: "Israel"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: il
+best_months: []
+ok_months: []
 ---
-
 # Israel
 
 Write your notes about Israel here.

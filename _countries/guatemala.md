@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: GTM
 name: "Guatemala"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Guatemala
 
 Write your notes about Guatemala here.

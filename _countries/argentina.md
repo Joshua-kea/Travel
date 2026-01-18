@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: ARG
 name: "Argentina"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ar
+best_months: []
+ok_months: []
 ---
-
 # Argentina
 
 Write your notes about Argentina here.

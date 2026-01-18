@@ -28,8 +28,9 @@ gay_details: >
     Has been legal since 2021. No censorship, and discrimination is illegal. 
     But marriage is illegal, and there is not much support for trans people.
 iso2: ao
+best_months: []
+ok_months: []
 ---
-
 # Angola
 
 Write your notes about Angola here.

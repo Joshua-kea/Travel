@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MAC
 name: "Macao"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Macao
 
 Write your notes about Macao here.

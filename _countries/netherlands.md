@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: nl
+best_months: []
+ok_months: []
 ---
-
 # Netherlands
 
 Write your notes about Netherlands here.

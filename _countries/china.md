@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: CHN
 name: "China"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: cn
+best_months: []
+ok_months: []
 ---
-
 # China
 
 Write your notes about China here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: PLW
 name: "Palau"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Palau
 
 Write your notes about Palau here.

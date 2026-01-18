@@ -15,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Vatican
 
 Write your notes about Vatican here.

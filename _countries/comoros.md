@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: COM
 name: "Comoros"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Comoros
 
 Write your notes about Comoros here.

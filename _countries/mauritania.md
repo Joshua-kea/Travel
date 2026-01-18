@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MRT
 name: "Mauritania"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Mauritania
 
 Write your notes about Mauritania here.

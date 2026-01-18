@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: FJI
 name: "Fiji"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Fiji
 
 Write your notes about Fiji here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SUR
 name: "Suriname"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Suriname
 
 Write your notes about Suriname here.

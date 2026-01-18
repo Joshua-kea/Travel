@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TGO
 name: "Togo"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Togo
 
 Write your notes about Togo here.

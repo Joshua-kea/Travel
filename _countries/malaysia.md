@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: MYS
 name: "Malaysia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: my
+best_months: []
+ok_months: []
 ---
-
 # Malaysia
 
 Write your notes about Malaysia here.

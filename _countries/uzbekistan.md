@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: UZB
 name: "Uzbekistan"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Uzbekistan
 
 Write your notes about Uzbekistan here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: NPL
 name: "Nepal"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Nepal
 
 Write your notes about Nepal here.

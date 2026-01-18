@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: PHL
 name: "Philippines"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ph
+best_months: []
+ok_months: []
 ---
-
 # Philippines
 
 Write your notes about Philippines here.

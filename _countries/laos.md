@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: LAO
 name: "Laos"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Laos
 
 Write your notes about Laos here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: BRN
 name: "Brunei"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Brunei
 
 Write your notes about Brunei here.

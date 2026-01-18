@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: SRB
 name: "Republic of Serbia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: rs
+best_months: []
+ok_months: []
 ---
-
 # Republic of Serbia
 
 Write your notes about Republic of Serbia here.

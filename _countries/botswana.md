@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: bw
+best_months: []
+ok_months: []
 ---
-
 # Botswana
 
 Write your notes about Botswana here.

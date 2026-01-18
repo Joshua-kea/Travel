@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: KEN
 name: "Kenya"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Kenya
 
 Write your notes about Kenya here.

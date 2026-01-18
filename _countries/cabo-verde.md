@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: CPV
 name: "Cabo Verde"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Cabo Verde
 
 Write your notes about Cabo Verde here.

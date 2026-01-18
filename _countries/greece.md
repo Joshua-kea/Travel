@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: gr
+best_months: []
+ok_months: []
 ---
-
 # Greece
 
 Write your notes about Greece here.

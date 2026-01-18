@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: WLF
 name: "Wallis and Futuna Is."
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Wallis and Futuna Is.
 
 Write your notes about Wallis and Futuna Is. here.

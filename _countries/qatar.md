@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: QAT
 name: "Qatar"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: qa
+best_months: []
+ok_months: []
 ---
-
 # Qatar
 
 Write your notes about Qatar here.

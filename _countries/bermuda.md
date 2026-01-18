@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: BMU
 name: "Bermuda"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Bermuda
 
 Write your notes about Bermuda here.

@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: nz
+best_months: []
+ok_months: []
 ---
-
 # New Zealand
 
 Write your notes about New Zealand here.

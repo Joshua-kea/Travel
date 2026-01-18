@@ -14,9 +14,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Andorra
 
 Write your notes about Andorra here.

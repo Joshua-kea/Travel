@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: ISL
 name: "Iceland"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: is
+best_months: []
+ok_months: []
 ---
-
 # Iceland
 
 Write your notes about Iceland here.

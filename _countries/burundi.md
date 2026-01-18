@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: BDI
 name: "Burundi"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Burundi
 
 Write your notes about Burundi here.

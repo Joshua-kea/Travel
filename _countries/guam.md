@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: GUM
 name: "Guam"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Guam
 
 Write your notes about Guam here.

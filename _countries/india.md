@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: IND
 name: "India"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: in
+best_months: []
+ok_months: []
 ---
-
 # India
 
 Write your notes about India here.

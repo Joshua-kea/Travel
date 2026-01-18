@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: PRY
 name: "Paraguay"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: py
+best_months: []
+ok_months: []
 ---
-
 # Paraguay
 
 Write your notes about Paraguay here.

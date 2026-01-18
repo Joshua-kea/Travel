@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: KHM
 name: "Cambodia"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Cambodia
 
 Write your notes about Cambodia here.

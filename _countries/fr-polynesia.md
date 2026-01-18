@@ -15,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Fr. Polynesia
 
 Write your notes about Fr. Polynesia here.

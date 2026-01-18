@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: UMI
 name: "U.S. Minor Outlying Is."
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # U.S. Minor Outlying Is.
 
 Write your notes about U.S. Minor Outlying Is. here.

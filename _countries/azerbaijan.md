@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: AZE
 name: "Azerbaijan"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Azerbaijan
 
 Write your notes about Azerbaijan here.

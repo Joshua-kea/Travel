@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: vn
+best_months: []
+ok_months: []
 ---
-
 # Vietnam
 
 Write your notes about Vietnam here.

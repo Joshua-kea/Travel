@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MDG
 name: "Madagascar"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Madagascar
 
 Write your notes about Madagascar here.

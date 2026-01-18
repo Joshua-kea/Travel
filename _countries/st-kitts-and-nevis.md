@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: KNA
 name: "St. Kitts and Nevis"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # St. Kitts and Nevis
 
 Write your notes about St. Kitts and Nevis here.

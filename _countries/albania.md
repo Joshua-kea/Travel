@@ -17,8 +17,9 @@ gay_details: >
   Legal since 1995, but marriage is banned.
   Public opinion of LGTBQ+ is quite low.
 iso2: al
+best_months: []
+ok_months: []
 ---
-
 # Albania
 
 Write your notes about Albania here.

@@ -19,7 +19,7 @@ budget:
     
 gay_friendliness: 78
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Wales

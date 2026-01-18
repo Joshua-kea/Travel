@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MWI
 name: "Malawi"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Malawi
 
 Write your notes about Malawi here.

@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: za
+best_months: []
+ok_months: []
 ---
-
 # South Africa
 
 Write your notes about South Africa here.

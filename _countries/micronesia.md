@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: FSM
 name: "Micronesia"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Micronesia
 
 Write your notes about Micronesia here.

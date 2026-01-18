@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: es
+best_months: []
+ok_months: []
 ---
-
 # Spain
 
 Write your notes about Spain here.

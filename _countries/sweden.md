@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: SWE
 name: "Sweden"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: se
+best_months: []
+ok_months: []
 ---
-
 # Sweden
 
 Write your notes about Sweden here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TCD
 name: "Chad"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Chad
 
 Write your notes about Chad here.

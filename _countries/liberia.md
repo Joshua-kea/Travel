@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: LBR
 name: "Liberia"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Liberia
 
 Write your notes about Liberia here.

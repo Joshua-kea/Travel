@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: ETH
 name: "Ethiopia"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Ethiopia
 
 Write your notes about Ethiopia here.

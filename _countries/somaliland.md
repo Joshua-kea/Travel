@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SOL
 name: "Somaliland"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Somaliland
 
 Write your notes about Somaliland here.

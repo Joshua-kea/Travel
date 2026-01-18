@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: URY
 name: "Uruguay"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: uy
+best_months: []
+ok_months: []
 ---
-
 # Uruguay
 
 Write your notes about Uruguay here.

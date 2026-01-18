@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: de
+best_months: []
+ok_months: []
 ---
-
 # Germany
 
 Write your notes about Germany here.

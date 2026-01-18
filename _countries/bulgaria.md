@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: bg
+best_months: []
+ok_months: []
 ---
-
 # Bulgaria
 
 Write your notes about Bulgaria here.

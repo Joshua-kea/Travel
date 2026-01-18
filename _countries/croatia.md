@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: hr
+best_months: []
+ok_months: []
 ---
-
 # Croatia
 
 Write your notes about Croatia here.

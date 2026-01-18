@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: CAN
 name: "Canada"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ca
+best_months: []
+ok_months: []
 ---
-
 # Canada
 
 Write your notes about Canada here.

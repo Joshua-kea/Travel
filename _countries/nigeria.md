@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: NGA
 name: "Nigeria"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ng
+best_months: []
+ok_months: []
 ---
-
 # Nigeria
 
 Write your notes about Nigeria here.

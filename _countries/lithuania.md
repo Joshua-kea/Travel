@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: LTU
 name: "Lithuania"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: lt
+best_months: []
+ok_months: []
 ---
-
 # Lithuania
 
 Write your notes about Lithuania here.

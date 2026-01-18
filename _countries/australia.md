@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: AUS
 name: "Australia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: au
+best_months: []
+ok_months: []
 ---
-
 # Australia
 
 Write your notes about Australia here.

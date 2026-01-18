@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: KWT
 name: "Kuwait"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: kw
+best_months: []
+ok_months: []
 ---
-
 # Kuwait
 
 Write your notes about Kuwait here.

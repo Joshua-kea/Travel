@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: KGZ
 name: "Kyrgyzstan"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Kyrgyzstan
 
 Write your notes about Kyrgyzstan here.

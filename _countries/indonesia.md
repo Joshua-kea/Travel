@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: IDN
 name: "Indonesia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: id
+best_months: []
+ok_months: []
 ---
-
 # Indonesia
 
 Write your notes about Indonesia here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: DMA
 name: "Dominica"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Dominica
 
 Write your notes about Dominica here.

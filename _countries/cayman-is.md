@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: CYM
 name: "Cayman Is."
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Cayman Is.
 
 Write your notes about Cayman Is. here.

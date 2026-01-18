@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: GHA
 name: "Ghana"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: gh
+best_months: []
+ok_months: []
 ---
-
 # Ghana
 
 Write your notes about Ghana here.

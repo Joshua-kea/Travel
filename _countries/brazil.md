@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: BRA
 name: "Brazil"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: br
+best_months: []
+ok_months: []
 ---
-
 # Brazil
 
 Write your notes about Brazil here.

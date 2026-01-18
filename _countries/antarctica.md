@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: ATA
 name: "Antarctica"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Antarctica
 
 Write your notes about Antarctica here.

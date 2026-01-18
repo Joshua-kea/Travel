@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: YEM
 name: "Yemen"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Yemen
 
 Write your notes about Yemen here.

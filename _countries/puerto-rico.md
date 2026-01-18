@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: PRI
 name: "Puerto Rico"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Puerto Rico
 
 Write your notes about Puerto Rico here.

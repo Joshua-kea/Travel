@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TON
 name: "Tonga"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Tonga
 
 Write your notes about Tonga here.

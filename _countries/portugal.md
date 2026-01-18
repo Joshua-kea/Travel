@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: pt
+best_months: []
+ok_months: []
 ---
-
 # Portugal
 
 Write your notes about Portugal here.

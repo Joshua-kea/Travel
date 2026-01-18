@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: SHN
 name: "Saint Helena"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Saint Helena
 
 Write your notes about Saint Helena here.

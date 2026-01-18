@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: jo
+best_months: []
+ok_months: []
 ---
-
 # Jordan
 
 Write your notes about Jordan here.

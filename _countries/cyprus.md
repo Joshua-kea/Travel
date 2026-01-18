@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: CYP
 name: "Cyprus"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: cy
+best_months: []
+ok_months: []
 ---
-
 # Cyprus
 
 Write your notes about Cyprus here.

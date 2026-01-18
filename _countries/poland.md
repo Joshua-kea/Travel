@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: pl
+best_months: []
+ok_months: []
 ---
-
 # Poland
 
 Write your notes about Poland here.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: GAB
 name: "Gabon"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Gabon
 
 Write your notes about Gabon here.

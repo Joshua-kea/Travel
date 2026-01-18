@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: NRU
 name: "Nauru"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Nauru
 
 Write your notes about Nauru here.

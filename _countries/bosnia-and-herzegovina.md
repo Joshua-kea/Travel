@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ba
+best_months: []
+ok_months: []
 ---
-
 # Bosnia and Herzegovina
 
 Write your notes about Bosnia and Herzegovina here.

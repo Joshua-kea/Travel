@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: CAF
 name: "Central African Republic"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Central African Republic
 
 Write your notes about Central African Republic here.

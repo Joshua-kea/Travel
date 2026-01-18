@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: SVN
 name: "Slovenia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: si
+best_months: []
+ok_months: []
 ---
-
 # Slovenia
 
 Write your notes about Slovenia here.

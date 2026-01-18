@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: mt
+best_months: []
+ok_months: []
 ---
-
 # Malta
 
 Write your notes about Malta here.

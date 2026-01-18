@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: MOZ
 name: "Mozambique"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Mozambique
 
 Write your notes about Mozambique here.

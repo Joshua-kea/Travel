@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: fi
+best_months: []
+ok_months: []
 ---
-
 # Finland
 
 Write your notes about Finland here.

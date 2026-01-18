@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: tr
+best_months: []
+ok_months: []
 ---
-
 # Turkey
 
 Write your notes about Turkey here.

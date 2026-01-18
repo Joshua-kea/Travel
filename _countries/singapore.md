@@ -16,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: sg
+best_months: []
+ok_months: []
 ---
-
 # Singapore
 
 Write your notes about Singapore here.

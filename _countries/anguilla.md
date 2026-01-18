@@ -14,9 +14,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Anguilla
 
 Write your notes about Anguilla here.

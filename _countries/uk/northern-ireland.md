@@ -17,7 +17,7 @@ budget:
   eur:
 gay_friendliness: 73
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Northern Ireland

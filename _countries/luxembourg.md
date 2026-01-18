@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: LUX
 name: "Luxembourg"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: lu
+best_months: []
+ok_months: []
 ---
-
 # Luxembourg
 
 Write your notes about Luxembourg here.

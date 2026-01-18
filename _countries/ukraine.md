@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: UKR
 name: "Ukraine"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: ua
+best_months: []
+ok_months: []
 ---
-
 # Ukraine
 
 Write your notes about Ukraine here.

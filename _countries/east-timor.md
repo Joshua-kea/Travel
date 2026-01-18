@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: TLS
 name: "East Timor"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # East Timor
 
 Write your notes about East Timor here.

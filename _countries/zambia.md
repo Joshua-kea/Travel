@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: ZMB
 name: "Zambia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: zm
+best_months: []
+ok_months: []
 ---
-
 # Zambia
 
 Write your notes about Zambia here.

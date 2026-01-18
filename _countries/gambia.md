@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: GMB
 name: "Gambia"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Gambia
 
 Write your notes about Gambia here.

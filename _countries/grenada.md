@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: GRD
 name: "Grenada"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Grenada
 
 Write your notes about Grenada here.

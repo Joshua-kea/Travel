@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: HTI
 name: "Haiti"
@@ -19,9 +15,9 @@ budget:
   dkk:
   eur:
 gay_details:
-
+best_months: []
+ok_months: []
 ---
-
 # Haiti
 
 Write your notes about Haiti here.

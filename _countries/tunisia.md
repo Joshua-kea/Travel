@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: TUN
 name: "Tunisia"
@@ -21,8 +16,9 @@ budget:
   eur:
 gay_details:
 iso2: tn
+best_months: []
+ok_months: []
 ---
-
 # Tunisia
 
 Write your notes about Tunisia here.
