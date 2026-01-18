@@ -184,6 +184,96 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     /* =========================
+   FILTER UI + CHIPS (RESTORED)
+========================= */
+
+    const panel = document.getElementById("filterPanel");
+    const toggleBtn = document.getElementById("toggleFilterPanel");
+    const applyBtn = document.getElementById("applyFilterBtn");
+    const clearBtn = document.getElementById("clearFilterBtn");
+    const chipsEl = document.getElementById("activeFilters");
+
+    if (panel && toggleBtn) {
+        panel.style.display = "none";
+
+        toggleBtn.onclick = () => {
+            panel.style.display = panel.style.display === "none" ? "block" : "none";
+        };
+    }
+
+    function renderChips() {
+        if (!chipsEl) return;
+
+        chipsEl.innerHTML = "";
+
+        activeTags.forEach(tag => {
+            const chip = document.createElement("span");
+            chip.textContent = `${tag} ×`;
+            chip.style.cssText = `
+            background:#6b8f9c;
+            color:white;
+            padding:0.2rem 0.55rem;
+            border-radius:999px;
+            cursor:pointer;
+            font-size:0.7rem;
+        `;
+            chip.onclick = () => {
+                activeTags.delete(tag);
+                updateURL();
+                renderChips();
+                applyFilters();
+            };
+            chipsEl.appendChild(chip);
+        });
+    }
+
+    function updateURL() {
+        const params = new URLSearchParams(window.location.search);
+        if (activeTags.size === 1) {
+            params.set("tag", [...activeTags][0]);
+        } else {
+            params.delete("tag");
+        }
+        history.replaceState({}, "", `${location.pathname}?${params}`);
+    }
+
+    if (applyBtn) {
+        applyBtn.onclick = () => {
+            activeTags.clear();
+            activeMonths.clear();
+
+            panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
+                isNaN(cb.value)
+                    ? activeTags.add(cb.value)
+                    : activeMonths.add(String(cb.value));
+            });
+
+            updateURL();
+            renderChips();
+            applyFilters();
+            panel.style.display = "none";
+        };
+    }
+
+    if (clearBtn) {
+        clearBtn.onclick = () => {
+            activeTags.clear();
+            activeMonths.clear();
+            panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
+            updateURL();
+            renderChips();
+            applyFilters();
+            panel.style.display = "none";
+        };
+    }
+
+    /* init chips if tag came from URL */
+    if (activeTags.size) {
+        renderChips();
+        applyFilters();
+    }
+
+    /* =========================
        VIEW SWITCH (FIXED)
     ========================= */
 
