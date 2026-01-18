@@ -1,14 +1,10 @@
 ---
-
-
-
-
 layout: country
 iso: DJI
 name: "Djibouti"
 continent: 
 gay_friendliness:
-tags: []
+tags: [j_wants_to_go]
 language:
 
 

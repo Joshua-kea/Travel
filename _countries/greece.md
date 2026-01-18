@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: GRC
 name: "Greece"
 continent: Europe
 gay_friendliness:
-tags: [jwashere]
+tags: [j_has_been, m_wants_to_go, island, beach, expensive]
 language:
 
 

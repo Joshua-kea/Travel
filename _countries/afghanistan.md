@@ -1,14 +1,10 @@
 ---
-
-
-
-
 layout: country
 iso: AFG
 name: "Afghanistan"
 continent: Asia
-gay_friendliness:
-tags: []
+gay_friendliness: 1
+tags: [culture]
 language:
 
 currency:
@@ -17,7 +13,8 @@ capital:
 budget:
   dkk:
   eur:
-gay_details:
+gay_details: >
+  Illegal. Death penalty as punishment. Especially strict under Taliban law.
 
 ---
 

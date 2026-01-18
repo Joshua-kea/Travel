@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: BWA
 name: "Botswana"

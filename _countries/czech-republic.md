@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: CZE
 name: "Czech Republic"
 continent: Europe
 gay_friendliness:
-tags: [jwashere]
+tags: [j_has_been]
 language:
 
 

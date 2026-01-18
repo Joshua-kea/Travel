@@ -1,16 +1,11 @@
 ---
-
-
-
-
 layout: country
 iso: ASM
 name: "American Samoa"
 continent:
-gay_friendliness:
-tags: []
+gay_friendliness: 71
+tags: [island, beach]
 language:
-
 
 currency:
 
@@ -18,7 +13,10 @@ capital:
 budget:
   dkk:
   eur:
-gay_details:
+gay_details: >
+  Legal since 2003, but a lot of their laws about LGBTQ+ is unknown,
+  such as their laws on discrimination protection. Marriage is not legal.
+  Conservative culture, so while public opinion isn't well-known it can be assumed to be low.
 
 ---
 

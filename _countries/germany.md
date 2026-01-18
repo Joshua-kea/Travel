@@ -1,21 +1,16 @@
 ---
-
-
-
-
-
 layout: country
 iso: DEU
 name: "Germany"
 continent: Europe
 gay_friendliness:
-tags: [jwashere, mwashere]
+tags: [j_has_been, m_has_been, friends_and_family]
 language:
-
+  - German
 
 currency:
 
-capital:
+capital: Berlin
 budget:
   dkk:
   eur:

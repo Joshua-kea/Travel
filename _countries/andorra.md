@@ -1,16 +1,11 @@
 ---
-
-
-
-
 layout: country
 iso: AND
 name: "Andorra"
 continent: Europe
-gay_friendliness:
-tags: []
+gay_friendliness: 80
+tags: [expensive, walkable, gay_friendly]
 language:
-
 
 currency:
 

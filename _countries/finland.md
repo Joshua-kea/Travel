@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: FIN
 name: "Finland"
 continent: Europe
 gay_friendliness:
-tags: [mwashere]
+tags: [m_was_here]
 language:
 
 

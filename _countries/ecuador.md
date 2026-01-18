@@ -1,14 +1,10 @@
 ---
-
-
-
-
 layout: country
 iso: ECU
 name: "Ecuador"
 continent: South America
 gay_friendliness:
-tags: []
+tags: [j_wants_to_go]
 language:
 
 

@@ -1,14 +1,10 @@
 ---
-
-
-
-
 layout: country
 iso: BEN
 name: "Benin"
 continent: Africa
 gay_friendliness:
-tags: [mwashere]
+tags: [m_has_been]
 language:
 
 

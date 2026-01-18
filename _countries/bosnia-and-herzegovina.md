@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: BIH
 name: "Bosnia and Herzegovina"
 continent: Europe
 gay_friendliness:
-tags: [jwashere, mwashere]
+tags: [j_has_been, m_has_been, culture]
 language:
 
 

@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: HRV
 name: "Croatia"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [m_wants_to_go, j_wants_to_go, beach]
 language:
 
 

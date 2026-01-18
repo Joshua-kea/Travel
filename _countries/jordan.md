@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: JOR
 name: "Jordan"
 continent: Asia
 gay_friendliness:
-tags: []
+tags: [culture, j_wants_to_go, m_wants_to_go]
 language:
 
 

@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: TUR
 name: "Turkey"
 continent: Asia
 gay_friendliness:
-tags: []
+tags: [j_wants_to_go, m_wants_to_go]
 language:
 
 

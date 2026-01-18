@@ -1,16 +1,11 @@
 ---
-
-
-
-
 layout: country
 iso: AIA
 name: "Anguilla"
 continent:
-gay_friendliness:
+gay_friendliness: 53
 tags: []
 language:
-
 
 currency:
 

@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: CHE
 name: "Switzerland"
 continent: Europe
 gay_friendliness:
-tags: [mwashere]
+tags: [m_has_been]
 language:
 
 

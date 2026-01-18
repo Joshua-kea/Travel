@@ -1,5 +1,4 @@
 ---
-
 layout: country
 iso: AGO
 name: "Angola"

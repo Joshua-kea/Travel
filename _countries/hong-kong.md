@@ -1,14 +1,10 @@
 ---
-
-
-
-
 layout: country
 iso: HKG
 name: "Hong Kong"
 continent: Asia
 gay_friendliness:
-tags: [jwashere]
+tags: [j_has_been]
 language:
 
 

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 layout: country
 iso: AUT
 name: "Austria"

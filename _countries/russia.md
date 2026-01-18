@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: RUS
 name: "Russia"
 continent: Europe
 gay_friendliness:
-tags: [jwashere]
+tags: [j_was_here]
 language:
 
 

@@ -1,14 +1,10 @@
 ---
-
-
-
-
 layout: country
 iso: GEO
 name: "Georgia"
 continent: Asia
 gay_friendliness:
-tags: []
+tags: [j_wants_to_go]
 language:
 
 

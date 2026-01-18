@@ -1,22 +1,11 @@
 ---
-
-
-
-
-
 name: "Japan"
 iso: JPN
 layout: country
 
 continent: Asia
 
-tags:
-  - island
-  - culture
-  - food
-  - expensive
-  - gay_friendly
-  - visited
+tags: [j_wants_to_go, m_wants_to_go, culture, food]
 
 best_months: [3,4,5,10,11]
 ok_months: [2,6]

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 layout: country
 iso: BFA
 name: "Burkina Faso"

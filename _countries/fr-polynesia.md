@@ -1,14 +1,10 @@
 ---
-
-
-
-
 layout: country
 iso: PYF
 name: "Fr. Polynesia"
 continent:
 gay_friendliness:
-tags: [jgohere, island, beach]
+tags: [j_wants_to_go, island, beach]
 language:
 
 

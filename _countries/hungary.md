@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: HUN
 name: "Hungary"
 continent: Europe
 gay_friendliness:
-tags: [jwashere]
+tags: [j_has_been, friends_and_family]
 language:
 
 

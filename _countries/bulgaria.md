@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: BGR
 name: "Bulgaria"
 continent: Europe
 gay_friendliness:
-tags: []
+tags: [j_has_been]
 language:
 
 

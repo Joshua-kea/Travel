@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: NLD
 name: "Netherlands"
 continent: Europe
 gay_friendliness:
-tags: [mwashere]
+tags: [m_has_been]
 language:
 
 

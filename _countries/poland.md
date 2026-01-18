@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: POL
 name: "Poland"
 continent: Europe
 gay_friendliness:
-tags: [jwashere]
+tags: [j_has_been]
 language:
 
 

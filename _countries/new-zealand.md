@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: NZL
 name: "New Zealand"
 continent: Oceania
 gay_friendliness:
-tags: []
+tags: [j_wants_to_go]
 language:
 
 

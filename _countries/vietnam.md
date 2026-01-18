@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: VNM
 name: "Vietnam"
 continent: Asia
 gay_friendliness:
-tags: [mwashere]
+tags: [m_has_been]
 language:
 
 

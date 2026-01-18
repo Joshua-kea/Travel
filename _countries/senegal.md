@@ -1,15 +1,10 @@
 ---
-
-
-
-
-
 layout: country
 iso: SEN
 name: "Senegal"
 continent: Africa
 gay_friendliness:
-tags: [mwashere, fandf]
+tags: [m_was_here, friends_and_family]
 language:
 
 
