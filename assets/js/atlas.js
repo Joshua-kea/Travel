@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     map.createPane("countries");
     map.createPane("subdivisions");
+    map.createPane("territories");
+    map.getPane("territories").style.zIndex = 350;
     map.getPane("countries").style.zIndex = 300;
     map.getPane("subdivisions").style.zIndex = 400;
     map.getPane("tooltipPane").style.zIndex = 450;
@@ -152,7 +154,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 }).addTo(map);
             });
 
-        fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
+    fetch(`${window.BASEURL}/assets/data/territories.geo.json`)
+        .then(r => r.json())
+        .then(data => {
+            L.geoJSON(data, {
+                pane: "territories",
+                style: STYLE_BASE,
+                onEachFeature: (f, l) => {
+                    const iso = f.properties?.iso_a3 || f.properties?.ISO_A3;
+                    const place = iso ? byISO[iso] : null;
+
+                    bindLayer(
+                        l,
+                        place,
+                        f.properties?.name || f.properties?.NAME
+                    );
+                }
+            }).addTo(map);
+        });
+
+
+    fetch(`${window.BASEURL}/assets/data/admin1.geo.json`)
             .then(r => r.json())
             .then(data => {
                 const usa = data.features.filter(f => f.properties?.adm0_a3 === "USA");
