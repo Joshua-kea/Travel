@@ -205,15 +205,31 @@ document.addEventListener("DOMContentLoaded", () => {
             };
         }
 
-        function renderChips() {
-            if (!chipsEl) return;
+    const MONTH_NAMES = {
+        "1": "Jan",
+        "2": "Feb",
+        "3": "Mar",
+        "4": "Apr",
+        "5": "May",
+        "6": "Jun",
+        "7": "Jul",
+        "8": "Aug",
+        "9": "Sep",
+        "10": "Oct",
+        "11": "Nov",
+        "12": "Dec"
+    };
 
-            chipsEl.innerHTML = "";
+    function renderChips() {
+        if (!chipsEl) return;
 
-            activeTags.forEach(tag => {
-                const chip = document.createElement("span");
-                chip.textContent = `${tag} ×`;
-                chip.style.cssText = `
+        chipsEl.innerHTML = "";
+
+        /* TAG CHIPS */
+        activeTags.forEach(tag => {
+            const chip = document.createElement("span");
+            chip.textContent = `${tag} ×`;
+            chip.style.cssText = `
             background:#6b8f9c;
             color:white;
             padding:0.2rem 0.55rem;
@@ -222,28 +238,55 @@ document.addEventListener("DOMContentLoaded", () => {
             font-size:0.7rem;
         `;
 
-                chip.onclick = () => {
-                    // 1. Fjern tag fra state
-                    activeTags.delete(tag);
+            chip.onclick = () => {
+                activeTags.delete(tag);
 
-                    // 2. Fjern checkmark i filter-panelet (DET MANGLEDE)
-                    document
-                        .querySelectorAll('#filterPanel input[type="checkbox"]')
-                        .forEach(cb => {
-                            if (cb.value === tag) cb.checked = false;
-                        });
+                document
+                    .querySelectorAll('#filterPanel input[type="checkbox"]')
+                    .forEach(cb => {
+                        if (cb.value === tag) cb.checked = false;
+                    });
 
-                    // 3. Sync resten
-                    updateURL();
-                    renderChips();
-                    applyFilters();
-                };
+                updateURL();
+                renderChips();
+                applyFilters();
+            };
 
-                chipsEl.appendChild(chip);
-            });
-        }
+            chipsEl.appendChild(chip);
+        });
 
-        function updateURL() {
+        /* MONTH CHIPS */
+        activeMonths.forEach(month => {
+            const chip = document.createElement("span");
+            chip.textContent = `${MONTH_NAMES[month]} ×`;
+            chip.style.cssText = `
+            background:#94a3b8;
+            color:white;
+            padding:0.2rem 0.55rem;
+            border-radius:999px;
+            cursor:pointer;
+            font-size:0.7rem;
+        `;
+
+            chip.onclick = () => {
+                activeMonths.delete(month);
+
+                document
+                    .querySelectorAll('#filterPanel input[type="checkbox"]')
+                    .forEach(cb => {
+                        if (cb.value === month) cb.checked = false;
+                    });
+
+                updateURL();
+                renderChips();
+                applyFilters();
+            };
+
+            chipsEl.appendChild(chip);
+        });
+    }
+
+    function updateURL() {
             const params = new URLSearchParams(window.location.search);
             if (activeTags.size === 1) {
                 params.set("tag", [...activeTags][0]);
