@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         bindLayer(
                             l,
                             place,
-                            f.properties?.name
+                            place?.name || f.properties?.name
                         );
 
                         // 👇 VIGTIG LINJE
