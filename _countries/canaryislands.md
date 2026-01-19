@@ -24,7 +24,7 @@ budget:
   dkk: ""
   eur: ""
 gay_details: ""
-iso2: ""
+iso2: canary
 best_months: []
 ok_months: []
 ---
