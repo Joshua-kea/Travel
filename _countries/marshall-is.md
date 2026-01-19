@@ -2,7 +2,7 @@
 layout: country
 iso: MHL
 iso2: mh
-name: "Marshall Is."
+name: "Marshall Islands"
 continent: Oceania
 gay_friendliness:
 tags: []
@@ -19,6 +19,6 @@ gay_details:
 best_months: []
 ok_months: []
 ---
-# Marshall Is.
+# Marshall Islands
 
 Write your notes about Marshall Is. here.
