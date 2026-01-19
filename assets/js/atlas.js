@@ -469,7 +469,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        document.getElementById("viewMapBtn").onclick = () => setView("map");
+    // 👇 INITIAL VIEW FROM URL
+    const viewFromURL = params.get("view") || "map";
+    setView(viewFromURL);
+
+
+    document.getElementById("viewMapBtn").onclick = () => setView("map");
         document.getElementById("viewListBtn").onclick = () => setView("list");
 
         /* =========================
