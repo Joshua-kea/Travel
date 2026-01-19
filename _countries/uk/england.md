@@ -25,8 +25,8 @@ currency:
 budget:
   dkk: 10.000 - 15.000
   eur: 1.300 - 2.000
-gay_details: "test"
+gay_details:
 best_months: [5, 6, 9]
 ok_months: [4, 7, 8]
 ---
-# England
+England text

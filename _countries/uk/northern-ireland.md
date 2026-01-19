@@ -1,34 +1,33 @@
 ---
 layout: country
-iso: ""
+iso: NIR
+iso2: nireland
+admin_key: GBR:GB-NIR
+parent_country: UK
 name: Northern Ireland
 continent: Europe
 gay_friendliness: 73
-tags:
-  - walkable
-  - gay_friendly
+tags: [walkable, gay_friendly]
 language:
   - English
 capital: Belfast
 currency:
   name: Pound sterling
-  code: ""
-  symbol: ""
+  code: GBP
+  symbol: £
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 1.15 
+      dkk: 8.6
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 115
+      dkk: 860
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: nireland
-best_months: []
-ok_months: []
-admin_key: GBR:GB-NIR
-parent_country: UK
+  dkk: 10.000 - 15.000
+  eur: 1.300 - 2.000
+gay_details: 
+best_months: [5, 6, 7]
+ok_months: [4, 8, 9]
+
 ---
-# Northern Ireland
+Northern Ireland text
