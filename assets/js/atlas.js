@@ -467,9 +467,9 @@ document.addEventListener("DOMContentLoaded", () => {
    RANDOM DESTINATION BUTTON
 ========================= */
 
-        const siteTitle = document.querySelector(".site-title");
+    const siteTitle = document.querySelector(".page-link");
 
-        if (siteTitle && window.places.length) {
+    if (siteTitle && window.places.length) {
             siteTitle.style.cursor = "pointer";
 
             siteTitle.onclick = (e) => {
