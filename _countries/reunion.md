@@ -2,6 +2,7 @@
 layout: country
 iso:
 iso2:
+"iso_a3": "REU"
 name: "Réunion"
 continent: Africa
 gay_friendliness:
