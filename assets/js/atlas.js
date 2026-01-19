@@ -149,7 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         return key && key !== "USA" && key !== "GBR";
                     },
                     onEachFeature: (f, l) => {
-                        const place = byISO[getCountryKey(f.properties)];
+                        const key = getCountryKey(f.properties);
+                        const place = byISO[key] || byAdminKey[key];
 
                         bindLayer(
                             l,
