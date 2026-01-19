@@ -149,7 +149,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         return key && key !== "USA" && key !== "GBR";
                     },
                     onEachFeature: (f, l) => {
-                        bindLayer(l, byISO[getCountryKey(f.properties)], f.properties.NAME);
+                        const place = byISO[getCountryKey(f.properties)];
+
+                        bindLayer(
+                            l,
+                            place,
+                            place?.name || f.properties.NAME
+                        );
                     }
                 }).addTo(map);
             });
