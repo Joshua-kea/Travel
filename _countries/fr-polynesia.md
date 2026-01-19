@@ -25,7 +25,7 @@ budget:
   dkk: ""
   eur: ""
 gay_details: ""
-iso2: ""
+iso2: polynesia
 best_months: []
 ok_months: []
 ---

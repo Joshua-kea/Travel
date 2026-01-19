@@ -23,7 +23,7 @@ budget:
   dkk: ""
   eur: ""
 gay_details: ""
-iso2: ""
+iso2: southcarolina
 best_months: []
 ok_months: []
 admin_key: USA:US-SC

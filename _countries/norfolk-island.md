@@ -22,7 +22,7 @@ budget:
   dkk: ""
   eur: ""
 gay_details: ""
-iso2: ""
+iso2: norfolkislands
 best_months: []
 ok_months: []
 ---

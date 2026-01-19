@@ -23,7 +23,7 @@ budget:
   dkk: ""
   eur: ""
 gay_details: ""
-iso2: ""
+iso2: illinois
 best_months: []
 ok_months: []
 admin_key: USA:US-IL
