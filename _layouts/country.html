@@ -23,7 +23,6 @@
                 class="country-flag"
                 onerror="this.style.display='none'">
 
-
         <div>
             <h1>{{ page.name }}</h1>
             {% if page.continent %}
@@ -121,9 +120,9 @@
                     <div
                             class="gay-fill"
                             style="
-            width: {{ page.gay_friendliness }}%;
-            background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);
-        ">
+                            width: {{ page.gay_friendliness }}%;
+                            background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);
+                        ">
                     </div>
                 </div>
 
@@ -176,8 +175,9 @@
 
                     <li>
                         <a
-                                href="{{ '/?tag=' | relative_url }}{{ tag }}"
+                                href="{{ '/?tag=' | relative_url }}{{ tag }}&view="
                                 class="tag-chip"
+                                data-tag-link
                         >
                             {{ label }}
                         </a>
@@ -196,6 +196,22 @@
     </div>
 
 </main>
+
+<!-- SCRIPT 1: find out where the user came from -->
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const fromView = params.get("from") || "map";
+    document.documentElement.dataset.fromView = fromView;
+</script>
+
+<!-- SCRIPT 2: update tag links to respect that view -->
+<script>
+    const fromView = document.documentElement.dataset.fromView || "map";
+
+    document.querySelectorAll("[data-tag-link]").forEach(link => {
+        link.href += fromView;
+    });
+</script>
 
 </body>
 </html>
