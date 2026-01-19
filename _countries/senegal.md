@@ -1,20 +1,29 @@
 ---
 layout: country
 iso: SEN
-name: "Senegal"
+name: Senegal
 continent: Africa
-gay_friendliness:
-tags: [m_was_here, friends_and_family]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - m_was_here
+  - friends_and_family
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
 iso2: sn
 best_months: []
 ok_months: []

@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: CYN
-iso2: ncyprus
-name: "Northern Cyprus"
+name: Northern Cyprus
 continent: Europe
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: ncyprus
 best_months: []
 ok_months: []
 ---

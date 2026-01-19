@@ -1,20 +1,28 @@
 ---
 layout: country
 iso: FIN
-name: "Finland"
+name: Finland
 continent: Europe
-gay_friendliness:
-tags: [m_was_here]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - m_was_here
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
 iso2: fi
 best_months: []
 ok_months: []

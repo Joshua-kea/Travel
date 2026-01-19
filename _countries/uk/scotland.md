@@ -1,25 +1,36 @@
 ---
 layout: country
-admin_key: "GBR:GB-SCT"
-iso2: scotland
-name: "Scotland"
-parent_country: UK
+iso: ""
+name: Scotland
 continent: Europe
-tags: [j_has_been, m_has_been, walkable, gay_friendly]
-
+gay_friendliness: 78
+tags:
+  - j_has_been
+  - m_has_been
+  - walkable
+  - gay_friendly
 language:
   - English
-
-currency: Pound sterling
-
 capital: Edinburgh
+currency:
+  name: Pound sterling
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-    
-gay_friendliness: 78
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: scotland
 best_months: []
 ok_months: []
+admin_key: GBR:GB-SCT
+parent_country: UK
 ---
 # Scotland

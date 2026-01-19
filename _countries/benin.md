@@ -1,21 +1,29 @@
 ---
 layout: country
 iso: BEN
-iso2: bj
-name: "Benin"
+name: Benin
 continent: Africa
-gay_friendliness:
-tags: [m_has_been]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - m_has_been
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: bj
 best_months: []
 ok_months: []
 ---

@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: SGS
-iso2: sgatssi
-name: "South Georgia and the South Sandwich Islands"
+name: South Georgia and the South Sandwich Islands
 continent: Antarctica
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: sgatssi
 best_months: []
 ok_months: []
 ---

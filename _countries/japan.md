@@ -1,28 +1,42 @@
 ---
-name: "Japan"
-iso: JPN
 layout: country
-
+iso: JPN
+name: Japan
 continent: Asia
-
-tags: [j_wants_to_go, m_wants_to_go, culture, food]
-
-best_months: [3,4,5,10,11]
-ok_months: [2,6]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - j_wants_to_go
+  - m_wants_to_go
+  - culture
+  - food
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
 iso2: jp
+best_months:
+  - 3
+  - 4
+  - 5
+  - 10
+  - 11
+ok_months:
+  - 2
+  - 6
 ---
-
-
 # Japan
 
 *Vi elskede maden*  

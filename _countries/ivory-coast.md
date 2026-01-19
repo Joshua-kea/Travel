@@ -1,20 +1,27 @@
 ---
 layout: country
 iso: CIV
-name: "Côte d'Ivoire"
+name: Côte d'Ivoire
 continent: Africa
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
 iso2: ci
 best_months: []
 ok_months: []

@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: ATA
-iso2: antarctica
-name: "Antarctica"
+name: Antarctica
 continent: Antarctica
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: antarctica
 best_months: []
 ok_months: []
 ---

@@ -1,25 +1,32 @@
 ---
 layout: country
-admin_key: "USA:US-WI"
-name: "Wisconsin"
-parent_country: United States of America
+iso: ""
+name: Wisconsin
 continent: North America
-
-
-
-
-
-capital:
-
+gay_friendliness: ""
+tags: []
 language:
   - English
-
-currency: US dollar
+capital: ""
+currency:
+  name: US dollar
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: ""
 best_months: []
 ok_months: []
+admin_key: USA:US-WI
+parent_country: United States of America
 ---
 # Wisconsin

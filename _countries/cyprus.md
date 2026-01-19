@@ -1,20 +1,27 @@
 ---
 layout: country
 iso: CYP
-name: "Cyprus"
+name: Cyprus
 continent: Asia
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
 iso2: cy
 best_months: []
 ok_months: []

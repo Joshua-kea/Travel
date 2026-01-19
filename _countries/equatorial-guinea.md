@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: GNQ
-iso2: gq
-name: "Equatorial Guinea"
+name: Equatorial Guinea
 continent: Africa
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: gq
 best_months: []
 ok_months: []
 ---

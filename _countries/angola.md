@@ -1,15 +1,13 @@
 ---
 layout: country
 iso: AGO
-name: "Angola"
+name: Angola
 continent: Africa
 gay_friendliness: 42
 tags: []
-
-language: [Portuguese]
-
+language:
+  - Portuguese
 capital: Luanda
-
 currency:
   name: Angolan kwanza
   code: AOA
@@ -25,8 +23,8 @@ budget:
   dkk: 5.000 - 10.000
   eur: 670 - 1340
 gay_details: >
-    Has been legal since 2021. No censorship, and discrimination is illegal. 
-    But marriage is illegal, and there is not much support for trans people.
+  Has been legal since 2021. No censorship, and discrimination is illegal.  But
+  marriage is illegal, and there is not much support for trans people.
 iso2: ao
 best_months: []
 ok_months: []

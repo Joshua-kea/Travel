@@ -1,21 +1,29 @@
 ---
 layout: country
 iso: DJI
-iso2: dj
-name: "Djibouti"
+name: Djibouti
 continent: Africa
-gay_friendliness:
-tags: [j_wants_to_go]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - j_wants_to_go
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: dj
 best_months: []
 ok_months: []
 ---

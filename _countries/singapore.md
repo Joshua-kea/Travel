@@ -1,20 +1,28 @@
 ---
 layout: country
 iso: SGP
-name: "Singapore"
+name: Singapore
 continent: Asia
-gay_friendliness:
-tags: [m_has_been]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - m_has_been
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
 iso2: sg
 best_months: []
 ok_months: []

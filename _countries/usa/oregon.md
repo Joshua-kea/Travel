@@ -1,25 +1,32 @@
 ---
 layout: country
-admin_key: "USA:US-OR"
-name: "Oregon"
-parent_country: United States of America
+iso: ""
+name: Oregon
 continent: North America
-
-
-
-
-
-capital:
-
+gay_friendliness: ""
+tags: []
 language:
   - English
-
-currency: US dollar
+capital: ""
+currency:
+  name: US dollar
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: ""
 best_months: []
 ok_months: []
+admin_key: USA:US-OR
+parent_country: United States of America
 ---
 # Oregon

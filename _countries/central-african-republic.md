@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: CAF
-iso2: cf
-name: "Central African Republic"
+name: Central African Republic
 continent: Africa
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: cf
 best_months: []
 ok_months: []
 ---

@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: KHM
-iso2: kh
-name: "Cambodia"
+name: Cambodia
 continent: Asia
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: kh
 best_months: []
 ok_months: []
 ---

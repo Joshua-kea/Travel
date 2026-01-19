@@ -1,21 +1,30 @@
 ---
 layout: country
 iso: FJI
-iso2: fj
-name: "Fiji"
+name: Fiji
 continent: Oceania
-gay_friendliness:
-tags: [island, beach]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - island
+  - beach
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: fj
 best_months: []
 ok_months: []
 ---

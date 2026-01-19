@@ -1,25 +1,41 @@
 ---
 layout: country
 iso: TKL
-name: "Tokelau"
-parent: NZL
+name: Tokelau
 continent: Oceania
-
-tags: [territory, island, remote]
-
-capital:
-currency: NZD
-language: Tokelauan, English
-
+gay_friendliness: ""
+tags:
+  - territory
+  - island
+  - remote
+language: []
+capital: ""
+currency:
+  name: NZD
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-
-best_months: [5, 6, 7, 8, 9]
-ok_months: [4, 10]
-
-gay_friendliness:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: ""
+best_months:
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+ok_months:
+  - 4
+  - 10
+parent: NZL
 ---
 # Tokelau
 

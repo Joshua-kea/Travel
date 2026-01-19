@@ -1,21 +1,29 @@
 ---
 layout: country
 iso: VAT
-iso2: va
-name: "Vatican"
+name: Vatican
 continent: Europe
-gay_friendliness:
-tags: [j_was_here]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - j_was_here
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: va
 best_months: []
 ok_months: []
 ---

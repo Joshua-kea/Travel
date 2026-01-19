@@ -1,20 +1,32 @@
 ---
 layout: country
 iso: GRC
-name: "Greece"
+name: Greece
 continent: Europe
-gay_friendliness:
-tags: [j_has_been, m_wants_to_go, island, beach, expensive]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - j_has_been
+  - m_wants_to_go
+  - island
+  - beach
+  - expensive
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
 iso2: gr
 best_months: []
 ok_months: []

@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: REU
-iso2:
-name: "Réunion"
+name: Réunion
 continent: Africa
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language: French
-
-
-currency: EUR
-
+language: []
 capital: Saint-Denis
+currency:
+  name: EUR
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: ""
 best_months: []
 ok_months: []
 ---

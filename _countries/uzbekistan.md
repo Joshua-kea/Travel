@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: UZB
-iso2: uz
-name: "Uzbekistan"
+name: Uzbekistan
 continent: Asia
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: uz
 best_months: []
 ok_months: []
 ---

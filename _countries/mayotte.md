@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: MYT
-iso2: YT
-name: "Mayotte"
+name: Mayotte
 continent: Africa
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language: French
-
-currency: EUR
+language: []
 capital: Mamoudzou
-
+currency:
+  name: EUR
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: YT
 best_months: []
 ok_months: []
 ---

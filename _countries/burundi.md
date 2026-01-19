@@ -1,21 +1,28 @@
 ---
 layout: country
 iso: BDI
-iso2: bi
-name: "Burundi"
+name: Burundi
 continent: Africa
-gay_friendliness:
+gay_friendliness: ""
 tags: []
-language:
-
-
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: bi
 best_months: []
 ok_months: []
 ---

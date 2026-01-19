@@ -1,26 +1,36 @@
 ---
 layout: country
-admin_key: "GBR:GB-WLS"
-iso2: wales
-name: "Wales"
-parent_country: UK
+iso: ""
+name: Wales
 continent: Europe
-tags: [m_has_been, walkable, gay_friendly]
-
+gay_friendliness: 78
+tags:
+  - m_has_been
+  - walkable
+  - gay_friendly
 language:
   - English
   - Welsh
-
-currency: Pound sterling
-
 capital: Cardiff
+currency:
+  name: Pound sterling
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-    
-gay_friendliness: 78
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: wales
 best_months: []
 ok_months: []
+admin_key: GBR:GB-WLS
+parent_country: UK
 ---
 # Wales

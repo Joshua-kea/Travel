@@ -1,20 +1,32 @@
 ---
 layout: country
-admin_key: "USA:US-AL"
-name: "Alabama"
-parent_country: United States of America
+iso: ""
+name: Alabama
 continent: North America
+gay_friendliness: ""
+tags: []
 language:
   - English
-
-currency: US dollar
-
 capital: Montgomery
+currency:
+  name: US dollar
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: ""
 best_months: []
 ok_months: []
+admin_key: USA:US-AL
+parent_country: United States of America
 ---
 # Alabama

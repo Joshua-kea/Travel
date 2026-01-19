@@ -1,22 +1,32 @@
 ---
 layout: country
-name: "Aruba"
 iso: ABW
-admin_key: "NLD:AW"
+name: Aruba
 continent: North America
-tags: [island]
-language:
-
-
+gay_friendliness: ""
+tags:
+  - island
+language: []
+capital: ""
 currency:
-
-capital:
+  name: ""
+  code: ""
+  symbol: ""
+  rates:
+    per_1:
+      eur: ""
+      dkk: ""
+    per_100:
+      eur: ""
+      dkk: ""
 budget:
-  dkk:
-  eur:
-gay_details:
+  dkk: ""
+  eur: ""
+gay_details: ""
+iso2: ""
 best_months: []
 ok_months: []
+admin_key: NLD:AW
 ---
 # Aruba
 
