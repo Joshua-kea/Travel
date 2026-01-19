@@ -12,7 +12,8 @@
 
 <main class="country-page">
 
-    <a href="{{ '/' | relative_url }}" class="back-to-atlas">
+    <!-- BACK LINK (href færdiggøres via JS) -->
+    <a href="{{ '/' | relative_url }}" class="back-to-atlas" id="back-to-atlas">
         ← Back to atlas
     </a>
 
@@ -55,7 +56,7 @@
                 <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
                     {% for m in page.best_months %}
-                    {% assign idx = m | plus: 0 | minus: 1 %}
+                    {% assign idx = m | minus: 1 %}
                     <li>{{ month_names[idx] }}</li>
                     {% endfor %}
                 </ul>
@@ -68,7 +69,7 @@
                 <ul>
                     {% assign month_names = "January,February,March,April,May,June,July,August,September,October,November,December" | split: "," %}
                     {% for m in page.ok_months %}
-                    {% assign idx = m | plus: 0 | minus: 1 %}
+                    {% assign idx = m | minus: 1 %}
                     <li>{{ month_names[idx] }}</li>
                     {% endfor %}
                 </ul>
@@ -98,44 +99,11 @@
                     </span>
                 </div>
 
-                <div class="budget-secondary" style="margin-top:0.4rem;">
-                    1 {{ page.currency.name }} =<br>
-                    {{ page.currency.rates.per_1.eur }} EUR<br>
+                <div class="budget-secondary">
+                    1 {{ page.currency.name }} =
+                    {{ page.currency.rates.per_1.eur }} EUR /
                     {{ page.currency.rates.per_1.dkk }} DKK
                 </div>
-
-                <div class="budget-secondary" style="margin-top:0.6rem;">
-                    100 {{ page.currency.name }} =<br>
-                    {{ page.currency.rates.per_100.eur }} EUR<br>
-                    {{ page.currency.rates.per_100.dkk }} DKK
-                </div>
-            </div>
-            {% endif %}
-
-            {% if page.gay_friendliness %}
-            <div class="fact">
-                <label>Gay equality</label>
-
-                <div class="gay-bar">
-                    <div
-                            class="gay-fill"
-                            style="
-                            width: {{ page.gay_friendliness }}%;
-                            background: hsl({{ page.gay_friendliness | times: 1.2 }}, 70%, 45%);
-                        ">
-                    </div>
-                </div>
-
-                <div class="gay-score">{{ page.gay_friendliness }}/100</div>
-
-                {% if page.gay_details %}
-                <details class="gay-details">
-                    <summary>More details</summary>
-                    <div class="gay-details-content">
-                        {{ page.gay_details | markdownify }}
-                    </div>
-                </details>
-                {% endif %}
             </div>
             {% endif %}
 
@@ -143,43 +111,16 @@
             <div class="fact">
                 <label>Tags</label>
 
-                {% assign tag_labels =
-                "culture:Culture,
-                food:Food,
-                cheap:Budget friendly,
-                expensive:Expensive,
-                island:Island,
-                beach:Beach,
-                walkable:Walkable,
-                short_trip:Short trip,
-                long_trip:Long trip,
-                friends_and_family:Friends/family live here,
-                gay_friendly:Gay friendly,
-                j_wants_to_go:Places J wants to visit asap,
-                m_wants_to_go:Places M wants to visit asap,
-                j_has_been:Places J has been,
-                m_has_been:Places M has been"
-                | split: "," %}
-
                 <ul class="tags">
                     {% for tag in page.tags %}
-                    {% assign label = tag %}
-                    {% for pair in tag_labels %}
-                    {% assign kv = pair | split: ":" %}
-                    {% assign key = kv[0] | strip %}
-                    {% assign value = kv[1] | strip %}
-                    {% if key == tag %}
-                    {% assign label = value %}
-                    {% endif %}
-                    {% endfor %}
-
                     <li>
+                        <!-- TAG LINK (færdiggøres via JS) -->
                         <a
-                                href="{{ '/?tag=' | relative_url }}{{ tag }}&view="
+                                href="{{ '/' | relative_url }}"
                                 class="tag-chip"
-                                data-tag-link
+                                data-tag="{{ tag }}"
                         >
-                            {{ label }}
+                            {{ tag | replace: "_", " " }}
                         </a>
                     </li>
                     {% endfor %}
@@ -197,19 +138,24 @@
 
 </main>
 
-<!-- SCRIPT 1: find out where the user came from -->
+<!-- ========================= -->
+<!-- SCRIPT: CONTEXT HANDLING -->
+<!-- ========================= -->
 <script>
+    // 1. Find hvor brugeren kom fra
     const params = new URLSearchParams(window.location.search);
     const fromView = params.get("from") || "map";
-    document.documentElement.dataset.fromView = fromView;
-</script>
 
-<!-- SCRIPT 2: update tag links to respect that view -->
-<script>
-    const fromView = document.documentElement.dataset.fromView || "map";
+    // 2. Fix "Back to atlas"
+    const backLink = document.getElementById("back-to-atlas");
+    if (backLink) {
+        backLink.href = `{{ '/' | relative_url }}?view=${fromView}`;
+    }
 
-    document.querySelectorAll("[data-tag-link]").forEach(link => {
-        link.href += fromView;
+    // 3. Fix tag links
+    document.querySelectorAll("[data-tag]").forEach(link => {
+        const tag = link.dataset.tag;
+        link.href = `{{ '/' | relative_url }}?tag=${encodeURIComponent(tag)}&view=${fromView}`;
     });
 </script>
 
