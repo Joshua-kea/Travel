@@ -471,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (siteTitle && window.places.length) {
         siteTitle.style.cursor = "pointer";
-        siteTitle.textContent = "🎲 Random destination";
+        siteTitle.textContent = "Random destination";
 
         siteTitle.onclick = (e) => {
                 e.preventDefault();
