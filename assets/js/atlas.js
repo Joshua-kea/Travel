@@ -463,6 +463,27 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("viewMapBtn").onclick = () => setView("map");
         document.getElementById("viewListBtn").onclick = () => setView("list");
 
+        /* =========================
+   RANDOM DESTINATION BUTTON
+========================= */
+
+        const siteTitle = document.querySelector(".site-title");
+
+        if (siteTitle && window.places.length) {
+            siteTitle.style.cursor = "pointer";
+
+            siteTitle.onclick = (e) => {
+                e.preventDefault();
+
+                const randomPlace =
+                    window.places[Math.floor(Math.random() * window.places.length)];
+
+                if (randomPlace?.url) {
+                    window.location.href = randomPlace.url;
+                }
+            };
+        }
+
     }
 )
 ;

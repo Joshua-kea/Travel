@@ -31,7 +31,3 @@ body {
 .leaflet-tooltip::before {
     display: none;
 }
-.site-nav {
-    display: none;
-}
-
