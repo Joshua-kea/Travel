@@ -470,9 +470,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const siteTitle = document.querySelector(".page-link");
 
     if (siteTitle && window.places.length) {
-            siteTitle.style.cursor = "pointer";
+        siteTitle.style.cursor = "pointer";
+        siteTitle.textContent = "🎲 Random destination";
 
-            siteTitle.onclick = (e) => {
+        siteTitle.onclick = (e) => {
                 e.preventDefault();
 
                 const randomPlace =
