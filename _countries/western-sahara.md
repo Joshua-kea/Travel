@@ -1,5 +1,6 @@
 ---
 layout: country
+admin_key: SAH
 iso: ESH
 iso2: eh
 name: "Western Sahara"
