@@ -1,7 +1,7 @@
 ---
 layout: country
 iso: SWZ
-name: Swaziland
+name: Eswatini
 continent: Africa
 gay_friendliness: ""
 tags: []
@@ -26,6 +26,5 @@ iso2: sz
 best_months: []
 ok_months: []
 ---
-# Swaziland
 
-Write your notes about Swaziland here.
+Write your notes about Eswatini here.
