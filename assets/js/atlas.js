@@ -118,7 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (place?.url) {
                 layer.on("click", () => {
-                    window.open(place.url, "_blank", "noopener");
+                    const url = place.url.includes("?")
+                        ? place.url + "&from=map"
+                        : place.url + "?from=map";
+
+                    window.open(url, "_blank", "noopener");
                 });
 
                 layer.on("mouseover", () => {
