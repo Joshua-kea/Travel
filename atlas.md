@@ -1,7 +1,7 @@
 ---
 layout: default
 title: World map
-permalink: /atlas/
+permalink: /
 ---
 
 # World map
