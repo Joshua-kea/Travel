@@ -435,7 +435,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         };
 
                         item.onclick = () => {
-                            window.open(place.url, "_blank", "noopener");
+                            const url = place.url.includes("?")
+                                ? place.url + "&from=list"
+                                : place.url + "?from=list";
+
+                            window.open(url, "_blank", "noopener");
                         };
 
                         grid.appendChild(item);
