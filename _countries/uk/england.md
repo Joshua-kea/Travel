@@ -1,6 +1,7 @@
 ---
 layout: country
 iso: GBR
+iso2: england
 name: England
 continent: Europe
 admin_key: GBR:GB-ENG
@@ -15,17 +16,16 @@ currency:
   code: GBP
   symbol: £
   rates:
-  per_1:
-    eur: 1.15
-    dkk: 8.6
-  per_100:
-    eur: 115
-    dkk: 860
-budget per person for 7 days:
+    per_1:
+      eur: 1.15
+      dkk: 8.6
+    per_100:
+      eur: 115
+      dkk: 860
+budget:
   dkk: 10.000 - 15.000
   eur: 1.300 - 2.000
 gay_details: "test"
-iso2: england
 best_months: [5, 6, 9]
 ok_months: [4, 7, 8]
 ---
