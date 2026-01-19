@@ -2,7 +2,7 @@
 layout: country
 iso: CAN
 name: "Canary Islands"
-continent: Europe
+continent: Africa
 tags: [island, beach]
 best_months: []
 ---
