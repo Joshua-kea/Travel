@@ -19,43 +19,48 @@ document.addEventListener("DOMContentLoaded", () => {
             return Array.isArray(value) ? value.map(v => String(v)) : [];
         }
 
-    function placeMatchesFilters(place) {
-        if (!place) return false;
+        function placeMatchesFilters(place) {
+            if (!place) return false;
 
-        if (activeTags.size) {
-            for (const tag of activeTags) {
+            if (activeTags.size) {
+                for (const tag of activeTags) {
 
-                // 👇 SPECIAL CASE: language
-                if (tag === "language") {
-                    const native = (place.language || []).map(l => l.toLowerCase());
-                    const touristLangs = ["english", "spanish", "french"];
+                    // 👇 SPECIAL CASE: language
+                    if (tag === "language") {
+                        const native = Array.isArray(place.language)
+                            ? place.language.map(l => String(l).toLowerCase())
+                            : typeof place.language === "string"
+                                ? [place.language.toLowerCase()]
+                                : [];
 
-                    const matches =
-                        place.tags?.includes("language") ||
-                        native.some(l => touristLangs.includes(l));
+                        const touristLangs = ["english", "spanish", "french"];
 
-                    if (!matches) return false;
-                }
+                        const matches =
+                            place.tags?.includes("language") ||
+                            native.some(l => touristLangs.includes(l));
 
-                // 👇 normal tags
-                else {
-                    if (!place.tags?.includes(tag)) return false;
+                        if (!matches) return false;
+                    }
+
+                    // 👇 normal tags
+                    else {
+                        if (!place.tags?.includes(tag)) return false;
+                    }
                 }
             }
+
+            if (activeMonths.size) {
+                const months = normalizeMonths(place.best_months);
+                if (!months.some(m => activeMonths.has(m))) return false;
+            }
+
+            return true;
         }
 
-        if (activeMonths.size) {
-            const months = normalizeMonths(place.best_months);
-            if (!months.some(m => activeMonths.has(m))) return false;
-        }
 
-        return true;
-    }
-
-
-    /* =========================
-       MAP SETUP
-    ========================= */
+        /* =========================
+           MAP SETUP
+        ========================= */
 
         const INITIAL_VIEW = {center: [20, 0], zoom: 3};
 
@@ -488,25 +493,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-    // 👇 INITIAL VIEW FROM URL
-    const viewFromURL = params.get("view") || "map";
-    setView(viewFromURL);
+        // 👇 INITIAL VIEW FROM URL
+        const viewFromURL = params.get("view") || "map";
+        setView(viewFromURL);
 
 
-    document.getElementById("viewMapBtn").onclick = () => setView("map");
+        document.getElementById("viewMapBtn").onclick = () => setView("map");
         document.getElementById("viewListBtn").onclick = () => setView("list");
 
         /* =========================
    RANDOM DESTINATION BUTTON
 ========================= */
 
-    const siteTitle = document.querySelector(".page-link");
+        const siteTitle = document.querySelector(".page-link");
 
-    if (siteTitle && window.places.length) {
-        siteTitle.style.cursor = "pointer";
-        siteTitle.textContent = "Random destination";
+        if (siteTitle && window.places.length) {
+            siteTitle.style.cursor = "pointer";
+            siteTitle.textContent = "Random destination";
 
-        siteTitle.onclick = (e) => {
+            siteTitle.onclick = (e) => {
                 e.preventDefault();
 
                 const randomPlace =
