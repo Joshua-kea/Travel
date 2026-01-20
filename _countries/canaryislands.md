@@ -1,12 +1,10 @@
 ---
 layout: country
-iso: CAN
+iso: CAN-ESP
 name: Canary Islands
 continent: Africa
 gay_friendliness: ""
-tags:
-  - island
-  - beach
+tags: [island, beach]
 language: []
 capital: ""
 currency:

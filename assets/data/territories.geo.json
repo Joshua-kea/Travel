@@ -85,7 +85,7 @@
     {
       "type": "Feature",
       "properties": {
-        "iso_a3": "CAN",
+        "iso_a3": "CAN-ESP",
         "name": "Canary Islands",
         "parent": "ESP",
         "kind": "territory"
