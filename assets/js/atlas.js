@@ -19,24 +19,43 @@ document.addEventListener("DOMContentLoaded", () => {
             return Array.isArray(value) ? value.map(v => String(v)) : [];
         }
 
-        function placeMatchesFilters(place) {
-            if (!place) return false;
+    function placeMatchesFilters(place) {
+        if (!place) return false;
 
-            if (activeTags.size) {
-                if (![...activeTags].every(t => place.tags?.includes(t))) return false;
+        if (activeTags.size) {
+            for (const tag of activeTags) {
+
+                // 👇 SPECIAL CASE: language
+                if (tag === "language") {
+                    const native = (place.language || []).map(l => l.toLowerCase());
+                    const touristLangs = ["english", "spanish", "french"];
+
+                    const matches =
+                        place.tags?.includes("language") ||
+                        native.some(l => touristLangs.includes(l));
+
+                    if (!matches) return false;
+                }
+
+                // 👇 normal tags
+                else {
+                    if (!place.tags?.includes(tag)) return false;
+                }
             }
-
-            if (activeMonths.size) {
-                const months = normalizeMonths(place.best_months);
-                if (!months.some(m => activeMonths.has(m))) return false;
-            }
-
-            return true;
         }
 
-        /* =========================
-           MAP SETUP
-        ========================= */
+        if (activeMonths.size) {
+            const months = normalizeMonths(place.best_months);
+            if (!months.some(m => activeMonths.has(m))) return false;
+        }
+
+        return true;
+    }
+
+
+    /* =========================
+       MAP SETUP
+    ========================= */
 
         const INITIAL_VIEW = {center: [20, 0], zoom: 3};
 

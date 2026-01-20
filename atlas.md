@@ -178,6 +178,7 @@ gap: 0.4rem;
           <label><input type="checkbox" value="long_trip"> Long trip (>7 days)</label>
           <label><input type="checkbox" value="friends_and_family"> Friends/family live here</label>
           <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
+        <label><input type="checkbox" value="language"> Proficient in either English, Spanish or French/label>
           <label><input type="checkbox" value="j_wants_to_go"> Places J wants to visit asap</label>
           <label><input type="checkbox" value="m_wants_to_go"> Places M wants to visit asap</label>
           <label><input type="checkbox" value="j_has_been"> Places J has been</label>
@@ -233,7 +234,8 @@ gap: 0.4rem;
         continent: {{ place.continent | jsonify }},
         url: "{{ site.baseurl }}{{ place.url }}",
         tags: {{ place.tags | jsonify }},
-        best_months: {{ place.best_months | default: "[]" | jsonify }}
+        best_months: {{ place.best_months | default: "[]" | jsonify }},
+        language: {{ place.language | default: "[]" | jsonify }}
       },
     {% endfor %}
   ];
