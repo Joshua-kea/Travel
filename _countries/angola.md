@@ -4,7 +4,7 @@ iso: AGO
 name: Angola
 continent: Africa
 gay_friendliness: 42
-tags: []
+tags: [nature, culture, long_trip, language]
 language:
   - Portuguese
 capital: Luanda
@@ -26,9 +26,8 @@ gay_details: >
   Has been legal since 2021. No censorship, and discrimination is illegal.  But
   marriage is illegal, and there is not much support for trans people.
 iso2: ao
-best_months: []
-ok_months: []
+best_months: [6, 7, 8]
+ok_months: [5, 9]
 ---
-# Angola
 
 Write your notes about Angola here.

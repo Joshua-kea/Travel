@@ -1,31 +1,31 @@
 ---
 layout: country
 iso: AZE
+iso2: az
 name: Azerbaijan
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 20
+tags: [culture, language, nature, long_trip, cheap]
+language: [Azerbaijani]
+capital: Baku
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Azerbaijani Manat
+  code: AZN
+  symbol: ₼
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.51
+      dkk: 3.75
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 51
+      dkk: 375
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: az
-best_months: []
-ok_months: []
+  dkk: 4.000 - 6.000
+  eur: 530 - 800
+gay_details: "Legal since 2000, but state-enforced censorship.
+No protections and marriage is banned. Public opinion is very low."
+best_months: [4, 5, 9, 10]
+ok_months: [3, 6]
 ---
-# Azerbaijan
 
 Write your notes about Azerbaijan here.

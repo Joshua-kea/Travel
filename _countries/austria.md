@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: AUT
+iso2: at
 name: Austria
 continent: Europe
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 71
+tags: [culture, nature, walkable, gay_friendly, short_trip]
+language: [German]
+capital: Wien
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Euro
+  code: EUR
+  symbol: €
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 1
+      dkk: 7.47
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 100
+      dkk: 747
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: at
-best_months: []
-ok_months: []
+  dkk: 9.000 - 23.000
+  eur: 1.200 - 3.100
+gay_details:
+best_months: [5, 6, 9]
+ok_months: [4, 10]
 ---
-# Austria
 
 Write your notes about Austria here.
