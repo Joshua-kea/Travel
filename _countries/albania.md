@@ -5,7 +5,7 @@ iso2: al
 name: Albania
 continent: Europe
 gay_friendliness: 47
-tags: [j_wants_to_go, m_wants_to_go, culture, food, cheap, beach, walkable, gay_friendly, language]
+tags: [j_wants_to_go, m_wants_to_go, culture, food, cheap, beach, walkable, language]
 language: [Albanian]
 capital: Tirana
 currency:
