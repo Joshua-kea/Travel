@@ -4,9 +4,8 @@ iso: AFG
 name: Afghanistan
 continent: Asia
 gay_friendliness: 1
-tags:
-  - culture
-language: [culture, cheap, long_trip]
+tags: [culture, cheap, long_trip]
+language: [Pashto, Persian]
 capital: Kabul
 currency:
   name: Afghan Afghani
