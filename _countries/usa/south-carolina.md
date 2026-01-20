@@ -1,32 +1,31 @@
 ---
 layout: country
-iso: ""
+iso2: southcarolina
+admin_key: USA:US-SC
+parent_country: United States of America
 name: South Carolina
 continent: North America
-gay_friendliness: ""
+gay_friendliness: 58
 tags: []
 language:
   - English
-capital: ""
+capital: Columbia
 currency:
   name: US dollar
-  code: ""
-  symbol: ""
+  code: USD
+  symbol: $
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.86
+      dkk: 6.42
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 86
+      dkk: 642
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: southcarolina
-best_months: []
-ok_months: []
-admin_key: USA:US-SC
-parent_country: United States of America
+  dkk: 10.000 - 20.000
+  eur: 1.300 - 2.600
+gay_details:
+best_months: [3, 4, 5, 10]
+ok_months: [2, 9, 11]
 ---
-# South Carolina
+South Carolina text

@@ -167,14 +167,15 @@ gap: 0.4rem;
         </div>
         <div style="display:flex;flex-direction:column;gap:0.35rem;">
           <label><input type="checkbox" value="culture"> Culture</label>
+            <label><input type="checkbox" value="nature"> Nature</label>
           <label><input type="checkbox" value="food"> Food</label>
           <label><input type="checkbox" value="cheap"> Budget friendly</label>
           <label><input type="checkbox" value="expensive"> Expensive</label>
           <label><input type="checkbox" value="island"> Island</label>
           <label><input type="checkbox" value="beach"> Beach</label>
           <label><input type="checkbox" value="walkable"> Walkable</label>
-          <label><input type="checkbox" value="short_trip"> Short trip</label>
-          <label><input type="checkbox" value="long_trip"> Long trip</label>
+          <label><input type="checkbox" value="short_trip"> Short trip (<7 days)</label>
+          <label><input type="checkbox" value="long_trip"> Long trip (>7 days)</label>
           <label><input type="checkbox" value="friends_and_family"> Friends/family live here</label>
           <label><input type="checkbox" value="gay_friendly"> Gay friendly</label>
           <label><input type="checkbox" value="j_wants_to_go"> Places J wants to visit asap</label>

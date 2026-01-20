@@ -7,7 +7,7 @@ parent_country: UK
 name: Northern Ireland
 continent: Europe
 gay_friendliness: 73
-tags: [walkable, gay_friendly]
+tags: [walkable, gay_friendly, short_trip]
 language:
   - English
 capital: Belfast
