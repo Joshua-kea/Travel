@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: BLZ
+iso2: bz
 name: Belize
 continent: North America
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 50
+tags: [nature, beach, island, gay_friendly]
+language: [English]
+capital: Belmopan
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Belize Dollar
+  code: BZD
+  symbol: BZ
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.42
+      dkk: 3.17
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 42
+      dkk: 317
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: bz
-best_months: []
-ok_months: []
+  dkk: 5.500 - 15.000
+  eur: 730 - 2000
+gay_details:
+best_months: [12, 1, 2, 3, 4]
+ok_months: [11, 5]
 ---
-# Belize
 
 Write your notes about Belize here.

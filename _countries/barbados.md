@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: BRB
+iso2: bb
 name: Barbados
 continent: North America
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 55
+tags: [expensive, island, beach, short_trip]
+language: [English]
+capital: Bridgetown
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Barbadian Dollar
+  code: BBD
+  symbol: $
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.42
+      dkk: 3.16
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 42
+      dkk: 316
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: bb
-best_months: []
-ok_months: []
+  dkk: 20.000 - 50.000
+  eur: 2.700 - 6.700
+gay_details: "Legal since 2022"
+best_months: [12, 1, 2, 3, 4]
+ok_months: [5, 11]
 ---
-# Barbados
 
 Write your notes about Barbados here.
