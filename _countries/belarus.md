@@ -5,7 +5,7 @@ iso2: by
 name: Belarus
 continent: Europe
 gay_friendliness: 27
-tags: [culture]
+tags: [culture, cheap]
 language: [Russian]
 capital: Minsk
 currency:
@@ -20,8 +20,8 @@ currency:
       eur: 30
       dkk: 221
 budget:
-  dkk: ""
-  eur: ""
+  dkk: 4.000 - 9.000
+  eur: 530 - 1.200
 gay_details: "Technically legal, 
 but it is censored and support for LGBTQ+ is punished with imprisonment."
 best_months: [5, 6, 9]
