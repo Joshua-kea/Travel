@@ -1,95 +1,29 @@
 ---
 layout: country
 iso: JPN
+iso2: jp
 name: Japan
 continent: Asia
-gay_friendliness: ""
-tags:
-  - j_wants_to_go
-  - m_wants_to_go
-  - culture
-  - food
-language: []
-capital: ""
+gay_friendliness: 53
+tags: [j_wants_to_go, m_wants_to_go, culture, food, long_trip, walkable, gay_friendly]
+language: [Japanese]
+capital: Tokyo
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Yen
+  code: JPY
+  symbol: ¥
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.005
+      dkk: 0.04
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.5
+      dkk: 4
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: jp
-best_months:
-  - 3
-  - 4
-  - 5
-  - 10
-  - 11
-ok_months:
-  - 2
-  - 6
+  dkk: 6.000 - 15.000
+  eur: 800 - 2.000
+gay_details:
+best_months: [3, 4, 5, 10, 11]
+ok_months: [9, 6]
 ---
-# Japan
-
-*Vi elskede maden*  
-**Tokyo var vild**
-
-<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;">
-  <img src="/Test/assets/images/japan/sushi.jpeg">
-  <img src="/Test/assets/images/japan/tokyoskyline.jpg">
-  <img src="/Test/assets/images/japan/sushi.jpeg">
-  <img src="/Test/assets/images/japan/tokyoskyline.jpg">
-  <img src="/Test/assets/images/japan/sushi.jpeg">
-  <img src="/Test/assets/images/japan/tokyoskyline.jpg">
-</div>
-
-
-- Sushi
-- Tog
-- Kultur
-
-## Tekst
-
-*Kursiv*  
-**Fed**  
-~~Gennemstreget~~
-
-<div style="display:flex; gap:1rem;">
-  <img src="/Test/assets/images/japan/tokyoskyline.jpg" width="200">
-  <img src="/Test/assets/images/japan/sushi.jpeg" width="200">
-  <img src="/Test/assets/images/japan/tokyoskyline.jpg" width="200">
-</div>
-<div style="display:flex; gap:1rem;">
-  <img src="/Test/assets/images/japan/sushi.jpeg" width="200">
-  <img src="/Test/assets/images/japan/tokyoskyline.jpg" width="200">
-  <img src="/Test/assets/images/japan/sushi.jpeg" width="200">
-</div>
-
-> Et citat
-
-- Liste
-- Med
-- Punkter
-
-1. Nummereret
-2. Liste
-
-![Tokyo skyline](/Test/assets/images/japan/tokyoskyline.jpg)
-
-| By     | Rating | Noter        |
-|--------|--------|--------------|
-| Tokyo  | 5/5    | Fantastisk   |
-| Kyoto  | 4/5    | Smuk         |
-
-
-[Til forsiden](/Test/)  
-[Frankrig](/Test/lande/frankrig/)  
-[Google](https://google.com)
+Japan text
