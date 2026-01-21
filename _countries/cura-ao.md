@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: CUW
+iso2: curacao
 name: Curaçao
 continent: South America
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness:
+tags: [expensive, island, beach]
+language: [Papiamentu, Dutch, English]
+capital: Willemstad
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Caribbean Guilder
+  code: XCG
+  symbol: Cg
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.47
+      dkk: 3.54
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 47
+      dkk: 354
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: curacao
-best_months: []
-ok_months: []
+  dkk: 17.000 - 34.000
+  eur: 2.300 - 4.500
+gay_details:
+best_months: [1, 2, 3, 4, 5, 6]
+ok_months: [7, 8]
 ---
-# Curaçao
-
 Write your notes about Curaçao here.

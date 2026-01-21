@@ -3,11 +3,9 @@ layout: country
 iso: COR
 name: Corsica
 continent: Europe
-gay_friendliness: ""
-tags: []
-language:
-  - French
-  - Corsican
+gay_friendliness: 
+tags: [nature, island, beach]
+language: [French, Corsican]
 capital: Ajaccio
 currency:
   name: Euro
@@ -16,20 +14,18 @@ currency:
   rates:
     per_1:
       eur: 1
-      dkk: ""
+      dkk: 7.47
     per_100:
       eur: 100
-      dkk: ""
+      dkk: 747
 budget:
-  dkk: ""
-  eur: ""
+  dkk: 10.000 - 23.000
+  eur: 1.300 - 3.100
 gay_details: >
   Same-sex relationships are legal and protected under French law. Corsica follows
   national French legislation regarding LGBTQ+ rights.
 iso2: corsica
-best_months: []
-ok_months: []
+best_months: [5, 6, 9, 10]
+ok_months: [4, 7, 8]
 ---
-# Corsica
-
 Write your notes about Corsica here.

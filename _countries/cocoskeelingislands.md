@@ -1,34 +1,29 @@
 ---
 layout: country
 iso: CCK
+iso2: cocoskeeling
 name: Cocos (Keeling) Islands
 continent: Asia
-gay_friendliness: ""
-tags: []
-language:
-  - English
+gay_friendliness: 90
+tags: [island, beach, expensive]
+language: [Cocos Malay, English]
 capital: West Island
 currency:
-  name: Australian dollar
+  name: Australian Dollar
   code: AUD
   symbol: $
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.57
+      dkk: 4.3
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 57
+      dkk: 430
 budget:
-  dkk: ""
-  eur: ""
-gay_details: >
-  Same-sex sexual activity is legal under Australian law. Protections and rights
-  largely follow Australian federal legislation.
-iso2: cocoskeeling
-best_months: []
-ok_months: []
+  dkk: 11.000 - 15.500
+  eur: 1.500 - 2.000
+gay_details: "Legal. Follows the Australian LGBTQ+ rules."
+best_months: [4, 5, 6, 7, 8, 9]
+ok_months: [3, 10]
 ---
-# Cocos (Keeling) Islands
-
 Write your notes about Cocos (Keeling) Islands here.

@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: COL
+iso2: co
 name: Colombia
 continent: South America
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 71
+tags: [cheap, culture, nature, long_trip]
+language: [Spanish]
+capital: Bogotá
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Colombian peso
+  code: COP
+  symbol: $
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.0002
+      dkk: 0.0017
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.02
+      dkk: 0.17
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: co
-best_months: []
-ok_months: []
+  dkk: 2.500 - 7.500
+  eur: 330 - 1.000
+gay_details:
+best_months: [12, 1, 2, 7, 8]
+ok_months: [3, 4, 9, 10]
 ---
-# Colombia
 
 Write your notes about Colombia here.
