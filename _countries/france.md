@@ -1,36 +1,29 @@
 ---
 layout: country
 iso: FRA
+iso2: fr
 name: France
 continent: Europe
-gay_friendliness: ""
-tags:
-  - food
-  - expensive
-  - j_has_been
-  - m_has_been
-  - friends_and_family
-language: []
-capital: ""
+gay_friendliness: 76
+tags: [food, expensive, j_has_been, m_has_been, friends_and_family, culture, gay_friendly, walkable]
+language: [French]
+capital: Paris
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Euro
+  code: EUR
+  symbol: €
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 1
+      dkk: 7.47
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 100
+      dkk: 747
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: fr
-best_months: []
-ok_months: []
+  dkk: 13.000 - 43.000
+  eur: 1.700 - 5.800
+gay_details:
+best_months: [5, 6, 9, 10]
+ok_months: [4, 7, 8]
 ---
-# France
-
 Write your notes about France here.

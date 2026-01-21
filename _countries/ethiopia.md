@@ -5,7 +5,7 @@ iso2: et
 name: Ethiopia
 continent: Africa
 gay_friendliness:
-tags: [cheap, culture, language]
+tags: [cheap, culture, language, long_trip]
 language: [Amharic, Oromo, Tigrinya, Somali, Afar]
 capital: Addis Ababa
 currency:

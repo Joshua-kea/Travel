@@ -1,34 +1,29 @@
 ---
 layout: country
 iso: PYF
+iso2: polynesia
 name: French Polynesia
 continent: Oceania
-gay_friendliness: ""
-tags:
-  - j_wants_to_go
-  - island
-  - beach
-language: []
-capital: ""
+gay_friendliness:
+tags: [j_wants_to_go, beach, island, gay_friendly, nature, long_trip]
+language: [French]
+capital: Papeete
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: CFP Franc
+  code: XFP
+  symbol: ₣ 
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.008
+      dkk: 0.063
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.8
+      dkk: 6.3
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: polynesia
-best_months: []
-ok_months: []
+  dkk: 10.000 - 18.000
+  eur: 1.300 - 2.400
+gay_details:
+best_months: [5, 6, 7, 8, 9, 10]
+ok_months: [4, 11]
 ---
-# French Polynesia
-
 Write your notes about Fr. Polynesia here.
