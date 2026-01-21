@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: IMN
+iso2: iofman
 name: Isle of Man
 continent: Europe
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 74
+tags: [island, gay_friendly]
+language: [English, Manx]
+capital: Douglas
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Pound sterling
+  code: GBP
+  symbol: £
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 1.15
+      dkk: 8.6
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 115
+      dkk: 860
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: iofman
-best_months: []
-ok_months: []
+  dkk: 10.000 - 14.000
+  eur: 1.300 - 1.900
+gay_details:
+best_months: [6, 7, 8, 9]
+ok_months: [5, 10]
 ---
-# Isle of Man
-
 Write your notes about Isle of Man here.

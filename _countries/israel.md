@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: ISR
+iso2: il
 name: Israel
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 62
+tags: [culture, walkable, gay_friendly, language]
+language: [Hebrew]
+capital: Jerusalem
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Israeli new shekel
+  code: ILS
+  symbol: ₪
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.27
+      dkk: 2
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 27
+      dkk: 200
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: il
-best_months: []
-ok_months: []
+  dkk: 7.000 - 17.000
+  eur: 930 - 2.300
+gay_details:
+best_months: [3, 4, 5, 9, 10, 11]
+ok_months: [2, 12]
 ---
-# Israel
-
 Write your notes about Israel here.

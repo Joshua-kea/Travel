@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: IND
+iso2: in
 name: India
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 55
+tags: [culture, nature, food, long_trip, cheap]
+language: [Hindi, English]
+capital: New Delhi
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Indian Rupee
+  code: INR
+  symbol: ₹
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.01
+      dkk: 0.07
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 1
+      dkk: 7
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: in
-best_months: []
-ok_months: []
+  dkk: 2.000 - 5.000
+  eur: 270 - 670
+gay_details:
+best_months: [11, 12, 1, 2]
+ok_months: [3, 10]
 ---
-# India
-
 Write your notes about India here.

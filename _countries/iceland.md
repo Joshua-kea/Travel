@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: ISL
+iso2: is
 name: Iceland
 continent: Europe
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 93
+tags: [gay_friendly, expensive, nature, language, long_trip]
+language: [Icelandic]
+capital: Reykjavik
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Icelandic Króna
+  code: ISK
+  symbol: kr
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.007
+      dkk: 0.05
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.7
+      dkk: 5
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: is
-best_months: []
-ok_months: []
+  dkk: 11.000 - 26.000
+  eur: 1.500 - 3.500
+gay_details:
+best_months: [6, 7, 8]
+ok_months: [5, 9]
 ---
-# Iceland
-
 Write your notes about Iceland here.
