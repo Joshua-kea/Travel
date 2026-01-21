@@ -1,32 +1,30 @@
 ---
 layout: country
 iso: DJI
+iso2: dj
 name: Djibouti
 continent: Africa
-gay_friendliness: ""
-tags:
-  - j_wants_to_go
-language: []
-capital: ""
+gay_friendliness:
+tags: []
+language: [French, Arabic]
+capital: Djibouti
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Djiboutian Franc
+  code: DJF
+  symbol: Fdj
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.005
+      dkk: 0.036
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.5
+      dkk: 3.6
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: dj
-best_months: []
-ok_months: []
+  dkk: 12.000 - 17.000
+  eur: 1.600 - 2.300
+gay_details:
+best_months: [11, 12, 1, 2]
+ok_months: [3, 10]
 ---
-# Djibouti
 
 Write your notes about Djibouti here.

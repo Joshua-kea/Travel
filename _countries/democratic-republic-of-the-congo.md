@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: COD
+iso2: cd
 name: Democratic Republic of the Congo
 continent: Africa
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
-currency:
-  name: ""
-  code: ""
-  symbol: ""
+gay_friendliness:
+tags: [nature]
+language: [French, Lingala, Swahili, Tshiluba, Kituba]
+capital: Kinshasa
+currency: 
+  name: Congolese franc
+  code: CDF
+  symbol: FC
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.0004
+      dkk: 0.003
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.04
+      dkk: 0.3
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: cd
-best_months: []
-ok_months: []
+  dkk: 13.000 - 20.000
+  eur: 1.700 - 2.700
+gay_details:
+best_months: [6, 7, 8, 9]
+ok_months: [12, 1]
 ---
-# Democratic Republic of the Congo
 
 Write your notes about Democratic Republic of the Congo here.

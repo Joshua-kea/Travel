@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: DOM
+iso2: do
 name: Dominican Republic
 continent: North America
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness:
+tags: [island, beach]
+language: [Spanish]
+capital: Santo Domingo
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Dominican peso
+  code: DOP
+  symbol: RD
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.01
+      dkk: 0.1
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 1
+      dkk: 10
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: do
-best_months: []
-ok_months: []
+  dkk: 7.000 - 18.000
+  eur: 930 - 2.400
+gay_details: 
+best_months: [1, 2, 3, 4]
+ok_months: [12, 5]
 ---
-# Dominican Republic
-
 Write your notes about Dominican Republic here.

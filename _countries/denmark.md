@@ -1,34 +1,29 @@
 ---
 layout: country
 iso: DNK
+iso2: dk
 name: Denmark
 continent: Europe
-gay_friendliness: ""
-tags:
-  - j_has_been
-  - m_has_been
-language:
-  - Danish
+gay_friendliness:
+tags: [m_has_been, j_has_been, culture, walkable, language, expensive, gay_friendly]
+language: [Danish]
 capital: Copenhagen
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Dansk krone
+  code: DKK
+  symbol: kr
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.13
+      dkk: 1
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 13
+      dkk: 100
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: dk
-best_months: []
-ok_months: []
+  dkk: 10.000 - 15.000
+  eur: 1.300 - 2.000
+gay_details: 
+best_months: [5, 6, 7, 8]
+ok_months: [4, 9]
 ---
-# Denmark
-
 Write your notes about Denmark here.
