@@ -4,9 +4,7 @@ iso: SWE
 name: Sweden
 continent: Europe
 gay_friendliness: ""
-tags:
-  - jwashere
-  - mwashere
+tags: [j_has_been, m_has_been]
 language: []
 capital: ""
 currency:

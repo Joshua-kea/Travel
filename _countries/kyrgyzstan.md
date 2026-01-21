@@ -1,10 +1,11 @@
 ---
 layout: country
 iso: KGZ
+iso2: kg
 name: Kyrgyzstan
 continent: Asia
-gay_friendliness: ""
-tags: []
+gay_friendliness: 20
+tags: [nature, culture]
 language: []
 capital: ""
 currency:
@@ -21,11 +22,10 @@ currency:
 budget:
   dkk: ""
   eur: ""
-gay_details: ""
-iso2: kg
+gay_details: "Legal since 1997, but with state-enforced censorship, 
+no protections and very low public opinion."
 best_months: []
 ok_months: []
 ---
-# Kyrgyzstan
 
 Write your notes about Kyrgyzstan here.

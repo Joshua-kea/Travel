@@ -5,7 +5,7 @@ iso2: ba
 name: Bosnia and Herzegovina
 continent: Europe
 gay_friendliness: 50
-tags: [j_has_been_here, m_has_been_here, culture, walkable]
+tags: [j_has_been, m_has_been, culture, walkable]
 language: [Bosnian, Croatian, Serbian]
 capital: Sarajevo
 currency:
