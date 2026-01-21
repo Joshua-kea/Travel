@@ -4,7 +4,7 @@ iso: TLS
 iso2: tl
 name: East Timor
 continent: Asia
-gay_friendliness:
+gay_friendliness: 54
 tags: [language, nature]
 language: [Tetum, Portuguese]
 capital: Dili
@@ -22,7 +22,7 @@ currency:
 budget:
   dkk: 7.000 - 10.000
   eur: 930 - 1.300
-gay_details: 
+gay_details:
 best_months: [6, 7, 8, 9]
 ok_months: [5, 10]
 ---

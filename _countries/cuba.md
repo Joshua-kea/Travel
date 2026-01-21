@@ -4,7 +4,7 @@ iso: CUB
 iso2: cu
 name: Cuba
 continent: North America
-gay_friendliness: 
+gay_friendliness: 79
 tags: [cheap, island, culture]
 language: [Spanish]
 capital: Havana

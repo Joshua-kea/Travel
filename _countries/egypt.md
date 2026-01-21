@@ -4,7 +4,7 @@ iso: EGY
 iso2: eg
 name: Egypt
 continent: Africa
-gay_friendliness:
+gay_friendliness: 10
 tags: [cheap, culture, beach, language, long_trip]
 language: [Arabic]
 capital: Cairo
@@ -22,7 +22,9 @@ currency:
 budget:
   dkk: 2.000 - 4.000
   eur: 270 - 530
-gay_details:
+gay_details: "Illegal. Is punished with 3 months to 10 years in prison.
+Police will use dating apps such as Tinder and Grindr to lure in LGBTQ+ people
+and then force bribes or prostitution out of them."
 best_months: [11, 12, 1, 2, 3]
 ok_months: [4, 10]
 ---

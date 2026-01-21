@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: GRD
+iso2: gd
 name: Grenada
 continent: North America
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 22
+tags: [expensive, island, beach, nature]
+language: [English]
+capital: Saint George's
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: East Caribbean Dollar
+  code: XCD
+  symbol: EC
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.32
+      dkk: 2.36
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 32
+      dkk: 236
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: gd
-best_months: []
-ok_months: []
+  dkk: 15.000 - 33.000
+  eur: 2.000 - 4.400
+gay_details: "Illegal for men. They use the law they have against beastiality 
+and it is punished with 10 years in prison."
+best_months: [1, 2, 3, 4]
+ok_months: [12, 5]
 ---
-# Grenada
-
 Write your notes about Grenada here.

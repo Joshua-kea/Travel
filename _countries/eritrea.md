@@ -4,7 +4,7 @@ iso: ERI
 iso2: er
 name: Eritrea
 continent: Africa
-gay_friendliness: 
+gay_friendliness: 4
 tags: [culture]
 language: [Tigrinya, Arabic, English, Tigre]
 capital: Asmara
@@ -22,7 +22,7 @@ currency:
 budget:
   dkk: 7.000 - 10.000
   eur: 930 - 1.300
-gay_details: 
+gay_details: "Illegal with punishment of 10 days to 3 years in prison."
 best_months: [11, 12, 1, 2]
 ok_months: [3, 10]
 ---

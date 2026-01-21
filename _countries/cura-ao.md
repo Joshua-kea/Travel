@@ -4,8 +4,8 @@ iso: CUW
 iso2: curacao
 name: Curaçao
 continent: South America
-gay_friendliness:
-tags: [expensive, island, beach]
+gay_friendliness: 74
+tags: [expensive, island, beach, gay_friendly]
 language: [Papiamentu, Dutch, English]
 capital: Willemstad
 currency:
@@ -22,7 +22,7 @@ currency:
 budget:
   dkk: 17.000 - 34.000
   eur: 2.300 - 4.500
-gay_details:
+gay_details: "Follows the same rules as in the Netherlands for LGTBQ+."
 best_months: [1, 2, 3, 4, 5, 6]
 ok_months: [7, 8]
 ---

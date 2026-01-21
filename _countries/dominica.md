@@ -4,7 +4,7 @@ iso: DMA
 iso2: dm
 name: Dominica
 continent: North America
-gay_friendliness:
+gay_friendliness: 32
 tags: [nature, island]
 language: [Kweyòl, English]
 capital: Roseau
@@ -22,7 +22,8 @@ currency:
 budget:
   dkk: 10.000 - 20.000
   eur: 1.300 - 2.700
-gay_details: 
+gay_details: "Legal, but there are limited protections. 
+Marriage is not recognized and public opinion is very low."
 best_months: [1, 2, 3, 4]
 ok_months: [12, 5]
 ---

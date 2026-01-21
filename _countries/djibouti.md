@@ -4,7 +4,7 @@ iso: DJI
 iso2: dj
 name: Djibouti
 continent: Africa
-gay_friendliness:
+gay_friendliness: 33
 tags: []
 language: [French, Arabic]
 capital: Djibouti
@@ -22,7 +22,7 @@ currency:
 budget:
   dkk: 12.000 - 17.000
   eur: 1.600 - 2.300
-gay_details:
+gay_details: "It is legal in private but PDA is illegal."
 best_months: [11, 12, 1, 2]
 ok_months: [3, 10]
 ---

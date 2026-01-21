@@ -4,7 +4,7 @@ iso: GNQ
 iso2: gq
 name: Equatorial Guinea
 continent: Africa
-gay_friendliness:
+gay_friendliness: 38
 tags: [expensive]
 language: [Spanish, French, Portuguese]
 capital: Ciudad de la Paz
@@ -22,7 +22,8 @@ currency:
 budget:
   dkk: 11.000 - 16.000
   eur: 1.500 - 2.100
-gay_details:
+gay_details: "It has never been explicitly illegal, but LGBTQ+ people are frequently arrested
+with reasons such as 'social disruption' etc. So it's basically illegal."
 best_months: [12, 1, 2]
 ok_months: [11, 3]
 ---

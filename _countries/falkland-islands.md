@@ -4,7 +4,7 @@ iso: FLK
 iso2: falkland
 name: Falkland Island
 continent: South America
-gay_friendliness:
+gay_friendliness: 79
 tags: [nature, island, gay_friendly]
 language: [English]
 capital: Stanley

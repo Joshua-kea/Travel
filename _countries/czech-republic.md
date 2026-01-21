@@ -4,8 +4,8 @@ iso: CZE
 iso2: cz
 name: Czech Republic
 continent: Europe
-gay_friendliness: 
-tags: [j_has_been, culture, walkable, language]
+gay_friendliness: 72
+tags: [j_has_been, culture, walkable, language, gay_friendly]
 language: [Czech]
 capital: Prague
 currency:

@@ -4,7 +4,7 @@ iso: HRV
 iso2: hr
 name: Croatia
 continent: Europe
-gay_friendliness:
+gay_friendliness: 57
 tags: [m_wants_to_go, j_wants_to_go, beach, language]
 language: [Croatian]
 capital: Zagreb
@@ -22,7 +22,7 @@ currency:
 budget:
   dkk: 6.000 - 14.000
   eur: 800 - 1.900
-gay_details:
+gay_details: "Legal since 1977, but public opinion is quite low"
 best_months: [5, 6, 9]
 ok_months: [4, 7, 8, 10]
 ---

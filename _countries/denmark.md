@@ -4,7 +4,7 @@ iso: DNK
 iso2: dk
 name: Denmark
 continent: Europe
-gay_friendliness:
+gay_friendliness: 82
 tags: [m_has_been, j_has_been, culture, walkable, language, expensive, gay_friendly]
 language: [Danish]
 capital: Copenhagen

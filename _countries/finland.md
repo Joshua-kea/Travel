@@ -4,7 +4,7 @@ iso: FIN
 iso2: fi
 name: Finland
 continent: Europe
-gay_friendliness:
+gay_friendliness: 76
 tags: [m_was_here, language, nature, walkable, gay_friendly]
 language: [Finnish]
 capital: Helsinki

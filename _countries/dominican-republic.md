@@ -4,7 +4,7 @@ iso: DOM
 iso2: do
 name: Dominican Republic
 continent: North America
-gay_friendliness:
+gay_friendliness: 38
 tags: [island, beach]
 language: [Spanish]
 capital: Santo Domingo
@@ -22,7 +22,8 @@ currency:
 budget:
   dkk: 7.000 - 18.000
   eur: 930 - 2.400
-gay_details: 
+gay_details: "Legal, but there are no protections and public opinion is quite low.
+Marriage is banned."
 best_months: [1, 2, 3, 4]
 ok_months: [12, 5]
 ---

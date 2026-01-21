@@ -4,7 +4,7 @@ iso: CYP
 iso2: cy
 name: Cyprus
 continent: Asia
-gay_friendliness:
+gay_friendliness: 58
 tags: [island, beach, language]
 language: [Greek]
 capital: Nicosia
@@ -22,7 +22,7 @@ currency:
 budget:
   dkk: 6.800 - 14.000
   eur: 900 - 1.900
-gay_details:
+gay_details: "Legal since 1988, but public opinion is quite low."
 best_months: [5, 6, 9, 10]
 ok_months: [4, 7, 8, 11]
 ---

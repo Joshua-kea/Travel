@@ -4,7 +4,7 @@ iso: CRI
 iso2: cr
 name: Costa Rica
 continent: North America
-gay_friendliness:
+gay_friendliness: 69
 tags: [nature, beach, long_trip]
 language: [Spanish]
 capital: San José

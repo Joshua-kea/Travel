@@ -4,7 +4,7 @@ iso: COD
 iso2: cd
 name: Democratic Republic of the Congo
 continent: Africa
-gay_friendliness:
+gay_friendliness: 22
 tags: [nature]
 language: [French, Lingala, Swahili, Tshiluba, Kituba]
 capital: Kinshasa
@@ -22,7 +22,8 @@ currency:
 budget:
   dkk: 13.000 - 20.000
   eur: 1.700 - 2.700
-gay_details:
+gay_details: "Has never been illegal, but it is only legal in private.
+PDA is illegal."
 best_months: [6, 7, 8, 9]
 ok_months: [12, 1]
 ---

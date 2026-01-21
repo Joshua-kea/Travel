@@ -4,7 +4,7 @@ iso: FRO
 iso2: faroe
 name: Faeroe Islands
 continent: Europe
-gay_friendliness:
+gay_friendliness: 80
 tags: [language, island, nature, gay_friendly, expensive]
 language: [Faroese, Danish]
 capital: Thorshavn

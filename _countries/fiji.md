@@ -4,7 +4,7 @@ iso: FJI
 iso2: fj
 name: Fiji
 continent: Oceania
-gay_friendliness:
+gay_friendliness: 55
 tags: [island, beach]
 language: [Fijian, English, Fiji Hindi]
 capital: Suva

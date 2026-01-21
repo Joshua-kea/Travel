@@ -4,7 +4,7 @@ iso: ETH
 iso2: et
 name: Ethiopia
 continent: Africa
-gay_friendliness:
+gay_friendliness: 12
 tags: [cheap, culture, language, long_trip]
 language: [Amharic, Oromo, Tigrinya, Somali, Afar]
 capital: Addis Ababa
@@ -22,7 +22,7 @@ currency:
 budget:
   dkk: 1.000 - 3.000
   eur: 130 - 400
-gay_details:
+gay_details: "Illegal with punishment being 10 days to 3 years in prison."
 best_months: [10, 11, 12, 1, 2]
 ok_months: [3, 9]
 ---

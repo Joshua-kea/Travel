@@ -4,7 +4,7 @@ iso: EST
 iso2: ee
 name: Estonia
 continent: Europe
-gay_friendliness:
+gay_friendliness: 58
 tags: [culture, walkable, language, gay_friendly]
 language: [Estonian]
 capital: Tallinn
