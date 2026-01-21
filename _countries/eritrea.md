@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: ERI
+iso2: er
 name: Eritrea
 continent: Africa
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 
+tags: [culture]
+language: [Tigrinya, Arabic, English, Tigre]
+capital: Asmara
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Nakfa
+  code: ERN
+  symbol: Nfk
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.05
+      dkk: 0.42
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 5
+      dkk: 42
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: er
-best_months: []
-ok_months: []
+  dkk: 7.000 - 10.000
+  eur: 930 - 1.300
+gay_details: 
+best_months: [11, 12, 1, 2]
+ok_months: [3, 10]
 ---
-# Eritrea
 
 Write your notes about Eritrea here.

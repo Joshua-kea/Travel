@@ -3,9 +3,8 @@ layout: country
 iso: ECU
 name: Ecuador
 continent: South America
-gay_friendliness: ""
-tags:
-  - j_wants_to_go
+gay_friendliness: 
+tags: [j_wants_to_go]
 language: []
 capital: ""
 currency:
@@ -27,6 +26,4 @@ iso2: ec
 best_months: []
 ok_months: []
 ---
-# Ecuador
-
 Write your notes about Ecuador here.

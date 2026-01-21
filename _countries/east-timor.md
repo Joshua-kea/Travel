@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: TLS
+iso2: tl
 name: East Timor
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness:
+tags: [language, nature]
+language: [Tetum, Portuguese]
+capital: Dili
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: US dollar
+  code: USD
+  symbol: $
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.86
+      dkk: 6.42
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 86
+      dkk: 642
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: tl
-best_months: []
-ok_months: []
+  dkk: 7.000 - 10.000
+  eur: 930 - 1.300
+gay_details: 
+best_months: [6, 7, 8, 9]
+ok_months: [5, 10]
 ---
-# East Timor
-
 Write your notes about East Timor here.

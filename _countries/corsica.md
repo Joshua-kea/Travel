@@ -3,7 +3,7 @@ layout: country
 iso: COR
 name: Corsica
 continent: Europe
-gay_friendliness: 
+gay_friendliness: 74
 tags: [nature, island, beach]
 language: [French, Corsican]
 capital: Ajaccio
