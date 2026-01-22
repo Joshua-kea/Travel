@@ -1,34 +1,29 @@
 ---
 layout: country
 iso: PRT
+iso2: pt
 name: Portugal
 continent: Europe
-gay_friendliness: ""
-tags:
-  - j_has_been
-  - m_has_been
-  - friends_and_family
-language: []
-capital: ""
+gay_friendliness: 77
+tags: [j_has_been, m_has_been, friends_and_family, culture, food, beach, walkable, gay_friendly]
+language: [Portuguese]
+capital: Lisbon
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Euro
+  code: EUR
+  symbol: €
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 1
+      dkk: 7.47
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 100
+      dkk: 747
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: pt
-best_months: []
-ok_months: []
+  dkk: 8.000 - 20.000
+  eur: 1.100 - 2.700
+gay_details:
+best_months: [5, 6, 9, 10]
+ok_months: [4, 7, 8]
 ---
-# Portugal
-
 Write your notes about Portugal here.

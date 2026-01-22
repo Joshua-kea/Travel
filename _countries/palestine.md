@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: PSE
+iso2: palestine
 name: Palestine
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 19
+tags: [culture, food, language, cheap]
+language: [Arabic]
+capital: Jerusalem
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Israeli new shekel
+  code: ILS
+  symbol: ₪
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.27
+      dkk: 2
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 27
+      dkk: 200
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: palestine
-best_months: []
-ok_months: []
+  dkk: 4.000 - 7.000
+  eur: 530 - 930
+gay_details: "Illegal in Gaza and punished with up to 10 years in prison, 
+but legal in West Bank. Public opinion is very low."
+best_months: [3, 4, 5, 9, 10, 11]
+ok_months: [2, 6, 12]
 ---
-# Palestine
-
 Write your notes about Palestine here.

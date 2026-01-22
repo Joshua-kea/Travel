@@ -9,7 +9,7 @@ tags: [culture, walkable, gay_friendly, language]
 language: [Hebrew]
 capital: Jerusalem
 currency:
-  name: Israeli new shekel
+  name: Israeli shekel
   code: ILS
   symbol: ₪
   rates:
