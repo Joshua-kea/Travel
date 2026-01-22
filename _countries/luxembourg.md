@@ -5,7 +5,7 @@ iso2: lu
 name: Luxembourg
 continent: Europe
 gay_friendliness: 67
-tags: [expensive, culture, walkable, gay_friendly, nature]
+tags: [expensive, culture, walkable, gay_friendly, nature, short_trip]
 language: [Luxembourgish, French, German]
 capital: Luxembourg
 currency:

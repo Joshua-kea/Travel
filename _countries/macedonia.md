@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: MKD
-name: Macedonia
+iso2: mk
+name: North Macedonia
 continent: Europe
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 48
+tags: [culture, nature, language]
+language: [Macedonian]
+capital: Skopje
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Macedonian Denar
+  code: MKD
+  symbol: den
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.02
+      dkk: 0.12
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 1.6
+      dkk: 12
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: mk
-best_months: []
-ok_months: []
+  dkk: 5.500 - 10.000
+  eur: 730 - 1.300
+gay_details: "Legal, but public opinion is quite low."
+best_months: [5, 6, 9, 10]
+ok_months: [4, 7, 8]
 ---
-# Macedonia
-
 Write your notes about Macedonia here.

@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: MYS
+iso2: my
 name: Malaysia
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 18
+tags: [culture, nature, food, beach, long_trip]
+language: [Malay]
+capital: Kuala Lumpur
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Ringgit
+  code: MYR
+  symbol: RM
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.21
+      dkk: 1.58
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 21
+      dkk: 158
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: my
-best_months: []
-ok_months: []
+  dkk: 5.000 - 14.000
+  eur: 670 - 1.900
+gay_details: "Illegal. Punished with up to 20 years in prison with whipping."
+best_months: [1, 2, 3, 6, 7]
+ok_months: [4, 5, 8, 9]
 ---
-# Malaysia
-
 Write your notes about Malaysia here.

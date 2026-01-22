@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: MDA
+iso2: md
 name: Moldova
 continent: Europe
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 37
+tags: [culture, language, cheap]
+language: [Romanian]
+capital: Chișinău
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Moldovan Leu
+  code: MDL
+  symbol: L
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.05
+      dkk: 0.37
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 5
+      dkk: 37
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: md
-best_months: []
-ok_months: []
+  dkk: 3.000 - 5.000
+  eur: 400 - 670
+gay_details: "Legal, but public opinion is very low."
+best_months: [5, 6, 9, 10]
+ok_months: [4, 7, 8]
 ---
-# Moldova
-
 Write your notes about Moldova here.
