@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: ROU
+iso2: ro
 name: Romania
 continent: Europe
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 47
+tags: [culture, nature, language]
+language: [Romanian]
+capital: Bucharest
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Romanian Leu
+  code: RON
+  symbol: lei
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.2
+      dkk: 1.47
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 20
+      dkk: 147
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: ro
-best_months: []
-ok_months: []
+  dkk: 5.000 - 13.000
+  eur: 670 - 1.800
+gay_details:
+best_months: [5, 6, 9, 10]
+ok_months: [4, 7, 8]
 ---
-# Romania
-
 Write your notes about Romania here.
