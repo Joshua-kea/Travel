@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: NER
+iso2: ne
 name: Niger
 continent: Africa
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 24
+tags: [culture, cheap]
+language: [Hausa]
+capital: Niamey
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: West African CFA franc
+  code: XOF
+  symbol: CFA
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.0015
+      dkk: 0.011
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.15
+      dkk: 1.1
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: ne
-best_months: []
-ok_months: []
+  dkk: 4.000 - 7.000
+  eur: 530 - 930
+gay_details: "Legal, but no protections and very low public opinion."
+best_months: [11, 12, 1, 2]
+ok_months: [10, 3]
 ---
-# Niger
-
 Write your notes about Niger here.

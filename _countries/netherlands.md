@@ -1,32 +1,29 @@
 ---
 layout: country
 iso: NLD
+iso2: nl
 name: Netherlands
 continent: Europe
-gay_friendliness: ""
-tags:
-  - m_has_been
-language: []
-capital: ""
+gay_friendliness: 76
+tags: [m_has_been, gay_friendly, language]
+language: [Dutch, culture, walkable, expensive]
+capital: Amsterdam
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Euro
+  code: EUR
+  symbol: €
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 1
+      dkk: 7.47
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 100
+      dkk: 747
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: nl
-best_months: []
-ok_months: []
+  dkk: 11.000 - 27.000
+  eur: 1.500 - 3.600
+gay_details:
+best_months: [4, 5, 6, 9]
+ok_months: [3, 7, 8, 10]
 ---
-# Netherlands
-
 Write your notes about Netherlands here.

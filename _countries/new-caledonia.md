@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: NCL
+iso2: newcaledonia
 name: New Caledonia
 continent: Oceania
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 80
+tags: [nature, island, beach, gay_friendly]
+language: [French]
+capital: Noumea
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: CFP franc
+  code: XPF
+  symbol: ₣
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.008
+      dkk: 0.06
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.8
+      dkk: 6
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: newcaledonia
-best_months: []
-ok_months: []
+  dkk: 8.000 - 13.000
+  eur: 1.100 - 1.800
+gay_details:
+best_months: [5, 6, 7, 8, 9, 10]
+ok_months: [4, 11]
 ---
-# New Caledonia
-
 Write your notes about New Caledonia here.
