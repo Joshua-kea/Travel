@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const overlaps =
                 range.max >= userMin &&
-                range.min <= userMax;
+                range.min < userMax;
 
             if (!overlaps) return false;
         }
