@@ -35,6 +35,20 @@ document.addEventListener("DOMContentLoaded", () => {
         return { min: nums[0], max: nums[1] };
     }
 
+    function parseUserNumber(value) {
+        if (!value) return null;
+
+        const n = Number(
+            value
+                .toString()
+                .replace(/\s/g, "")
+                .replace(/\./g, "")
+        );
+
+        return isNaN(n) ? null : n;
+    }
+
+
 
     function placeMatchesFilters(place) {
             if (!place) return false;
@@ -161,7 +175,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function applyFilters() {
             layers.forEach(layer => {
-                layer._hasFilters = activeTags.size > 0 || activeMonths.size > 0;
+                layer._hasFilters =
+                    activeTags.size > 0 ||
+                    activeMonths.size > 0 ||
+                    activeBudgetMin !== null ||
+                    activeBudgetMax !== null;
                 layer._isMatch = layer._place ? placeMatchesFilters(layer._place) : false;
                 applyStyle(layer);
             });
@@ -342,6 +360,10 @@ document.addEventListener("DOMContentLoaded", () => {
         m_has_been: "Places M has been"
     };
 
+    function formatNumberDK(n) {
+        return n.toLocaleString("da-DK");
+    }
+
     function renderChips() {
             if (!chipsEl) return;
 
@@ -378,7 +400,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 chipsEl.appendChild(chip);
             });
 
-            /* MONTH CHIPS */
+            /* budget cips */
+        if (activeBudgetMin !== null || activeBudgetMax !== null) {
+            const chip = document.createElement("span");
+
+            const min = activeBudgetMin !== null ? formatNumberDK(activeBudgetMin) : "0";
+            const max = activeBudgetMax !== null ? formatNumberDK(activeBudgetMax) : "∞";
+
+            chip.textContent = `Budget: ${min} – ${max} ×`;
+            chip.style.cssText = `
+        background:#94a3b8;
+        color:white;
+        padding:0.2rem 0.55rem;
+        border-radius:999px;
+        cursor:pointer;
+        font-size:0.7rem;
+    `;
+
+            chip.onclick = () => {
+                activeBudgetMin = null;
+                activeBudgetMax = null;
+                document.getElementById("budgetMin").value = "";
+                document.getElementById("budgetMax").value = "";
+                renderChips();
+                applyFilters();
+            };
+
+            chipsEl.appendChild(chip);
+        }
+
+        /* MONTH CHIPS */
             activeMonths.forEach(month => {
                 const chip = document.createElement("span");
                 chip.textContent = `${MONTH_NAMES[month]} ×`;
@@ -427,8 +478,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const minInput = document.getElementById("budgetMin");
                 const maxInput = document.getElementById("budgetMax");
 
-                activeBudgetMin = minInput?.value ? Number(minInput.value) : null;
-                activeBudgetMax = maxInput?.value ? Number(maxInput.value) : null;
+                activeBudgetMin = parseUserNumber(minInput?.value);
+                activeBudgetMax = parseUserNumber(maxInput?.value);
 
 
                 panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {

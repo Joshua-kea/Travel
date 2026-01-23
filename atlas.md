@@ -167,18 +167,8 @@ gap: 0.4rem;
   </div>
 
   <div style="display:flex; gap:0.5rem;">
-    <input
-      id="budgetMin"
-      type="number"
-      placeholder="Min"
-      style="width:50%;"
-    />
-    <input
-      id="budgetMax"
-      type="number"
-      placeholder="Max"
-      style="width:50%;"
-    />
+    <input id="budgetMin" type="text" placeholder="Min (e.g. 5.000)" />
+<input id="budgetMax" type="text" placeholder="Max (e.g. 15.000)" />
   </div>
 </div>
 
@@ -249,19 +239,21 @@ gap: 0.4rem;
 
 <script>
   window.places = [
-    {% for place in site.countries %}
-      {
-        name: {{ place.name | jsonify }},
-        iso: {{ place.iso | jsonify }},
-        admin_key: {{ place.admin_key | jsonify }},
-        continent: {{ place.continent | jsonify }},
-        url: "{{ site.baseurl }}{{ place.url }}",
-        tags: {{ place.tags | jsonify }},
-        best_months: {{ place.best_months | default: "[]" | jsonify }},
-        language: {{ place.language | default: "[]" | jsonify }}
-      },
-    {% endfor %}
-  ];
+  {% for place in site.countries %}
+    {
+      name: {{ place.name | jsonify }},
+      iso: {{ place.iso | jsonify }},
+      admin_key: {{ place.admin_key | jsonify }},
+      continent: {{ place.continent | jsonify }},
+      url: "{{ site.baseurl }}{{ place.url }}",
+      tags: {{ place.tags | jsonify }},
+      best_months: {{ place.best_months | default: "[]" | jsonify }},
+      language: {{ place.language | default: "[]" | jsonify }},
+      budget: {{ place.budget | default: "null" | jsonify }}
+    },
+  {% endfor %}
+];
+
   window.BASEURL = "{{ site.baseurl }}";
 </script>
 
