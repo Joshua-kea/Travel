@@ -96,16 +96,16 @@ document.addEventListener("DOMContentLoaded", () => {
             if (p.admin_key) byAdminKey[p.admin_key.toUpperCase()] = p;
         });
 
-        function getCountryKey(p = {}) {
-            if (p.ADM0_A3 && p.ADM0_A3 !== "-99") return p.ADM0_A3;
-            if (p.ISO_A3 && p.ISO_A3 !== "-99") return p.ISO_A3;
-            if (p.SOV_A3 && p.SOV_A3 !== "-99") return p.SOV_A3;
-            return null;
-        }
+    function getCountryKey(p = {}) {
+        if (p.ISO_A3 && p.ISO_A3 !== "-99") return p.ISO_A3;
+        if (p.ADM0_A3 && p.ADM0_A3 !== "-99") return p.ADM0_A3;
+        if (p.SOV_A3 && p.SOV_A3 !== "-99") return p.SOV_A3;
+        return null;
+    }
 
-        /* =========================
-           MAP STYLES
-        ========================= */
+    /* =========================
+       MAP STYLES
+    ========================= */
 
         const STYLE_BASE = {fillColor: "#e8eef1", fillOpacity: 1, weight: 0.8, color: "#a9bcc8"};
         const STYLE_DIM = {fillColor: "#dde5ea", fillOpacity: 1, weight: 0.5, color: "#c6d2d9"};
