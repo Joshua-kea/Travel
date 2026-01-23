@@ -491,7 +491,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateURL();
                 renderChips();
                 applyFilters();
+
+                if (listView.style.display !== "none") {
+                    renderList();
+                }
+
                 panel.style.display = "none";
+
             };
         }
 
@@ -509,6 +515,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateURL();
                 renderChips();
                 applyFilters();
+
+                if (listView.style.display !== "none") {
+                    renderList();
+                }
+
                 panel.style.display = "none";
             };
         }
