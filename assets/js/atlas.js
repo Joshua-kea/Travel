@@ -196,18 +196,25 @@ document.addEventListener("DOMContentLoaded", () => {
                     pane: "territories",
                     style: STYLE_BASE,
                     onEachFeature: (f, l) => {
-                        const iso = f.properties?.iso_a3;
-                        const place = iso ? byISO[iso] : null;
+                        const p = f.properties || {};
+
+                        const iso =
+                            p.ISO_A3 ||
+                            p.iso_a3 ||
+                            p.ADM0_A3 ||
+                            p.SOV_A3;
+
+                        const place =
+                            (iso && byISO[iso]) ||
+                            (iso && byAdminKey[iso]);
 
                         bindLayer(
                             l,
                             place,
-                            place?.name || f.properties?.name
+                            place?.name || p.NAME || p.name
                         );
 
-                        // 👇 VIGTIG LINJE
                         l.on("mouseover", () => l.bringToFront());
-
                     }
                 }).addTo(map);
             });
