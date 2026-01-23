@@ -288,7 +288,27 @@ document.addEventListener("DOMContentLoaded", () => {
             "12": "Dec"
         };
 
-        function renderChips() {
+    const TAG_TITLES = {
+        culture: "Culture",
+        nature: "Nature",
+        food: "Food",
+        cheap: "Budget friendly",
+        expensive: "Expensive",
+        island: "Island",
+        beach: "Beach",
+        walkable: "Walkable",
+        short_trip: "Short trip",
+        long_trip: "Long trip",
+        friends_and_family: "Friends/family live here",
+        gay_friendly: "Gay friendly",
+        language: "Easy to communicate (EN/ES/FR)",
+        j_wants_to_go: "Places J wants to visit asap",
+        m_wants_to_go: "Places M wants to visit asap",
+        j_has_been: "Places J has been",
+        m_has_been: "Places M has been"
+    };
+
+    function renderChips() {
             if (!chipsEl) return;
 
             chipsEl.innerHTML = "";
@@ -296,7 +316,8 @@ document.addEventListener("DOMContentLoaded", () => {
             /* TAG CHIPS */
             activeTags.forEach(tag => {
                 const chip = document.createElement("span");
-                chip.textContent = `${tag} ×`;
+                const label = TAG_TITLES[tag] || tag;
+                chip.textContent = `${label} ×`;
                 chip.style.cssText = `
             background:#6b8f9c;
             color:white;
