@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: YEM
+iso2: ye
 name: Yemen
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 10
+tags: [culture, nature]
+language: [Arabic]
+capital: Sanaá
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Yemeni
+  code: YER
+  symbol: ﷼
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.003
+      dkk: 0.02
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.3
+      dkk: 2
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: ye
-best_months: []
-ok_months: []
+  dkk: 9.000 - 14.000
+  eur: 1.200 - 1.900
+gay_details: "Illegal. Punished with executions."
+best_months: [11, 12, 1, 2]
+ok_months: [3, 10]
 ---
-# Yemen
-
 Write your notes about Yemen here.
