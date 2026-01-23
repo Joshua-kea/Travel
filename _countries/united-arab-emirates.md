@@ -1,31 +1,32 @@
 ---
 layout: country
 iso: ARE
+iso2: ae
 name: United Arab Emirates
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 11
+tags: [culture, food, nature, beach, language, expensive]
+language: [Arabic]
+capital: Abu Dhabi
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Dirham
+  code: AED
+  symbol: D
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.23
+      dkk: 1.73
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 23
+      dkk: 173
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: ae
-best_months: []
-ok_months: []
+  dkk: 13.000 - 34.000
+  eur: 1.800 - 4.500
+gay_details: "Illegal. Punsihed with death, life in prison, floggings fines, 
+deportation, chemical castration, forced psychological treatment, 
+honor killings, beatings, forced anal examinations, forced hormone injections, 
+and torture."
+best_months: [11, 12, 1, 2, 3]
+ok_months: [4, 10]
 ---
-# United Arab Emirates
-
 Write your notes about United Arab Emirates here.
