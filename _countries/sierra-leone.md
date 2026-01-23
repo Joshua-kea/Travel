@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: SLE
+iso2: sl
 name: Sierra Leone
 continent: Africa
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 13
+tags: [nature, beach, cheap]
+language: [English]
+capital: Freetown
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Leone
+  code: SLE
+  symbol: Le
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.03
+      dkk: 0.26
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 3
+      dkk: 26
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: sl
-best_months: []
-ok_months: []
+  dkk: 4.000 - 7.000
+  eur: 530 - 930
+gay_details: "Illegal for men. Punished with death."
+best_months: [11, 12, 1, 2, 3, 4]
+ok_months: [5, 10]
 ---
-# Sierra Leone
-
 Write your notes about Sierra Leone here.

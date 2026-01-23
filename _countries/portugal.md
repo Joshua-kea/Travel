@@ -5,7 +5,7 @@ iso2: pt
 name: Portugal
 continent: Europe
 gay_friendliness: 77
-tags: [j_has_been, m_has_been, friends_and_family, culture, food, beach, walkable, gay_friendly]
+tags: [j_has_been, m_has_been, friends_and_family, culture, food, beach, walkable, gay_friendly, language]
 language: [Portuguese]
 capital: Lisbon
 currency:

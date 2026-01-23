@@ -1,32 +1,29 @@
 ---
 layout: country
 iso: ZAF
+iso2: za
 name: South Africa
 continent: Africa
-gay_friendliness: ""
-tags:
-  - m_has_been
-language: []
-capital: ""
+gay_friendliness: 67
+tags: [m_has_been, culture, nature, food, beach, gay_friendly, long_trip]
+language: [isiZulu, isiXhosa, Afrikaans, English]
+capital: Pretoria
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: South African Rand
+  code: ZAR
+  symbol: R
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.05
+      dkk: 0.4
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 5
+      dkk: 40
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: za
-best_months: []
-ok_months: []
+  dkk: 5.000 - 13.000
+  eur: 670 - 1.800
+gay_details: "Legal, but no protections. Public opinion is fine though."
+best_months: [1, 2, 5, 6, 7, 8, 9, 11, 12]
+ok_months: [3, 4, 10]
 ---
-# South Africa
-
 Write your notes about South Africa here.

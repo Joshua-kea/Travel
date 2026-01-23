@@ -5,7 +5,7 @@ iso2: br
 name: Brazil
 continent: South America
 gay_friendliness: 75
-tags: [gay_friendly, nature, culture, beach, long_trip]
+tags: [gay_friendly, nature, culture, beach, long_trip, language]
 language: [Portuguese]
 capital: Brasília
 currency:

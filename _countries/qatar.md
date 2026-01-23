@@ -5,7 +5,7 @@ iso2: qa
 name: Qatar
 continent: Asia
 gay_friendliness: 8
-tags: [expensive, culture, language, short_trip]
+tags: [expensive, culture, short_trip]
 language: [Arabic]
 capital: Doha
 currency:

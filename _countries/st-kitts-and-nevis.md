@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: KNA
+iso2: kn
 name: Saint Kitts and Nevis
 continent: North America
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 32
+tags: [nature, beach, island, culture]
+language: [English]
+capital: Basseterre
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: East Caribbean Dollar
+  code: XCD
+  symbol: $
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.31
+      dkk: 2.35
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 31
+      dkk: 235
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: kn
-best_months: []
-ok_months: []
+  dkk: 10.000 - 14.000
+  eur: 1.300 - 1.900
+gay_details: "Legal in private."
+best_months: [12, 1, 2, 3, 4]
+ok_months: [5, 6]
 ---
-# St. Kitts and Nevis
-
 Write your notes about St. Kitts and Nevis here.

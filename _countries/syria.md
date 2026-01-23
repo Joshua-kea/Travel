@@ -1,31 +1,30 @@
 ---
 layout: country
 iso: SYR
+iso2: sy
 name: Syria
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 17
+tags: [culture, nature]
+language: [Arabic]
+capital: Damaskus
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Syrian Pound
+  code: SYP
+  symbol: £
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.01
+      dkk: 0.05
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 0.7
+      dkk: 5
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: sy
-best_months: []
-ok_months: []
+  dkk: 7.000 - 11.000
+  eur: 930 - 1.500
+gay_details: "Illegal. Punished with up to 3 years in prison. 
+The punishment isn't being enforced, but public opinion is low."
+best_months: [3, 4, 10, 11]
+ok_months: [2, 5, 9]
 ---
-# Syria
-
 Write your notes about Syria here.
