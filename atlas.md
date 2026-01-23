@@ -167,8 +167,8 @@ gap: 0.4rem;
   </div>
 
   <div style="display:flex; gap:0.5rem;">
-    <input id="budgetMin" type="text" placeholder="Min (e.g. 5.000)" />
-<input id="budgetMax" type="text" placeholder="Max (e.g. 15.000)" />
+    <input id="budgetMin" type="text" placeholder="Min" />
+<input id="budgetMax" type="text" placeholder="Max" />
   </div>
 </div>
 
