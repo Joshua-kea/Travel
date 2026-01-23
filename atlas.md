@@ -114,7 +114,7 @@ gap: 0.4rem;
       position: absolute;
       top: 3rem;
       left: 0;
-      width: 340px;
+      width: 380px;
       background: #ffffff;
       border-radius: 12px;
       box-shadow: 0 10px 24px rgba(0,0,0,0.15);
