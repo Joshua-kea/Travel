@@ -1,31 +1,29 @@
 ---
 layout: country
 iso: TJK
+iso2: tj
 name: Tajikistan
 continent: Asia
-gay_friendliness: ""
-tags: []
-language: []
-capital: ""
+gay_friendliness: 32
+tags: [nature, culture, cheap]
+language: [Tajik]
+capital: Dusjanbe
 currency:
-  name: ""
-  code: ""
-  symbol: ""
+  name: Somoni
+  code: TJS
+  symbol: SM
   rates:
     per_1:
-      eur: ""
-      dkk: ""
+      eur: 0.09
+      dkk: 0.68
     per_100:
-      eur: ""
-      dkk: ""
+      eur: 9
+      dkk: 68
 budget:
-  dkk: ""
-  eur: ""
-gay_details: ""
-iso2: tj
-best_months: []
-ok_months: []
+  dkk: 900 - 1.500
+  eur: 120 - 200
+gay_details: "Legal, but state-enforced censorship and no protections."
+best_months: [6, 7, 8, 9]
+ok_months: [5, 10]
 ---
-# Tajikistan
-
 Write your notes about Tajikistan here.
