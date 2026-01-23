@@ -395,6 +395,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateURL();
                     renderChips();
                     applyFilters();
+
+                    if (listView.style.display !== "none") {
+                        renderList();
+                    }
                 };
 
                 chipsEl.appendChild(chip);
@@ -424,6 +428,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("budgetMax").value = "";
                 renderChips();
                 applyFilters();
+
+                if (listView.style.display !== "none") {
+                    renderList();
+                }
             };
 
             chipsEl.appendChild(chip);
@@ -454,6 +462,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateURL();
                     renderChips();
                     applyFilters();
+
+                    if (listView.style.display !== "none") {
+                        renderList();
+                    }
                 };
 
                 chipsEl.appendChild(chip);
