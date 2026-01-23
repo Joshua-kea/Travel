@@ -160,6 +160,29 @@ gap: 0.4rem;
         </div>
       </div>
 
+<!-- BUDGET -->
+<div>
+  <div style="font-size:0.85rem; margin-bottom:0.35rem;">
+    Budget (DKK, per person / 7 days)
+  </div>
+
+  <div style="display:flex; gap:0.5rem;">
+    <input
+      id="budgetMin"
+      type="number"
+      placeholder="Min"
+      style="width:50%;"
+    />
+    <input
+      id="budgetMax"
+      type="number"
+      placeholder="Max"
+      style="width:50%;"
+    />
+  </div>
+</div>
+
+
       <!-- INTERESTS -->
       <div>
         <div style="font-size:0.85rem; margin-bottom:0.35rem;">

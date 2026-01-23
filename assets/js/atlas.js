@@ -8,18 +8,35 @@ document.addEventListener("DOMContentLoaded", () => {
            FILTER STATE (INIT FIRST)
         ========================= */
 
-        const activeTags = new Set();
-        const activeMonths = new Set();
+    const activeTags = new Set();
+    const activeMonths = new Set();
 
-        const params = new URLSearchParams(window.location.search);
+    let activeBudgetMin = null;
+    let activeBudgetMax = null;
+
+
+    const params = new URLSearchParams(window.location.search);
         const tagFromURL = params.get("tag");
         if (tagFromURL) activeTags.add(tagFromURL);
 
         function normalizeMonths(value) {
             return Array.isArray(value) ? value.map(v => String(v)) : [];
         }
+    function parseBudgetRange(budget) {
+        if (!budget || typeof budget !== "string") return null;
 
-        function placeMatchesFilters(place) {
+        const nums = budget
+            .replace(/\./g, "")
+            .split("-")
+            .map(n => parseInt(n.trim(), 10));
+
+        if (nums.length !== 2 || nums.some(isNaN)) return null;
+
+        return { min: nums[0], max: nums[1] };
+    }
+
+
+    function placeMatchesFilters(place) {
             if (!place) return false;
 
             if (activeTags.size) {
@@ -54,8 +71,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!months.some(m => activeMonths.has(m))) return false;
             }
 
-            return true;
+        // 👇 BUDGET FILTER
+        if (activeBudgetMin !== null || activeBudgetMax !== null) {
+
+            const range = parseBudgetRange(place.budget?.dkk);
+            if (!range) return false;
+
+            const userMin = activeBudgetMin ?? 0;
+            const userMax = activeBudgetMax ?? Infinity;
+
+            const overlaps =
+                range.max >= userMin &&
+                range.min <= userMax;
+
+            if (!overlaps) return false;
         }
+
+        return true;
+
+    }
 
 
         /* =========================
@@ -390,6 +424,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 activeTags.clear();
                 activeMonths.clear();
 
+                const minInput = document.getElementById("budgetMin");
+                const maxInput = document.getElementById("budgetMax");
+
+                activeBudgetMin = minInput?.value ? Number(minInput.value) : null;
+                activeBudgetMax = maxInput?.value ? Number(maxInput.value) : null;
+
+
                 panel.querySelectorAll("input[type='checkbox']:checked").forEach(cb => {
                     isNaN(cb.value)
                         ? activeTags.add(cb.value)
@@ -407,6 +448,12 @@ document.addEventListener("DOMContentLoaded", () => {
             clearBtn.onclick = () => {
                 activeTags.clear();
                 activeMonths.clear();
+
+                activeBudgetMin = null;
+                activeBudgetMax = null;
+
+                document.getElementById("budgetMin").value = "";
+                document.getElementById("budgetMax").value = "";
                 panel.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
                 updateURL();
                 renderChips();
